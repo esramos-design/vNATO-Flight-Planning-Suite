@@ -1899,40 +1899,35 @@ async function fetchMetarTaf() {
     tafDiv.textContent = `Fetching TAF for ${icao}...`;
 
     try {
-      const proxyMetarUrl = `https://api.allorigins.win/raw?url=` + encodeURIComponent(`https://aviationweather.gov/api/data/metar?ids=${icao}&format=raw`);
-      const proxyTafUrl = `https://api.allorigins.win/raw?url=` + encodeURIComponent(`https://aviationweather.gov/api/data/taf?ids=${icao}&format=raw`);
+      const metarUrl = `https://aviationweather.gov/api/data/metar?ids=${icao}&format=json`;
+      const tafUrl = `https://aviationweather.gov/api/data/taf?ids=${icao}&format=json`;
 
       const [metarRes, tafRes] = await Promise.all([
-        fetch(proxyMetarUrl),
-        fetch(proxyTafUrl)
+        fetch(metarUrl, { headers: { 'Accept': 'application/json' } }),
+        fetch(tafUrl, { headers: { 'Accept': 'application/json' } })
       ]);
 
-      const metarText = await metarRes.text();
-      const tafText = await tafRes.text();
+      let metarRaw = '';
+      if (metarRes.ok) {
+        const metarData = await metarRes.json();
+        if (Array.isArray(metarData) && metarData.length > 0) {
+          metarRaw = metarData[0].rawOb;
+        }
+      }
 
-      metarDiv.textContent = metarText.trim() ? metarText.trim() : `No active METAR reported for ${icao}.`;
-      tafDiv.textContent = tafText.trim() ? tafText.trim() : `No active TAF reported for ${icao}.`;
+      let tafRaw = '';
+      if (tafRes.ok) {
+        const tafData = await tafRes.json();
+        if (Array.isArray(tafData) && tafData.length > 0) {
+          tafRaw = tafData[0].rawOb;
+        }
+      }
+
+      metarDiv.textContent = metarRaw ? metarRaw : `No active METAR reported for ${icao}.`;
+      tafDiv.textContent = tafRaw ? tafRaw : `No active TAF reported for ${icao}.`;
     } catch (err) {
       metarDiv.textContent = `Error fetching METAR data. Please check your network connection.`;
       tafDiv.textContent = `Error fetching TAF data.`;
-    }
-  }
-  
-  function switchFplMode(selectedTabId) {
-    const contents = document.querySelectorAll('.fpl-tab-content');
-    contents.forEach(c => c.classList.remove('active'));
-    document.getElementById(selectedTabId).classList.add('active');
-  }
-
-  function updateDefaultOpr() {
-    const country = document.getElementById('countrySelect').value;
-    const oprSelect = document.getElementById('opr');
-    if (country === 'UK') {
-      oprSelect.value = '29 SQN ROYAL AIR FORCE';
-    } else if (country === 'DE') {
-      oprSelect.value = 'GAF';
-    } else if (country === 'FR') {
-      oprSelect.value = 'FAF';
     }
   }
 
