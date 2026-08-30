@@ -1,0 +1,2183 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Military Flight Plan Generator & Operational Manual</title>
+  <style>
+    * { box-sizing: border-box; }
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+      margin: 0;
+      padding: 20px;
+      background-color: #f4f6f9;
+      color: #222;
+      line-height: 1.5;
+    }
+    .fpl-main-layout {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+      max-width: 1650px;
+      margin: 0 auto;
+    }
+    .vnato-logo {
+      display: block;
+      max-width: 100%;
+      height: auto;
+      margin: 0 auto 12px auto;
+    }
+
+    /* WIDGET STYLES */
+    .fpl-container {
+      flex: 1 1 380px;
+      max-width: 440px;
+      background: #ffffff;
+      padding: 18px;
+      border: 1px solid #dcdfe6;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      align-self: flex-start;
+      position: sticky;
+      top: 20px;
+    }
+    .fpl-mode-container {
+      margin-bottom: 14px;
+      padding-bottom: 12px;
+      border-bottom: 2px solid #1a73e8;
+    }
+    .fpl-mode-select {
+      width: 100%;
+      padding: 9px;
+      font-size: 13px;
+      font-weight: bold;
+      color: #1a73e8;
+      background: #f1f3f4;
+      border: 1px solid #1a73e8;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    .fpl-tab-content { display: none; }
+    .fpl-tab-content.active { display: block; }
+    .fpl-section { border-bottom: 1px solid #e0e0e0; padding-bottom: 10px; margin-bottom: 10px; }
+    .fpl-container label { display: block; margin-top: 8px; font-weight: bold; font-size: 12px; color: #333; }
+    .fpl-container select, 
+    .fpl-container input[type="text"] { width: 100%; padding: 7px; margin-top: 3px; font-size: 12px; border: 1px solid #ccc; border-radius: 4px; }
+    
+    /* MULTI-SELECT CHECKBOX DROPDOWN FOR PBN */
+    .pbn-dropdown-container {
+      position: relative;
+      margin-top: 3px;
+    }
+    .pbn-select-toggle {
+      width: 100%;
+      padding: 7px;
+      font-size: 12px;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      text-align: left;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+    .pbn-dropdown-list {
+      display: none;
+      position: absolute;
+      top: 100%;
+      left: 0;
+      right: 0;
+      max-height: 220px;
+      overflow-y: auto;
+      background: #fff;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+      z-index: 100;
+      padding: 8px;
+    }
+    .pbn-dropdown-list.show {
+      display: block;
+    }
+    .pbn-checkbox-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 6px;
+      font-size: 11px;
+      padding: 4px 0;
+      border-bottom: 1px solid #f1f3f4;
+      cursor: pointer;
+    }
+    .pbn-checkbox-item input {
+      margin-top: 2px;
+    }
+
+    /* TOOLTIP / HELP ICON STYLES */
+    .label-with-help {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 8px;
+    }
+    .label-with-help label {
+      margin-top: 0 !important;
+    }
+    .help-icon {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 16px;
+      height: 16px;
+      font-size: 11px;
+      font-weight: bold;
+      font-style: normal;
+      font-family: Arial, sans-serif;
+      color: #1a73e8;
+      background: #e8f0fe;
+      border: 1px solid #1a73e8;
+      border-radius: 50%;
+      cursor: pointer;
+      user-select: none;
+    }
+    .help-icon:hover {
+      background: #1a73e8;
+      color: #fff;
+    }
+    .help-text-box {
+      display: none;
+      font-size: 11px;
+      color: #555;
+      background: #f8f9fa;
+      border-left: 3px solid #1a73e8;
+      padding: 6px 8px;
+      margin-top: 4px;
+      margin-bottom: 4px;
+      border-radius: 0 4px 4px 0;
+    }
+    .help-text-box.show {
+      display: block;
+    }
+
+    .checkbox-group {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 6px;
+    }
+    .checkbox-group input[type="checkbox"] { width: auto; margin: 0; }
+    .checkbox-group label { margin: 0; font-weight: normal; color: #444; }
+
+    .fpl-gen-btn {
+      margin-top: 12px;
+      width: 100%;
+      padding: 11px;
+      background: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-weight: bold;
+      cursor: pointer;
+      font-size: 13px;
+      transition: background 0.2s;
+    }
+    .fpl-gen-btn:hover { background: #1557b0; }
+    .fpl-textarea-container { position: relative; margin-top: 10px; }
+    .fpl-container textarea {
+      width: 100%;
+      height: 120px;
+      font-family: monospace;
+      font-size: 11px;
+      padding: 8px;
+      resize: vertical;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      background: #f9f9f9;
+      white-space: pre;
+    }
+    .fpl-copy-btn {
+      position: absolute;
+      top: 6px;
+      right: 6px;
+      padding: 4px 8px;
+      font-size: 10px;
+      font-weight: bold;
+      background: #34a853;
+      color: white;
+      border: none;
+      border-radius: 3px;
+      cursor: pointer;
+    }
+    .fpl-copy-btn:hover { background: #2d9247; }
+
+    /* WIDGET FOOTER METADATA */
+    .widget-meta {
+      margin-top: 16px;
+      padding-top: 10px;
+      border-top: 1px dashed #dcdfe6;
+      font-size: 10px;
+      color: #666;
+      text-align: center;
+      line-height: 1.4;
+    }
+
+    /* DOCUMENTATION & RIGHT PANEL STYLES */
+    .docs-container {
+      flex: 2 1 500px;
+      min-width: 0;
+      background: #ffffff;
+      padding: 24px;
+      border: 1px solid #dcdfe6;
+      border-radius: 8px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      overflow-wrap: break-word;
+      word-break: break-word;
+    }
+    .docs-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      border-bottom: 2px solid #e0e0e0;
+      padding-bottom: 8px;
+      margin-bottom: 16px;
+    }
+    .docs-header h1 { font-size: 22px; color: #1a73e8; margin: 0; border: none; padding: 0; }
+    .docs-header img { max-height: 40px; width: auto; }
+    
+    .right-panel-controls {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-bottom: 14px;
+      flex-wrap: wrap;
+    }
+    .doc-columns-toggle {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: bold;
+      color: #333;
+    }
+    .right-panel-btns {
+      display: flex;
+      gap: 5px;
+      flex-wrap: wrap;
+    }
+    .action-toggle-btn {
+      padding: 5px 8px;
+      background: #34a853;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      font-size: 11px;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .action-toggle-btn:hover { background: #2d9247; }
+
+    .doc-content-body {
+      display: block;
+    }
+    .doc-content-body.three-col {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 20px;
+      align-items: start;
+    }
+    .doc-column-card {
+      background: #f8f9fa;
+      border: 1px solid #e0e0e0;
+      border-radius: 6px;
+      padding: 14px;
+      height: 100%;
+    }
+
+    /* ALL RIGHT PANEL SUB-VIEWS */
+    .sub-panel-content {
+      display: none;
+    }
+    .sub-panel-content.active {
+      display: block;
+    }
+    .metar-search-box {
+      display: flex;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+    .metar-search-box input {
+      flex: 1;
+      padding: 8px;
+      font-size: 13px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      text-transform: uppercase;
+    }
+    .metar-search-box button {
+      padding: 8px 16px;
+      background: #1a73e8;
+      color: white;
+      border: none;
+      border-radius: 4px;
+      font-weight: bold;
+      cursor: pointer;
+    }
+    .metar-search-box button:hover { background: #1557b0; }
+    
+    .wx-card {
+      background: #f8f9fa;
+      border: 1px solid #dcdfe6;
+      border-radius: 6px;
+      padding: 14px;
+      margin-bottom: 14px;
+    }
+    .wx-card h3 {
+      margin-top: 0;
+      margin-bottom: 8px;
+      font-size: 15px;
+      color: #1a73e8;
+      border-bottom: 1px solid #e0e0e0;
+      padding-bottom: 4px;
+    }
+    .wx-raw {
+      font-family: monospace;
+      font-size: 12px;
+      background: #ffffff;
+      padding: 8px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+      white-space: pre-wrap;
+      word-break: break-all;
+    }
+
+    /* CALCULATOR GRID STYLES */
+    .calc-form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+      margin-bottom: 16px;
+    }
+    .calc-form-group {
+      display: flex;
+      flex-direction: column;
+    }
+    .calc-form-group label {
+      font-weight: bold;
+      font-size: 12px;
+      color: #333;
+      margin-bottom: 4px;
+    }
+    .calc-form-group input, .calc-form-group select {
+      padding: 8px;
+      font-size: 13px;
+      border: 1px solid #ccc;
+      border-radius: 4px;
+    }
+    .calc-results-box {
+      background: #e8f0fe;
+      border: 1px solid #cce0ff;
+      border-radius: 6px;
+      padding: 16px;
+    }
+    .calc-results-box h3 {
+      margin-top: 0;
+      color: #1a73e8;
+      font-size: 16px;
+      border-bottom: 1px solid #b8d4ff;
+      padding-bottom: 6px;
+    }
+    .calc-result-item {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+      font-size: 13px;
+    }
+    .calc-result-item span:last-child {
+      font-weight: bold;
+      color: #1a73e8;
+      font-family: monospace;
+      font-size: 14px;
+    }
+
+    /* LIVE MISSION CLOCK DISPLAY */
+    .clock-display-box {
+      display: flex;
+      justify-content: space-around;
+      gap: 12px;
+      text-align: center;
+      margin-bottom: 16px;
+    }
+    .clock-card {
+      flex: 1;
+      background: #ffffff;
+      border: 1px solid #cce0ff;
+      border-radius: 6px;
+      padding: 14px;
+    }
+    .clock-card h4 { margin: 0 0 6px 0; color: #555; font-size: 12px; text-transform: uppercase; }
+    .clock-time { font-family: monospace; font-size: 22px; font-weight: bold; color: #1a73e8; }
+    .clock-date { font-size: 11px; color: #666; margin-top: 4px; }
+
+    /* DISCLAIMER BOX STYLES */
+    .disclaimer-box {
+      background: #fff8e1;
+      border-left: 4px solid #fbc02d;
+      padding: 12px 16px;
+      margin: 16px 0;
+      font-size: 12px;
+      color: #555;
+    }
+    .disclaimer-box b {
+      color: #333;
+    }
+
+    .docs-container h2 { font-size: 17px; color: #333; margin-top: 20px; border-bottom: 1px solid #eee; padding-bottom: 4px; }
+    .docs-container h3 { font-size: 14px; color: #444; margin-top: 14px; }
+    .docs-container ul { padding-left: 20px; font-size: 13px; }
+    .docs-container li { margin-bottom: 6px; }
+    .docs-container code { background: #f1f3f4; padding: 2px 5px; border-radius: 3px; font-family: monospace; font-size: 12px; }
+    .diff-box { background: #e8f0fe; border-left: 4px solid #1a73e8; padding: 12px 16px; margin: 12px 0; font-size: 12px; }
+    .diff-box hr { border: none; border-top: 1px solid #cce0ff; margin: 8px 0; }
+    .manual-link-btn {
+      display: inline-block;
+      margin-top: 8px;
+      padding: 6px 12px;
+      background: #1a73e8;
+      color: white;
+      text-decoration: none;
+      font-size: 11px;
+      font-weight: bold;
+      border-radius: 4px;
+    }
+    .manual-link-btn:hover { background: #1557b0; }
+
+    /* MOBILE RESPONSIVE FIX */
+    @media (max-width: 900px) {
+      body { padding: 10px; }
+      .fpl-main-layout { flex-direction: column; }
+      .fpl-container { max-width: 100%; position: static; }
+      .docs-container { width: 100%; padding: 16px; }
+      .doc-content-body.three-col { grid-template-columns: 1fr; }
+      .calc-form-grid { grid-template-columns: 1fr; }
+      .clock-display-box { flex-direction: column; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="fpl-main-layout">
+  <!-- LEFT COLUMN: GENERATOR WIDGET -->
+  <div class="fpl-container">
+    <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" class="vnato-logo" style="max-height: 50px;" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
+    
+    <!-- Country & Mode Selector -->
+    <div class="fpl-section" style="padding-top:0;">
+      <div class="label-with-help">
+        <label>Jurisdiction / Country Standard</label>
+        <span class="help-icon" onclick="toggleHelp('helpCountry')">?</span>
+      </div>
+      <div id="helpCountry" class="help-text-box">Selects national OAT reporting and remark conventions for France (DGAC/DIRCAM), Germany (BMVg/Luftwaffe), or United Kingdom (RAF/MilAIP).</div>
+      <select id="countrySelect" style="font-weight:bold; color:#1a73e8;" onchange="handleCountryChange()">
+        <option value="FR">France (DGAC / DIRCAM)</option>
+        <option value="DE">Germany (BMVg / Luftwaffe)</option>
+        <option value="UK">United Kingdom (RAF / MilAIP)</option>
+      </select>
+    </div>
+
+    <div class="fpl-mode-container">
+      <div class="label-with-help">
+        <label style="margin-top:0; margin-bottom:4px;">Generator Mode:</label>
+        <span class="help-icon" onclick="toggleHelp('helpMode')">?</span>
+      </div>
+      <div id="helpMode" class="help-text-box">Switch between building route strings, constructing custom Item 18 remarks, or compiling the full VATSIM ICAO flight plan string.</div>
+      <select class="fpl-mode-select" onchange="switchFplMode(this.value)">
+        <option value="routeTab" selected>SWIFT Route Generator</option>
+        <option value="remarksTab">SWIFT Remarks Generator</option>
+        <option value="icaoTab">VATSIM ICAO FPL String</option>
+      </select>
+    </div>
+
+    <!-- MODE 1: SWIFT ROUTE GENERATOR -->
+    <div id="routeTab" class="fpl-tab-content active">
+      <div class="fpl-section">
+        <div class="label-with-help">
+          <label>Date of Flight (DOF - YYMMDD)</label>
+          <span class="help-icon" onclick="toggleHelp('helpDof')">?</span>
+        </div>
+        <div id="helpDof" class="help-text-box">Flight departure date formatted in standard 6-digit YYMMDD format.</div>
+        <input type="text" id="dof" value="260826">
+      </div>
+
+      <div class="fpl-section">
+        <div class="label-with-help">
+          <label>Flight Rules</label>
+          <span class="help-icon" onclick="toggleHelp('helpRules')">?</span>
+        </div>
+        <div id="helpRules" class="help-text-box">I (IFR), V (VFR), T (OAT Tactical), Y (IFR then VFR), Z (VFR then IFR).</div>
+        <select id="rules">
+          <option value="I">I - IFR</option>
+          <option value="V">V - VFR</option>
+          <option value="T">T - OAT Tactical</option>
+          <option value="Y">Y - IFR then VFR</option>
+          <option value="Z">Z - VFR then IFR</option>
+        </select>
+        
+        <div class="label-with-help">
+          <label>Type of Flight</label>
+          <span class="help-icon" onclick="toggleHelp('helpTypeOfFlight')">?</span>
+        </div>
+        <div id="helpTypeOfFlight" class="help-text-box">Indicates the general category of operations. M = Military, S = Scheduled, N = Non-scheduled, G = General Aviation, X = Special.</div>
+        <select id="type">
+          <option value="M">M - Military</option>
+          <option value="S">S - Scheduled</option>
+          <option value="N">N - Non-scheduled</option>
+          <option value="G">G - General Aviation</option>
+          <option value="X">X - Special</option>
+        </select>
+      </div>
+
+      <div class="fpl-section">
+        <div class="label-with-help">
+          <label>Speed Unit & Value</label>
+          <span class="help-icon" onclick="toggleHelp('helpSpd')">?</span>
+        </div>
+        <div id="helpSpd" class="help-text-box">Cruising speed unit and numerical speed value.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="spdUnit" style="width:35%;">
+            <option value="N">N - Knots (e.g. N0450)</option>
+            <option value="M">M - Mach (e.g. M080)</option>
+            <option value="K">K - Km/h (e.g. K0850)</option>
+          </select>
+          <input type="text" id="spdVal" value="0450" style="width:65%;">
+        </div>
+
+        <div class="label-with-help">
+          <label>Altitude Unit & Value</label>
+          <span class="help-icon" onclick="toggleHelp('helpAlt')">?</span>
+        </div>
+        <div id="helpAlt" class="help-text-box">Cruising altitude unit and value.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="altUnit" style="width:35%;">
+            <option value="F">F - Flight Level (e.g. F245)</option>
+            <option value="A">A - Altitude 100s ft (e.g. A045)</option>
+            <option value="S">S - Metric tens of meters (e.g. S1130)</option>
+          </select>
+          <input type="text" id="altVal" value="245" style="width:65%;">
+        </div>
+      </div>
+
+      <div class="fpl-section">
+        <div class="label-with-help">
+          <label>Route Type</label>
+          <span class="help-icon" onclick="toggleHelp('helpRouteType')">?</span>
+        </div>
+        <div id="helpRouteType" class="help-text-box">Defines standard OAT routing templates, air-refueling orbits, or mixed GAT/OAT profile types.</div>
+        <select id="routeType">
+          <option>OAT_IFR_DIRECT</option>
+          <option>OAT_VFR_GEOREF</option>
+          <option>OAT_TACTICAL_RTBA</option>
+          <option>AAR_AEW_ORBIT</option>
+          <option>TSA_TRA_AREA_WORK</option>
+          <option>MIXED_GAT_OAT</option>
+          <option>MIXED_OAT_GAT</option>
+        </select>
+
+        <div class="label-with-help">
+          <label>GAT to OAT Transfer Point</label>
+          <span class="help-icon" onclick="toggleHelp('helpGatOat')">?</span>
+        </div>
+        <div id="helpGatOat" class="help-text-box">Fix and conditional format where flight transitions from General Air Traffic to Operational Air Traffic.</div>
+        <input type="text" id="gatToOat" value="" placeholder="e.g. SOTAK/OAT I M080F235">
+
+        <div class="label-with-help">
+          <label>OAT to GAT Transfer Point</label>
+          <span class="help-icon" onclick="toggleHelp('helpOatGat')">?</span>
+        </div>
+        <div id="helpOatGat" class="help-text-box">Fix where flight transitions back from OAT to GAT reporting standards.</div>
+        <input type="text" id="oatToGat" value="" placeholder="e.g. SURUD/GAT N350F115">
+
+        <div class="label-with-help">
+          <label>VFR Transfer Point</label>
+          <span class="help-icon" onclick="toggleHelp('helpVfrTrans')">?</span>
+        </div>
+        <div id="helpVfrTrans" class="help-text-box">Reporting fix where flight switches into VFR operational segments.</div>
+        <input type="text" id="vfrTrans" value="" placeholder="e.g. LMG/N0240A010 VFR">
+
+        <div class="label-with-help">
+          <label>Route Details / Fixes</label>
+          <span class="help-icon" onclick="toggleHelp('helpRouteFixes')">?</span>
+        </div>
+        <div id="helpRouteFixes" class="help-text-box">Chronological waypoints, radar corridors, and direct routing segments separated by single spaces.</div>
+        <input type="text" id="route" value="DCT CHP01 DCT MAR01 DCT MAR02 DCT MAR04">
+      </div>
+
+      <div class="fpl-section">
+        <div class="label-with-help">
+          <label>STAY 1 Segment & Duration</label>
+          <span class="help-icon" onclick="toggleHelp('helpStay1')">?</span>
+        </div>
+        <div id="helpStay1" class="help-text-box">Working area or low-flying delay segment 1 with associated duration in HHMM.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="staySeg1" style="width:40%;">
+            <option selected>STAY1</option><option>NONE</option>
+          </select>
+          <input type="text" id="stayDur1" value="0045" style="width:60%;" placeholder="Duration (HHMM)">
+        </div>
+
+        <div class="label-with-help">
+          <label>STAY 2 Segment & Duration</label>
+          <span class="help-icon" onclick="toggleHelp('helpStay2')">?</span>
+        </div>
+        <div id="helpStay2" class="help-text-box">Optional working area or delay segment 2 with duration in HHMM.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="staySeg2" style="width:40%;">
+            <option>NONE</option><option>STAY2</option>
+          </select>
+          <input type="text" id="stayDur2" value="" style="width:60%;" placeholder="Duration (HHMM)">
+        </div>
+
+        <div class="label-with-help">
+          <label>STAY 3 Segment & Duration</label>
+          <span class="help-icon" onclick="toggleHelp('helpStay3')">?</span>
+        </div>
+        <div id="helpStay3" class="help-text-box">Optional working area or delay segment 3 with duration in HHMM.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="staySeg3" style="width:40%;">
+            <option>NONE</option><option>STAY3</option>
+          </select>
+          <input type="text" id="stayDur3" value="" style="width:60%;" placeholder="Duration (HHMM)">
+        </div>
+      </div>
+
+      <button class="fpl-gen-btn" onclick="generateRouteString()">Generate Route String</button>
+      <div class="fpl-textarea-container">
+        <button class="fpl-copy-btn" onclick="copyToClipboard('routeOutput')">Copy</button>
+        <textarea id="routeOutput" readonly></textarea>
+      </div>
+    </div>
+
+    <!-- MODE 2: SWIFT REMARKS GENERATOR -->
+    <div id="remarksTab" class="fpl-tab-content">
+      <div class="fpl-section">
+        <div class="label-with-help">
+          <label>Wake Turbulence Category</label>
+          <span class="help-icon" onclick="toggleHelp('helpWake')">?</span>
+        </div>
+        <div id="helpWake" class="help-text-box">Denotes aircraft wake turbulence classification. J = Super, H = Heavy (136t+), M = Medium, L = Light.</div>
+        <select id="wake">
+          <option value="M">M - Medium (MTOW &lt;= 136,000 kg)</option>
+          <option value="J">J - Super (A380, etc.)</option>
+          <option value="H">H - Heavy (136,000 kg or more)</option>
+          <option value="L">L - Light (&lt;= 7,000 kg)</option>
+        </select>
+
+        <div class="label-with-help">
+          <label>Equipment</label>
+          <span class="help-icon" onclick="toggleHelp('helpEquip')">?</span>
+        </div>
+        <div id="helpEquip" class="help-text-box">Field 10a radio communication, navigation, and approach aid equipment codes.</div>
+        <select id="equip">
+          <option value="SDE3G" selected>SDE3G - Standard + DME + RNAV + GNSS</option>
+          <option value="S">S - Standard (VHF RTF, VOR, ILS)</option>
+          <option value="SD">SD - Standard + DME</option>
+          <option value="SDF">SDF - Standard + DME + ADF</option>
+          <option value="SDT">SDT - Standard + DME + TACAN</option>
+          <option value="SDE3">SDE3 - Standard + DME + RNAV</option>
+          <option value="SDE3GI">SDE3GI - Standard + DME + RNAV + GPS + INS</option>
+          <option value="SDE3GHI">SDE3GHI - Advanced Military Suite</option>
+          <option value="SDE3GY">SDE3GY - Standard + DME + RNAV + GNSS + RNP</option>
+        </select>
+        
+        <div class="label-with-help">
+          <label>Transponder</label>
+          <span class="help-icon" onclick="toggleHelp('helpTrans')">?</span>
+        </div>
+        <div id="helpTrans" class="help-text-box">Field 10b surveillance equipment and transponder capability codes.</div>
+        <select id="trans">
+          <option value="N">N - No transponder equipment</option>
+          <option value="A">A - Mode A only (no altitude reporting)</option>
+          <option value="C">C - Mode A and Mode C</option>
+          <option value="E">E - Mode S, including aircraft identification, pressure-altitude and extended squitter (ADS-B) capability</option>
+          <option value="H">H - Mode S, including aircraft identification, pressure-altitude and enhanced surveillance capability</option>
+          <option value="I">I - Mode S, including aircraft identification, but no pressure-altitude capability</option>
+          <option value="L" selected>L - Mode S, including aircraft identification, pressure-altitude, extended squitter (ADS-B) and enhanced surveillance capability</option>
+          <option value="P">P - Mode S, including pressure-altitude, but no aircraft identification capability</option>
+          <option value="S">S - Mode S, including both pressure altitude and aircraft identification capability</option>
+          <option value="X">X - Mode S with neither aircraft identification nor pressure-altitude capability</option>
+        </select>
+      </div>
+
+      <div class="fpl-section">
+        <!-- PBN MULTI-SELECT DROPDOWN -->
+        <div class="label-with-help">
+          <label>PBN Capability (Multiple Select)</label>
+          <span class="help-icon" onclick="toggleHelp('helpPbn')">?</span>
+        </div>
+        <div id="helpPbn" class="help-text-box">Select multiple Performance Based Navigation codes indicating approved RNAV/RNP navigation specifications. Concatenated without spaces.</div>
+        <div class="pbn-dropdown-container">
+          <button type="button" class="pbn-select-toggle" onclick="togglePbnDropdown(event)">
+            <span id="pbnToggleText">S1</span> ▾
+          </button>
+          <div id="pbnDropdownList" class="pbn-dropdown-list">
+            <label class="pbn-checkbox-item"><input type="checkbox" value="A1" onchange="updatePbnSelection()"> A1 - RNAV 10 (RNP 10)</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="B1" onchange="updatePbnSelection()"> B1 - RNAV 5 All sensors</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="B2" onchange="updatePbnSelection()"> B2 - RNAV 5 GNSS</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="B3" onchange="updatePbnSelection()"> B3 - RNAV 5 DME/DME</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="B4" onchange="updatePbnSelection()"> B4 - RNAV 5 VOR/DME</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="B5" onchange="updatePbnSelection()"> B5 - RNAV 5 INS or IRS</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="B6" onchange="updatePbnSelection()"> B6 - RNAV 5 LORAN C</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="C1" onchange="updatePbnSelection()"> C1 - RNAV 2 all sensors</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="C2" onchange="updatePbnSelection()"> C2 - RNAV 2 GNSS</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="C3" onchange="updatePbnSelection()"> C3 - RNAV 2 DME/DME</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="C4" onchange="updatePbnSelection()"> C4 - RNAV 2 DME/DME/IRU</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="D1" onchange="updatePbnSelection()"> D1 - RNAV 1 all sensors</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="D2" onchange="updatePbnSelection()"> D2 - RNAV 1 GNSS</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="D3" onchange="updatePbnSelection()"> D3 - RNAV 1 DME/DME</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="D4" onchange="updatePbnSelection()"> D4 - RNAV 1 DME/DME/IRU</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="L1" onchange="updatePbnSelection()"> L1 - RNP 4</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="O1" onchange="updatePbnSelection()"> O1 - RNP 1 Basic all sensors</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="O2" onchange="updatePbnSelection()"> O2 - RNP 1 Basic GNSS</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="O3" onchange="updatePbnSelection()"> O3 - RNP 1 Basic DME/DME</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="O4" onchange="updatePbnSelection()"> O4 - RNP 1 Basic DME/DME/IRU</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="S1" checked onchange="updatePbnSelection()"> S1 - RNP APCH</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="S2" onchange="updatePbnSelection()"> S2 - RNP APCH with BARO-NAV</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="T1" onchange="updatePbnSelection()"> T1 - RNP AR APCH with RF</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="T2" onchange="updatePbnSelection()"> T2 - RNP AR APCH without RF</label>
+          </div>
+        </div>
+        <input type="hidden" id="pbnValue" value="S1">
+
+        <div class="label-with-help" style="margin-top:8px;">
+          <label>NAV Capability</label>
+          <span class="help-icon" onclick="toggleHelp('helpNav')">?</span>
+        </div>
+        <div id="helpNav" class="help-text-box">Additional navigation equipment identifiers or equipment augmentation.</div>
+        <select id="nav">
+          <option value="" selected>[NONE] - No additional NAV spec</option>
+          <option value="TACAN">TACAN - Tactical Air Navigation system equipped</option>
+          <option value="RNAV5">RNAV5 - Area Navigation 5 approved</option>
+          <option value="RNP4">RNP4 - Required Navigation Performance 4</option>
+          <option value="GBAS">GBAS - Ground-Based Augmentation System</option>
+          <option value="INS">INS - Inertial Navigation System</option>
+        </select>
+
+        <div class="label-with-help">
+          <label>STS / Special Handling</label>
+          <span class="help-icon" onclick="toggleHelp('helpSts')">?</span>
+        </div>
+        <div id="helpSts" class="help-text-box">Special handling indicators required by air traffic control, such as STATE, NONRVSM, MARSA, or SAR.</div>
+        <select id="sts">
+          <option value="STATE">STATE - Engaged in military, customs or police services</option>
+          <option value="NONRVSM">NONRVSM - Non-RVSM capable aircraft operating in RVSM airspace</option>
+          <option value="MARSA">MARSA - Military entity assumes responsibility for separation</option>
+          <option value="SAR">SAR - Engaged in a search and rescue mission</option>
+          <option value="MEDEVAC">MEDEVAC - Life critical medical emergency evacuation</option>
+          <option value="FLTCK">FLTCK - Flight check for calibration of NAVAIDs</option>
+          <option value="HAZMAT">HAZMAT - Flight carrying hazardous material</option>
+          <option value="HEAD">HEAD - Flight with Head of State status</option>
+          <option value="HUM">HUM - Flight operating on a humanitarian mission</option>
+          <option value="" selected>[NONE] - No special handling indicator</option>
+        </select>
+      </div>
+
+      <div class="fpl-section">
+        <div class="label-with-help">
+          <label>SEL / SELCAL</label>
+          <span class="help-icon" onclick="toggleHelp('helpSel')">?</span>
+        </div>
+        <div id="helpSel" class="help-text-box">SELCAL code for selective calling radio systems (e.g., SEL/ABDE).</div>
+        <input type="text" id="sel" value="" placeholder="e.g. ABDE">
+
+        <div class="label-with-help">
+          <label>SUR / Surveillance</label>
+          <span class="help-icon" onclick="toggleHelp('helpSur')">?</span>
+        </div>
+        <div id="helpSur" class="help-text-box">Surveillance equipment capabilities and data link identifiers (e.g., SUR/260B).</div>
+        <input type="text" id="sur" value="" placeholder="e.g. 260B">
+
+        <div class="label-with-help">
+          <label>PER / Performance</label>
+          <span class="help-icon" onclick="toggleHelp('helpPer')">?</span>
+        </div>
+        <div id="helpPer" class="help-text-box">Aircraft performance data, PBN capabilities, or RNP compliance indicators.</div>
+        <input type="text" id="per" value="" placeholder="e.g. C1">
+
+        <div class="label-with-help">
+          <label>ORGN / Origin</label>
+          <span class="help-icon" onclick="toggleHelp('helpOrgn')">?</span>
+        </div>
+        <div id="helpOrgn" class="help-text-box">Originator address or dispatch identifier for the filed flight plan.</div>
+        <input type="text" id="oragn" value="" placeholder="e.g. LFBOOANX">
+
+        <div class="label-with-help">
+          <label>COM / Comms</label>
+          <span class="help-icon" onclick="toggleHelp('helpCom')">?</span>
+        </div>
+        <div id="helpCom" class="help-text-box">Communication capabilities, voice frequencies, or data link apps (e.g., COM/UHF VDL2).</div>
+        <input type="text" id="com" value="" placeholder="e.g. VHF UHF">
+
+        <div class="label-with-help">
+          <label>REG / Registration</label>
+          <span class="help-icon" onclick="toggleHelp('helpReg')">?</span>
+        </div>
+        <div id="helpReg" class="help-text-box">Aircraft registration or military tail number identifier (e.g., FA1801).</div>
+        <input type="text" id="reg" value="FA1801">
+
+        <div class="label-with-help">
+          <label>OPR / Operator</label>
+          <span class="help-icon" onclick="toggleHelp('helpOpr')">?</span>
+        </div>
+        <div id="helpOpr" class="help-text-box">Operator designator or military unit identifier (e.g., FAF, GAF, 29 SQN ROYAL AIR FORCE).</div>
+        <select id="opr">
+          <option value="FAF">FAF (France)</option>
+          <option value="GAF">GAF (Germany)</option>
+          <option value="29 SQN ROYAL AIR FORCE">29 SQN ROYAL AIR FORCE (UK)</option>
+          <option value="OAN">OAN</option>
+          <option value="USAF">USAF</option>
+        </select>
+
+        <div class="label-with-help">
+          <label>Fuel Endurance (HHMM)</label>
+          <span class="help-icon" onclick="toggleHelp('helpFuelEnd')">?</span>
+        </div>
+        <div id="helpFuelEnd" class="help-text-box">Total fuel endurance expressed in hours and minutes (e.g., 0200 for 2 hours).</div>
+        <input type="text" id="fuelEnd" value="0200" placeholder="0200">
+
+        <div class="label-with-help">
+          <label>EET / Estimated Elapsed Time</label>
+          <span class="help-icon" onclick="toggleHelp('helpEet')">?</span>
+        </div>
+        <div id="helpEet" class="help-text-box">Estimated elapsed time to FIR boundaries or destination waypoints (e.g., ENSAC0030).</div>
+        <input type="text" id="eet" value="" placeholder="e.g. ENSAC0030 MG0010045">
+      </div>
+
+      <div class="fpl-section">
+        <div class="label-with-help">
+          <label>STAYINFO Segment</label>
+          <span class="help-icon" onclick="toggleHelp('helpStayInfoSeg')">?</span>
+        </div>
+        <div id="helpStayInfoSeg" class="help-text-box">Designates which STAY waypoint corresponds to the working area remarks below.</div>
+        <select id="stayInfoSeg">
+          <option value="NONE">[NONE]</option>
+          <option value="STAYINFO1" selected>STAYINFO1</option>
+          <option value="STAYINFO2">STAYINFO2</option>
+          <option value="STAYINFO3">STAYINFO3</option>
+        </select>
+
+        <div class="label-with-help">
+          <label>STAYINFO Details</label>
+          <span class="help-icon" onclick="toggleHelp('helpStayinfoDetails')">?</span>
+        </div>
+        <div id="helpStayinfoDetails" class="help-text-box">Detailed description of military exercise, low-flying, or refueling activity within the designated STAY area.</div>
+        <input type="text" id="stayinfo" value="AIR TO AIR WORK IN TSA43 FROM 0830 TO 0915">
+      </div>
+
+      <div class="fpl-section">
+        <div class="label-with-help">
+          <label>RMK / OAT Status</label>
+          <span class="help-icon" onclick="toggleHelp('helpRmkOat')">?</span>
+        </div>
+        <div id="helpRmkOat" class="help-text-box">Operational Air Traffic status tag. For France, OAT appears at the beginning of remarks to indicate active OAT phases.</div>
+        <select id="rmkOat">
+          <option>RMK/OAT</option><option>RMK/MIXED OAT GAT</option><option>RMK/MIXED GAT OAT</option><option>RMK/EUR/OAT</option>
+        </select>
+
+        <div class="label-with-help">
+          <label>VSO Tag</label>
+          <span class="help-icon" onclick="toggleHelp('helpVsoTag')">?</span>
+        </div>
+        <div id="helpVsoTag" class="help-text-box">Virtual organization identifier tag (e.g., VIRTUALNATO.ORG).</div>
+        <input type="text" id="vso" value="VIRTUALNATO.ORG">
+        <div class="checkbox-group">
+          <input type="checkbox" id="vsoTrainee">
+          <label for="vsoTrainee">Append VSO TRAINEE (Student Pilots)</label>
+        </div>
+      </div>
+
+      <button class="fpl-gen-btn" onclick="generateRemarksString()">Generate Remarks String</button>
+      <div class="fpl-textarea-container">
+        <button class="fpl-copy-btn" onclick="copyToClipboard('remarksOutput')">Copy</button>
+        <textarea id="remarksOutput" readonly></textarea>
+      </div>
+    </div>
+
+    <!-- MODE 3: VATSIM ICAO FPL STRING (WITH INTEGRATED REMARKS GENERATOR) -->
+    <div id="icaoTab" class="fpl-tab-content">
+      <div class="fpl-section">
+        <div class="label-with-help">
+          <label>Flight Rules</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoRules')">?</span>
+        </div>
+        <div id="helpIcaoRules" class="help-text-box">I (IFR), V (VFR), T (OAT Tactical), Y (IFR then VFR), Z (VFR then IFR).</div>
+        <select id="icaoRules">
+          <option value="I" selected>I - IFR</option>
+          <option value="V">V - VFR</option>
+          <option value="T">T - OAT Tactical</option>
+          <option value="Y">Y - IFR then VFR</option>
+          <option value="Z">Z - VFR then IFR</option>
+        </select>
+
+        <div class="label-with-help">
+          <label>Type of Flight</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoType')">?</span>
+        </div>
+        <div id="helpIcaoType" class="help-text-box">M = Military, S = Scheduled, N = Non-scheduled, G = General Aviation, X = Special.</div>
+        <select id="icaoType">
+          <option value="M" selected>M - Military</option>
+          <option value="S">S - Scheduled</option>
+          <option value="N">N - Non-scheduled</option>
+          <option value="G">G - General Aviation</option>
+          <option value="X">X - Special</option>
+        </select>
+
+        <div class="label-with-help">
+          <label>Speed Unit & Value (Cruising Speed)</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoSpd')">?</span>
+        </div>
+        <div id="helpIcaoSpd" class="help-text-box">Cruising speed unit and numerical value format.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="icaoSpdUnit" style="width:35%;">
+            <option value="N" selected>N - Knots (e.g. N0450)</option>
+            <option value="M">M - Mach (e.g. M080)</option>
+            <option value="K">K - Km/h (e.g. K0850)</option>
+          </select>
+          <input type="text" id="icaoSpdVal" value="0450" style="width:65%;">
+        </div>
+
+        <div class="label-with-help">
+          <label>Altitude Unit & Value (Cruising Level)</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoAlt')">?</span>
+        </div>
+        <div id="helpIcaoAlt" class="help-text-box">Altitude unit and numerical value format.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="icaoAltUnit" style="width:35%;">
+            <option value="F" selected>F - Flight Level (e.g. F245)</option>
+            <option value="A">A - Altitude 100s ft (e.g. A045)</option>
+            <option value="S">S - Metric tens of meters (e.g. S1130)</option>
+          </select>
+          <input type="text" id="icaoAltVal" value="245" style="width:65%;">
+        </div>
+
+        <div class="label-with-help">
+          <label>Callsign</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoCallsign')">?</span>
+        </div>
+        <div id="helpIcaoCallsign" class="help-text-box">Aircraft radiotelephony callsign (e.g., NATO01).</div>
+        <input type="text" id="fplCallsign" value="NATO01">
+
+        <div class="label-with-help">
+          <label>Aircraft ICAO Type</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoAcftType')">?</span>
+        </div>
+        <div id="helpIcaoAcftType" class="help-text-box">Standard 2 to 4-character ICAO aircraft designator (e.g., FA18, C17).</div>
+        <input type="text" id="fplAcftType" value="FA18">
+
+        <div class="label-with-help">
+          <label>Departure ICAO & EOBT (UTC HHMM)</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoDep')">?</span>
+        </div>
+        <div id="helpIcaoDep" class="help-text-box">Departure aerodrome ICAO code and Estimated Off-Block Time in UTC.</div>
+        <div style="display:flex; gap:6px;">
+          <input type="text" id="fplDep" value="LFBO" style="width:55%;">
+          <input type="text" id="fplEobt" value="1125" style="width:45%;">
+        </div>
+
+        <div class="label-with-help">
+          <label>Arrival ICAO & EET (HHMM)</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoArr')">?</span>
+        </div>
+        <div id="helpIcaoArr" class="help-text-box">Destination aerodrome ICAO code and Total Estimated Elapsed Time.</div>
+        <div style="display:flex; gap:6px;">
+          <input type="text" id="fplArr" value="LFMI" style="width:55%;">
+          <input type="text" id="fplEetArr" value="0130" style="width:45%;">
+        </div>
+
+        <div class="label-with-help">
+          <label>Alternate ICAO (Optional)</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoAlt')">?</span>
+        </div>
+        <div id="helpIcaoAlt" class="help-text-box">Alternate destination aerodrome ICAO code if required.</div>
+        <input type="text" id="fplAlt" value="LFML">
+      </div>
+
+      <!-- Integrated Remarks Generator Fields inside VATSIM ICAO FPL Mode -->
+      <div class="fpl-section">
+        <label style="color:#1a73e8; font-size:13px; border-bottom:1px solid #1a73e8; padding-bottom:3px; margin-bottom:6px;">Item 18 / Remarks Configuration</label>
+        
+        <div class="label-with-help">
+          <label>Wake Turbulence Category</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoWake')">?</span>
+        </div>
+        <div id="helpIcaoWake" class="help-text-box">Denotes aircraft wake turbulence classification. J = Super, H = Heavy (136t+), M = Medium, L = Light.</div>
+        <select id="icaoWake">
+          <option value="M" selected>M - Medium (MTOW &lt;= 136,000 kg)</option>
+          <option value="J">J - Super (A380, etc.)</option>
+          <option value="H">H - Heavy (136,000 kg or more)</option>
+          <option value="L">L - Light (&lt;= 7,000 kg)</option>
+        </select>
+
+        <label>Equipment / Transponder</label>
+        <div style="display:flex; gap:6px;">
+          <select id="icaoEquip" style="width:60%;">
+            <option value="SDE3G" selected>SDE3G - Standard + DME + RNAV + GNSS</option>
+            <option value="S">S - Standard (VHF RTF, VOR, ILS)</option>
+            <option value="SD">SD - Standard + DME</option>
+            <option value="SDF">SDF - Standard + DME + ADF</option>
+            <option value="SDT">SDT - Standard + DME + TACAN</option>
+            <option value="SDE3">SDE3 - Standard + DME + RNAV</option>
+            <option value="SDE3GI">SDE3GI - Standard + DME + RNAV + GPS + INS</option>
+            <option value="SDE3GHI">SDE3GHI - Advanced Military Suite</option>
+            <option value="SDE3GY">SDE3GY - Standard + DME + RNAV + GNSS + RNP</option>
+          </select>
+          <select id="icaoTrans" style="width:40%;">
+            <option value="N">N - No transponder equipment</option>
+            <option value="A">A - Mode A only (no altitude reporting)</option>
+            <option value="C">C - Mode A and Mode C</option>
+            <option value="E">E - Mode S, including aircraft identification, pressure-altitude and extended squitter (ADS-B) capability</option>
+            <option value="H">H - Mode S, including aircraft identification, pressure-altitude and enhanced surveillance capability</option>
+            <option value="I">I - Mode S, including aircraft identification, but no pressure-altitude capability</option>
+            <option value="L" selected>L - Mode S, including aircraft identification, pressure-altitude, extended squitter (ADS-B) and enhanced surveillance capability</option>
+            <option value="P">P - Mode S, including pressure-altitude, but no aircraft identification capability</option>
+            <option value="S">S - Mode S, including both pressure altitude and aircraft identification capability</option>
+            <option value="X">X - Mode S with neither aircraft identification nor pressure-altitude capability</option>
+          </select>
+        </div>
+
+        <!-- VATSIM PBN MULTI-SELECT DROPDOWN -->
+        <div class="label-with-help">
+          <label>PBN Capability (Multiple Select)</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoPbn')">?</span>
+        </div>
+        <div id="helpIcaoPbn" class="help-text-box">Select multiple Performance Based Navigation codes indicating approved RNAV/RNP navigation specifications. Concatenated without spaces.</div>
+        <div class="pbn-dropdown-container">
+          <button type="button" class="pbn-select-toggle" onclick="toggleIcaoPbnDropdown(event)">
+            <span id="icaoPbnToggleText">S1</span> ▾
+          </button>
+          <div id="icaoPbnDropdownList" class="pbn-dropdown-list">
+            <label class="pbn-checkbox-item"><input type="checkbox" value="A1" onchange="updateIcaoPbnSelection()"> A1 - RNAV 10 (RNP 10)</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="B1" onchange="updateIcaoPbnSelection()"> B1 - RNAV 5 All sensors</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="B2" onchange="updateIcaoPbnSelection()"> B2 - RNAV 5 GNSS</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="B3" onchange="updateIcaoPbnSelection()"> B3 - RNAV 5 DME/DME</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="B4" onchange="updateIcaoPbnSelection()"> B4 - RNAV 5 VOR/DME</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="B5" onchange="updateIcaoPbnSelection()"> B5 - RNAV 5 INS or IRS</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="B6" onchange="updateIcaoPbnSelection()"> B6 - RNAV 5 LORAN C</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="C1" onchange="updateIcaoPbnSelection()"> C1 - RNAV 2 all sensors</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="C2" onchange="updateIcaoPbnSelection()"> C2 - RNAV 2 GNSS</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="C3" onchange="updateIcaoPbnSelection()"> C3 - RNAV 2 DME/DME</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="C4" onchange="updateIcaoPbnSelection()"> C4 - RNAV 2 DME/DME/IRU</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="D1" onchange="updateIcaoPbnSelection()"> D1 - RNAV 1 all sensors</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="D2" onchange="updateIcaoPbnSelection()"> D2 - RNAV 1 GNSS</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="D3" onchange="updateIcaoPbnSelection()"> D3 - RNAV 1 DME/DME</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="D4" onchange="updateIcaoPbnSelection()"> D4 - RNAV 1 DME/DME/IRU</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="L1" onchange="updateIcaoPbnSelection()"> L1 - RNP 4</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="O1" onchange="updateIcaoPbnSelection()"> O1 - RNP 1 Basic all sensors</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="O2" onchange="updateIcaoPbnSelection()"> O2 - RNP 1 Basic GNSS</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="O3" onchange="updateIcaoPbnSelection()"> O3 - RNP 1 Basic DME/DME</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="O4" onchange="updateIcaoPbnSelection()"> O4 - RNP 1 Basic DME/DME/IRU</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="S1" checked onchange="updateIcaoPbnSelection()"> S1 - RNP APCH</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="S2" onchange="updateIcaoPbnSelection()"> S2 - RNP APCH with BARO-NAV</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="T1" onchange="updateIcaoPbnSelection()"> T1 - RNP AR APCH with RF</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="T2" onchange="updateIcaoPbnSelection()"> T2 - RNP AR APCH without RF</label>
+          </div>
+        </div>
+        <input type="hidden" id="icaoPbnValue" value="S1">
+
+        <div class="label-with-help" style="margin-top:8px;">
+          <label>NAV Capability</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoNav')">?</span>
+        </div>
+        <div id="helpIcaoNav" class="help-text-box">Additional navigation equipment identifiers or equipment augmentation.</div>
+        <select id="icaoNav">
+          <option value="" selected>[NONE] - No additional NAV spec</option>
+          <option value="TACAN">TACAN - Tactical Air Navigation system equipped</option>
+          <option value="RNAV5">RNAV5 - Area Navigation 5 approved</option>
+          <option value="RNP4">RNP4 - Required Navigation Performance 4</option>
+          <option value="GBAS">GBAS - Ground-Based Augmentation System</option>
+          <option value="INS">INS - Inertial Navigation System</option>
+        </select>
+
+        <div class="label-with-help">
+          <label>STS / Special Handling</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoSts')">?</span>
+        </div>
+        <div id="helpIcaoSts" class="help-text-box">Special handling indicators required by air traffic control, such as STATE, NONRVSM, MARSA, or SAR.</div>
+        <select id="icaoSts">
+          <option value="STATE">STATE - Engaged in military, customs or police services</option>
+          <option value="NONRVSM">NONRVSM - Non-RVSM capable aircraft operating in RVSM airspace</option>
+          <option value="MARSA">MARSA - Military entity assumes responsibility for separation</option>
+          <option value="SAR">SAR - Engaged in a search and rescue mission</option>
+          <option value="MEDEVAC">MEDEVAC - Life critical medical emergency evacuation</option>
+          <option value="FLTCK">FLTCK - Flight check for calibration of NAVAIDs</option>
+          <option value="HAZMAT">HAZMAT - Flight carrying hazardous material</option>
+          <option value="HEAD">HEAD - Flight with Head of State status</option>
+          <option value="HUM">HUM - Flight operating on a humanitarian mission</option>
+          <option value="" selected>[NONE] - No special handling indicator</option>
+        </select>
+
+        <div class="label-with-help">
+          <label>SEL / SELCAL</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoSel')">?</span>
+        </div>
+        <div id="helpIcaoSel" class="help-text-box">SELCAL code for selective calling radio systems (e.g., SEL/ABDE).</div>
+        <input type="text" id="icaoSel" value="" placeholder="e.g. ABDE">
+
+        <div class="label-with-help">
+          <label>SUR / Surveillance</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoSur')">?</span>
+        </div>
+        <div id="helpIcaoSur" class="help-text-box">Surveillance equipment capabilities and data link identifiers (e.g., SUR/260B).</div>
+        <input type="text" id="icaoSur" value="" placeholder="e.g. 260B">
+
+        <div class="label-with-help">
+          <label>PER / Performance</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoPer')">?</span>
+        </div>
+        <div id="helpIcaoPer" class="help-text-box">Aircraft performance data, PBN capabilities, or RNP compliance indicators.</div>
+        <input type="text" id="icaoPer" value="" placeholder="e.g. C1">
+
+        <div class="label-with-help">
+          <label>ORGN / Origin</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoOrgn')">?</span>
+        </div>
+        <div id="helpIcaoOrgn" class="help-text-box">Originator address or dispatch identifier for the filed flight plan.</div>
+        <input type="text" id="icaoOrgn" value="" placeholder="e.g. LFBOOANX">
+
+        <div class="label-with-help">
+          <label>COM / Comms</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoCom')">?</span>
+        </div>
+        <div id="helpIcaoCom" class="help-text-box">Communication capabilities, voice frequencies, or data link apps (e.g., COM/UHF VDL2).</div>
+        <input type="text" id="icaoCom" value="" placeholder="e.g. VHF UHF">
+
+        <div class="label-with-help">
+          <label>REG / Registration</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoReg')">?</span>
+        </div>
+        <div id="helpIcaoReg" class="help-text-box">Aircraft registration or military tail number identifier (e.g., FA1801).</div>
+        <input type="text" id="icaoReg" value="FA1801">
+
+        <div class="label-with-help">
+          <label>OPR / Operator</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoOpr')">?</span>
+        </div>
+        <div id="helpIcaoOpr" class="help-text-box">Operator designator or military unit identifier (e.g., FAF).</div>
+        <input type="text" id="icaoOpr" value="FAF">
+
+        <div class="label-with-help">
+          <label>Fuel Endurance (HHMM)</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoFuel')">?</span>
+        </div>
+        <div id="helpIcaoFuel" class="help-text-box">Total fuel endurance expressed in hours and minutes (e.g., 0200).</div>
+        <input type="text" id="icaoFuel" value="0200" placeholder="0200">
+
+        <div class="label-with-help">
+          <label>STAYINFO / Working Area Notes</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoStayinfo')">?</span>
+        </div>
+        <div id="helpIcaoStayinfo" class="help-text-box">Detailed working area description for military exercises within the route.</div>
+        <input type="text" id="icaoStayinfo" value="STAYINFO1/AIR TO AIR WORK IN TSA43">
+
+        <div class="label-with-help">
+          <label>RMK / OAT Status & VSO Tag</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoRmk')">?</span>
+        </div>
+        <div id="helpIcaoRmk" class="help-text-box">Regulatory remarks and organization tags.</div>
+        <input type="text" id="icaoRmk" value="RMK/OAT VIRTUALNATO.ORG">
+
+        <div class="checkbox-group" style="margin-top:10px;">
+          <input type="checkbox" id="icaoVsoTrainee">
+          <label for="icaoVsoTrainee">Append VSO TRAINEE (Student Pilots)</label>
+        </div>
+      </div>
+
+      <button class="fpl-gen-btn" onclick="generateIcaoFplString()">Generate VATSIM ICAO String</button>
+      
+      <div class="fpl-textarea-container" style="margin-top:10px;">
+        <button class="fpl-copy-btn" onclick="copyToClipboard('icaoOutput')">Copy</button>
+        <textarea id="icaoOutput" style="height: 140px; white-space: pre;" readonly></textarea>
+      </div>
+
+      <a href="https://my.vatsim.net/pilots/flightplan" target="_blank" class="fpl-gen-btn" style="display:block; text-align:center; text-decoration:none; background:#34a853; margin-top:8px;">Open my.vatsim.net to Import ICAO FPL</a>
+    </div>
+
+    <!-- WIDGET FOOTER METADATA -->
+    <div class="widget-meta">
+      <b>Virtual NATO Flight Planning Suite</b><br>
+      Property of Virtual NATO &copy; 2010–2026<br>
+      Version 4.9.0-PROD
+    </div>
+  </div>
+
+  <!-- RIGHT COLUMN: DOCUMENTATION, METAR, TOD, XWIND, FUEL, CLOCK & DENSITY ALTITUDE VIEWER -->
+  <div class="docs-container">
+    <div class="docs-header">
+      <h1 id="rightPanelTitle">Operational Air Traffic (OAT) Manual</h1>
+      <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
+    </div>
+
+    <!-- Right Panel Controls & Utility Buttons -->
+    <div class="right-panel-controls">
+      <div class="doc-columns-toggle" id="docColumnsToggleContainer">
+        <input type="checkbox" id="toggleThreeCol" onchange="toggleThreeColumnLayout(this.checked)">
+        <label for="toggleThreeCol" style="font-weight:bold; color:#1a73e8; cursor:pointer; margin:0;">Switch Manual to 3-Column View</label>
+      </div>
+      <div class="right-panel-btns">
+        <button type="button" class="action-toggle-btn" id="metarToggleBtn" onclick="toggleRightPanelMode('metar')">🌦️ WX</button>
+        <button type="button" class="action-toggle-btn" id="todToggleBtn" onclick="toggleRightPanelMode('tod')">📉 TOD</button>
+        <button type="button" class="action-toggle-btn" id="xwindToggleBtn" onclick="toggleRightPanelMode('xwind')">💨 X-Wind</button>
+        <button type="button" class="action-toggle-btn" id="fuelToggleBtn" onclick="toggleRightPanelMode('fuel')">⛽ ETE/Fuel</button>
+        <button type="button" class="action-toggle-btn" id="clockToggleBtn" onclick="toggleRightPanelMode('clock')">🕒 UTC Clock</button>
+        <button type="button" class="action-toggle-btn" id="daToggleBtn" onclick="toggleRightPanelMode('da')">🌡️ Density Alt</button>
+      </div>
+    </div>
+
+    <!-- METAR / TAF VIEWER BODY -->
+    <div id="metarBody" class="sub-panel-content">
+      <div class="metar-search-box">
+        <input type="text" id="icaoInput" value="LFBO" placeholder="Enter ICAO (e.g. LFBO, EGBB)">
+        <button type="button" onclick="fetchMetarTaf()">Fetch Weather</button>
+      </div>
+
+      <div class="wx-card">
+        <h3>METAR (Meteorological Aerodrome Report)</h3>
+        <div id="metarOutput" class="wx-raw">Loading METAR for LFBO...</div>
+      </div>
+
+      <div class="wx-card">
+        <h3>TAF (Terminal Aerodrome Forecast)</h3>
+        <div id="tafOutput" class="wx-raw">Loading TAF for LFBO...</div>
+      </div>
+    </div>
+
+    <!-- TOP OF DESCENT (TOD) CALCULATOR BODY -->
+    <div id="todBody" class="sub-panel-content">
+      <div class="wx-card">
+        <h3>Descent Profile Parameters</h3>
+        <div class="calc-form-grid">
+          <div class="calc-form-group">
+            <label for="todCurrentAlt">Current Altitude (ft)</label>
+            <input type="text" id="todCurrentAlt" value="24500" oninput="calculateTod()">
+          </div>
+          <div class="calc-form-group">
+            <label for="todTargetAlt">Target Altitude (ft)</label>
+            <input type="text" id="todTargetAlt" value="2000" oninput="calculateTod()">
+          </div>
+          <div class="calc-form-group">
+            <label for="todGroundspeed">Groundspeed (kts)</label>
+            <input type="text" id="todGroundspeed" value="420" oninput="calculateTod()">
+          </div>
+          <div class="calc-form-group">
+            <label for="todAngle">Descent Profile Angle</label>
+            <select id="todAngle" onchange="calculateTod()">
+              <option value="3" selected>3.0° Standard ILS / GAT Profile</option>
+              <option value="3.5">3.5° Steep Descent Profile</option>
+              <option value="4">4.0° Tactical High-Energy Descent</option>
+              <option value="2.5">2.5° Shallow Cruise Descent</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="calc-results-box">
+          <h3>Calculated Descent Metrics</h3>
+          <div class="calc-result-item">
+            <span>Altitude to Lose:</span>
+            <span id="resAltLoss">22,500 ft</span>
+          </div>
+          <div class="calc-result-item">
+            <span>Distance to Top of Descent (TOD):</span>
+            <span id="resDistance">71.6 NM</span>
+          </div>
+          <div class="calc-result-item">
+            <span>Required Vertical Speed (FPM):</span>
+            <span id="resVs">2,226 FPM</span>
+          </div>
+          <div class="calc-result-item">
+            <span>Time to Target:</span>
+            <span id="resTime">10.2 min</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- CROSSWIND CALCULATOR BODY -->
+    <div id="xwindBody" class="sub-panel-content">
+      <div class="wx-card">
+        <h3>Runway & Wind Parameters</h3>
+        <div class="calc-form-grid">
+          <div class="calc-form-group">
+            <label for="xwRwyHeading">Runway Heading (°)</label>
+            <input type="text" id="xwRwyHeading" value="270" placeholder="e.g. 27 for Rwy 27" oninput="calculateXwind()">
+          </div>
+          <div class="calc-form-group">
+            <label for="xwWindDir">Wind Direction (°)</label>
+            <input type="text" id="xwWindDir" value="300" placeholder="e.g. 300" oninput="calculateXwind()">
+          </div>
+          <div class="calc-form-group" style="grid-column: span 2;">
+            <label for="xwWindSpeed">Wind Speed (kts)</label>
+            <input type="text" id="xwWindSpeed" value="25" placeholder="e.g. 20" oninput="calculateXwind()">
+          </div>
+        </div>
+
+        <div class="calc-results-box">
+          <h3>Crosswind & Headwind Breakdown</h3>
+          <div class="calc-result-item">
+            <span>Headwind Component:</span>
+            <span id="resHeadwind">12.5 kts (Headwind)</span>
+          </div>
+          <div class="calc-result-item">
+            <span>Crosswind Component:</span>
+            <span id="resCrosswind">21.7 kts</span>
+          </div>
+          <div class="calc-result-item">
+            <span>Wind Angle Offset:</span>
+            <span id="resAngleOffset">30° off runway</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- FUEL BURN & ETE ESTIMATOR BODY -->
+    <div id="fuelBody" class="sub-panel-content">
+      <div class="wx-card">
+        <h3>Leg Distance & Burn Parameters</h3>
+        <div class="calc-form-grid">
+          <div class="calc-form-group">
+            <label for="fuelDistance">Leg Distance (NM)</label>
+            <input type="text" id="fuelDistance" value="350" oninput="calculateFuelEte()">
+          </div>
+          <div class="calc-form-group">
+            <label for="fuelGroundspeed">Groundspeed (kts)</label>
+            <input type="text" id="fuelGroundspeed" value="420" oninput="calculateFuelEte()">
+          </div>
+          <div class="calc-form-group">
+            <label for="fuelBurnRate">Fuel Burn Rate (per hour)</label>
+            <input type="text" id="fuelBurnRate" value="4500" oninput="calculateFuelEte()">
+          </div>
+          <div class="calc-form-group">
+            <label for="fuelUnit">Weight Unit</label>
+            <select id="fuelUnit" onchange="calculateFuelEte()">
+              <option value="lbs" selected>Pounds (lbs)</option>
+              <option value="kg">Kilograms (kg)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="calc-results-box">
+          <h3>Estimated Time Enroute & Fuel Required</h3>
+          <div class="calc-result-item">
+            <span>Estimated Time Enroute (ETE):</span>
+            <span id="resEte">00:50 (HH:MM)</span>
+          </div>
+          <div class="calc-result-item">
+            <span>Leg Fuel Required:</span>
+            <span id="resLegFuel">3,750 lbs</span>
+          </div>
+          <div class="calc-result-item">
+            <span>Total with 30m Reserve:</span>
+            <span id="resReserveFuel">6,000 lbs</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- UTC / ZULU TIME CONVERTER & MISSION CLOCK BODY -->
+    <div id="clockBody" class="sub-panel-content">
+      <div class="wx-card">
+        <h3>Live Mission Time & FIR Offset Clock</h3>
+        
+        <div class="clock-display-box">
+          <div class="clock-card">
+            <h4>Zulu / UTC Time</h4>
+            <div id="clockZulu" class="clock-time">00:00:00</div>
+            <div id="dateZulu" class="clock-date">--</div>
+          </div>
+          <div class="clock-card">
+            <h4>Local System Time</h4>
+            <div id="clockLocal" class="clock-time">00:00:00</div>
+            <div id="dateLocal" class="clock-date">--</div>
+          </div>
+        </div>
+
+        <div class="calc-form-grid" style="margin-top: 14px;">
+          <div class="calc-form-group" style="grid-column: span 2;">
+            <label for="clockOffset">Quick FIR / Timezone Offset (Hours relative to UTC)</label>
+            <select id="clockOffset" onchange="updateMissionClock()">
+              <option value="0">UTC +0 (London / Lisbon / Dakar)</option>
+              <option value="1">UTC +1 (Berlin / Paris / Rome / Madrid)</option>
+              <option value="2">UTC +2 (Athens / Cairo / Berlin Summer)</option>
+              <option value="-4">UTC -4 (New York / San Juan - EDT)</option>
+              <option value="-5">UTC -5 (New York - EST / Bogota)</option>
+              <option value="-6">UTC -6 (Chicago - CDT)</option>
+              <option value="-8">UTC -8 (Los Angeles - PST)</option>
+              <option value="10">UTC +10 (Sydney - AEST)</option>
+              <option value="12">UTC +12 (Auckland - NZST)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="calc-results-box">
+          <h3>Custom Offset Time</h3>
+          <div class="calc-result-item">
+            <span>Selected Timezone Clock:</span>
+            <span id="resCustomOffsetTime">00:00:00 UTC</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- DENSITY ALTITUDE & PERFORMANCE INDEXER BODY -->
+    <div id="daBody" class="sub-panel-content">
+      <div class="wx-card">
+        <h3>Aerodrome Environment Parameters</h3>
+        <div class="calc-form-grid">
+          <div class="calc-form-group">
+            <label for="daElevation">Field Elevation (ft)</label>
+            <input type="text" id="daElevation" value="1500" oninput="calculateDensityAltitude()">
+          </div>
+          <div class="calc-form-group">
+            <label for="daAltimeter">Altimeter Setting (inHg / hPa)</label>
+            <input type="text" id="daAltimeter" value="29.92" oninput="calculateDensityAltitude()">
+          </div>
+          <div class="calc-form-group">
+            <label for="daTemp">Temperature (°C)</label>
+            <input type="text" id="daTemp" value="30" oninput="calculateDensityAltitude()">
+          </div>
+          <div class="calc-form-group">
+            <label for="daAircraftType">Operation Type</label>
+            <select id="daAircraftType" onchange="calculateDensityAltitude()">
+              <option value="jet">High-Performance Jet / Turbofan</option>
+              <option value="prop" selected>Piston / Transport Turboprop</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="calc-results-box">
+          <h3>Calculated Performance Index</h3>
+          <div class="calc-result-item">
+            <span>Pressure Altitude:</span>
+            <span id="resPressAlt">1,500 ft</span>
+          </div>
+          <div class="calc-result-item">
+            <span>Density Altitude (DA):</span>
+            <span id="resDensityAlt">3,312 ft</span>
+          </div>
+          <div class="calc-result-item">
+            <span>Estimated Takeoff Roll Increase:</span>
+            <span id="resPerfDegradation">+12.4%</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- VIEW 1: DOCUMENTATION BODY -->
+    <div id="docBody" class="doc-content-body active">
+      <div class="disclaimer-box">
+        <b>Operational Disclaimer:</b> This software and manual are proprietary assets of <b>Virtual NATO</b> (established 2010) and are designed exclusively for simulated virtual aviation environments (such as VATSIM). This tool must <b>never</b> be used for real-world flight planning, navigation, or operational dispatch.
+      </div>
+
+      <h2>1. Introduction & Operational Context</h2>
+      <p>This manual assists pilots in accurately filing Fields 8 (Route) and 11 (Remarks) for military OAT flights adapted from national AIP standards for virtual network operations.</p>
+
+      <!-- Dynamic Manual PDF Reference Link -->
+      <div style="margin-bottom: 14px;">
+        <a id="manualPdfLink" href="https://virtualnato.org/icrew/index.php/modernui#/documentation/document/146" target="_blank" class="manual-link-btn">📄 Open Official Selected Country PDF Manual</a>
+      </div>
+
+      <div class="diff-box">
+        <b>Active Country-Specific Formatting Rules & Differences:</b>
+        <hr>
+        • <b>France (DGAC / DIRCAM):</b> The Route field must <b>never</b> start with the word "OAT". However, the <code>OAT</code> status must appear at the beginning of the remarks (RKS) field to indicate that at least one OAT phase is taking place.
+        <hr>
+        • <b>Germany (BMVg / Luftwaffe):</b> The Route field <b>must start with "OAT"</b> followed by a space. Remarks do <b>not</b> start with "OAT" (uses standard <code>RMK/VIRTUALNATO.ORG</code> and optional <code>VSO TRAINEE</code>). STAYINFO airspace blocks follow a strict structured format (e.g., <code>EDR208 308 1600 1700 FL100 FL350 FOR TRAINING</code>), and fuel endurance (e.g., <code>FUEL0200</code>) is standard.
+        <hr>
+        • <b>United Kingdom (RAF / MilAIP):</b> The Route field <b>must start with the term "OAT"</b> followed by a space. Utilizes national infrastructure such as <b>Radar Corridors</b> (e.g., <code>LICHFIELD RC</code>, <code>DAVENTRY RC</code>), <b>Low-Flying Areas</b> (<code>LFA7</code>), and specific <code>STAYINFO</code> formats (e.g., <code>STAYINFO1/LFA7 LOWAT DELAY 0020</code>).
+      </div>
+
+      <h2>2. Instructions: How to Build Your Route & Remarks</h2>
+      <ul>
+        <li><b>No Airfield ICAOs in Route:</b> Do not include departure or destination airfield ICAO codes inside the middle of your route string.</li>
+        <li><b>Space Separation:</b> Separate chronological route waypoints, radar corridors, and performance descriptors with single spaces.</li>
+        <li><b>STAY Segment Sequence:</b> Low-Flying Areas, AAR, or working areas require a <code>STAYx/HHMM</code> entry in the Route, with matching details in <code>STAYINFOx/</code>.</li>
+      </ul>
+
+      <h2>3. How to File Using the VATSIM ICAO FPL Import Tool</h2>
+      <ul>
+        <li><b>Step 1:</b> Select <b>VATSIM ICAO FPL String</b> from the generator mode menu.</li>
+        <li><b>Step 2:</b> Click <b>Generate VATSIM ICAO String</b>, then click <b>Copy</b>.</li>
+        <li><b>Step 3:</b> Click <b>Open my.vatsim.net to Import ICAO FPL</b>, paste your string, and click <b>Parse / Import</b>.</li>
+      </ul>
+
+      <h2>4. Operational Flight Scenarios</h2>
+      <h3>OAT IFR — Ferry / Liaison Flight & Radar Corridors</h3>
+      <p>Select applicable Radar Corridors and include the full corridor name where required (e.g., <code>LICHFIELD RC</code>, <code>DAVENTRY RC</code>).<br>
+      Route Example: <code>CGY LICHFIELD RC LFA7 STAY1/0015 DCT CGY</code></p>
+
+      <h3>OAT VFR — Low-Level Navigation & Low-Flying Areas (LFA)</h3>
+      <p>Specify the LFA and delay in remarks as outlined in national supplements.<br>
+      Route Example: <code>CGY/MID07S LICHFIELD RC LFA7 STAY1/0020 DCT LCH RC DCT CGY</code><br>
+      Remarks Example: <code>STAYINFO1/LFA7 LOWAT DELAY 0020</code></p>
+
+      <h3>Air Refueling (AAR) & Danger Areas</h3>
+      <p>Route Example: <code>BZN DCT DAVENTRY RC DCT AARA8 STAY1/0030 DCT DAVENTRY RC DCT BZN</code><br>
+      Remarks Example: <code>STAYINFO1/AARAS AAR MARSA/NATO11/ DELAY 0030 1200 TO 1230</code></p>
+
+      <h2>5. Detailed Parameter Glossary</h2>
+      <h3>Route Generator Parameters</h3>
+      <ul>
+        <li><b>DOF:</b> Flight departure date in <code>YYMMDD</code> format.</li>
+        <li><b>Flight Rules:</b> <code>I</code> (IFR), <code>V</code> (VFR), <code>T</code> (OAT Tactical), <code>Y</code> (IFR then VFR), <code>Z</code> (VFR to IFR).</li>
+        <li><b>Speed & Altitude Units:</b> Knots/Mach/Kmh (<code>N</code>, <code>M</code>, <code>K</code>) and Flight Level/Altitude/Metric (<code>F</code>, <code>A</code>, <code>S</code>).</li>
+        <li><b>STAY Segments:</b> <code>STAY1</code>, <code>STAY2</code>, <code>STAY3</code> with duration in <code>HHMM</code>.</li>
+      </ul>
+
+      <h3>Remarks Generator Parameters</h3>
+      <ul>
+        <li><b>Type of Flight:</b> Indicates the general category of operations being conducted. Common military and operational codes include <code>M</code> (Military), <code>S</code> (Scheduled air transport), <code>N</code> (Non-scheduled air transport), <code>G</code> (General aviation), and <code>X</code> (Other / Special operations).</li>
+        <li><b>Wake Turbulence Category:</b> Denotes the aircraft's wake turbulence generation classification based on its maximum certificated takeoff mass. Standard ICAO codes include <code>J</code> (Super - for A380), <code>H</code> (Heavy - 136 kg or more), <code>M</code> (Medium - between 7 kg and 136 kg), and <code>L</code> (Light - 7 kg or less).</li>
+        <li><b>Equipment & Transponder:</b> Field 10a (e.g., <code>SDE3G</code>) and Field 10b surveillance codes covering full capabilities from <code>N</code> (No transponder), <code>A</code>, <code>C</code>, <code>E</code>, <code>H</code>, <code>I</code>, <code>L</code>, <code>P</code>, <code>S</code>, to <code>X</code>.</li>
+        <li><b>PBN / Performance Based Navigation:</b> Multi-selected RNAV/RNP capabilities concatenated without spaces (e.g., <code>S1B1</code>).</li>
+        <li><b>STS / Special Handling:</b> Identifiers such as <code>STATE</code>, <code>NONRVSM</code>, <code>MARSA</code>, <code>SAR</code>, <code>MEDEVAC</code>, <code>FLTCK</code>, <code>HAZMAT</code>, <code>HEAD</code>, and <code>HUM</code>.</li>
+        <li><b>SEL / SELCAL:</b> Selective calling radio system code.</li>
+        <li><b>SUR / Surveillance:</b> Surveillance capabilities and transponder data link codes.</li>
+        <li><b>PER / Performance:</b> Aircraft performance data, PBN capabilities, or RNP compliance indicators.</li>
+        <li><b>ORGN / Origin:</b> Originator address or dispatch identifier for the filed flight plan.</li>
+        <li><b>COM / Comms:</b> Communication radio capabilities and frequencies.</li>
+        <li><b>REG/ & OPR/:</b> Aircraft registration and operator identification (e.g., <code>29 SQN ROYAL AIR FORCE</code>, <code>GAF</code>, <code>FAF</code>).</li>
+        <li><b>FUEL / EET / STAYINFO:</b> Fuel endurance (e.g., <code>FUEL0200</code>), estimated elapsed times, and specific area working notes.</li>
+        <li><b>RMK/ & VSO Tag:</b> Regulatory tags like <code>RMK/OAT FERRY</code>, <code>VIRTUALNATO.ORG</code>, plus optional <code>VSO TRAINEE</code> student tag. For France, OAT appears at the beginning of remarks.</li>
+      </ul>
+    </div>
+
+  </div>
+</div>
+
+<script>
+  function toggleHelp(id) {
+    const el = document.getElementById(id);
+    if (el) {
+      el.classList.toggle('show');
+    }
+  }
+
+  // Toggle PBN Checkbox Dropdowns
+  function togglePbnDropdown(e) {
+    e.stopPropagation();
+    document.getElementById('pbnDropdownList').classList.toggle('show');
+  }
+
+  function toggleIcaoPbnDropdown(e) {
+    e.stopPropagation();
+    document.getElementById('icaoPbnDropdownList').classList.toggle('show');
+  }
+
+  // Close dropdowns when clicking outside
+  window.addEventListener('click', function(e) {
+    if (!e.target.closest('.pbn-dropdown-container')) {
+      const pbnList = document.getElementById('pbnDropdownList');
+      const icaoPbnList = document.getElementById('icaoPbnDropdownList');
+      if (pbnList) pbnList.classList.remove('show');
+      if (icaoPbnList) icaoPbnList.classList.remove('show');
+    }
+  });
+
+  function updatePbnSelection() {
+    const container = document.getElementById('remarksTab');
+    const checkboxes = container.querySelectorAll('#pbnDropdownList input[type="checkbox"]:checked');
+    let values = [];
+    checkboxes.forEach(cb => values.push(cb.value));
+    
+    const hiddenInput = document.getElementById('pbnValue');
+    const toggleText = document.getElementById('pbnToggleText');
+    
+    if (values.length > 0) {
+      const concatenated = values.join('');
+      hiddenInput.value = concatenated;
+      toggleText.textContent = concatenated;
+    } else {
+      hiddenInput.value = '';
+      toggleText.textContent = 'Select PBN Capabilities...';
+    }
+  }
+
+  function updateIcaoPbnSelection() {
+    const container = document.getElementById('icaoTab');
+    const checkboxes = container.querySelectorAll('#icaoPbnDropdownList input[type="checkbox"]:checked');
+    let values = [];
+    checkboxes.forEach(cb => values.push(cb.value));
+    
+    const hiddenInput = document.getElementById('icaoPbnValue');
+    const toggleText = document.getElementById('icaoPbnToggleText');
+    
+    if (values.length > 0) {
+      const concatenated = values.join('');
+      hiddenInput.value = concatenated;
+      toggleText.textContent = concatenated;
+    } else {
+      hiddenInput.value = '';
+      toggleText.textContent = 'Select PBN Capabilities...';
+    }
+  }
+
+  function toggleThreeColumnLayout(isChecked) {
+    const docBody = document.getElementById('docBody');
+    if (isChecked) {
+      docBody.classList.add('three-col');
+      docBody.innerHTML = `
+        <div class="doc-column-card">
+          <h3>Route Generator Parameters</h3>
+          <ul>
+            <li><b>DOF:</b> Flight date (YYMMDD)</li>
+            <li><b>Rules/Type:</b> IFR/VFR/Tactical & Military</li>
+            <li><b>Speed/Alt:</b> N0450F245 formatting</li>
+            <li><b>GAT/OAT:</b> Transition waypoints</li>
+            <li><b>STAY1-3:</b> Low-flying/AAR working delays</li>
+          </ul>
+        </div>
+        <div class="doc-column-card">
+          <h3>Remarks Generator Parameters</h3>
+          <ul>
+            <li><b>WAK/:</b> Wake turbulence category</li>
+            <li><b>PBN/:</b> Multi-selected RNAV/RNP codes (concatenated, no spaces)</li>
+            <li><b>STS/:</b> Special handling indicators (STATE, SAR, MARSA, etc.)</li>
+            <li><b>SEL/SUR/PER:</b> SELCAL, surveillance & performance</li>
+            <li><b>ORGN/COM:</b> Originator & comms specs</li>
+            <li><b>REG/OPR/FUEL:</b> Registration, operator & fuel</li>
+          </ul>
+        </div>
+        <div class="doc-column-card">
+          <h3>Descriptions & Manual</h3>
+          <p><b>OAT Operational Standards:</b> Direct integration across European and UK airspace protocols. For France, OAT appears at the beginning of the remarks field.</p>
+          <a href="https://virtualnato.org/icrew/index.php/modernui#/documentation/document/146" target="_blank" class="manual-link-btn" style="display:inline-block; margin-top:10px;">📄 Open Country PDF Manual</a>
+        </div>
+      `;
+    } else {
+      docBody.classList.remove('three-col');
+      location.reload();
+    }
+  }
+
+  // TAB SWITCHING ON RIGHT PANEL (MANUAL vs ALL UTILITY TOOLS)
+  let activeRightTab = 'manual';
+  let clockInterval = null;
+  
+  function toggleRightPanelMode(targetMode) {
+    const docBody = document.getElementById('docBody');
+    const metarBody = document.getElementById('metarBody');
+    const todBody = document.getElementById('todBody');
+    const xwindBody = document.getElementById('xwindBody');
+    const fuelBody = document.getElementById('fuelBody');
+    const clockBody = document.getElementById('clockBody');
+    const daBody = document.getElementById('daBody');
+
+    const titleEl = document.getElementById('rightPanelTitle');
+    const metarBtn = document.getElementById('metarToggleBtn');
+    const todBtn = document.getElementById('todToggleBtn');
+    const xwindBtn = document.getElementById('xwindToggleBtn');
+    const fuelBtn = document.getElementById('fuelToggleBtn');
+    const clockBtn = document.getElementById('clockToggleBtn');
+    const daBtn = document.getElementById('daToggleBtn');
+    const threeColToggleContainer = document.getElementById('docColumnsToggleContainer');
+
+    if (activeRightTab === targetMode) {
+      activeRightTab = 'manual';
+    } else {
+      activeRightTab = targetMode;
+    }
+
+    // Reset all views and button labels
+    docBody.classList.remove('active');
+    metarBody.classList.remove('active');
+    todBody.classList.remove('active');
+    xwindBody.classList.remove('active');
+    fuelBody.classList.remove('active');
+    clockBody.classList.remove('active');
+    daBody.classList.remove('active');
+    threeColToggleContainer.style.display = 'none';
+
+    metarBtn.textContent = '🌦️ WX';
+    todBtn.textContent = '📉 TOD';
+    xwindBtn.textContent = '💨 X-Wind';
+    fuelBtn.textContent = '⛽ ETE/Fuel';
+    clockBtn.textContent = '🕒 UTC Clock';
+    daBtn.textContent = '🌡️ Density Alt';
+
+    if (clockInterval) {
+      clearInterval(clockInterval);
+      clockInterval = null;
+    }
+
+    if (activeRightTab === 'metar') {
+      metarBody.classList.add('active');
+      titleEl.textContent = 'Aerodrome Weather (METAR & TAF)';
+      metarBtn.textContent = '📖 Back to Manual';
+      fetchMetarTaf();
+    } else if (activeRightTab === 'tod') {
+      todBody.classList.add('active');
+      titleEl.textContent = 'Top of Descent (TOD) Calculator';
+      todBtn.textContent = '📖 Back to Manual';
+      calculateTod();
+    } else if (activeRightTab === 'xwind') {
+      xwindBody.classList.add('active');
+      titleEl.textContent = 'Crosswind & Headwind Calculator';
+      xwindBtn.textContent = '📖 Back to Manual';
+      calculateXwind();
+    } else if (activeRightTab === 'fuel') {
+      fuelBody.classList.add('active');
+      titleEl.textContent = 'Fuel Burn & ETE Estimator';
+      fuelBtn.textContent = '📖 Back to Manual';
+      calculateFuelEte();
+    } else if (activeRightTab === 'clock') {
+      clockBody.classList.add('active');
+      titleEl.textContent = 'UTC / Zulu Time Converter & Mission Clock';
+      clockBtn.textContent = '📖 Back to Manual';
+      updateMissionClock();
+      clockInterval = setInterval(updateMissionClock, 1000);
+    } else if (activeRightTab === 'da') {
+      daBody.classList.add('active');
+      titleEl.textContent = 'Density Altitude & Performance Indexer';
+      daBtn.textContent = '📖 Back to Manual';
+      calculateDensityAltitude();
+    } else {
+      docBody.classList.add('active');
+      titleEl.textContent = 'Operational Air Traffic (OAT) Manual';
+      threeColToggleContainer.style.display = 'flex';
+    }
+  }
+
+  // CALCULATOR LOGIC SCRIPTS
+  function calculateTod() {
+    const curAlt = parseFloat(document.getElementById('todCurrentAlt').value) || 0;
+    const tgtAlt = parseFloat(document.getElementById('todTargetAlt').value) || 0;
+    const gs = parseFloat(document.getElementById('todGroundspeed').value) || 0;
+    const angle = parseFloat(document.getElementById('todAngle').value) || 3.0;
+
+    const altLoss = Math.max(0, curAlt - tgtAlt);
+    const angleRad = angle * (Math.PI / 180);
+    const distNm = altLoss / (Math.tan(angleRad) * 6076.115);
+    const vsFpm = gs * 101.2685 * Math.tan(angleRad);
+    const timeMin = gs > 0 ? (distNm / gs) * 60 : 0;
+
+    document.getElementById('resAltLoss').textContent = altLoss.toLocaleString() + ' ft';
+    document.getElementById('resDistance').textContent = distNm.toFixed(1) + ' NM';
+    document.getElementById('resVs').textContent = Math.round(vsFpm).toLocaleString() + ' FPM';
+    document.getElementById('resTime').textContent = timeMin.toFixed(1) + ' min';
+  }
+
+  function calculateXwind() {
+    let rwyHdg = parseFloat(document.getElementById('xwRwyHeading').value);
+    let windDir = parseFloat(document.getElementById('xwWindDir').value);
+    let windSpd = parseFloat(document.getElementById('xwWindSpeed').value) || 0;
+
+    if (isNaN(rwyHdg) || isNaN(windDir)) {
+      document.getElementById('resHeadwind').textContent = 'Invalid input';
+      document.getElementById('resCrosswind').textContent = 'Invalid input';
+      document.getElementById('resAngleOffset').textContent = '-';
+      return;
+    }
+
+    if (rwyHdg <= 36) {
+      rwyHdg *= 10;
+    }
+
+    let angleDiff = Math.abs(windDir - rwyHdg);
+    if (angleDiff > 180) {
+      angleDiff = 360 - angleDiff;
+    }
+
+    const angleRad = angleDiff * (Math.PI / 180);
+    const headwind = windSpd * Math.cos(angleRad);
+    const crosswind = Math.abs(windSpd * Math.sin(angleRad));
+
+    let headwindText = headwind >= 0 ? Math.round(headwind) + ' kts (Headwind)' : Math.abs(Math.round(headwind)) + ' kts (Tailwind)';
+
+    document.getElementById('resHeadwind').textContent = headwindText;
+    document.getElementById('resCrosswind').textContent = Math.round(crosswind) + ' kts';
+    document.getElementById('resAngleOffset').textContent = Math.round(angleDiff) + '° off runway';
+  }
+
+  function calculateFuelEte() {
+    const dist = parseFloat(document.getElementById('fuelDistance').value) || 0;
+    const gs = parseFloat(document.getElementById('fuelGroundspeed').value) || 1;
+    const burnRate = parseFloat(document.getElementById('fuelBurnRate').value) || 0;
+    const unit = document.getElementById('fuelUnit').value;
+
+    const hours = dist / gs;
+    const totalMinutes = Math.round(hours * 60);
+    const hh = String(Math.floor(totalMinutes / 60)).padStart(2, '0');
+    const mm = String(totalMinutes % 60).padStart(2, '0');
+
+    const legFuel = hours * burnRate;
+    const reserveFuel = (burnRate / 60) * 30; // 30 min reserve
+    const totalWithReserve = legFuel + reserveFuel;
+
+    document.getElementById('resEte').textContent = `${hh}:${mm} (HH:MM)`;
+    document.getElementById('resLegFuel').textContent = Math.round(legFuel).toLocaleString() + ` ${unit}`;
+    document.getElementById('resReserveFuel').textContent = Math.round(totalWithReserve).toLocaleString() + ` ${unit}`;
+  }
+
+  function updateMissionClock() {
+    const now = new Date();
+    const utcHours = now.getUTCHours();
+    const utcMinutes = now.getUTCMinutes();
+    const utcSeconds = now.getUTCSeconds();
+    
+    const zuluStr = String(utcHours).padStart(2, '0') + ':' + String(utcMinutes).padStart(2, '0') + ':' + String(utcSeconds).padStart(2, '0');
+    const zuluDateStr = now.toUTCString().slice(0, 16);
+
+    const localStr = String(now.getHours()).padStart(2, '0') + ':' + String(now.getMinutes()).padStart(2, '0') + ':' + String(now.getSeconds()).padStart(2, '0');
+    const localDateStr = now.toDateString();
+
+    document.getElementById('clockZulu').textContent = zuluStr;
+    document.getElementById('dateZulu').textContent = zuluDateStr;
+    document.getElementById('clockLocal').textContent = localStr;
+    document.getElementById('dateLocal').textContent = localDateStr;
+
+    const offsetVal = parseInt(document.getElementById('clockOffset').value) || 0;
+    let customHours = utcHours + offsetVal;
+    let customDayOffset = 0;
+    if (customHours >= 24) {
+      customHours -= 24;
+      customDayOffset = 1;
+    } else if (customHours < 0) {
+      customHours += 24;
+      customDayOffset = -1;
+    }
+    const customStr = String(customHours).padStart(2, '0') + ':' + String(utcMinutes).padStart(2, '0') + ':' + String(utcSeconds).padStart(2, '0') + ` (UTC ${offsetVal >= 0 ? '+' + offsetVal : offsetVal})`;
+    document.getElementById('resCustomOffsetTime').textContent = customStr;
+  }
+
+  function calculateDensityAltitude() {
+    const elev = parseFloat(document.getElementById('daElevation').value) || 0;
+    const altimeter = parseFloat(document.getElementById('daAltimeter').value) || 29.92;
+    const tempC = parseFloat(document.getElementById('daTemp').value) || 15;
+    const acftType = document.getElementById('daAircraftType').value;
+
+    let altSettingInHg = altimeter > 200 ? altimeter * 0.02953 : altimeter;
+    const pressAlt = elev + (29.92 - altSettingInHg) * 1000;
+
+    const stdTempC = 15 - (2 * (pressAlt / 1000));
+    const isaDev = tempC - stdTempC;
+
+    const densityAlt = pressAlt + (120 * isaDev);
+
+    let factor = acftType === 'jet' ? 0.0035 : 0.0045;
+    const perfDegradation = Math.max(0, densityAlt * factor);
+
+    document.getElementById('resPressAlt').textContent = Math.round(pressAlt).toLocaleString() + ' ft';
+    document.getElementById('resDensityAlt').textContent = Math.round(densityAlt).toLocaleString() + ' ft';
+    document.getElementById('resPerfDegradation').textContent = '+' + perfDegradation.toFixed(1) + '%';
+  }
+
+  async function fetchMetarTaf() {
+    let icao = document.getElementById('icaoInput').value.trim().toUpperCase();
+    if (!icao || icao.length !== 4) {
+      alert('Please enter a valid 4-letter ICAO code.');
+      return;
+    }
+
+    const metarDiv = document.getElementById('metarOutput');
+    const tafDiv = document.getElementById('tafOutput');
+
+    metarDiv.textContent = `Fetching METAR for ${icao}...`;
+    tafDiv.textContent = `Fetching TAF for ${icao}...`;
+
+    try {
+      // Using allorigins proxy to completely bypass local CORS file:// block restrictions
+      const metarUrl = `https://api.allorigins.win/raw?url=` + encodeURIComponent(`https://aviationweather.gov/api/data/metar?ids=${icao}&format=raw`);
+      const tafUrl = `https://api.allorigins.win/raw?url=` + encodeURIComponent(`https://aviationweather.gov/api/data/taf?ids=${icao}&format=raw`);
+
+      const [metarRes, tafRes] = await Promise.all([
+        fetch(metarUrl),
+        fetch(tafUrl)
+      ]);
+
+      const metarText = await metarRes.text();
+      const tafText = await tafRes.text();
+
+      metarDiv.textContent = metarText.trim() ? metarText.trim() : `No METAR available for ${icao} or invalid ICAO code.`;
+      tafDiv.textContent = tafText.trim() ? tafText.trim() : `No TAF available for ${icao}.`;
+    } catch (err) {
+      metarDiv.textContent = `Error fetching METAR data. Please check your network connection.`;
+      tafDiv.textContent = `Error fetching TAF data.`;
+    }
+  }
+
+  function switchFplMode(selectedTabId) {
+    const contents = document.querySelectorAll('.fpl-tab-content');
+    contents.forEach(c => c.classList.remove('active'));
+    document.getElementById(selectedTabId).classList.add('active');
+  }
+
+  function updateDefaultOpr() {
+    const country = document.getElementById('countrySelect').value;
+    const oprSelect = document.getElementById('opr');
+    if (country === 'UK') {
+      oprSelect.value = '29 SQN ROYAL AIR FORCE';
+    } else if (country === 'DE') {
+      oprSelect.value = 'GAF';
+    } else if (country === 'FR') {
+      oprSelect.value = 'FAF';
+    }
+  }
+
+  function updateManualLink() {
+    const country = document.getElementById('countrySelect').value;
+    const linkEl = document.getElementById('manualPdfLink');
+    
+    if (country === 'FR') {
+      linkEl.href = 'https://virtualnato.org/icrew/index.php/modernui#/documentation/document/146';
+    } else if (country === 'DE') {
+      linkEl.href = 'https://virtualnato.org/icrew/index.php/modernui#/documentation/document/115';
+    } else if (country === 'UK') {
+      linkEl.href = 'https://virtualnato.org/icrew/index.php/currentui#/documentation/document/130';
+    }
+  }
+
+  function handleCountryChange() {
+    updateDefaultOpr();
+    updateManualLink();
+    
+    const countrySelect = document.getElementById('countrySelect');
+    if (!['FR', 'DE', 'UK'].includes(countrySelect.value)) {
+      countrySelect.value = 'FR';
+      updateDefaultOpr();
+      updateManualLink();
+    }
+  }
+
+  function generateRouteString() {
+    const country = document.getElementById('countrySelect').value;
+    const spdAlt = document.getElementById('spdUnit').value + document.getElementById('spdVal').value + document.getElementById('altUnit').value + document.getElementById('altVal').value;
+    
+    const gatToOat = document.getElementById('gatToOat').value.trim();
+    const oatToGat = document.getElementById('oatToGat').value.trim();
+    const vfrTrans = document.getElementById('vfrTrans').value.trim();
+    const route = document.getElementById('route').value.trim();
+    
+    const s1 = document.getElementById('staySeg1').value;
+    const d1 = document.getElementById('stayDur1').value.trim();
+    const stayStr1 = (s1 !== 'NONE' && d1) ? (s1 + '/' + d1) : '';
+
+    const s2 = document.getElementById('staySeg2').value;
+    const d2 = document.getElementById('stayDur2').value.trim();
+    const stayStr2 = (s2 !== 'NONE' && d2) ? (s2 + '/' + d2) : '';
+
+    const s3 = document.getElementById('staySeg3').value;
+    const d3 = document.getElementById('stayDur3').value.trim();
+    const stayStr3 = (s3 !== 'NONE' && d3) ? (s3 + '/' + d3) : '';
+
+    let parts = [];
+    if (country === 'UK' || country === 'DE') {
+      parts.push('OAT');
+    }
+
+    const coreParts = [
+      spdAlt,
+      gatToOat,
+      oatToGat,
+      vfrTrans,
+      route,
+      stayStr1,
+      stayStr2,
+      stayStr3
+    ].filter(p => p !== '');
+
+    parts = parts.concat(coreParts);
+
+    document.getElementById('routeOutput').value = parts.join(' ');
+  }
+
+  function generateRemarksString() {
+    const country = document.getElementById('countrySelect').value;
+    const wake = document.getElementById('wake').value ? ('WAK/' + document.getElementById('wake').value) : '';
+    const equipTrans = document.getElementById('equip').value + '/' + document.getElementById('trans').value;
+    
+    const pbnVals = document.getElementById('pbnValue').value.trim();
+    const pbn = pbnVals ? ('PBN/' + pbnVals) : '';
+
+    const nav = document.getElementById('nav').value ? ('NAV/' + document.getElementById('nav').value) : '';
+    const sts = document.getElementById('sts').value ? ('STS/' + document.getElementById('sts').value) : '';
+    
+    const selVal = document.getElementById('sel').value.trim();
+    const sel = selVal ? ('SEL/' + selVal) : '';
+    const surVal = document.getElementById('sur').value.trim();
+    const sur = surVal ? ('SUR/' + surVal) : '';
+    const perVal = document.getElementById('per').value.trim();
+    const per = perVal ? ('PER/' + perVal) : '';
+    const orgnVal = document.getElementById('oragn').value.trim();
+    const orgn = orgnVal ? ('ORGN/' + orgnVal) : '';
+    const comVal = document.getElementById('com').value.trim();
+    const com = comVal ? ('COM/' + comVal) : '';
+
+    const reg = document.getElementById('reg').value ? ('REG/' + document.getElementById('reg').value) : '';
+    const opr = document.getElementById('opr').value ? (`OPR/${document.getElementById('opr').value}`) : '';
+    const fuelVal = document.getElementById('fuelEnd').value.trim();
+    const fuel = fuelVal ? (`FUEL${fuelVal}`) : '';
+    const eet = document.getElementById('eet').value ? ('EET/' + document.getElementById('eet').value) : '';
+    
+    const stayInfoSeg = document.getElementById('stayInfoSeg').value;
+    const stayinfoVal = document.getElementById('stayinfo').value.trim();
+    const stayinfoStr = (stayInfoSeg !== 'NONE' && stayinfoVal) ? (stayInfoSeg + '/' + stayinfoVal) : '';
+
+    let rmkOat = document.getElementById('rmkOat').value;
+    if (country === 'DE') {
+      rmkOat = "RMK/VIRTUALNATO.ORG";
+    }
+
+    let vso = document.getElementById('vso').value.trim();
+    const isTrainee = document.getElementById('vsoTrainee').checked;
+    if (isTrainee) {
+      if (country === 'DE') {
+        vso = "VSO TRAINEE";
+      } else if (vso !== "") {
+        vso += " VSO TRAINEE";
+      } else {
+        vso = "VSO TRAINEE";
+      }
+    } else if (country === 'DE') {
+      vso = "";
+    }
+
+    let parts = [];
+    if (country === 'FR') {
+      parts.push('OAT');
+    }
+
+    const coreParts = [
+      equipTrans, wake, pbn, nav, sts, sel, sur, per, orgn, com, reg, opr, fuel, eet, stayinfoStr, rmkOat, (country === 'DE' && isTrainee ? 'VSO TRAINEE' : (country !== 'DE' ? vso : ''))
+    ].filter(p => p !== '');
+
+    parts = parts.concat(coreParts);
+
+    document.getElementById('remarksOutput').value = parts.join(' ');
+  }
+
+  function generateIcaoFplString() {
+    const country = document.getElementById('countrySelect').value;
+    const rulesType = document.getElementById('icaoRules').value + document.getElementById('icaoType').value;
+    
+    const spdAltHeader = document.getElementById('icaoSpdUnit').value + document.getElementById('icaoSpdVal').value + document.getElementById('icaoAltUnit').value + document.getElementById('icaoAltVal').value;
+    
+    const gatToOat = document.getElementById('gatToOat').value.trim();
+    const oatToGat = document.getElementById('oatToGat').value.trim();
+    const vfrTrans = document.getElementById('vfrTrans').value.trim();
+    const route = document.getElementById('route').value.trim();
+    
+    const s1 = document.getElementById('staySeg1').value;
+    const d1 = document.getElementById('stayDur1').value.trim();
+    const stayStr1 = (s1 !== 'NONE' && d1) ? (s1 + '/' + d1) : '';
+
+    const s2 = document.getElementById('staySeg2').value;
+    const d2 = document.getElementById('stayDur2').value.trim();
+    const stayStr2 = (s2 !== 'NONE' && d2) ? (s2 + '/' + d2) : '';
+
+    const s3 = document.getElementById('staySeg3').value;
+    const d3 = document.getElementById('stayDur3').value.trim();
+    const stayStr3 = (s3 !== 'NONE' && d3) ? (s3 + '/' + d3) : '';
+
+    let routeParts = [];
+    if (country === 'UK' || country === 'DE') {
+      routeParts.push('OAT');
+    }
+
+    const coreRouteParts = [
+      spdAltHeader,
+      gatToOat,
+      oatToGat,
+      vfrTrans,
+      route,
+      stayStr1,
+      stayStr2,
+      stayStr3
+    ].filter(p => p !== '');
+
+    routeParts = routeParts.concat(coreRouteParts);
+    const fullRouteStr = routeParts.join(' ');
+
+    const wakeCat = document.getElementById('icaoWake').value;
+    const wakeTag = wakeCat ? ('WAK/' + wakeCat) : '';
+    
+    const pbnVals = document.getElementById('icaoPbnValue').value.trim();
+    const pbn = pbnVals ? ('PBN/' + pbnVals) : '';
+
+    const navVal = document.getElementById('icaoNav').value.trim();
+    const nav = navVal ? ('NAV/' + navVal) : '';
+    const stsVal = document.getElementById('icaoSts').value.trim();
+    const sts = stsVal ? ('STS/' + stsVal) : '';
+
+    const selVal = document.getElementById('icaoSel').value.trim();
+    const sel = selVal ? ('SEL/' + selVal) : '';
+    const surVal = document.getElementById('icaoSur').value.trim();
+    const sur = surVal ? ('SUR/' + surVal) : '';
+    const perVal = document.getElementById('icaoPer').value.trim();
+    const per = perVal ? ('PER/' + perVal) : '';
+    const orgnVal = document.getElementById('icaoOrgn').value.trim();
+    const orgn = orgnVal ? ('ORGN/' + orgnVal) : '';
+    const comVal = document.getElementById('icaoCom').value.trim();
+    const com = comVal ? ('COM/' + comVal) : '';
+
+    const regVal = document.getElementById('icaoReg').value.trim();
+    const reg = regVal ? ('REG/' + regVal) : '';
+    const oprVal = document.getElementById('icaoOpr').value.trim();
+    const opr = oprVal ? (`OPR/${oprVal}`) : '';
+    
+    const fuelVal = document.getElementById('icaoFuel').value.trim();
+    const fuel = fuelVal ? (`FUEL${fuelVal}`) : '';
+    
+    const stayinfoVal = document.getElementById('icaoStayinfo').value.trim();
+    
+    let rmkVal = document.getElementById('icaoRmk').value.trim();
+    if (country === 'DE') {
+      rmkVal = "RMK/VIRTUALNATO.ORG";
+    }
+
+    const isTrainee = document.getElementById('icaoVsoTrainee').checked;
+    if (isTrainee) {
+      if (country === 'DE') {
+        rmkVal += " VSO TRAINEE";
+      } else if (rmkVal !== "") {
+        rmkVal += " VSO TRAINEE";
+      } else {
+        rmkVal = "VSO TRAINEE";
+      }
+    }
+
+    let remarksParts = [];
+    if (country === 'FR') {
+      remarksParts.push('OAT');
+    }
+
+    const coreRemarksParts = [
+      pbn, nav, wakeTag, sts, sel, sur, per, orgn, com, reg, opr, fuel, stayinfoVal, rmkVal
+    ].filter(p => p !== '');
+
+    remarksParts = remarksParts.concat(coreRemarksParts);
+
+    const callsign = document.getElementById('fplCallsign').value.trim();
+    const acftType = document.getElementById('fplAcftType').value.trim();
+    const equipTrans = document.getElementById('icaoEquip').value.trim() + '/' + document.getElementById('icaoTrans').value.trim();
+    const dep = document.getElementById('fplDep').value.trim();
+    const eobt = document.getElementById('fplEobt').value.trim();
+    const arr = document.getElementById('fplArr').value.trim();
+    const eetArr = document.getElementById('fplEetArr').value.trim();
+    const alt = document.getElementById('fplAlt').value.trim();
+
+    const arrivalSegment = alt ? `${arr}${eetArr} ${alt}` : `${arr}${eetArr}`;
+
+    const icaoString = `(FPL-${callsign}-${rulesType}\n-${acftType}/${wakeCat}-${equipTrans}\n-${dep}${eobt}\n-${fullRouteStr}\n-${arrivalSegment}\n-${remarksParts.join(' ')})`;
+
+    document.getElementById('icaoOutput').value = icaoString;
+  }
+
+  function copyToClipboard(elementId) {
+    const textarea = document.getElementById(elementId);
+    if (!textarea.value) return;
+    textarea.select();
+    navigator.clipboard.writeText(textarea.value);
+  }
+</script>
+
+</body>
+</html>
