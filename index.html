@@ -1898,35 +1898,25 @@ async function fetchMetarTaf() {
     metarDiv.textContent = `Fetching METAR for ${icao}...`;
     tafDiv.textContent = `Fetching TAF for ${icao}...`;
 
-    // Fetch METAR via proxy with safe error handling
     try {
       const proxyMetarUrl = `https://api.allorigins.win/raw?url=` + encodeURIComponent(`https://aviationweather.gov/api/data/metar?ids=${icao}&format=raw`);
-      const res = await fetch(proxyMetarUrl);
-      if (res.ok) {
-        const text = await res.text();
-        metarDiv.textContent = text.trim() ? text.trim() : `No active METAR report found for ${icao}.`;
-      } else {
-        metarDiv.textContent = `No METAR available for ${icao}.`;
-      }
-    } catch (err) {
-      metarDiv.textContent = `No METAR data returned for ${icao}.`;
-    }
-
-    // Fetch TAF via proxy with safe error handling
-    try {
       const proxyTafUrl = `https://api.allorigins.win/raw?url=` + encodeURIComponent(`https://aviationweather.gov/api/data/taf?ids=${icao}&format=raw`);
-      const res = await fetch(proxyTafUrl);
-      if (res.ok) {
-        const text = await res.text();
-        tafDiv.textContent = text.trim() ? text.trim() : `No active TAF report found for ${icao}.`;
-      } else {
-        tafDiv.textContent = `No TAF available for ${icao}.`;
-      }
+
+      const [metarRes, tafRes] = await Promise.all([
+        fetch(proxyMetarUrl),
+        fetch(proxyTafUrl)
+      ]);
+
+      const metarText = metarRes.ok ? await metarRes.text() : '';
+      const tafText = tafRes.ok ? await tafRes.text() : '';
+
+      metarDiv.textContent = metarText.trim() ? metarText.trim() : `No active METAR report found for ${icao}.`;
+      tafDiv.textContent = tafText.trim() ? tafText.trim() : `No active TAF report found for ${icao}.`;
     } catch (err) {
-      tafDiv.textContent = `No TAF data returned for ${icao}.`;
+      metarDiv.textContent = `Error fetching METAR data. Please check your network connection.`;
+      tafDiv.textContent = `Error fetching TAF data.`;
     }
   }
-
   function updateManualLink() {
     const country = document.getElementById('countrySelect').value;
     const linkEl = document.getElementById('manualPdfLink');
