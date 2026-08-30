@@ -1898,36 +1898,32 @@ async function fetchMetarTaf() {
     metarDiv.textContent = `Fetching METAR for ${icao}...`;
     tafDiv.textContent = `Fetching TAF for ${icao}...`;
 
+    // Fetch METAR via proxy with safe error handling
     try {
-      const metarUrl = `https://aviationweather.gov/api/data/metar?ids=${icao}&format=json`;
-      const tafUrl = `https://aviationweather.gov/api/data/taf?ids=${icao}&format=json`;
-
-      const [metarRes, tafRes] = await Promise.all([
-        fetch(metarUrl, { headers: { 'Accept': 'application/json' } }),
-        fetch(tafUrl, { headers: { 'Accept': 'application/json' } })
-      ]);
-
-      let metarRaw = '';
-      if (metarRes.ok) {
-        const metarData = await metarRes.json();
-        if (Array.isArray(metarData) && metarData.length > 0) {
-          metarRaw = metarData[0].rawOb;
-        }
+      const proxyMetarUrl = `https://api.allorigins.win/raw?url=` + encodeURIComponent(`https://aviationweather.gov/api/data/metar?ids=${icao}&format=raw`);
+      const res = await fetch(proxyMetarUrl);
+      if (res.ok) {
+        const text = await res.text();
+        metarDiv.textContent = text.trim() ? text.trim() : `No active METAR report found for ${icao}.`;
+      } else {
+        metarDiv.textContent = `No METAR available for ${icao}.`;
       }
-
-      let tafRaw = '';
-      if (tafRes.ok) {
-        const tafData = await tafRes.json();
-        if (Array.isArray(tafData) && tafData.length > 0) {
-          tafRaw = tafData[0].rawOb;
-        }
-      }
-
-      metarDiv.textContent = metarRaw ? metarRaw : `No active METAR reported for ${icao}.`;
-      tafDiv.textContent = tafRaw ? tafRaw : `No active TAF reported for ${icao}.`;
     } catch (err) {
-      metarDiv.textContent = `Error fetching METAR data. Please check your network connection.`;
-      tafDiv.textContent = `Error fetching TAF data.`;
+      metarDiv.textContent = `No METAR data returned for ${icao}.`;
+    }
+
+    // Fetch TAF via proxy with safe error handling
+    try {
+      const proxyTafUrl = `https://api.allorigins.win/raw?url=` + encodeURIComponent(`https://aviationweather.gov/api/data/taf?ids=${icao}&format=raw`);
+      const res = await fetch(proxyTafUrl);
+      if (res.ok) {
+        const text = await res.text();
+        tafDiv.textContent = text.trim() ? text.trim() : `No active TAF report found for ${icao}.`;
+      } else {
+        tafDiv.textContent = `No TAF available for ${icao}.`;
+      }
+    } catch (err) {
+      tafDiv.textContent = `No TAF data returned for ${icao}.`;
     }
   }
 
