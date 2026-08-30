@@ -1885,7 +1885,7 @@
     document.getElementById('resPerfDegradation').textContent = '+' + perfDegradation.toFixed(1) + '%';
   }
 
-  async function fetchMetarTaf() {
+async function fetchMetarTaf() {
     let icao = document.getElementById('icaoInput').value.trim().toUpperCase();
     if (!icao || icao.length !== 4) {
       alert('Please enter a valid 4-letter ICAO code.');
@@ -1899,26 +1899,30 @@
     tafDiv.textContent = `Fetching TAF for ${icao}...`;
 
     try {
-      // Using allorigins proxy to completely bypass local CORS file:// block restrictions
-      const metarUrl = `https://api.allorigins.win/raw?url=` + encodeURIComponent(`https://aviationweather.gov/api/data/metar?ids=${icao}&format=raw`);
-      const tafUrl = `https://api.allorigins.win/raw?url=` + encodeURIComponent(`https://aviationweather.gov/api/data/taf?ids=${icao}&format=raw`);
+      // Query official JSON endpoints directly
+      const metarUrl = `https://aviationweather.gov/api/data/metar?ids=${icao}&format=json`;
+      const tafUrl = `https://aviationweather.gov/api/data/taf?ids=${icao}&format=json`;
 
       const [metarRes, tafRes] = await Promise.all([
         fetch(metarUrl),
         fetch(tafUrl)
       ]);
 
-      const metarText = await metarRes.text();
-      const tafText = await tafRes.text();
+      const metarData = await metarRes.json();
+      const tafData = await tafRes.json();
 
-      metarDiv.textContent = metarText.trim() ? metarText.trim() : `No METAR available for ${icao} or invalid ICAO code.`;
-      tafDiv.textContent = tafText.trim() ? tafText.trim() : `No TAF available for ${icao}.`;
+      // Extract raw text strings from the JSON response arrays
+      const metarRaw = (Array.isArray(metarData) && metarData.length > 0) ? metarData[0].rawOb : '';
+      const tafRaw = (Array.isArray(tafData) && tafData.length > 0) ? tafData[0].rawOb : '';
+
+      metarDiv.textContent = metarRaw ? metarRaw : `No METAR available for ${icao} or invalid ICAO code.`;
+      tafDiv.textContent = tafRaw ? tafRaw : `No TAF available for ${icao}.`;
     } catch (err) {
       metarDiv.textContent = `Error fetching METAR data. Please check your network connection.`;
       tafDiv.textContent = `Error fetching TAF data.`;
     }
   }
-
+  
   function switchFplMode(selectedTabId) {
     const contents = document.querySelectorAll('.fpl-tab-content');
     contents.forEach(c => c.classList.remove('active'));
