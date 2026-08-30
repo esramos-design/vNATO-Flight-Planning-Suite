@@ -1554,6 +1554,21 @@
 </div>
 
 <script>
+  // Simple Password Gate for Virtual NATO Pilots
+  function verifyPilotAccess() {
+    const correctPassword = "vNATO@2026";
+    const userPrompt = prompt("🔒 Restricted Access: Enter the Virtual NATO Pilot Passcode:");
+    
+    if (userPrompt !== correctPassword) {
+      alert("Access Denied. Incorrect passcode.");
+      document.body.innerHTML = "<h2 style='text-align:center; margin-top:20vh; color:#d9534f;'>Access Denied. Authorized Virtual NATO Personnel Only.</h2>";
+      throw new Error("Unauthorized access attempt.");
+    }
+  }
+  verifyPilotAccess();
+</script>
+  
+<script>
   function toggleHelp(id) {
     const el = document.getElementById(id);
     if (el) {
