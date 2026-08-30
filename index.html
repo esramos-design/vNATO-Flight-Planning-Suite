@@ -1898,32 +1898,23 @@ async function fetchMetarTaf() {
     metarDiv.textContent = `Fetching METAR for ${icao}...`;
     tafDiv.textContent = `Fetching TAF for ${icao}...`;
 
-    // 1. Fetch METAR independently
     try {
-      const metarRes = await fetch(`https://aviationweather.gov/api/data/metar?ids=${icao}&format=json`);
-      if (metarRes.ok) {
-        const metarData = await metarRes.json();
-        const metarRaw = (Array.isArray(metarData) && metarData.length > 0) ? metarData[0].rawOb : '';
-        metarDiv.textContent = metarRaw ? metarRaw : `No active METAR reported for ${icao}.`;
-      } else {
-        metarDiv.textContent = `No METAR available for ${icao} (Status: ${metarRes.status}).`;
-      }
-    } catch (err) {
-      metarDiv.textContent = `No METAR available for ${icao} or network request blocked.`;
-    }
+      const proxyMetarUrl = `https://api.allorigins.win/raw?url=` + encodeURIComponent(`https://aviationweather.gov/api/data/metar?ids=${icao}&format=raw`);
+      const proxyTafUrl = `https://api.allorigins.win/raw?url=` + encodeURIComponent(`https://aviationweather.gov/api/data/taf?ids=${icao}&format=raw`);
 
-    // 2. Fetch TAF independently
-    try {
-      const tafRes = await fetch(`https://aviationweather.gov/api/data/taf?ids=${icao}&format=json`);
-      if (tafRes.ok) {
-        const tafData = await tafRes.json();
-        const tafRaw = (Array.isArray(tafData) && tafData.length > 0) ? tafData[0].rawOb : '';
-        tafDiv.textContent = tafRaw ? tafRaw : `No active TAF reported for ${icao}.`;
-      } else {
-        tafDiv.textContent = `No TAF available for ${icao} (Status: ${tafRes.status}).`;
-      }
+      const [metarRes, tafRes] = await Promise.all([
+        fetch(proxyMetarUrl),
+        fetch(proxyTafUrl)
+      ]);
+
+      const metarText = await metarRes.text();
+      const tafText = await tafRes.text();
+
+      metarDiv.textContent = metarText.trim() ? metarText.trim() : `No active METAR reported for ${icao}.`;
+      tafDiv.textContent = tafText.trim() ? tafText.trim() : `No active TAF reported for ${icao}.`;
     } catch (err) {
-      tafDiv.textContent = `No TAF available for ${icao} or network request blocked.`;
+      metarDiv.textContent = `Error fetching METAR data. Please check your network connection.`;
+      tafDiv.textContent = `Error fetching TAF data.`;
     }
   }
   
