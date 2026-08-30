@@ -1890,7 +1890,7 @@
     document.getElementById('resPerfDegradation').textContent = '+' + perfDegradation.toFixed(1) + '%';
   }
 
-  async function fetchMetarTaf() {
+async function fetchMetarTaf() {
     let icao = document.getElementById('icaoInput').value.trim().toUpperCase();
     if (!icao || icao.length !== 4) {
       alert('Please enter a valid 4-letter ICAO code.');
@@ -1903,28 +1903,50 @@
     metarDiv.textContent = `Fetching METAR for ${icao}...`;
     tafDiv.textContent = `Fetching TAF for ${icao}...`;
 
-    try {
-      const proxyMetarUrl = `https://api.allorigins.win/raw?url=` + encodeURIComponent(`https://aviationweather.gov/api/data/metar?ids=${icao}&format=raw`);
-      const proxyTafUrl = `https://api.allorigins.win/raw?url=` + encodeURIComponent(`https://aviationweather.gov/api/data/taf?ids=${icao}&format=raw`);
+    const rawMetarUrl = `https://aviationweather.gov/api/data/metar?ids=${icao}&format=raw`;
+    const rawTafUrl = `https://aviationweather.gov/api/data/taf?ids=${icao}&format=raw`;
 
-      const [metarRes, tafRes] = await Promise.all([
-        fetch(proxyMetarUrl),
-        fetch(proxyTafUrl)
-      ]);
+    // Helper fetch with proxy fallback
+    async function fetchWithFallback(targetUrl) {
+      const proxies = [
+        `https://api.allorigins.win/raw?url=${encodeURIComponent(targetUrl)}`,
+        `https://corsproxy.io/?${encodeURIComponent(targetUrl)}`
+      ];
 
-      const metarText = metarRes.ok ? await metarRes.text() : '';
-      const tafText = tafRes.ok ? await tafRes.text() : '';
-
-      metarDiv.textContent = metarText.trim() ? metarText.trim() : `No active METAR report found for ${icao}.`;
-      tafDiv.textContent = tafText.trim() ? tafText.trim() : `No active TAF report found for ${icao}.`;
-      
-      decodeWeatherString(metarText, tafText);
-    } catch (err) {
-      metarDiv.textContent = `Error fetching METAR data. Please check your network connection.`;
-      tafDiv.textContent = `Error fetching TAF data.`;
+      for (let proxyUrl of proxies) {
+        try {
+          const res = await fetch(proxyUrl);
+          if (res.ok) {
+            const text = await res.text();
+            if (text) return text.trim();
+          }
+        } catch (e) {
+          // Try next proxy
+        }
+      }
+      return '';
     }
+
+    // Execute independent fetches
+    fetchWithFallback(rawMetarUrl).then(text => {
+      metarDiv.textContent = text ? text : `No active METAR report found for ${icao}.`;
+      updateDecoderState();
+    });
+
+    fetchWithFallback(rawTafUrl).then(text => {
+      tafDiv.textContent = text ? text : `No active TAF report found for ${icao}.`;
+      updateDecoderState();
+    });
   }
 
+  function updateDecoderState() {
+    const metarText = document.getElementById('metarOutput').textContent;
+    const tafText = document.getElementById('tafOutput').textContent;
+    if (!metarText.includes("Fetching") && !tafText.includes("Fetching")) {
+      decodeWeatherString(metarText, tafText);
+    }
+  }
+  
   function decodeWeatherString(rawMetar, rawTaf) {
     let output = [];
     
