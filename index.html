@@ -1898,28 +1898,32 @@ async function fetchMetarTaf() {
     metarDiv.textContent = `Fetching METAR for ${icao}...`;
     tafDiv.textContent = `Fetching TAF for ${icao}...`;
 
+    // 1. Fetch METAR independently
     try {
-      // Query official JSON endpoints directly
-      const metarUrl = `https://aviationweather.gov/api/data/metar?ids=${icao}&format=json`;
-      const tafUrl = `https://aviationweather.gov/api/data/taf?ids=${icao}&format=json`;
-
-      const [metarRes, tafRes] = await Promise.all([
-        fetch(metarUrl),
-        fetch(tafUrl)
-      ]);
-
-      const metarData = await metarRes.json();
-      const tafData = await tafRes.json();
-
-      // Extract raw text strings from the JSON response arrays
-      const metarRaw = (Array.isArray(metarData) && metarData.length > 0) ? metarData[0].rawOb : '';
-      const tafRaw = (Array.isArray(tafData) && tafData.length > 0) ? tafData[0].rawOb : '';
-
-      metarDiv.textContent = metarRaw ? metarRaw : `No METAR available for ${icao} or invalid ICAO code.`;
-      tafDiv.textContent = tafRaw ? tafRaw : `No TAF available for ${icao}.`;
+      const metarRes = await fetch(`https://aviationweather.gov/api/data/metar?ids=${icao}&format=json`);
+      if (metarRes.ok) {
+        const metarData = await metarRes.json();
+        const metarRaw = (Array.isArray(metarData) && metarData.length > 0) ? metarData[0].rawOb : '';
+        metarDiv.textContent = metarRaw ? metarRaw : `No active METAR reported for ${icao}.`;
+      } else {
+        metarDiv.textContent = `No METAR available for ${icao} (Status: ${metarRes.status}).`;
+      }
     } catch (err) {
-      metarDiv.textContent = `Error fetching METAR data. Please check your network connection.`;
-      tafDiv.textContent = `Error fetching TAF data.`;
+      metarDiv.textContent = `No METAR available for ${icao} or network request blocked.`;
+    }
+
+    // 2. Fetch TAF independently
+    try {
+      const tafRes = await fetch(`https://aviationweather.gov/api/data/taf?ids=${icao}&format=json`);
+      if (tafRes.ok) {
+        const tafData = await tafRes.json();
+        const tafRaw = (Array.isArray(tafData) && tafData.length > 0) ? tafData[0].rawOb : '';
+        tafDiv.textContent = tafRaw ? tafRaw : `No active TAF reported for ${icao}.`;
+      } else {
+        tafDiv.textContent = `No TAF available for ${icao} (Status: ${tafRes.status}).`;
+      }
+    } catch (err) {
+      tafDiv.textContent = `No TAF available for ${icao} or network request blocked.`;
     }
   }
   
