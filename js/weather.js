@@ -1,13 +1,21 @@
 // CheckWX API Configuration
-const CHECKWX_API_KEY = "d6bfc15fbcb744b98d259eb2f20495d6";
+const CHECKWX_API_KEY = "YOUR_CHECKWX_API_KEY_HERE";
 
 async function fetchMetarTaf() {
   const icaoInput = document.getElementById('icaoInput');
   if (!icaoInput) return;
 
+  const metarDiv = document.getElementById('metarOutput');
+  const tafDiv = document.getElementById('tafOutput');
+  const decoderDiv = document.getElementById('decoderOutput');
+
   const rawInput = icaoInput.value.trim().toUpperCase();
+  
+  // Validation: Inline error instead of alert popup
   if (!rawInput) {
-    alert('Please enter at least one valid 4-letter ICAO code.');
+    if (metarDiv) metarDiv.innerHTML = '<span style="color:#ef4444; font-weight:bold;">Please enter one or more ICAO codes separated by commas (e.g. LFBO, EGLL, EDBB).</span>';
+    if (tafDiv) tafDiv.textContent = 'Awaiting ICAO input...';
+    if (decoderDiv) decoderDiv.textContent = 'Awaiting ICAO input...';
     return;
   }
 
@@ -17,15 +25,13 @@ async function fetchMetarTaf() {
                             .filter(code => code.length === 4);
 
   if (icaoArray.length === 0) {
-    alert('Please enter valid 4-letter ICAO codes (e.g., LFBO, EGLL, EDBB).');
+    if (metarDiv) metarDiv.innerHTML = '<span style="color:#ef4444; font-weight:bold;">Invalid format: Please enter valid 4-letter ICAO codes (e.g. LFBO, EGLL, EDBB).</span>';
+    if (tafDiv) tafDiv.textContent = 'Invalid ICAO code(s).';
+    if (decoderDiv) decoderDiv.textContent = 'Invalid ICAO code(s).';
     return;
   }
 
   const icaoQuery = icaoArray.join(',');
-
-  const metarDiv = document.getElementById('metarOutput');
-  const tafDiv = document.getElementById('tafOutput');
-  const decoderDiv = document.getElementById('decoderOutput');
 
   if (metarDiv) metarDiv.textContent = `Fetching live METAR for ${icaoQuery}...`;
   if (tafDiv) tafDiv.textContent = `Fetching live TAF for ${icaoQuery}...`;
@@ -75,7 +81,7 @@ async function fetchMetarTaf() {
         if (decoderDiv) decoderDiv.textContent = 'No decoder data available.';
       }
     } else if (metarRes.status === 401) {
-      if (metarDiv) metarDiv.textContent = `CheckWX API Key Error: Please verify your API key in weather.js.`;
+      if (metarDiv) metarDiv.textContent = `CheckWX API Key Error: Please verify your API key in js/weather.js.`;
     } else if (metarRes.status === 429) {
       if (metarDiv) metarDiv.textContent = `Rate limit exceeded: Daily CheckWX request quota reached.`;
     } else {
