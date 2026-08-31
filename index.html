@@ -40,159 +40,158 @@
       </select>
     </div>
 
-    <!-- SHARED FLIGHT & ROUTE PARAMETERS -->
-    <div class="fpl-section">
-      <div class="label-with-help">
-        <label>Date of Flight (DOF - YYMMDD)</label>
-        <span class="help-icon" onclick="toggleHelp('helpDof')">?</span>
-      </div>
-      <div id="helpDof" class="help-text-box">Flight departure date formatted in standard 6-digit YYMMDD format.</div>
-      <input type="text" id="dof" value="260826">
-    </div>
-
-    <div class="fpl-section">
-      <div class="label-with-help">
-        <label>Flight Rules</label>
-        <span class="help-icon" onclick="toggleHelp('helpRules')">?</span>
-      </div>
-      <div id="helpRules" class="help-text-box">I (IFR), V (VFR), T (OAT Tactical), Y (IFR then VFR), Z (VFR then IFR).</div>
-      <select id="rules">
-        <option value="I">I - IFR</option>
-        <option value="V">V - VFR</option>
-        <option value="T">T - OAT Tactical</option>
-        <option value="Y">Y - IFR then VFR</option>
-        <option value="Z">Z - VFR then IFR</option>
-      </select>
-      
-      <div class="label-with-help">
-        <label>Type of Flight</label>
-        <span class="help-icon" onclick="toggleHelp('helpTypeOfFlight')">?</span>
-      </div>
-      <div id="helpTypeOfFlight" class="help-text-box">Indicates the general category of operations. M = Military, S = Scheduled, N = Non-scheduled, G = General Aviation, X = Special.</div>
-      <select id="type">
-        <option value="M">M - Military</option>
-        <option value="S">S - Scheduled</option>
-        <option value="N">N - Non-scheduled</option>
-        <option value="G">G - General Aviation</option>
-        <option value="X">X - Special</option>
-      </select>
-    </div>
-
-    <div class="fpl-section">
-      <div class="label-with-help">
-        <label>Speed Unit & Value</label>
-        <span class="help-icon" onclick="toggleHelp('helpSpd')">?</span>
-      </div>
-      <div id="helpSpd" class="help-text-box">Cruising speed unit and numerical speed value.</div>
-      <div style="display:flex; gap:6px;">
-        <select id="spdUnit" style="width:35%;">
-          <option value="N">N - Knots (e.g. N0450)</option>
-          <option value="M">M - Mach (e.g. M080)</option>
-          <option value="K">K - Km/h (e.g. K0850)</option>
-        </select>
-        <input type="text" id="spdVal" value="0450" style="width:65%;">
-      </div>
-
-      <div class="label-with-help">
-        <label>Altitude Unit & Value</label>
-        <span class="help-icon" onclick="toggleHelp('helpAlt')">?</span>
-      </div>
-      <div id="helpAlt" class="help-text-box">Cruising altitude unit and value.</div>
-      <div style="display:flex; gap:6px;">
-        <select id="altUnit" style="width:35%;">
-          <option value="F">F - Flight Level (e.g. F245)</option>
-          <option value="A">A - Altitude 100s ft (e.g. A045)</option>
-          <option value="S">S - Metric tens of meters (e.g. S1130)</option>
-        </select>
-        <input type="text" id="altVal" value="245" style="width:65%;">
-      </div>
-    </div>
-
-    <div class="fpl-section">
-      <div class="label-with-help">
-        <label>Route Type</label>
-        <span class="help-icon" onclick="toggleHelp('helpRouteType')">?</span>
-      </div>
-      <div id="helpRouteType" class="help-text-box">Defines standard OAT routing templates, air-refueling orbits, or mixed GAT/OAT profile types.</div>
-      <select id="routeType">
-        <option>OAT_IFR_DIRECT</option>
-        <option>OAT_VFR_GEOREF</option>
-        <option>OAT_TACTICAL_RTBA</option>
-        <option>AAR_AEW_ORBIT</option>
-        <option>TSA_TRA_AREA_WORK</option>
-        <option>MIXED_GAT_OAT</option>
-        <option>MIXED_OAT_GAT</option>
-      </select>
-
-      <div class="label-with-help">
-        <label>GAT to OAT Transfer Point</label>
-        <span class="help-icon" onclick="toggleHelp('helpGatOat')">?</span>
-      </div>
-      <div id="helpGatOat" class="help-text-box">Fix and conditional format where flight transitions from General Air Traffic to Operational Air Traffic.</div>
-      <input type="text" id="gatToOat" value="" placeholder="e.g. SOTAK/OAT I M080F235">
-
-      <div class="label-with-help">
-        <label>OAT to GAT Transfer Point</label>
-        <span class="help-icon" onclick="toggleHelp('helpOatGat')">?</span>
-      </div>
-      <div id="helpOatGat" class="help-text-box">Fix where flight transitions back from OAT to GAT reporting standards.</div>
-      <input type="text" id="oatToGat" value="" placeholder="e.g. SURUD/GAT N350F115">
-
-      <div class="label-with-help">
-        <label>VFR Transfer Point</label>
-        <span class="help-icon" onclick="toggleHelp('helpVfrTrans')">?</span>
-      </div>
-      <div id="helpVfrTrans" class="help-text-box">Reporting fix where flight switches into VFR operational segments.</div>
-      <input type="text" id="vfrTrans" value="" placeholder="e.g. LMG/N0240A010 VFR">
-
-      <div class="label-with-help">
-        <label>Route Details / Fixes</label>
-        <span class="help-icon" onclick="toggleHelp('helpRouteFixes')">?</span>
-      </div>
-      <div id="helpRouteFixes" class="help-text-box">Chronological waypoints, radar corridors, and direct routing segments separated by single spaces.</div>
-      <input type="text" id="route" value="DCT CHP01 DCT MAR01 DCT MAR02 DCT MAR04">
-    </div>
-
-    <div class="fpl-section">
-      <div class="label-with-help">
-        <label>STAY 1 Segment & Duration</label>
-        <span class="help-icon" onclick="toggleHelp('helpStay1')">?</span>
-      </div>
-      <div id="helpStay1" class="help-text-box">Working area or low-flying delay segment 1 with associated duration in HHMM.</div>
-      <div style="display:flex; gap:6px;">
-        <select id="staySeg1" style="width:40%;">
-          <option selected>STAY1</option><option>NONE</option>
-        </select>
-        <input type="text" id="stayDur1" value="0045" style="width:60%;" placeholder="Duration (HHMM)">
-      </div>
-
-      <div class="label-with-help">
-        <label>STAY 2 Segment & Duration</label>
-        <span class="help-icon" onclick="toggleHelp('helpStay2')">?</span>
-      </div>
-      <div id="helpStay2" class="help-text-box">Optional working area or delay segment 2 with duration in HHMM.</div>
-      <div style="display:flex; gap:6px;">
-        <select id="staySeg2" style="width:40%;">
-          <option>NONE</option><option>STAY2</option>
-        </select>
-        <input type="text" id="stayDur2" value="" style="width:60%;" placeholder="Duration (HHMM)">
-      </div>
-
-      <div class="label-with-help">
-        <label>STAY 3 Segment & Duration</label>
-        <span class="help-icon" onclick="toggleHelp('helpStay3')">?</span>
-      </div>
-      <div id="helpStay3" class="help-text-box">Optional working area or delay segment 3 with duration in HHMM.</div>
-      <div style="display:flex; gap:6px;">
-        <select id="staySeg3" style="width:40%;">
-          <option>NONE</option><option>STAY3</option>
-        </select>
-        <input type="text" id="stayDur3" value="" style="width:60%;" placeholder="Duration (HHMM)">
-      </div>
-    </div>
-
-    <!-- MODE 1: SWIFT ROUTE GENERATOR TAB -->
+    <!-- MODE 1: SWIFT ROUTE GENERATOR -->
     <div id="routeTab" class="fpl-tab-content active">
+      <div class="fpl-section">
+        <div class="label-with-help">
+          <label>Date of Flight (DOF - YYMMDD)</label>
+          <span class="help-icon" onclick="toggleHelp('helpDof')">?</span>
+        </div>
+        <div id="helpDof" class="help-text-box">Flight departure date formatted in standard 6-digit YYMMDD format.</div>
+        <input type="text" id="dof" value="260826">
+      </div>
+
+      <div class="fpl-section">
+        <div class="label-with-help">
+          <label>Flight Rules</label>
+          <span class="help-icon" onclick="toggleHelp('helpRules')">?</span>
+        </div>
+        <div id="helpRules" class="help-text-box">I (IFR), V (VFR), T (OAT Tactical), Y (IFR then VFR), Z (VFR then IFR).</div>
+        <select id="rules">
+          <option value="I">I - IFR</option>
+          <option value="V">V - VFR</option>
+          <option value="T">T - OAT Tactical</option>
+          <option value="Y">Y - IFR then VFR</option>
+          <option value="Z">Z - VFR then IFR</option>
+        </select>
+        
+        <div class="label-with-help">
+          <label>Type of Flight</label>
+          <span class="help-icon" onclick="toggleHelp('helpTypeOfFlight')">?</span>
+        </div>
+        <div id="helpTypeOfFlight" class="help-text-box">Indicates the general category of operations. M = Military, S = Scheduled, N = Non-scheduled, G = General Aviation, X = Special.</div>
+        <select id="type">
+          <option value="M">M - Military</option>
+          <option value="S">S - Scheduled</option>
+          <option value="N">N - Non-scheduled</option>
+          <option value="G">G - General Aviation</option>
+          <option value="X">X - Special</option>
+        </select>
+      </div>
+
+      <div class="fpl-section">
+        <div class="label-with-help">
+          <label>Speed Unit & Value</label>
+          <span class="help-icon" onclick="toggleHelp('helpSpd')">?</span>
+        </div>
+        <div id="helpSpd" class="help-text-box">Cruising speed unit and numerical speed value.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="spdUnit" style="width:35%;">
+            <option value="N">N - Knots (e.g. N0450)</option>
+            <option value="M">M - Mach (e.g. M080)</option>
+            <option value="K">K - Km/h (e.g. K0850)</option>
+          </select>
+          <input type="text" id="spdVal" value="0450" style="width:65%;">
+        </div>
+
+        <div class="label-with-help">
+          <label>Altitude Unit & Value</label>
+          <span class="help-icon" onclick="toggleHelp('helpAlt')">?</span>
+        </div>
+        <div id="helpAlt" class="help-text-box">Cruising altitude unit and value.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="altUnit" style="width:35%;">
+            <option value="F">F - Flight Level (e.g. F245)</option>
+            <option value="A">A - Altitude 100s ft (e.g. A045)</option>
+            <option value="S">S - Metric tens of meters (e.g. S1130)</option>
+          </select>
+          <input type="text" id="altVal" value="245" style="width:65%;">
+        </div>
+      </div>
+
+      <div class="fpl-section">
+        <div class="label-with-help">
+          <label>Route Type</label>
+          <span class="help-icon" onclick="toggleHelp('helpRouteType')">?</span>
+        </div>
+        <div id="helpRouteType" class="help-text-box">Defines standard OAT routing templates, air-refueling orbits, or mixed GAT/OAT profile types.</div>
+        <select id="routeType">
+          <option>OAT_IFR_DIRECT</option>
+          <option>OAT_VFR_GEOREF</option>
+          <option>OAT_TACTICAL_RTBA</option>
+          <option>AAR_AEW_ORBIT</option>
+          <option>TSA_TRA_AREA_WORK</option>
+          <option>MIXED_GAT_OAT</option>
+          <option>MIXED_OAT_GAT</option>
+        </select>
+
+        <div class="label-with-help">
+          <label>GAT to OAT Transfer Point</label>
+          <span class="help-icon" onclick="toggleHelp('helpGatOat')">?</span>
+        </div>
+        <div id="helpGatOat" class="help-text-box">Fix and conditional format where flight transitions from General Air Traffic to Operational Air Traffic.</div>
+        <input type="text" id="gatToOat" value="" placeholder="e.g. SOTAK/OAT I M080F235">
+
+        <div class="label-with-help">
+          <label>OAT to GAT Transfer Point</label>
+          <span class="help-icon" onclick="toggleHelp('helpOatGat')">?</span>
+        </div>
+        <div id="helpOatGat" class="help-text-box">Fix where flight transitions back from OAT to GAT reporting standards.</div>
+        <input type="text" id="oatToGat" value="" placeholder="e.g. SURUD/GAT N350F115">
+
+        <div class="label-with-help">
+          <label>VFR Transfer Point</label>
+          <span class="help-icon" onclick="toggleHelp('helpVfrTrans')">?</span>
+        </div>
+        <div id="helpVfrTrans" class="help-text-box">Reporting fix where flight switches into VFR operational segments.</div>
+        <input type="text" id="vfrTrans" value="" placeholder="e.g. LMG/N0240A010 VFR">
+
+        <div class="label-with-help">
+          <label>Route Details / Fixes</label>
+          <span class="help-icon" onclick="toggleHelp('helpRouteFixes')">?</span>
+        </div>
+        <div id="helpRouteFixes" class="help-text-box">Chronological waypoints, radar corridors, and direct routing segments separated by single spaces.</div>
+        <input type="text" id="route" value="DCT CHP01 DCT MAR01 DCT MAR02 DCT MAR04">
+      </div>
+
+      <div class="fpl-section">
+        <div class="label-with-help">
+          <label>STAY 1 Segment & Duration</label>
+          <span class="help-icon" onclick="toggleHelp('helpStay1')">?</span>
+        </div>
+        <div id="helpStay1" class="help-text-box">Working area or low-flying delay segment 1 with associated duration in HHMM.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="staySeg1" style="width:40%;">
+            <option selected>STAY1</option><option>NONE</option>
+          </select>
+          <input type="text" id="stayDur1" value="0045" style="width:60%;" placeholder="Duration (HHMM)">
+        </div>
+
+        <div class="label-with-help">
+          <label>STAY 2 Segment & Duration</label>
+          <span class="help-icon" onclick="toggleHelp('helpStay2')">?</span>
+        </div>
+        <div id="helpStay2" class="help-text-box">Optional working area or delay segment 2 with duration in HHMM.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="staySeg2" style="width:40%;">
+            <option>NONE</option><option>STAY2</option>
+          </select>
+          <input type="text" id="stayDur2" value="" style="width:60%;" placeholder="Duration (HHMM)">
+        </div>
+
+        <div class="label-with-help">
+          <label>STAY 3 Segment & Duration</label>
+          <span class="help-icon" onclick="toggleHelp('helpStay3')">?</span>
+        </div>
+        <div id="helpStay3" class="help-text-box">Optional working area or delay segment 3 with duration in HHMM.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="staySeg3" style="width:40%;">
+            <option>NONE</option><option>STAY3</option>
+          </select>
+          <input type="text" id="stayDur3" value="" style="width:60%;" placeholder="Duration (HHMM)">
+        </div>
+      </div>
+
       <button class="fpl-gen-btn" onclick="generateRouteString()">Generate Route String</button>
       <div class="fpl-textarea-container">
         <button class="fpl-copy-btn" onclick="copyToClipboard('routeOutput')">Copy</button>
@@ -200,7 +199,7 @@
       </div>
     </div>
 
-    <!-- MODE 2: SWIFT REMARKS GENERATOR TAB -->
+    <!-- MODE 2: SWIFT REMARKS GENERATOR -->
     <div id="remarksTab" class="fpl-tab-content">
       <div class="fpl-section">
         <div class="label-with-help">
@@ -445,7 +444,7 @@
       </div>
     </div>
 
-    <!-- MODE 3: VATSIM ICAO FPL STRING TAB -->
+    <!-- MODE 3: VATSIM ICAO FPL STRING -->
     <div id="icaoTab" class="fpl-tab-content">
       <div class="fpl-section">
         <div class="label-with-help">
@@ -473,6 +472,34 @@
           <option value="G">G - General Aviation</option>
           <option value="X">X - Special</option>
         </select>
+
+        <div class="label-with-help">
+          <label>Speed Unit & Value (Cruising Speed)</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoSpd')">?</span>
+        </div>
+        <div id="helpIcaoSpd" class="help-text-box">Cruising speed unit and numerical value format.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="icaoSpdUnit" style="width:35%;">
+            <option value="N" selected>N - Knots (e.g. N0450)</option>
+            <option value="M">M - Mach (e.g. M080)</option>
+            <option value="K">K - Km/h (e.g. K0850)</option>
+          </select>
+          <input type="text" id="icaoSpdVal" value="0450" style="width:65%;">
+        </div>
+
+        <div class="label-with-help">
+          <label>Altitude Unit & Value (Cruising Level)</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoAlt')">?</span>
+        </div>
+        <div id="helpIcaoAlt" class="help-text-box">Altitude unit and numerical value format.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="icaoAltUnit" style="width:35%;">
+            <option value="F" selected>F - Flight Level (e.g. F245)</option>
+            <option value="A">A - Altitude 100s ft (e.g. A045)</option>
+            <option value="S">S - Metric tens of meters (e.g. S1130)</option>
+          </select>
+          <input type="text" id="icaoAltVal" value="245" style="width:65%;">
+        </div>
 
         <div class="label-with-help">
           <label>Callsign</label>
@@ -514,6 +541,75 @@
         </div>
         <div id="helpIcaoAltOpt" class="help-text-box">Alternate destination aerodrome ICAO code if required.</div>
         <input type="text" id="fplAlt" value="LFML">
+      </div>
+
+      <!-- ROUTE BUILDER FIELDS EMBEDDED IN ICAO TAB -->
+      <div class="fpl-section">
+        <label style="color:#1a73e8; font-size:13px; border-bottom:1px solid #1a73e8; padding-bottom:3px; margin-bottom:6px;">Route Configuration</label>
+
+        <div class="label-with-help">
+          <label>GAT to OAT Transfer Point</label>
+          <span class="help-icon" onclick="toggleHelp('helpGatOat2')">?</span>
+        </div>
+        <div id="helpGatOat2" class="help-text-box">Fix and conditional format where flight transitions from General Air Traffic to Operational Air Traffic.</div>
+        <input type="text" id="icaoGatToOat" value="" placeholder="e.g. SOTAK/OAT I M080F235">
+
+        <div class="label-with-help">
+          <label>OAT to GAT Transfer Point</label>
+          <span class="help-icon" onclick="toggleHelp('helpOatGat2')">?</span>
+        </div>
+        <div id="helpOatGat2" class="help-text-box">Fix where flight transitions back from OAT to GAT reporting standards.</div>
+        <input type="text" id="icaoOatToGat" value="" placeholder="e.g. SURUD/GAT N350F115">
+
+        <div class="label-with-help">
+          <label>VFR Transfer Point</label>
+          <span class="help-icon" onclick="toggleHelp('helpVfrTrans2')">?</span>
+        </div>
+        <div id="helpVfrTrans2" class="help-text-box">Reporting fix where flight switches into VFR operational segments.</div>
+        <input type="text" id="icaoVfrTrans" value="" placeholder="e.g. LMG/N0240A010 VFR">
+
+        <div class="label-with-help">
+          <label>Route Details / Fixes</label>
+          <span class="help-icon" onclick="toggleHelp('helpRouteFixes2')">?</span>
+        </div>
+        <div id="helpRouteFixes2" class="help-text-box">Chronological waypoints, radar corridors, and direct routing segments separated by single spaces.</div>
+        <input type="text" id="icaoRoute" value="DCT CHP01 DCT MAR01 DCT MAR02 DCT MAR04">
+
+        <div class="label-with-help">
+          <label>STAY 1 Segment & Duration</label>
+          <span class="help-icon" onclick="toggleHelp('helpStay1_2')">?</span>
+        </div>
+        <div id="helpStay1_2" class="help-text-box">Working area or low-flying delay segment 1 with associated duration in HHMM.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="icaoStaySeg1" style="width:40%;">
+            <option selected>STAY1</option><option>NONE</option>
+          </select>
+          <input type="text" id="icaoStayDur1" value="0045" style="width:60%;" placeholder="Duration (HHMM)">
+        </div>
+
+        <div class="label-with-help">
+          <label>STAY 2 Segment & Duration</label>
+          <span class="help-icon" onclick="toggleHelp('helpStay2_2')">?</span>
+        </div>
+        <div id="helpStay2_2" class="help-text-box">Optional working area or delay segment 2 with duration in HHMM.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="icaoStaySeg2" style="width:40%;">
+            <option>NONE</option><option>STAY2</option>
+          </select>
+          <input type="text" id="icaoStayDur2" value="" style="width:60%;" placeholder="Duration (HHMM)">
+        </div>
+
+        <div class="label-with-help">
+          <label>STAY 3 Segment & Duration</label>
+          <span class="help-icon" onclick="toggleHelp('helpStay3_2')">?</span>
+        </div>
+        <div id="helpStay3_2" class="help-text-box">Optional working area or delay segment 3 with duration in HHMM.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="icaoStaySeg3" style="width:40%;">
+            <option>NONE</option><option>STAY3</option>
+          </select>
+          <input type="text" id="icaoStayDur3" value="" style="width:60%;" placeholder="Duration (HHMM)">
+        </div>
       </div>
 
       <!-- Item 18 / Remarks Configuration inside VATSIM ICAO FPL Mode -->
@@ -673,7 +769,7 @@
 
         <div class="label-with-help">
           <label>OPR / Operator</label>
-          <span class="help-icon" onclick="toggleHelp('helpIcaoOpr')">?</span>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoOrgn')">?</span>
         </div>
         <div id="helpIcaoOpr" class="help-text-box">Operator designator or military unit identifier (e.g., FAF).</div>
         <input type="text" id="icaoOpr" value="FAF">
@@ -715,6 +811,7 @@
       <a href="https://my.vatsim.net/pilots/flightplan" target="_blank" class="fpl-gen-btn" style="display:block; text-align:center; text-decoration:none; background:#34a853; margin-top:8px;">Open my.vatsim.net to Import ICAO FPL</a>
     </div>
 
+  
     <!-- WIDGET FOOTER METADATA -->
     <div class="widget-meta">
       <b>Virtual NATO Flight Planning Suite</b><br>
@@ -1024,11 +1121,51 @@
         <li><b>Step 2:</b> Click <b>Generate VATSIM ICAO String</b>, then click <b>Copy</b>.</li>
         <li><b>Step 3:</b> Click <b>Open my.vatsim.net to Import ICAO FPL</b>, paste your string, and click <b>Parse / Import</b>.</li>
       </ul>
+
+      <h2>4. Operational Flight Scenarios</h2>
+      <h3>OAT IFR — Ferry / Liaison Flight & Radar Corridors</h3>
+      <p>Select applicable Radar Corridors and include the full corridor name where required (e.g., <code>LICHFIELD RC</code>, <code>DAVENTRY RC</code>).<br>
+      Route Example: <code>CGY LICHFIELD RC LFA7 STAY1/0015 DCT CGY</code></p>
+
+      <h3>OAT VFR — Low-Level Navigation & Low-Flying Areas (LFA)</h3>
+      <p>Specify the LFA and delay in remarks as outlined in national supplements.<br>
+      Route Example: <code>CGY/MID07S LICHFIELD RC LFA7 STAY1/0020 DCT LCH RC DCT CGY</code><br>
+      Remarks Example: <code>STAYINFO1/LFA7 LOWAT DELAY 0020</code></p>
+
+      <h3>Air Refueling (AAR) & Danger Areas</h3>
+      <p>Route Example: <code>BZN DCT DAVENTRY RC DCT AARA8 STAY1/0030 DCT DAVENTRY RC DCT BZN</code><br>
+      Remarks Example: <code>STAYINFO1/AARAS AAR MARSA/NATO11/ DELAY 0030 1200 TO 1230</code></p>
+
+      <h2>5. Detailed Parameter Glossary</h2>
+      <h3>Route Generator Parameters</h3>
+      <ul>
+        <li><b>DOF:</b> Flight departure date in <code>YYMMDD</code> format.</li>
+        <li><b>Flight Rules:</b> <code>I</code> (IFR), <code>V</code> (VFR), <code>T</code> (OAT Tactical), <code>Y</code> (IFR then VFR), <code>Z</code> (VFR to IFR).</li>
+        <li><b>Speed & Altitude Units:</b> Knots/Mach/Kmh (<code>N</code>, <code>M</code>, <code>K</code>) and Flight Level/Altitude/Metric (<code>F</code>, <code>A</code>, <code>S</code>).</li>
+        <li><b>STAY Segments:</b> <code>STAY1</code>, <code>STAY2</code>, <code>STAY3</code> with duration in <code>HHMM</code>.</li>
+      </ul>
+
+      <h3>Remarks Generator Parameters</h3>
+      <ul>
+        <li><b>Type of Flight:</b> Indicates the general category of operations being conducted. Common military and operational codes include <code>M</code> (Military), <code>S</code> (Scheduled air transport), <code>N</code> (Non-scheduled air transport), <code>G</code> (General aviation), and <code>X</code> (Other / Special operations).</li>
+        <li><b>Wake Turbulence Category:</b> Denotes the aircraft's wake turbulence generation classification based on its maximum certificated takeoff mass. Standard ICAO codes include <code>J</code> (Super - for A380), <code>H</code> (Heavy - 136 kg or more), <code>M</code> (Medium - between 7 kg and 136 kg), and <code>L</code> (Light - 7 kg or less).</li>
+        <li><b>Equipment & Transponder:</b> Field 10a (e.g., <code>SDE3G</code>) and Field 10b surveillance codes covering full capabilities from <code>N</code> (No transponder), <code>A</code>, <code>C</code>, <code>E</code>, <code>H</code>, <code>I</code>, <code>L</code>, <code>P</code>, <code>S</code>, to <code>X</code>.</li>
+        <li><b>PBN / Performance Based Navigation:</b> Multi-selected RNAV/RNP capabilities concatenated without spaces (e.g., <code>S1B1</code>).</li>
+        <li><b>STS / Special Handling:</b> Identifiers such as <code>STATE</code>, <code>NONRVSM</code>, <code>MARSA</code>, <code>SAR</code>, <code>MEDEVAC</code>, <code>FLTCK</code>, <code>HAZMAT</code>, `HEAD`, and `HUM`.</li>
+        <li><b>SEL / SELCAL:</b> Selective calling radio system code.</li>
+        <li><b>SUR / Surveillance:</b> Surveillance capabilities and transponder data link codes.</li>
+        <li><b>PER / Performance:</b> Aircraft performance data, PBN capabilities, or RNP compliance indicators.</li>
+        <li><b>ORGN / Origin:</b> Originator address or dispatch identifier for the filed flight plan.</li>
+        <li><b>COM / Comms:</b> Communication radio capabilities and frequencies.</li>
+        <li><b>REG/ & OPR/:</b> Aircraft registration and operator identification (e.g., <code>29 SQN ROYAL AIR FORCE</code>, <code>GAF</code>, <code>FAF</code>).</li>
+        <li><b>FUEL / EET / STAYINFO:</b> Fuel endurance (e.g., <code>FUEL0200</code>), estimated elapsed times, and specific area working notes.</li>
+        <li><b>RMK/ & VSO Tag:</b> Regulatory tags like <code>RMK/OAT FERRY</code>, <code>VIRTUALNATO.ORG</code>, plus optional <code>VSO TRAINEE</code> student tag. For France, OAT appears at the beginning of remarks.</li>
+      </ul>
     </div>
   </div>
 </div>
 
-<!-- MODULAR SCRIPTS -->
+<!-- LINK TO MODULAR SCRIPTS -->
 <script src="js/core.js"></script>
 <script src="js/generators.js"></script>
 <script src="js/weather.js"></script>
