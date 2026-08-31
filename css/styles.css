@@ -1,4 +1,4 @@
-/* --- LAYER 3: DISABLE MOUSE HIGHLIGHTING & TEXT SELECTION --- */
+/* --- DISABLE MOUSE HIGHLIGHTING & TEXT SELECTION --- */
 * { box-sizing: border-box; }
 body {
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
