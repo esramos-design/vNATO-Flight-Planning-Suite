@@ -107,9 +107,28 @@ function generateRemarksString() {
 
 function generateIcaoFplString() {
   const country = document.getElementById('countrySelect').value;
-  const rulesType = document.getElementById('icaoRules').value + document.getElementById('icaoType').value;
   
-  const spdAltHeader = document.getElementById('icaoSpdUnit').value + document.getElementById('icaoSpdVal').value + document.getElementById('icaoAltUnit').value + document.getElementById('icaoAltVal').value;
+  // Flight Rules: Send single character rule (I, V, Y, Z)
+  const flightRules = document.getElementById('icaoRules').value;
+  
+  // Speed & Alt handling
+  let spdUnit = document.getElementById('icaoSpdUnit').value;
+  let spdVal = document.getElementById('icaoSpdVal').value.trim();
+  const altUnit = document.getElementById('icaoAltUnit').value;
+  const altVal = document.getElementById('icaoAltVal').value.trim();
+
+  // If Mach (M) is selected, fallback to Knots equivalent format (N) for VATSIM web parser compatibility
+  if (spdUnit === 'M') {
+    let machNum = parseFloat(spdVal) || 75;
+    if (machNum < 10) machNum *= 100; // Handle 0.75 vs 75
+    let knotsEst = Math.round(machNum * 5.75); // Approx TAS conversion at altitude
+    spdUnit = 'N';
+    spdVal = String(knotsEst).padStart(4, '0');
+  } else {
+    spdVal = String(spdVal).padStart(4, '0');
+  }
+
+  const spdAltHeader = spdUnit + spdVal + altUnit + String(altVal).padStart(3, '0');
   
   const gatToOat = document.getElementById('icaoGatToOat').value.trim();
   const oatToGat = document.getElementById('icaoOatToGat').value.trim();
@@ -133,33 +152,30 @@ function generateIcaoFplString() {
     routeParts.push('OAT');
   }
 
-  // Prepend speed/altitude header
+  // Speed and Level
   routeParts.push(spdAltHeader);
 
-  // If user provided a GAT to OAT transition fix, place it in line before main route
-  if (gatToOat) {
+  // Avoid duplicate insertion if transition point is already typed into main route field
+  if (gatToOat && !route.includes(gatToOat)) {
     routeParts.push(gatToOat);
   }
 
-  // Process core route details
   if (route) {
     routeParts.push(route);
   }
 
-  if (oatToGat) {
+  if (oatToGat && !route.includes(oatToGat)) {
     routeParts.push(oatToGat);
   }
 
-  if (vfrTrans) {
-    routeParts.push(vfrTrans);
-  }
-
+  if (vfrTrans) routeParts.push(vfrTrans);
   if (stayStr1) routeParts.push(stayStr1);
   if (stayStr2) routeParts.push(stayStr2);
   if (stayStr3) routeParts.push(stayStr3);
 
   const fullRouteStr = routeParts.join(' ').replace(/\s+/g, ' ');
 
+  // Field 18 (Remarks)
   const wakeCat = document.getElementById('icaoWake').value;
   const wakeTag = wakeCat ? ('WAK/' + wakeCat) : '';
   
@@ -199,10 +215,6 @@ function generateIcaoFplString() {
     }
   }
 
-  if (fuelVal) {
-    rmkVal += ` FUEL${fuelVal}`;
-  }
-
   const isTrainee = document.getElementById('icaoVsoTrainee').checked;
   if (isTrainee) {
     if (country === 'DE') {
@@ -214,13 +226,9 @@ function generateIcaoFplString() {
     }
   }
 
-  let remarksParts = [];
-
-  const coreRemarksParts = [
+  let coreRemarksParts = [
     pbn, nav, wakeTag, sts, sel, sur, per, orgn, com, reg, opr, stayinfoVal, rmkVal
   ].filter(p => p !== '');
-
-  remarksParts = remarksParts.concat(coreRemarksParts);
 
   const callsign = document.getElementById('fplCallsign').value.trim();
   const acftType = document.getElementById('fplAcftType').value.trim();
@@ -233,7 +241,10 @@ function generateIcaoFplString() {
 
   const arrivalSegment = alt ? `${arr}${eetArr} ${alt}` : `${arr}${eetArr}`;
 
-  const icaoString = `(FPL-${callsign}-${rulesType}\n-${acftType}/${wakeCat}-${equipTrans}\n-${dep}${eobt}\n-${fullRouteStr}\n-${arrivalSegment}\n-${remarksParts.join(' ')})`;
+  // ICAO FPL Syntax: Field 19 Endurance appended as -E/HHMM at the very end
+  const enduranceStr = fuelVal ? `\n-E/${fuelVal}` : '';
+
+  const icaoString = `(FPL-${callsign}-${flightRules}\n-${acftType}/${wakeCat}-${equipTrans}\n-${dep}${eobt}\n-${fullRouteStr}\n-${arrivalSegment}\n-${coreRemarksParts.join(' ')}${enduranceStr})`;
 
   document.getElementById('icaoOutput').value = icaoString;
 }
