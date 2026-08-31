@@ -15,6 +15,7 @@ document.addEventListener('keydown', function(e) {
   }
 });
 
+/*
 function verifyPilotAccess() {
   const correctPassword = "vNATO@2026";
   const userPrompt = prompt("🔒 Restricted Access: Enter the Virtual NATO Pilot Passcode:");
@@ -26,6 +27,7 @@ function verifyPilotAccess() {
   }
 }
 verifyPilotAccess();
+*/
 
 function toggleHelp(id) {
   const el = document.getElementById(id);
