@@ -32,11 +32,11 @@
         <label style="margin-top:0; margin-bottom:4px;">Generator Mode:</label>
         <span class="help-icon" onclick="toggleHelp('helpMode')">?</span>
       </div>
-      <div id="helpMode" class="help-text-box">Switch between building route strings, constructing custom Item 18 remarks, or compiling the full VATSIM ICAO flight plan string.</div>
+      <div id="helpMode" class="help-text-box">Switch between building route strings, constructing custom Item 18 remarks, or compiling the full standalone vPILOT flight plan string.</div>
       <select class="fpl-mode-select" onchange="switchFplMode(this.value)">
         <option value="routeTab">SWIFT Route Generator</option>
         <option value="remarksTab">SWIFT Remarks Generator</option>
-        <option value="icaoTab" selected>VATSIM ICAO FPL String</option>
+        <option value="icaoTab" selected>vPILOT FPL String</option>
       </select>
     </div>
 
@@ -151,7 +151,7 @@
           <span class="help-icon" onclick="toggleHelp('helpRouteFixes')">?</span>
         </div>
         <div id="helpRouteFixes" class="help-text-box">Chronological waypoints, radar corridors, and direct routing segments separated by single spaces.</div>
-        <input type="text" id="route" value="DCT CHP01 DCT MAR01 DCT MAR02 DCT MAR04">
+        <textarea id="route" style="height:60px; font-family:inherit; font-size:12px; padding:7px;">DCT CHP01 DCT MAR01 DCT MAR02 DCT MAR04</textarea>
       </div>
 
       <div class="fpl-section">
@@ -444,7 +444,7 @@
       </div>
     </div>
 
-    <!-- MODE 3: VATSIM ICAO FPL STRING -->
+    <!-- MODE 3: vPILOT FPL STRING -->
     <div id="icaoTab" class="fpl-tab-content active">
       <div class="fpl-section">
         <div class="label-with-help">
@@ -588,7 +588,7 @@
           <span class="help-icon" onclick="toggleHelp('helpRouteFixes2')">?</span>
         </div>
         <div id="helpRouteFixes2" class="help-text-box">Chronological waypoints, radar corridors, and direct routing segments separated by single spaces.</div>
-        <input type="text" id="icaoRoute" value="DCT CHP01 DCT MAR01 DCT MAR02 DCT MAR04">
+        <textarea id="icaoRoute" style="height:70px; font-family:inherit; font-size:12px; padding:7px;">DCT CHP01 DCT MAR01 DCT MAR02 DCT MAR04</textarea>
 
         <div class="label-with-help">
           <label>STAY 1 Segment & Duration</label>
@@ -627,7 +627,7 @@
         </div>
       </div>
 
-      <!-- Item 18 / Remarks Configuration inside VATSIM ICAO FPL Mode -->
+      <!-- Item 18 / Remarks Configuration inside vPILOT FPL Mode -->
       <div class="fpl-section">
         <label style="color:#1a73e8; font-size:13px; border-bottom:1px solid #1a73e8; padding-bottom:3px; margin-bottom:6px;">Item 18 / Remarks Configuration</label>
         
@@ -816,7 +816,7 @@
         </div>
       </div>
 
-      <button class="fpl-gen-btn" onclick="generateIcaoFplString()">Generate VATSIM ICAO String</button>
+      <button class="fpl-gen-btn" onclick="generateIcaoFplString()">Generate vPILOT String</button>
       
       <div class="fpl-textarea-container" style="margin-top:10px;">
         <button class="fpl-copy-btn" onclick="copyToClipboard('icaoOutput')">Copy</button>
@@ -1134,8 +1134,8 @@
 
       <h2>3. How to File Using the VATSIM ICAO FPL Import Tool</h2>
       <ul>
-        <li><b>Step 1:</b> Select <b>VATSIM ICAO FPL String</b> from the generator mode menu.</li>
-        <li><b>Step 2:</b> Click <b>Generate VATSIM ICAO String</b>, then click <b>Copy</b>.</li>
+        <li><b>Step 1:</b> Select <b>vPILOT FPL String</b> from the generator mode menu.</li>
+        <li><b>Step 2:</b> Click <b>Generate vPILOT String</b>, then click <b>Copy</b>.</li>
         <li><b>Step 3:</b> Click <b>Import ICAO FPL</b> or <b>Import ICAO FPL (Beta)</b>, paste your string, and click <b>Parse / Import</b>.</li>
       </ul>
 
