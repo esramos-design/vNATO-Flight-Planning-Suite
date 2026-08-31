@@ -114,7 +114,7 @@ function generateIcaoFplString() {
   const gatToOat = document.getElementById('icaoGatToOat').value.trim();
   const oatToGat = document.getElementById('icaoOatToGat').value.trim();
   const vfrTrans = document.getElementById('icaoVfrTrans').value.trim();
-  const route = document.getElementById('icaoRoute').value.trim();
+  let route = document.getElementById('icaoRoute').value.trim();
   
   const s1 = document.getElementById('icaoStaySeg1').value;
   const d1 = document.getElementById('icaoStayDur1').value.trim();
@@ -133,19 +133,32 @@ function generateIcaoFplString() {
     routeParts.push('OAT');
   }
 
-  const coreRouteParts = [
-    spdAltHeader,
-    gatToOat,
-    oatToGat,
-    vfrTrans,
-    route,
-    stayStr1,
-    stayStr2,
-    stayStr3
-  ].filter(p => p !== '');
+  // Prepend speed/altitude header
+  routeParts.push(spdAltHeader);
 
-  routeParts = routeParts.concat(coreRouteParts);
-  const fullRouteStr = routeParts.join(' ');
+  // If user provided a GAT to OAT transition fix, place it in line before main route
+  if (gatToOat) {
+    routeParts.push(gatToOat);
+  }
+
+  // Process core route details
+  if (route) {
+    routeParts.push(route);
+  }
+
+  if (oatToGat) {
+    routeParts.push(oatToGat);
+  }
+
+  if (vfrTrans) {
+    routeParts.push(vfrTrans);
+  }
+
+  if (stayStr1) routeParts.push(stayStr1);
+  if (stayStr2) routeParts.push(stayStr2);
+  if (stayStr3) routeParts.push(stayStr3);
+
+  const fullRouteStr = routeParts.join(' ').replace(/\s+/g, ' ');
 
   const wakeCat = document.getElementById('icaoWake').value;
   const wakeTag = wakeCat ? ('WAK/' + wakeCat) : '';
@@ -186,7 +199,6 @@ function generateIcaoFplString() {
     }
   }
 
-  // Append FUEL info into RMK/ so VATSIM Beta puts endurance in remarks instead of confusing the OPR/ field
   if (fuelVal) {
     rmkVal += ` FUEL${fuelVal}`;
   }
