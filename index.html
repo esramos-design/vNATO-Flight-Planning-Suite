@@ -4,7 +4,7 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Military Flight Plan Generator & Operational Manual</title>
-  <link rel="stylesheet" href="./css/styles.css">
+  <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
 
@@ -34,14 +34,14 @@
       </div>
       <div id="helpMode" class="help-text-box">Switch between building route strings, constructing custom Item 18 remarks, or compiling the full VATSIM ICAO flight plan string.</div>
       <select class="fpl-mode-select" onchange="switchFplMode(this.value)">
-        <option value="routeTab" selected>SWIFT Route Generator</option>
+        <option value="routeTab">SWIFT Route Generator</option>
         <option value="remarksTab">SWIFT Remarks Generator</option>
-        <option value="icaoTab">VATSIM ICAO FPL String</option>
+        <option value="icaoTab" selected>VATSIM ICAO FPL String</option>
       </select>
     </div>
 
     <!-- MODE 1: SWIFT ROUTE GENERATOR -->
-    <div id="routeTab" class="fpl-tab-content active">
+    <div id="routeTab" class="fpl-tab-content">
       <div class="fpl-section">
         <div class="label-with-help">
           <label>Date of Flight (DOF - YYMMDD)</label>
@@ -445,7 +445,7 @@
     </div>
 
     <!-- MODE 3: VATSIM ICAO FPL STRING -->
-    <div id="icaoTab" class="fpl-tab-content">
+    <div id="icaoTab" class="fpl-tab-content active">
       <div class="fpl-section">
         <div class="label-with-help">
           <label>Flight Rules</label>
@@ -541,6 +541,90 @@
         </div>
         <div id="helpIcaoAltOpt" class="help-text-box">Alternate destination aerodrome ICAO code if required.</div>
         <input type="text" id="fplAlt" value="LFML">
+      </div>
+
+      <!-- Route Configuration Section -->
+      <div class="fpl-section">
+        <label style="color:#1a73e8; font-size:13px; border-bottom:1px solid #1a73e8; padding-bottom:3px; margin-bottom:6px;">Route Configuration</label>
+
+        <div class="label-with-help">
+          <label>Route Type</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoRouteType')">?</span>
+        </div>
+        <div id="helpIcaoRouteType" class="help-text-box">Defines standard OAT routing templates, air-refueling orbits, or mixed GAT/OAT profile types.</div>
+        <select id="icaoRouteType">
+          <option>OAT_IFR_DIRECT</option>
+          <option>OAT_VFR_GEOREF</option>
+          <option>OAT_TACTICAL_RTBA</option>
+          <option>AAR_AEW_ORBIT</option>
+          <option>TSA_TRA_AREA_WORK</option>
+          <option>MIXED_GAT_OAT</option>
+          <option>MIXED_OAT_GAT</option>
+        </select>
+
+        <div class="label-with-help">
+          <label>GAT to OAT Transfer Point</label>
+          <span class="help-icon" onclick="toggleHelp('helpGatOat2')">?</span>
+        </div>
+        <div id="helpGatOat2" class="help-text-box">Fix and conditional format where flight transitions from General Air Traffic to Operational Air Traffic.</div>
+        <input type="text" id="icaoGatToOat" value="" placeholder="e.g. SOTAK/OAT I M080F235">
+
+        <div class="label-with-help">
+          <label>OAT to GAT Transfer Point</label>
+          <span class="help-icon" onclick="toggleHelp('helpOatGat2')">?</span>
+        </div>
+        <div id="helpOatGat2" class="help-text-box">Fix where flight transitions back from OAT to GAT reporting standards.</div>
+        <input type="text" id="icaoOatToGat" value="" placeholder="e.g. SURUD/GAT N350F115">
+
+        <div class="label-with-help">
+          <label>VFR Transfer Point</label>
+          <span class="help-icon" onclick="toggleHelp('helpVfrTrans2')">?</span>
+        </div>
+        <div id="helpVfrTrans2" class="help-text-box">Reporting fix where flight switches into VFR operational segments.</div>
+        <input type="text" id="icaoVfrTrans" value="" placeholder="e.g. LMG/N0240A010 VFR">
+
+        <div class="label-with-help">
+          <label>Route Details / Fixes</label>
+          <span class="help-icon" onclick="toggleHelp('helpRouteFixes2')">?</span>
+        </div>
+        <div id="helpRouteFixes2" class="help-text-box">Chronological waypoints, radar corridors, and direct routing segments separated by single spaces.</div>
+        <input type="text" id="icaoRoute" value="DCT CHP01 DCT MAR01 DCT MAR02 DCT MAR04">
+
+        <div class="label-with-help">
+          <label>STAY 1 Segment & Duration</label>
+          <span class="help-icon" onclick="toggleHelp('helpStay1_2')">?</span>
+        </div>
+        <div id="helpStay1_2" class="help-text-box">Working area or low-flying delay segment 1 with associated duration in HHMM.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="icaoStaySeg1" style="width:40%;">
+            <option selected>STAY1</option><option>NONE</option>
+          </select>
+          <input type="text" id="icaoStayDur1" value="0045" style="width:60%;" placeholder="Duration (HHMM)">
+        </div>
+
+        <div class="label-with-help">
+          <label>STAY 2 Segment & Duration</label>
+          <span class="help-icon" onclick="toggleHelp('helpStay2_2')">?</span>
+        </div>
+        <div id="helpStay2_2" class="help-text-box">Optional working area or delay segment 2 with duration in HHMM.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="icaoStaySeg2" style="width:40%;">
+            <option>NONE</option><option>STAY2</option>
+          </select>
+          <input type="text" id="icaoStayDur2" value="" style="width:60%;" placeholder="Duration (HHMM)">
+        </div>
+
+        <div class="label-with-help">
+          <label>STAY 3 Segment & Duration</label>
+          <span class="help-icon" onclick="toggleHelp('helpStay3_2')">?</span>
+        </div>
+        <div id="helpStay3_2" class="help-text-box">Optional working area or delay segment 3 with duration in HHMM.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="icaoStaySeg3" style="width:40%;">
+            <option>NONE</option><option>STAY3</option>
+          </select>
+          <input type="text" id="icaoStayDur3" value="" style="width:60%;" placeholder="Duration (HHMM)">
+        </div>
       </div>
 
       <!-- Item 18 / Remarks Configuration inside VATSIM ICAO FPL Mode -->
@@ -700,7 +784,7 @@
 
         <div class="label-with-help">
           <label>OPR / Operator</label>
-          <span class="help-icon" onclick="toggleHelp('helpIcaoOrgn')">?</span>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoOpr')">?</span>
         </div>
         <div id="helpIcaoOpr" class="help-text-box">Operator designator or military unit identifier (e.g., FAF).</div>
         <input type="text" id="icaoOpr" value="FAF">
@@ -1083,7 +1167,7 @@
         <li><b>PBN / Performance Based Navigation:</b> Multi-selected RNAV/RNP capabilities concatenated without spaces (e.g., <code>S1B1</code>).</li>
         <li><b>STS / Special Handling:</b> Identifiers such as <code>STATE</code>, <code>NONRVSM</code>, <code>MARSA</code>, <code>SAR</code>, <code>MEDEVAC</code>, <code>FLTCK</code>, <code>HAZMAT</code>, <code>HEAD</code>, and <code>HUM</code>.</li>
         <li><b>SEL / SELCAL:</b> Selective calling radio system code.</li>
-        <li><b>SUR / Surveillance:</b> Surveillance capabilities and transponder data link codes.</li>
+        <li><b>SUR / Surveillance:</b> Surveillance capabilities and data link identifiers (e.g., SUR/260B).</li>
         <li><b>PER / Performance:</b> Aircraft performance data, PBN capabilities, or RNP compliance indicators.</li>
         <li><b>ORGN / Origin:</b> Originator address or dispatch identifier for the filed flight plan.</li>
         <li><b>COM / Comms:</b> Communication radio capabilities and frequencies.</li>
