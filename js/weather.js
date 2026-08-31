@@ -5,55 +5,73 @@ async function fetchMetarTaf() {
   const icaoInput = document.getElementById('icaoInput');
   if (!icaoInput) return;
 
-  const icao = icaoInput.value.trim().toUpperCase();
-  if (!icao || icao.length !== 4) {
-    alert('Please enter a valid 4-letter ICAO code.');
+  const rawInput = icaoInput.value.trim().toUpperCase();
+  if (!rawInput) {
+    alert('Please enter at least one valid 4-letter ICAO code.');
     return;
   }
+
+  // Split comma-separated inputs, strip spaces, and filter out invalid strings
+  const icaoArray = rawInput.split(',')
+                            .map(code => code.trim())
+                            .filter(code => code.length === 4);
+
+  if (icaoArray.length === 0) {
+    alert('Please enter valid 4-letter ICAO codes (e.g., LFBO, EGLL, EDBB).');
+    return;
+  }
+
+  const icaoQuery = icaoArray.join(',');
 
   const metarDiv = document.getElementById('metarOutput');
   const tafDiv = document.getElementById('tafOutput');
   const decoderDiv = document.getElementById('decoderOutput');
 
-  if (metarDiv) metarDiv.textContent = `Fetching live METAR for ${icao}...`;
-  if (tafDiv) tafDiv.textContent = `Fetching live TAF for ${icao}...`;
+  if (metarDiv) metarDiv.textContent = `Fetching live METAR for ${icaoQuery}...`;
+  if (tafDiv) tafDiv.textContent = `Fetching live TAF for ${icaoQuery}...`;
   if (decoderDiv) decoderDiv.textContent = 'Decoding weather parameters...';
 
   const headers = {
     'X-API-Key': CHECKWX_API_KEY
   };
 
-  // 1. FETCH METAR & DECODED PARAMS
+  // 1. FETCH MULTI-METAR & DECODED PARAMS
   try {
-    const metarRes = await fetch(`https://api.checkwx.com/metar/${icao}/decoded`, { headers });
+    const metarRes = await fetch(`https://api.checkwx.com/metar/${icaoQuery}/decoded`, { headers });
     if (metarRes.ok) {
       const data = await metarRes.json();
       if (data.data && data.data.length > 0) {
-        const wx = data.data[0];
-        
-        // Display Raw METAR String
-        if (metarDiv) {
-          metarDiv.textContent = wx.raw_text || `No raw METAR string returned for ${icao}.`;
-        }
+        let metarOutputs = [];
+        let decoderOutputs = [];
 
-        // Format Plain Language Decoder
-        if (decoderDiv) {
+        data.data.forEach(wx => {
+          const station = wx.icao || 'UNKNOWN';
+          
+          // Raw METAR String
+          metarOutputs.push(`[ ${station} ]\n${wx.raw_text || 'No raw METAR string returned.'}`);
+
+          // Decoder Breakdown
           const windStr = wx.wind ? `${wx.wind.degrees ?? 'VRB'}° at ${wx.wind.speed_kts ?? 0} kts (Gusts: ${wx.wind.gust_kts ? wx.wind.gust_kts + ' kts' : 'None'})` : 'Calm / Unreported';
           const visStr = wx.visibility ? `${wx.visibility.miles ? wx.visibility.miles + ' SM' : (wx.visibility.meters ? wx.visibility.meters + ' m' : 'N/A')}` : 'Unreported';
           const tempStr = wx.temperature ? `${wx.temperature.celsius}°C (Dewpoint: ${wx.dewpoint ? wx.dewpoint.celsius + '°C' : 'N/A'})` : 'N/A';
           const altStr = wx.barometer ? `${wx.barometer.in_hg} inHg (${wx.barometer.hpa} hPa)` : 'N/A';
           const flightCat = wx.flight_category || 'UNKNOWN';
 
-          decoderDiv.innerHTML = `
-            <b>Flight Category:</b> ${flightCat}<br>
-            <b>Wind:</b> ${windStr}<br>
-            <b>Visibility:</b> ${visStr}<br>
-            <b>Temperature:</b> ${tempStr}<br>
-            <b>Altimeter:</b> ${altStr}
-          `;
-        }
+          decoderOutputs.push(`
+            <div style="margin-bottom:8px; padding-bottom:6px; border-bottom:1px solid #cce0ff;">
+              <b>Station ${station} (${flightCat}):</b><br>
+              • <b>Wind:</b> ${windStr}<br>
+              • <b>Visibility:</b> ${visStr}<br>
+              • <b>Temp / Dewpoint:</b> ${tempStr}<br>
+              • <b>Altimeter:</b> ${altStr}
+            </div>
+          `);
+        });
+
+        if (metarDiv) metarDiv.textContent = metarOutputs.join('\n\n');
+        if (decoderDiv) decoderDiv.innerHTML = decoderOutputs.join('');
       } else {
-        if (metarDiv) metarDiv.textContent = `No active METAR report found for ${icao}.`;
+        if (metarDiv) metarDiv.textContent = `No active METAR reports found for ${icaoQuery}.`;
         if (decoderDiv) decoderDiv.textContent = 'No decoder data available.';
       }
     } else if (metarRes.status === 401) {
@@ -61,27 +79,29 @@ async function fetchMetarTaf() {
     } else if (metarRes.status === 429) {
       if (metarDiv) metarDiv.textContent = `Rate limit exceeded: Daily CheckWX request quota reached.`;
     } else {
-      if (metarDiv) metarDiv.textContent = `Unable to retrieve METAR for ${icao} (HTTP ${metarRes.status}).`;
+      if (metarDiv) metarDiv.textContent = `Unable to retrieve METAR for ${icaoQuery} (HTTP ${metarRes.status}).`;
     }
   } catch (e) {
     if (metarDiv) metarDiv.textContent = `Network error connecting to CheckWX API.`;
   }
 
-  // 2. FETCH TAF
+  // 2. FETCH MULTI-TAF
   try {
-    const tafRes = await fetch(`https://api.checkwx.com/taf/${icao}`, { headers });
+    const tafRes = await fetch(`https://api.checkwx.com/taf/${icaoQuery}`, { headers });
     if (tafRes.ok) {
       const data = await tafRes.json();
       if (data.data && data.data.length > 0) {
-        const tafData = data.data[0];
-        if (tafDiv) {
-          tafDiv.textContent = typeof tafData === 'string' ? tafData : (tafData.raw_text || JSON.stringify(tafData));
-        }
+        let tafOutputs = [];
+        data.data.forEach(tafData => {
+          const rawTaf = typeof tafData === 'string' ? tafData : (tafData.raw_text || JSON.stringify(tafData));
+          tafOutputs.push(rawTaf);
+        });
+        if (tafDiv) tafDiv.textContent = tafOutputs.join('\n\n');
       } else {
-        if (tafDiv) tafDiv.textContent = `No active TAF report found for ${icao}.`;
+        if (tafDiv) tafDiv.textContent = `No active TAF report found for ${icaoQuery}.`;
       }
     } else {
-      if (tafDiv) tafDiv.textContent = `No TAF report available for ${icao}.`;
+      if (tafDiv) tafDiv.textContent = `No TAF report available for ${icaoQuery}.`;
     }
   } catch (e) {
     if (tafDiv) tafDiv.textContent = `Error loading TAF feed.`;
