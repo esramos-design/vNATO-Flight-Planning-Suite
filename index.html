@@ -21,7 +21,7 @@
       </div>
       <div id="helpCountry" class="help-text-box">Selects national OAT reporting and remark conventions for France (DGAC/DIRCAM), Germany (BMVg/Luftwaffe), or United Kingdom (RAF/MilAIP).</div>
       <select id="countrySelect" style="font-weight:bold; color:#1a73e8;" onchange="handleCountryChange()">
-        <option value="FR">France (DGAC / DIRCAM)</option>
+        <option value="FR" selected>France (DGAC / DIRCAM)</option>
         <option value="DE">Germany (BMVg / Luftwaffe)</option>
         <option value="UK">United Kingdom (RAF / MilAIP)</option>
       </select>
@@ -48,7 +48,7 @@
           <span class="help-icon" onclick="toggleHelp('helpDof')">?</span>
         </div>
         <div id="helpDof" class="help-text-box">Flight departure date formatted in standard 6-digit YYMMDD format.</div>
-        <input type="text" id="dof" value="260826">
+        <input type="text" id="dof" value="" placeholder="e.g. 260826">
       </div>
 
       <div class="fpl-section">
@@ -58,6 +58,7 @@
         </div>
         <div id="helpRules" class="help-text-box">I (IFR), V (VFR), T (OAT Tactical), Y (IFR then VFR), Z (VFR then IFR).</div>
         <select id="rules">
+          <option value="" selected>[Select Flight Rules]</option>
           <option value="I">I - IFR</option>
           <option value="V">V - VFR</option>
           <option value="T">T - OAT Tactical</option>
@@ -71,7 +72,7 @@
         </div>
         <div id="helpTypeOfFlight" class="help-text-box">Indicates the general category of operations. M = Military, S = Scheduled, N = Non-scheduled, G = General Aviation, X = Special.</div>
         <select id="type">
-          <option value="M">M - Military</option>
+          <option value="M" selected>M - Military</option>
           <option value="S">S - Scheduled</option>
           <option value="N">N - Non-scheduled</option>
           <option value="G">G - General Aviation</option>
@@ -87,11 +88,11 @@
         <div id="helpSpd" class="help-text-box">Cruising speed unit and numerical speed value.</div>
         <div style="display:flex; gap:6px;">
           <select id="spdUnit" style="width:35%;">
-            <option value="N">N - Knots (e.g. N0450)</option>
+            <option value="N" selected>N - Knots (e.g. N0450)</option>
             <option value="M">M - Mach (e.g. M080)</option>
             <option value="K">K - Km/h (e.g. K0850)</option>
           </select>
-          <input type="text" id="spdVal" value="0450" style="width:65%;">
+          <input type="text" id="spdVal" value="" placeholder="e.g. 0450" style="width:65%;">
         </div>
 
         <div class="label-with-help">
@@ -101,11 +102,11 @@
         <div id="helpAlt" class="help-text-box">Cruising altitude unit and value.</div>
         <div style="display:flex; gap:6px;">
           <select id="altUnit" style="width:35%;">
-            <option value="F">F - Flight Level (e.g. F245)</option>
+            <option value="F" selected>F - Flight Level (e.g. F245)</option>
             <option value="A">A - Altitude 100s ft (e.g. A045)</option>
             <option value="S">S - Metric tens of meters (e.g. S1130)</option>
           </select>
-          <input type="text" id="altVal" value="245" style="width:65%;">
+          <input type="text" id="altVal" value="" placeholder="e.g. 245" style="width:65%;">
         </div>
       </div>
 
@@ -151,7 +152,7 @@
           <span class="help-icon" onclick="toggleHelp('helpRouteFixes')">?</span>
         </div>
         <div id="helpRouteFixes" class="help-text-box">Chronological waypoints, radar corridors, and direct routing segments separated by single spaces.</div>
-        <textarea id="route" style="height:60px; font-family:inherit; font-size:12px; padding:7px;">DCT CHP01 DCT MAR01 DCT MAR02 DCT MAR04</textarea>
+        <textarea id="route" style="height:60px; font-family:inherit; font-size:12px; padding:7px;" placeholder="Enter waypoints (e.g. DCT CHP01 DCT MAR01)"></textarea>
       </div>
 
       <div class="fpl-section">
@@ -162,9 +163,10 @@
         <div id="helpStay1" class="help-text-box">Working area or low-flying delay segment 1 with associated duration in HHMM.</div>
         <div style="display:flex; gap:6px;">
           <select id="staySeg1" style="width:40%;">
-            <option selected>STAY1</option><option>NONE</option>
+            <option value="NONE" selected>NONE</option>
+            <option value="STAY1">STAY1</option>
           </select>
-          <input type="text" id="stayDur1" value="0045" style="width:60%;" placeholder="Duration (HHMM)">
+          <input type="text" id="stayDur1" value="" style="width:60%;" placeholder="Duration (HHMM)">
         </div>
 
         <div class="label-with-help">
@@ -174,7 +176,8 @@
         <div id="helpStay2" class="help-text-box">Optional working area or delay segment 2 with duration in HHMM.</div>
         <div style="display:flex; gap:6px;">
           <select id="staySeg2" style="width:40%;">
-            <option>NONE</option><option>STAY2</option>
+            <option value="NONE" selected>NONE</option>
+            <option value="STAY2">STAY2</option>
           </select>
           <input type="text" id="stayDur2" value="" style="width:60%;" placeholder="Duration (HHMM)">
         </div>
@@ -186,7 +189,8 @@
         <div id="helpStay3" class="help-text-box">Optional working area or delay segment 3 with duration in HHMM.</div>
         <div style="display:flex; gap:6px;">
           <select id="staySeg3" style="width:40%;">
-            <option>NONE</option><option>STAY3</option>
+            <option value="NONE" selected>NONE</option>
+            <option value="STAY3">STAY3</option>
           </select>
           <input type="text" id="stayDur3" value="" style="width:60%;" placeholder="Duration (HHMM)">
         </div>
@@ -208,6 +212,7 @@
         </div>
         <div id="helpWake" class="help-text-box">Denotes aircraft wake turbulence classification. J = Super, H = Heavy (136t+), M = Medium, L = Light.</div>
         <select id="wake">
+          <option value="" selected>[Select Wake Category]</option>
           <option value="M">M - Medium (MTOW &lt;= 136,000 kg)</option>
           <option value="J">J - Super (A380, etc.)</option>
           <option value="H">H - Heavy (136,000 kg or more)</option>
@@ -220,7 +225,8 @@
         </div>
         <div id="helpEquip" class="help-text-box">Field 10a radio communication, navigation, and approach aid equipment codes.</div>
         <select id="equip">
-          <option value="SDE3G" selected>SDE3G - Standard + DME + RNAV + GNSS</option>
+          <option value="" selected>[Select Equipment Code]</option>
+          <option value="SDE3G">SDE3G - Standard + DME + RNAV + GNSS</option>
           <option value="S">S - Standard (VHF RTF, VOR, ILS)</option>
           <option value="SD">SD - Standard + DME</option>
           <option value="SDF">SDF - Standard + DME + ADF</option>
@@ -237,13 +243,14 @@
         </div>
         <div id="helpTrans" class="help-text-box">Field 10b surveillance equipment and transponder capability codes.</div>
         <select id="trans">
+          <option value="" selected>[Select Transponder Code]</option>
           <option value="N">N - No transponder equipment</option>
           <option value="A">A - Mode A only (no altitude reporting)</option>
           <option value="C">C - Mode A and Mode C</option>
           <option value="E">E - Mode S, including aircraft identification, pressure-altitude and extended squitter (ADS-B) capability</option>
           <option value="H">H - Mode S, including aircraft identification, pressure-altitude and enhanced surveillance capability</option>
           <option value="I">I - Mode S, including aircraft identification, but no pressure-altitude capability</option>
-          <option value="L" selected>L - Mode S, including aircraft identification, pressure-altitude, extended squitter (ADS-B) and enhanced surveillance capability</option>
+          <option value="L">L - Mode S, including aircraft identification, pressure-altitude, extended squitter (ADS-B) and enhanced surveillance capability</option>
           <option value="P">P - Mode S, including pressure-altitude, but no aircraft identification capability</option>
           <option value="S">S - Mode S, including both pressure altitude and aircraft identification capability</option>
           <option value="X">X - Mode S with neither aircraft identification nor pressure-altitude capability</option>
@@ -259,7 +266,7 @@
         <div id="helpPbn" class="help-text-box">Select multiple Performance Based Navigation codes indicating approved RNAV/RNP navigation specifications. Concatenated without spaces.</div>
         <div class="pbn-dropdown-container">
           <button type="button" class="pbn-select-toggle" onclick="togglePbnDropdown(event)">
-            <span id="pbnToggleText">S1</span> ▾
+            <span id="pbnToggleText">Select PBN Capabilities...</span> ▾
           </button>
           <div id="pbnDropdownList" class="pbn-dropdown-list">
             <label class="pbn-checkbox-item"><input type="checkbox" value="A1" onchange="updatePbnSelection()"> A1 - RNAV 10 (RNP 10)</label>
@@ -282,13 +289,13 @@
             <label class="pbn-checkbox-item"><input type="checkbox" value="O2" onchange="updatePbnSelection()"> O2 - RNP 1 Basic GNSS</label>
             <label class="pbn-checkbox-item"><input type="checkbox" value="O3" onchange="updatePbnSelection()"> O3 - RNP 1 Basic DME/DME</label>
             <label class="pbn-checkbox-item"><input type="checkbox" value="O4" onchange="updatePbnSelection()"> O4 - RNP 1 Basic DME/DME/IRU</label>
-            <label class="pbn-checkbox-item"><input type="checkbox" value="S1" checked onchange="updatePbnSelection()"> S1 - RNP APCH</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="S1" onchange="updatePbnSelection()"> S1 - RNP APCH</label>
             <label class="pbn-checkbox-item"><input type="checkbox" value="S2" onchange="updatePbnSelection()"> S2 - RNP APCH with BARO-NAV</label>
             <label class="pbn-checkbox-item"><input type="checkbox" value="T1" onchange="updatePbnSelection()"> T1 - RNP AR APCH with RF</label>
             <label class="pbn-checkbox-item"><input type="checkbox" value="T2" onchange="updatePbnSelection()"> T2 - RNP AR APCH without RF</label>
           </div>
         </div>
-        <input type="hidden" id="pbnValue" value="S1">
+        <input type="hidden" id="pbnValue" value="">
 
         <div class="label-with-help" style="margin-top:8px;">
           <label>NAV Capability</label>
@@ -310,6 +317,7 @@
         </div>
         <div id="helpSts" class="help-text-box">Special handling indicators required by air traffic control, such as STATE, NONRVSM, MARSA, or SAR.</div>
         <select id="sts">
+          <option value="" selected>[NONE] - No special handling indicator</option>
           <option value="STATE">STATE - Engaged in military, customs or police services</option>
           <option value="NONRVSM">NONRVSM - Non-RVSM capable aircraft operating in RVSM airspace</option>
           <option value="MARSA">MARSA - Military entity assumes responsibility for separation</option>
@@ -319,7 +327,6 @@
           <option value="HAZMAT">HAZMAT - Flight carrying hazardous material</option>
           <option value="HEAD">HEAD - Flight with Head of State status</option>
           <option value="HUM">HUM - Flight operating on a humanitarian mission</option>
-          <option value="" selected>[NONE] - No special handling indicator</option>
         </select>
       </div>
 
@@ -364,7 +371,7 @@
           <span class="help-icon" onclick="toggleHelp('helpReg')">?</span>
         </div>
         <div id="helpReg" class="help-text-box">Aircraft registration or military tail number identifier (e.g., FA1801).</div>
-        <input type="text" id="reg" value="FA1801">
+        <input type="text" id="reg" value="" placeholder="e.g. FA1801">
 
         <div class="label-with-help">
           <label>OPR / Operator</label>
@@ -372,6 +379,7 @@
         </div>
         <div id="helpOpr" class="help-text-box">Operator designator or military unit identifier (e.g., FAF, GAF, 29 SQN ROYAL AIR FORCE).</div>
         <select id="opr">
+          <option value="" selected>[Select Operator]</option>
           <option value="FAF">FAF (France)</option>
           <option value="GAF">GAF (Germany)</option>
           <option value="29 SQN ROYAL AIR FORCE">29 SQN ROYAL AIR FORCE (UK)</option>
@@ -384,7 +392,7 @@
           <span class="help-icon" onclick="toggleHelp('helpFuelEnd')">?</span>
         </div>
         <div id="helpFuelEnd" class="help-text-box">Total fuel endurance expressed in hours and minutes (e.g., 0200 for 2 hours).</div>
-        <input type="text" id="fuelEnd" value="0200" placeholder="0200">
+        <input type="text" id="fuelEnd" value="" placeholder="e.g. 0200">
 
         <div class="label-with-help">
           <label>EET / Estimated Elapsed Time</label>
@@ -401,8 +409,8 @@
         </div>
         <div id="helpStayInfoSeg" class="help-text-box">Designates which STAY waypoint corresponds to the working area remarks below.</div>
         <select id="stayInfoSeg">
-          <option value="NONE">[NONE]</option>
-          <option value="STAYINFO1" selected>STAYINFO1</option>
+          <option value="NONE" selected>[NONE]</option>
+          <option value="STAYINFO1">STAYINFO1</option>
           <option value="STAYINFO2">STAYINFO2</option>
           <option value="STAYINFO3">STAYINFO3</option>
         </select>
@@ -412,7 +420,7 @@
           <span class="help-icon" onclick="toggleHelp('helpStayinfoDetails')">?</span>
         </div>
         <div id="helpStayinfoDetails" class="help-text-box">Detailed description of military exercise, low-flying, or refueling activity within the designated STAY area.</div>
-        <input type="text" id="stayinfo" value="AIR TO AIR WORK IN TSA43 FROM 0830 TO 0915">
+        <input type="text" id="stayinfo" value="" placeholder="e.g. AIR TO AIR WORK IN TSA43">
       </div>
 
       <div class="fpl-section">
@@ -422,7 +430,10 @@
         </div>
         <div id="helpRmkOat" class="help-text-box">Operational Air Traffic status tag. For France, OAT appears at the beginning of remarks to indicate active OAT phases.</div>
         <select id="rmkOat">
-          <option>RMK/OAT</option><option>RMK/MIXED OAT GAT</option><option>RMK/MIXED GAT OAT</option><option>RMK/EUR/OAT</option>
+          <option selected>RMK/OAT</option>
+          <option>RMK/MIXED OAT GAT</option>
+          <option>RMK/MIXED GAT OAT</option>
+          <option>RMK/EUR/OAT</option>
         </select>
 
         <div class="label-with-help">
@@ -430,7 +441,7 @@
           <span class="help-icon" onclick="toggleHelp('helpVsoTag')">?</span>
         </div>
         <div id="helpVsoTag" class="help-text-box">Virtual organization identifier tag (e.g., VIRTUALNATO.ORG).</div>
-        <input type="text" id="vso" value="VIRTUALNATO.ORG">
+        <input type="text" id="vso" value="" placeholder="e.g. VIRTUALNATO.ORG">
         <div class="checkbox-group">
           <input type="checkbox" id="vsoTrainee">
           <label for="vsoTrainee">Append VSO TRAINEE (Student Pilots)</label>
@@ -453,7 +464,8 @@
         </div>
         <div id="helpIcaoRules" class="help-text-box">I (IFR), V (VFR), T (OAT Tactical), Y (IFR then VFR), Z (VFR then IFR).</div>
         <select id="icaoRules">
-          <option value="I" selected>I - IFR</option>
+          <option value="" selected>[Select Rules]</option>
+          <option value="I">I - IFR</option>
           <option value="V">V - VFR</option>
           <option value="T">T - OAT Tactical</option>
           <option value="Y">Y - IFR then VFR</option>
@@ -484,7 +496,7 @@
             <option value="M">M - Mach (e.g. M080)</option>
             <option value="K">K - Km/h (e.g. K0850)</option>
           </select>
-          <input type="text" id="icaoSpdVal" value="0450" style="width:65%;">
+          <input type="text" id="icaoSpdVal" value="" placeholder="e.g. 0450" style="width:65%;">
         </div>
 
         <div class="label-with-help">
@@ -498,7 +510,7 @@
             <option value="A">A - Altitude 100s ft (e.g. A045)</option>
             <option value="S">S - Metric tens of meters (e.g. S1130)</option>
           </select>
-          <input type="text" id="icaoAltVal" value="245" style="width:65%;">
+          <input type="text" id="icaoAltVal" value="" placeholder="e.g. 245" style="width:65%;">
         </div>
 
         <div class="label-with-help">
@@ -506,14 +518,14 @@
           <span class="help-icon" onclick="toggleHelp('helpIcaoCallsign')">?</span>
         </div>
         <div id="helpIcaoCallsign" class="help-text-box">Aircraft radiotelephony callsign (e.g., NATO01).</div>
-        <input type="text" id="fplCallsign" value="NATO01">
+        <input type="text" id="fplCallsign" value="" placeholder="e.g. NATO01">
 
         <div class="label-with-help">
           <label>Aircraft ICAO Type</label>
           <span class="help-icon" onclick="toggleHelp('helpIcaoAcftType')">?</span>
         </div>
         <div id="helpIcaoAcftType" class="help-text-box">Standard 2 to 4-character ICAO aircraft designator (e.g., FA18, C17).</div>
-        <input type="text" id="fplAcftType" value="FA18">
+        <input type="text" id="fplAcftType" value="" placeholder="e.g. FA18">
 
         <div class="label-with-help">
           <label>Departure ICAO & EOBT (UTC HHMM)</label>
@@ -521,8 +533,8 @@
         </div>
         <div id="helpIcaoDep" class="help-text-box">Departure aerodrome ICAO code and Estimated Off-Block Time in UTC.</div>
         <div style="display:flex; gap:6px;">
-          <input type="text" id="fplDep" value="LFBO" style="width:55%;">
-          <input type="text" id="fplEobt" value="1125" style="width:45%;">
+          <input type="text" id="fplDep" value="" placeholder="DEP (e.g. LFBO)" style="width:55%;">
+          <input type="text" id="fplEobt" value="" placeholder="EOBT (e.g. 1125)" style="width:45%;">
         </div>
 
         <div class="label-with-help">
@@ -531,8 +543,8 @@
         </div>
         <div id="helpIcaoArr" class="help-text-box">Destination aerodrome ICAO code and Total Estimated Elapsed Time.</div>
         <div style="display:flex; gap:6px;">
-          <input type="text" id="fplArr" value="LFMI" style="width:55%;">
-          <input type="text" id="fplEetArr" value="0130" style="width:45%;">
+          <input type="text" id="fplArr" value="" placeholder="ARR (e.g. LFMI)" style="width:55%;">
+          <input type="text" id="fplEetArr" value="" placeholder="EET (e.g. 0130)" style="width:45%;">
         </div>
 
         <div class="label-with-help">
@@ -540,7 +552,7 @@
           <span class="help-icon" onclick="toggleHelp('helpIcaoAltOpt')">?</span>
         </div>
         <div id="helpIcaoAltOpt" class="help-text-box">Alternate destination aerodrome ICAO code if required.</div>
-        <input type="text" id="fplAlt" value="LFML">
+        <input type="text" id="fplAlt" value="" placeholder="e.g. LFML">
       </div>
 
       <!-- Route Configuration Section -->
@@ -588,7 +600,7 @@
           <span class="help-icon" onclick="toggleHelp('helpRouteFixes2')">?</span>
         </div>
         <div id="helpRouteFixes2" class="help-text-box">Chronological waypoints, radar corridors, and direct routing segments separated by single spaces.</div>
-        <textarea id="icaoRoute" style="height:70px; font-family:inherit; font-size:12px; padding:7px;">DCT CHP01 DCT MAR01 DCT MAR02 DCT MAR04</textarea>
+        <textarea id="icaoRoute" style="height:70px; font-family:inherit; font-size:12px; padding:7px;" placeholder="Enter waypoints (e.g. DCT CHP01 DCT MAR01)"></textarea>
 
         <div class="label-with-help">
           <label>STAY 1 Segment & Duration</label>
@@ -597,9 +609,10 @@
         <div id="helpStay1_2" class="help-text-box">Working area or low-flying delay segment 1 with associated duration in HHMM.</div>
         <div style="display:flex; gap:6px;">
           <select id="icaoStaySeg1" style="width:40%;">
-            <option selected>STAY1</option><option>NONE</option>
+            <option value="NONE" selected>NONE</option>
+            <option value="STAY1">STAY1</option>
           </select>
-          <input type="text" id="icaoStayDur1" value="0045" style="width:60%;" placeholder="Duration (HHMM)">
+          <input type="text" id="icaoStayDur1" value="" style="width:60%;" placeholder="Duration (HHMM)">
         </div>
 
         <div class="label-with-help">
@@ -609,7 +622,8 @@
         <div id="helpStay2_2" class="help-text-box">Optional working area or delay segment 2 with duration in HHMM.</div>
         <div style="display:flex; gap:6px;">
           <select id="icaoStaySeg2" style="width:40%;">
-            <option>NONE</option><option>STAY2</option>
+            <option value="NONE" selected>NONE</option>
+            <option value="STAY2">STAY2</option>
           </select>
           <input type="text" id="icaoStayDur2" value="" style="width:60%;" placeholder="Duration (HHMM)">
         </div>
@@ -621,7 +635,8 @@
         <div id="helpStay3_2" class="help-text-box">Optional working area or delay segment 3 with duration in HHMM.</div>
         <div style="display:flex; gap:6px;">
           <select id="icaoStaySeg3" style="width:40%;">
-            <option>NONE</option><option>STAY3</option>
+            <option value="NONE" selected>NONE</option>
+            <option value="STAY3">STAY3</option>
           </select>
           <input type="text" id="icaoStayDur3" value="" style="width:60%;" placeholder="Duration (HHMM)">
         </div>
@@ -637,7 +652,8 @@
         </div>
         <div id="helpIcaoWake" class="help-text-box">Denotes aircraft wake turbulence classification. J = Super, H = Heavy (136t+), M = Medium, L = Light.</div>
         <select id="icaoWake">
-          <option value="M" selected>M - Medium (MTOW &lt;= 136,000 kg)</option>
+          <option value="" selected>[Select Wake Category]</option>
+          <option value="M">M - Medium (MTOW &lt;= 136,000 kg)</option>
           <option value="J">J - Super (A380, etc.)</option>
           <option value="H">H - Heavy (136,000 kg or more)</option>
           <option value="L">L - Light (&lt;= 7,000 kg)</option>
@@ -646,7 +662,8 @@
         <label>Equipment / Transponder</label>
         <div style="display:flex; gap:6px;">
           <select id="icaoEquip" style="width:60%;">
-            <option value="SDE3G" selected>SDE3G - Standard + DME + RNAV + GNSS</option>
+            <option value="" selected>[Select Equipment]</option>
+            <option value="SDE3G">SDE3G - Standard + DME + RNAV + GNSS</option>
             <option value="S">S - Standard (VHF RTF, VOR, ILS)</option>
             <option value="SD">SD - Standard + DME</option>
             <option value="SDF">SDF - Standard + DME + ADF</option>
@@ -657,13 +674,14 @@
             <option value="SDE3GY">SDE3GY - Standard + DME + RNAV + GNSS + RNP</option>
           </select>
           <select id="icaoTrans" style="width:40%;">
+            <option value="" selected>[Transponder]</option>
             <option value="N">N - No transponder equipment</option>
             <option value="A">A - Mode A only (no altitude reporting)</option>
             <option value="C">C - Mode A and Mode C</option>
             <option value="E">E - Mode S, including aircraft identification, pressure-altitude and extended squitter (ADS-B) capability</option>
             <option value="H">H - Mode S, including aircraft identification, pressure-altitude and enhanced surveillance capability</option>
             <option value="I">I - Mode S, including aircraft identification, but no pressure-altitude capability</option>
-            <option value="L" selected>L - Mode S, including aircraft identification, pressure-altitude, extended squitter (ADS-B) and enhanced surveillance capability</option>
+            <option value="L">L - Mode S, including aircraft identification, pressure-altitude, extended squitter (ADS-B) and enhanced surveillance capability</option>
             <option value="P">P - Mode S, including pressure-altitude, but no aircraft identification capability</option>
             <option value="S">S - Mode S, including both pressure altitude and aircraft identification capability</option>
             <option value="X">X - Mode S with neither aircraft identification nor pressure-altitude capability</option>
@@ -677,7 +695,7 @@
         <div id="helpIcaoPbn" class="help-text-box">Select multiple Performance Based Navigation codes indicating approved RNAV/RNP navigation specifications. Concatenated without spaces.</div>
         <div class="pbn-dropdown-container">
           <button type="button" class="pbn-select-toggle" onclick="toggleIcaoPbnDropdown(event)">
-            <span id="icaoPbnToggleText">S1</span> ▾
+            <span id="icaoPbnToggleText">Select PBN Capabilities...</span> ▾
           </button>
           <div id="icaoPbnDropdownList" class="pbn-dropdown-list">
             <label class="pbn-checkbox-item"><input type="checkbox" value="A1" onchange="updateIcaoPbnSelection()"> A1 - RNAV 10 (RNP 10)</label>
@@ -700,13 +718,13 @@
             <label class="pbn-checkbox-item"><input type="checkbox" value="O2" onchange="updateIcaoPbnSelection()"> O2 - RNP 1 Basic GNSS</label>
             <label class="pbn-checkbox-item"><input type="checkbox" value="O3" onchange="updateIcaoPbnSelection()"> O3 - RNP 1 Basic DME/DME</label>
             <label class="pbn-checkbox-item"><input type="checkbox" value="O4" onchange="updateIcaoPbnSelection()"> O4 - RNP 1 Basic DME/DME/IRU</label>
-            <label class="pbn-checkbox-item"><input type="checkbox" value="S1" checked onchange="updateIcaoPbnSelection()"> S1 - RNP APCH</label>
+            <label class="pbn-checkbox-item"><input type="checkbox" value="S1" onchange="updateIcaoPbnSelection()"> S1 - RNP APCH</label>
             <label class="pbn-checkbox-item"><input type="checkbox" value="S2" onchange="updateIcaoPbnSelection()"> S2 - RNP APCH with BARO-NAV</label>
             <label class="pbn-checkbox-item"><input type="checkbox" value="T1" onchange="updateIcaoPbnSelection()"> T1 - RNP AR APCH with RF</label>
             <label class="pbn-checkbox-item"><input type="checkbox" value="T2" onchange="updateIcaoPbnSelection()"> T2 - RNP AR APCH without RF</label>
           </div>
         </div>
-        <input type="hidden" id="icaoPbnValue" value="S1">
+        <input type="hidden" id="icaoPbnValue" value="">
 
         <div class="label-with-help" style="margin-top:8px;">
           <label>NAV Capability</label>
@@ -728,6 +746,7 @@
         </div>
         <div id="helpIcaoSts" class="help-text-box">Special handling indicators required by air traffic control, such as STATE, NONRVSM, MARSA, or SAR.</div>
         <select id="icaoSts">
+          <option value="" selected>[NONE] - No special handling indicator</option>
           <option value="STATE">STATE - Engaged in military, customs or police services</option>
           <option value="NONRVSM">NONRVSM - Non-RVSM capable aircraft operating in RVSM airspace</option>
           <option value="MARSA">MARSA - Military entity assumes responsibility for separation</option>
@@ -737,7 +756,6 @@
           <option value="HAZMAT">HAZMAT - Flight carrying hazardous material</option>
           <option value="HEAD">HEAD - Flight with Head of State status</option>
           <option value="HUM">HUM - Flight operating on a humanitarian mission</option>
-          <option value="" selected>[NONE] - No special handling indicator</option>
         </select>
 
         <div class="label-with-help">
@@ -780,35 +798,35 @@
           <span class="help-icon" onclick="toggleHelp('helpIcaoReg')">?</span>
         </div>
         <div id="helpIcaoReg" class="help-text-box">Aircraft registration or military tail number identifier (e.g., FA1801).</div>
-        <input type="text" id="icaoReg" value="FA1801">
+        <input type="text" id="icaoReg" value="" placeholder="e.g. FA1801">
 
         <div class="label-with-help">
           <label>OPR / Operator</label>
           <span class="help-icon" onclick="toggleHelp('helpIcaoOpr')">?</span>
         </div>
         <div id="helpIcaoOpr" class="help-text-box">Operator designator or military unit identifier (e.g., FAF).</div>
-        <input type="text" id="icaoOpr" value="FAF">
+        <input type="text" id="icaoOpr" value="" placeholder="e.g. FAF">
 
         <div class="label-with-help">
           <label>Fuel Endurance (HHMM)</label>
           <span class="help-icon" onclick="toggleHelp('helpIcaoFuel')">?</span>
         </div>
         <div id="helpIcaoFuel" class="help-text-box">Total fuel endurance expressed in hours and minutes (e.g., 0200).</div>
-        <input type="text" id="icaoFuel" value="0200" placeholder="0200">
+        <input type="text" id="icaoFuel" value="" placeholder="e.g. 0200">
 
         <div class="label-with-help">
           <label>STAYINFO / Working Area Notes</label>
           <span class="help-icon" onclick="toggleHelp('helpIcaoStayinfo')">?</span>
         </div>
         <div id="helpIcaoStayinfo" class="help-text-box">Detailed working area description for military exercises within the route.</div>
-        <input type="text" id="icaoStayinfo" value="STAYINFO1/AIR TO AIR WORK IN TSA43">
+        <input type="text" id="icaoStayinfo" value="" placeholder="e.g. STAYINFO1/AIR TO AIR WORK IN TSA43">
 
         <div class="label-with-help">
           <label>RMK / OAT Status & VSO Tag</label>
           <span class="help-icon" onclick="toggleHelp('helpIcaoRmk')">?</span>
         </div>
         <div id="helpIcaoRmk" class="help-text-box">Regulatory remarks and organization tags.</div>
-        <input type="text" id="icaoRmk" value="RMK/OAT VIRTUALNATO.ORG">
+        <input type="text" id="icaoRmk" value="" placeholder="e.g. RMK/OAT VIRTUALNATO.ORG">
 
         <div class="checkbox-group" style="margin-top:10px;">
           <input type="checkbox" id="icaoVsoTrainee">
@@ -862,18 +880,18 @@
     <!-- METAR / TAF VIEWER BODY -->
     <div id="metarBody" class="sub-panel-content">
       <div class="metar-search-box">
-        <input type="text" id="icaoInput" value="LFBO" placeholder="Enter ICAO (e.g. LFBO, EGBB)">
+        <input type="text" id="icaoInput" value="" placeholder="Enter ICAOs separated by commas (e.g. LFBO, EGLL, EDBB)">
         <button type="button" onclick="fetchMetarTaf()">Fetch Weather</button>
       </div>
 
       <div class="wx-card">
         <h3>METAR (Meteorological Aerodrome Report)</h3>
-        <div id="metarOutput" class="wx-raw">Loading METAR for LFBO...</div>
+        <div id="metarOutput" class="wx-raw">Enter ICAO code(s) above and click 'Fetch Weather'...</div>
       </div>
 
       <div class="wx-card">
         <h3>TAF (Terminal Aerodrome Forecast)</h3>
-        <div id="tafOutput" class="wx-raw">Loading TAF for LFBO...</div>
+        <div id="tafOutput" class="wx-raw">Enter ICAO code(s) above and click 'Fetch Weather'...</div>
       </div>
 
       <div class="wx-card">
@@ -889,15 +907,15 @@
         <div class="calc-form-grid">
           <div class="calc-form-group">
             <label for="todCurrentAlt">Current Altitude (ft)</label>
-            <input type="text" id="todCurrentAlt" value="24500" oninput="calculateTod()">
+            <input type="text" id="todCurrentAlt" value="" placeholder="e.g. 24500" oninput="calculateTod()">
           </div>
           <div class="calc-form-group">
             <label for="todTargetAlt">Target Altitude (ft)</label>
-            <input type="text" id="todTargetAlt" value="2000" oninput="calculateTod()">
+            <input type="text" id="todTargetAlt" value="" placeholder="e.g. 2000" oninput="calculateTod()">
           </div>
           <div class="calc-form-group">
             <label for="todGroundspeed">Groundspeed (kts)</label>
-            <input type="text" id="todGroundspeed" value="420" oninput="calculateTod()">
+            <input type="text" id="todGroundspeed" value="" placeholder="e.g. 420" oninput="calculateTod()">
           </div>
           <div class="calc-form-group">
             <label for="todAngle">Descent Profile Angle</label>
@@ -914,19 +932,19 @@
           <h3>Calculated Descent Metrics</h3>
           <div class="calc-result-item">
             <span>Altitude to Lose:</span>
-            <span id="resAltLoss">22,500 ft</span>
+            <span id="resAltLoss">0 ft</span>
           </div>
           <div class="calc-result-item">
             <span>Distance to Top of Descent (TOD):</span>
-            <span id="resDistance">71.6 NM</span>
+            <span id="resDistance">0.0 NM</span>
           </div>
           <div class="calc-result-item">
             <span>Required Vertical Speed (FPM):</span>
-            <span id="resVs">2,226 FPM</span>
+            <span id="resVs">0 FPM</span>
           </div>
           <div class="calc-result-item">
             <span>Time to Target:</span>
-            <span id="resTime">10.2 min</span>
+            <span id="resTime">0.0 min</span>
           </div>
         </div>
       </div>
@@ -939,15 +957,15 @@
         <div class="calc-form-grid">
           <div class="calc-form-group">
             <label for="xwRwyHeading">Runway Heading (°)</label>
-            <input type="text" id="xwRwyHeading" value="270" placeholder="e.g. 27 for Rwy 27" oninput="calculateXwind()">
+            <input type="text" id="xwRwyHeading" value="" placeholder="e.g. 270" oninput="calculateXwind()">
           </div>
           <div class="calc-form-group">
             <label for="xwWindDir">Wind Direction (°)</label>
-            <input type="text" id="xwWindDir" value="300" placeholder="e.g. 300" oninput="calculateXwind()">
+            <input type="text" id="xwWindDir" value="" placeholder="e.g. 300" oninput="calculateXwind()">
           </div>
           <div class="calc-form-group" style="grid-column: span 2;">
             <label for="xwWindSpeed">Wind Speed (kts)</label>
-            <input type="text" id="xwWindSpeed" value="25" placeholder="e.g. 20" oninput="calculateXwind()">
+            <input type="text" id="xwWindSpeed" value="" placeholder="e.g. 25" oninput="calculateXwind()">
           </div>
         </div>
 
@@ -955,15 +973,15 @@
           <h3>Crosswind & Headwind Breakdown</h3>
           <div class="calc-result-item">
             <span>Headwind Component:</span>
-            <span id="resHeadwind">12.5 kts (Headwind)</span>
+            <span id="resHeadwind">0 kts</span>
           </div>
           <div class="calc-result-item">
             <span>Crosswind Component:</span>
-            <span id="resCrosswind">21.7 kts</span>
+            <span id="resCrosswind">0 kts</span>
           </div>
           <div class="calc-result-item">
             <span>Wind Angle Offset:</span>
-            <span id="resAngleOffset">30° off runway</span>
+            <span id="resAngleOffset">0° off runway</span>
           </div>
         </div>
       </div>
@@ -976,15 +994,15 @@
         <div class="calc-form-grid">
           <div class="calc-form-group">
             <label for="fuelDistance">Leg Distance (NM)</label>
-            <input type="text" id="fuelDistance" value="350" oninput="calculateFuelEte()">
+            <input type="text" id="fuelDistance" value="" placeholder="e.g. 350" oninput="calculateFuelEte()">
           </div>
           <div class="calc-form-group">
             <label for="fuelGroundspeed">Groundspeed (kts)</label>
-            <input type="text" id="fuelGroundspeed" value="420" oninput="calculateFuelEte()">
+            <input type="text" id="fuelGroundspeed" value="" placeholder="e.g. 420" oninput="calculateFuelEte()">
           </div>
           <div class="calc-form-group">
             <label for="fuelBurnRate">Fuel Burn Rate (per hour)</label>
-            <input type="text" id="fuelBurnRate" value="4500" oninput="calculateFuelEte()">
+            <input type="text" id="fuelBurnRate" value="" placeholder="e.g. 4500" oninput="calculateFuelEte()">
           </div>
           <div class="calc-form-group">
             <label for="fuelUnit">Weight Unit</label>
@@ -999,15 +1017,15 @@
           <h3>Estimated Time Enroute & Fuel Required</h3>
           <div class="calc-result-item">
             <span>Estimated Time Enroute (ETE):</span>
-            <span id="resEte">00:50 (HH:MM)</span>
+            <span id="resEte">00:00 (HH:MM)</span>
           </div>
           <div class="calc-result-item">
             <span>Leg Fuel Required:</span>
-            <span id="resLegFuel">3,750 lbs</span>
+            <span id="resLegFuel">0 lbs</span>
           </div>
           <div class="calc-result-item">
             <span>Total with 30m Reserve:</span>
-            <span id="resReserveFuel">6,000 lbs</span>
+            <span id="resReserveFuel">0 lbs</span>
           </div>
         </div>
       </div>
@@ -1065,15 +1083,15 @@
         <div class="calc-form-grid">
           <div class="calc-form-group">
             <label for="daElevation">Field Elevation (ft)</label>
-            <input type="text" id="daElevation" value="1500" oninput="calculateDensityAltitude()">
+            <input type="text" id="daElevation" value="" placeholder="e.g. 1500" oninput="calculateDensityAltitude()">
           </div>
           <div class="calc-form-group">
             <label for="daAltimeter">Altimeter Setting (inHg / hPa)</label>
-            <input type="text" id="daAltimeter" value="29.92" oninput="calculateDensityAltitude()">
+            <input type="text" id="daAltimeter" value="" placeholder="e.g. 29.92" oninput="calculateDensityAltitude()">
           </div>
           <div class="calc-form-group">
             <label for="daTemp">Temperature (°C)</label>
-            <input type="text" id="daTemp" value="30" oninput="calculateDensityAltitude()">
+            <input type="text" id="daTemp" value="" placeholder="e.g. 30" oninput="calculateDensityAltitude()">
           </div>
           <div class="calc-form-group">
             <label for="daAircraftType">Operation Type</label>
@@ -1088,15 +1106,15 @@
           <h3>Calculated Performance Index</h3>
           <div class="calc-result-item">
             <span>Pressure Altitude:</span>
-            <span id="resPressAlt">1,500 ft</span>
+            <span id="resPressAlt">0 ft</span>
           </div>
           <div class="calc-result-item">
             <span>Density Altitude (DA):</span>
-            <span id="resDensityAlt">3,312 ft</span>
+            <span id="resDensityAlt">0 ft</span>
           </div>
           <div class="calc-result-item">
             <span>Estimated Takeoff Roll Increase:</span>
-            <span id="resPerfDegradation">+12.4%</span>
+            <span id="resPerfDegradation">+0.0%</span>
           </div>
         </div>
       </div>
@@ -1132,7 +1150,7 @@
         <li><b>STAY Segment Sequence:</b> Low-Flying Areas, AAR, or working areas require a <code>STAYx/HHMM</code> entry in the Route, with matching details in <code>STAYINFOx/</code>.</li>
       </ul>
 
-      <h2>3. How to File Using the VATSIM ICAO FPL Import Tool</h2>
+      <h2>3. How to File Using the vPILOT FPL Import Tool</h2>
       <ul>
         <li><b>Step 1:</b> Select <b>vPILOT FPL String</b> from the generator mode menu.</li>
         <li><b>Step 2:</b> Click <b>Generate vPILOT String</b>, then click <b>Copy</b>.</li>
