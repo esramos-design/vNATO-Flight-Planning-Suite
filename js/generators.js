@@ -109,23 +109,23 @@ function generateIcaoFplString() {
   const country = document.getElementById('countrySelect').value;
   const rulesType = document.getElementById('icaoRules').value + document.getElementById('icaoType').value;
   
-  const spdAltHeader = document.getElementById('spdUnit').value + document.getElementById('spdVal').value + document.getElementById('altUnit').value + document.getElementById('altVal').value;
+  const spdAltHeader = document.getElementById('icaoSpdUnit').value + document.getElementById('icaoSpdVal').value + document.getElementById('icaoAltUnit').value + document.getElementById('icaoAltVal').value;
   
-  const gatToOat = document.getElementById('gatToOat').value.trim();
-  const oatToGat = document.getElementById('oatToGat').value.trim();
-  const vfrTrans = document.getElementById('vfrTrans').value.trim();
-  const route = document.getElementById('route').value.trim();
+  const gatToOat = document.getElementById('icaoGatToOat').value.trim();
+  const oatToGat = document.getElementById('icaoOatToGat').value.trim();
+  const vfrTrans = document.getElementById('icaoVfrTrans').value.trim();
+  const route = document.getElementById('icaoRoute').value.trim();
   
-  const s1 = document.getElementById('staySeg1').value;
-  const d1 = document.getElementById('stayDur1').value.trim();
+  const s1 = document.getElementById('icaoStaySeg1').value;
+  const d1 = document.getElementById('icaoStayDur1').value.trim();
   const stayStr1 = (s1 !== 'NONE' && d1) ? (s1 + '/' + d1) : '';
 
-  const s2 = document.getElementById('staySeg2').value;
-  const d2 = document.getElementById('stayDur2').value.trim();
+  const s2 = document.getElementById('icaoStaySeg2').value;
+  const d2 = document.getElementById('icaoStayDur2').value.trim();
   const stayStr2 = (s2 !== 'NONE' && d2) ? (s2 + '/' + d2) : '';
 
-  const s3 = document.getElementById('staySeg3').value;
-  const d3 = document.getElementById('stayDur3').value.trim();
+  const s3 = document.getElementById('icaoStaySeg3').value;
+  const d3 = document.getElementById('icaoStayDur3').value.trim();
   const stayStr3 = (s3 !== 'NONE' && d3) ? (s3 + '/' + d3) : '';
 
   let routeParts = [];
@@ -183,7 +183,6 @@ function generateIcaoFplString() {
   if (country === 'DE') {
     rmkVal = "RMK/VIRTUALNATO.ORG";
   } else if (country === 'FR') {
-    // Keep OAT status inside RMK/ to maintain valid ICAO syntax for VATSIM importer
     if (!rmkVal.includes("OAT")) {
       rmkVal = rmkVal.replace("RMK/", "RMK/OAT ");
     }
@@ -200,6 +199,7 @@ function generateIcaoFplString() {
     }
   }
 
+  // NO standalone OAT in Item 18 array to prevent VATSIM importer errors
   let remarksParts = [];
 
   const coreRemarksParts = [
