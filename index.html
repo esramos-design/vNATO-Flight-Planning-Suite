@@ -444,7 +444,7 @@
       </div>
     </div>
 
-    <!-- MODE 3: VATSIM ICAO FPL STRING -->
+<!-- MODE 3: VATSIM ICAO FPL STRING -->
     <div id="icaoTab" class="fpl-tab-content">
       <div class="fpl-section">
         <div class="label-with-help">
@@ -479,12 +479,12 @@
         </div>
         <div id="helpIcaoSpd" class="help-text-box">Cruising speed unit and numerical value format.</div>
         <div style="display:flex; gap:6px;">
-          <select id="icaoSpdUnit" style="width:35%;">
+          <select id="spdUnit" style="width:35%;">
             <option value="N" selected>N - Knots (e.g. N0450)</option>
             <option value="M">M - Mach (e.g. M080)</option>
             <option value="K">K - Km/h (e.g. K0850)</option>
           </select>
-          <input type="text" id="icaoSpdVal" value="0450" style="width:65%;">
+          <input type="text" id="spdVal" value="0450" style="width:65%;">
         </div>
 
         <div class="label-with-help">
@@ -493,12 +493,12 @@
         </div>
         <div id="helpIcaoAlt" class="help-text-box">Altitude unit and numerical value format.</div>
         <div style="display:flex; gap:6px;">
-          <select id="icaoAltUnit" style="width:35%;">
+          <select id="altUnit" style="width:35%;">
             <option value="F" selected>F - Flight Level (e.g. F245)</option>
             <option value="A">A - Altitude 100s ft (e.g. A045)</option>
             <option value="S">S - Metric tens of meters (e.g. S1130)</option>
           </select>
-          <input type="text" id="icaoAltVal" value="245" style="width:65%;">
+          <input type="text" id="altVal" value="245" style="width:65%;">
         </div>
 
         <div class="label-with-help">
@@ -543,6 +543,76 @@
         <input type="text" id="fplAlt" value="LFML">
       </div>
 
+      <!-- ROUTE BUILDER FIELDS EMBEDDED IN ICAO TAB -->
+      <div class="fpl-section">
+        <label style="color:#1a73e8; font-size:13px; border-bottom:1px solid #1a73e8; padding-bottom:3px; margin-bottom:6px;">Route Configuration</label>
+
+        <div class="label-with-help">
+          <label>GAT to OAT Transfer Point</label>
+          <span class="help-icon" onclick="toggleHelp('helpGatOat2')">?</span>
+        </div>
+        <div id="helpGatOat2" class="help-text-box">Fix and conditional format where flight transitions from General Air Traffic to Operational Air Traffic.</div>
+        <input type="text" id="gatToOat" value="" placeholder="e.g. SOTAK/OAT I M080F235">
+
+        <div class="label-with-help">
+          <label>OAT to GAT Transfer Point</label>
+          <span class="help-icon" onclick="toggleHelp('helpOatGat2')">?</span>
+        </div>
+        <div id="helpOatGat2" class="help-text-box">Fix where flight transitions back from OAT to GAT reporting standards.</div>
+        <input type="text" id="oatToGat" value="" placeholder="e.g. SURUD/GAT N350F115">
+
+        <div class="label-with-help">
+          <label>VFR Transfer Point</label>
+          <span class="help-icon" onclick="toggleHelp('helpVfrTrans2')">?</span>
+        </div>
+        <div id="helpVfrTrans2" class="help-text-box">Reporting fix where flight switches into VFR operational segments.</div>
+        <input type="text" id="vfrTrans" value="" placeholder="e.g. LMG/N0240A010 VFR">
+
+        <div class="label-with-help">
+          <label>Route Details / Fixes</label>
+          <span class="help-icon" onclick="toggleHelp('helpRouteFixes2')">?</span>
+        </div>
+        <div id="helpRouteFixes2" class="help-text-box">Chronological waypoints, radar corridors, and direct routing segments separated by single spaces.</div>
+        <input type="text" id="route" value="DCT CHP01 DCT MAR01 DCT MAR02 DCT MAR04">
+
+        <div class="label-with-help">
+          <label>STAY 1 Segment & Duration</label>
+          <span class="help-icon" onclick="toggleHelp('helpStay1_2')">?</span>
+        </div>
+        <div id="helpStay1_2" class="help-text-box">Working area or low-flying delay segment 1 with associated duration in HHMM.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="staySeg1" style="width:40%;">
+            <option selected>STAY1</option><option>NONE</option>
+          </select>
+          <input type="text" id="stayDur1" value="0045" style="width:60%;" placeholder="Duration (HHMM)">
+        </div>
+
+        <div class="label-with-help">
+          <label>STAY 2 Segment & Duration</label>
+          <span class="help-icon" onclick="toggleHelp('helpStay2_2')">?</span>
+        </div>
+        <div id="helpStay2_2" class="help-text-box">Optional working area or delay segment 2 with duration in HHMM.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="staySeg2" style="width:40%;">
+            <option>NONE</option><option>STAY2</option>
+          </select>
+          <input type="text" id="stayDur2" value="" style="width:60%;" placeholder="Duration (HHMM)">
+        </div>
+
+        <div class="label-with-help">
+          <label>STAY 3 Segment & Duration</label>
+          <span class="help-icon" onclick="toggleHelp('helpStay3_2')">?</span>
+        </div>
+        <div id="helpStay3_2" class="help-text-box">Optional working area or delay segment 3 with duration in HHMM.</div>
+        <div style="display:flex; gap:6px;">
+          <select id="staySeg3" style="width:40%;">
+            <option>NONE</option><option>STAY3</option>
+          </select>
+          <input type="text" id="stayDur3" value="" style="width:60%;" placeholder="Duration (HHMM)">
+        </div>
+      </div>
+
+      <!-- Item 18 / Remarks Configuration inside VATSIM ICAO FPL Mode -->
       <div class="fpl-section">
         <label style="color:#1a73e8; font-size:13px; border-bottom:1px solid #1a73e8; padding-bottom:3px; margin-bottom:6px;">Item 18 / Remarks Configuration</label>
         
@@ -699,7 +769,7 @@
 
         <div class="label-with-help">
           <label>OPR / Operator</label>
-          <span class="help-icon" onclick="toggleHelp('helpIcaoOpr')">?</span>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoOrgn')">?</span>
         </div>
         <div id="helpIcaoOpr" class="help-text-box">Operator designator or military unit identifier (e.g., FAF).</div>
         <input type="text" id="icaoOpr" value="FAF">
