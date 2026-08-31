@@ -109,7 +109,7 @@ function generateIcaoFplString() {
   const country = document.getElementById('countrySelect').value;
   const rulesType = document.getElementById('icaoRules').value + document.getElementById('icaoType').value;
   
-  const spdAltHeader = document.getElementById('icaoSpdUnit').value + document.getElementById('icaoSpdVal').value + document.getElementById('icaoAltUnit').value + document.getElementById('icaoAltVal').value;
+  const spdAltHeader = document.getElementById('spdUnit').value + document.getElementById('spdVal').value + document.getElementById('altUnit').value + document.getElementById('altVal').value;
   
   const gatToOat = document.getElementById('gatToOat').value.trim();
   const oatToGat = document.getElementById('oatToGat').value.trim();
