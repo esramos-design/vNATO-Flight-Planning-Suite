@@ -266,3 +266,9 @@ function copyToClipboard(elementId) {
   textarea.select();
   navigator.clipboard.writeText(textarea.value);
 }
+
+document.addEventListener('input', function(e) {
+  if (e.target.tagName === 'INPUT' && e.target.type === 'text') {
+    e.target.value = e.target.value.toUpperCase();
+  }
+});
