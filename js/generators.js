@@ -175,8 +175,6 @@ function generateIcaoFplString() {
   const opr = oprVal ? (`OPR/${oprVal}`) : '';
   
   const fuelVal = document.getElementById('icaoFuel').value.trim();
-  const fuel = fuelVal ? (`FUEL${fuelVal}`) : '';
-  
   const stayinfoVal = document.getElementById('icaoStayinfo').value.trim();
   
   let rmkVal = document.getElementById('icaoRmk').value.trim();
@@ -186,6 +184,11 @@ function generateIcaoFplString() {
     if (!rmkVal.includes("OAT")) {
       rmkVal = rmkVal.replace("RMK/", "RMK/OAT ");
     }
+  }
+
+  // Append FUEL info into RMK/ so VATSIM Beta puts endurance in remarks instead of confusing the OPR/ field
+  if (fuelVal) {
+    rmkVal += ` FUEL${fuelVal}`;
   }
 
   const isTrainee = document.getElementById('icaoVsoTrainee').checked;
@@ -199,11 +202,10 @@ function generateIcaoFplString() {
     }
   }
 
-  // NO standalone OAT in Item 18 array to prevent VATSIM importer errors
   let remarksParts = [];
 
   const coreRemarksParts = [
-    pbn, nav, wakeTag, sts, sel, sur, per, orgn, com, reg, opr, fuel, stayinfoVal, rmkVal
+    pbn, nav, wakeTag, sts, sel, sur, per, orgn, com, reg, opr, stayinfoVal, rmkVal
   ].filter(p => p !== '');
 
   remarksParts = remarksParts.concat(coreRemarksParts);
