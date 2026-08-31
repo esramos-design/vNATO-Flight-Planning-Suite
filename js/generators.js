@@ -182,6 +182,11 @@ function generateIcaoFplString() {
   let rmkVal = document.getElementById('icaoRmk').value.trim();
   if (country === 'DE') {
     rmkVal = "RMK/VIRTUALNATO.ORG";
+  } else if (country === 'FR') {
+    // Keep OAT status inside RMK/ to maintain valid ICAO syntax for VATSIM importer
+    if (!rmkVal.includes("OAT")) {
+      rmkVal = rmkVal.replace("RMK/", "RMK/OAT ");
+    }
   }
 
   const isTrainee = document.getElementById('icaoVsoTrainee').checked;
@@ -191,14 +196,11 @@ function generateIcaoFplString() {
     } else if (rmkVal !== "") {
       rmkVal += " VSO TRAINEE";
     } else {
-      rmkVal = "VSO TRAINEE";
+      rmkVal = "RMK/VSO TRAINEE";
     }
   }
 
   let remarksParts = [];
-  if (country === 'FR') {
-    remarksParts.push('OAT');
-  }
 
   const coreRemarksParts = [
     pbn, nav, wakeTag, sts, sel, sur, per, orgn, com, reg, opr, fuel, stayinfoVal, rmkVal
