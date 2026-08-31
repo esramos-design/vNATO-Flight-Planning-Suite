@@ -19,6 +19,7 @@ input, textarea, .wx-raw {
   -moz-user-select: text;
   -ms-user-select: text;
   user-select: text;
+  text-transform: uppercase;
 }
 
 .fpl-main-layout {
