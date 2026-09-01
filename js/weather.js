@@ -1,4 +1,4 @@
-const CHECKWX_API_KEY = "YOUR_CHECKWX_API_KEY_HERE";
+const CHECKWX_API_KEY = "d6bfc15fbcb744b98d259eb2f20495d6";
 
 async function fetchMetarTaf() {
   const icaoInput = document.getElementById('icaoInput');
