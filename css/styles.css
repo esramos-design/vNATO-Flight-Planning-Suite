@@ -283,6 +283,7 @@ input, textarea, .wx-raw {
   gap: 6px;
   font-size: 11px;
   color: #002B49;
+  flex-wrap: wrap;
 }
 .right-panel-btns {
   display: flex;

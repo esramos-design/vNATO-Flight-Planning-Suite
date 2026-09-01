@@ -46,15 +46,17 @@ function handleCountryChange() {
   }
 }
 
-// Toggle Manual Views (OAT Guide, Parameter Glossary, METAR Helper)
+// Toggle Manual Views (OAT Guide, Parameter Glossary, METAR Helper, TAF Helper)
 function toggleManualView(viewName) {
   const oatGuideBody = document.getElementById('oatGuideBody');
   const paramGlossaryBody = document.getElementById('paramGlossaryBody');
   const metarHelperBody = document.getElementById('metarHelperBody');
+  const tafHelperBody = document.getElementById('tafHelperBody');
   
   const oatBtn = document.getElementById('oatGuideBtn');
   const paramBtn = document.getElementById('paramGlossaryBtn');
   const helperBtn = document.getElementById('metarHelperBtn');
+  const tafBtn = document.getElementById('tafHelperBtn');
   
   const titleEl = document.getElementById('rightPanelTitle');
   const allSubPanels = document.querySelectorAll('.sub-panel-content');
@@ -68,12 +70,12 @@ function toggleManualView(viewName) {
   allToolButtons.forEach(b => b.classList.remove('active'));
 
   // Hide all manual bodies
-  [oatGuideBody, paramGlossaryBody, metarHelperBody].forEach(b => {
+  [oatGuideBody, paramGlossaryBody, metarHelperBody, tafHelperBody].forEach(b => {
     if (b) { b.classList.remove('active'); b.style.display = 'none'; }
   });
   
   // Remove active state from manual buttons
-  [oatBtn, paramBtn, helperBtn].forEach(b => { if (b) b.classList.remove('active'); });
+  [oatBtn, paramBtn, helperBtn, tafBtn].forEach(b => { if (b) b.classList.remove('active'); });
 
   if (viewName === 'oatGuide') {
     if (oatGuideBody) { oatGuideBody.classList.add('active'); oatGuideBody.style.display = 'block'; }
@@ -87,6 +89,10 @@ function toggleManualView(viewName) {
     if (metarHelperBody) { metarHelperBody.classList.add('active'); metarHelperBody.style.display = 'block'; }
     if (helperBtn) helperBtn.classList.add('active');
     if (titleEl) titleEl.textContent = 'METAR Decoding & Reading Guide';
+  } else if (viewName === 'tafHelper') {
+    if (tafHelperBody) { tafHelperBody.classList.add('active'); tafHelperBody.style.display = 'block'; }
+    if (tafBtn) tafBtn.classList.add('active');
+    if (titleEl) titleEl.textContent = 'Terminal Aerodrome Forecast (TAF) Guide';
   }
 }
 
@@ -96,11 +102,13 @@ function toggleRightPanelMode(mode) {
   const oatGuideBody = document.getElementById('oatGuideBody');
   const paramGlossaryBody = document.getElementById('paramGlossaryBody');
   const metarHelperBody = document.getElementById('metarHelperBody');
+  const tafHelperBody = document.getElementById('tafHelperBody');
   
   const allToolButtons = document.querySelectorAll('.right-panel-btns .action-toggle-btn');
   const oatBtn = document.getElementById('oatGuideBtn');
   const paramBtn = document.getElementById('paramGlossaryBtn');
   const helperBtn = document.getElementById('metarHelperBtn');
+  const tafBtn = document.getElementById('tafHelperBtn');
   
   const targetButton = document.getElementById(mode + 'ToggleBtn');
   const targetSubPanel = document.getElementById(mode + 'Body');
@@ -115,11 +123,11 @@ function toggleRightPanelMode(mode) {
   });
   allToolButtons.forEach(b => b.classList.remove('active'));
   
-  [oatGuideBody, paramGlossaryBody, metarHelperBody].forEach(b => {
+  [oatGuideBody, paramGlossaryBody, metarHelperBody, tafHelperBody].forEach(b => {
     if (b) { b.classList.remove('active'); b.style.display = 'none'; }
   });
   
-  [oatBtn, paramBtn, helperBtn].forEach(b => { if (b) b.classList.remove('active'); });
+  [oatBtn, paramBtn, helperBtn, tafBtn].forEach(b => { if (b) b.classList.remove('active'); });
 
   if (isAlreadyActive) {
     // Second click: Close tool and return to default OAT Guide view

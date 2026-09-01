@@ -9,11 +9,9 @@
 <body>
 
 <div class="fpl-main-layout">
-  <!-- LEFT COLUMN: GENERATOR WIDGET -->
   <div class="fpl-container">
     <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" class="vnato-logo" style="max-height: 50px;" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
     
-    <!-- Country & Mode Selector -->
     <div class="fpl-section" style="padding-top:0;">
       <div class="label-with-help">
         <label>Jurisdiction / Country Standard</label>
@@ -40,7 +38,6 @@
       </select>
     </div>
 
-    <!-- MODE 1: SWIFT ROUTE GENERATOR -->
     <div id="routeTab" class="fpl-tab-content">
       <div class="fpl-section">
         <div class="label-with-help">
@@ -203,7 +200,6 @@
       </div>
     </div>
 
-    <!-- MODE 2: SWIFT REMARKS GENERATOR -->
     <div id="remarksTab" class="fpl-tab-content">
       <div class="fpl-section">
         <div class="label-with-help">
@@ -258,7 +254,6 @@
       </div>
 
       <div class="fpl-section">
-        <!-- PBN MULTI-SELECT DROPDOWN -->
         <div class="label-with-help">
           <label>PBN Capability (Multiple Select)</label>
           <span class="help-icon" onclick="toggleHelp('helpPbn')">?</span>
@@ -443,7 +438,6 @@
       </div>
     </div>
 
-    <!-- MODE 3: vxPILOT FPL STRING -->
     <div id="icaoTab" class="fpl-tab-content active">
       <div class="fpl-section">
         <div class="label-with-help">
@@ -543,7 +537,6 @@
         <input type="text" id="fplAlt" value="" placeholder="e.g. LFML">
       </div>
 
-      <!-- Route Configuration Section -->
       <div class="fpl-section">
         <label style="color:#0072CE; font-size:13px; border-bottom:1px solid #0072CE; padding-bottom:3px; margin-bottom:6px;">Route Configuration</label>
 
@@ -630,7 +623,6 @@
         </div>
       </div>
 
-      <!-- Item 18 / Remarks Configuration inside vPILOT FPL Mode -->
       <div class="fpl-section">
         <label style="color:#0072CE; font-size:13px; border-bottom:1px solid #0072CE; padding-bottom:3px; margin-bottom:6px;">Item 18 / Remarks Configuration</label>
         
@@ -835,22 +827,19 @@
       </div>
     </div>
 
-    <!-- WIDGET FOOTER METADATA -->
     <div class="widget-meta">
       <b>Virtual NATO Flight Planning Suite</b><br>
       Property of Virtual NATO &copy; 2017–2026. All rights reserved.<br>
-      Version 5.0.0 - LIVE
+      Version 5.0.0 - ALPHA
     </div>
   </div>
 
-  <!-- RIGHT COLUMN: COMMAND SUITE & MANUAL VIEWS -->
   <div class="docs-container">
     <div class="docs-header">
       <h1 id="rightPanelTitle">Operational Air Traffic (OAT) Guide</h1>
       <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
     </div>
 
-    <!-- CONTROL BAR WITH MANUAL VIEWS & TOOLS -->
     <div class="right-panel-controls">
       <div class="doc-columns-toggle" style="display:flex; gap:6px; flex-wrap:wrap;">
         <button type="button" class="action-toggle-btn active" id="oatGuideBtn" onclick="toggleManualView('oatGuide')">
@@ -861,6 +850,9 @@
         </button>
         <button type="button" class="action-toggle-btn" id="metarHelperBtn" onclick="toggleManualView('metarHelper')">
           <span>METAR Helper</span>
+        </button>
+        <button type="button" class="action-toggle-btn" id="tafHelperBtn" onclick="toggleManualView('tafHelper')">
+          <span>TAF Helper</span>
         </button>
       </div>
       <div class="right-panel-btns">
@@ -891,7 +883,6 @@
       </div>
     </div>
 
-    <!-- METAR / TAF VIEWER BODY -->
     <div id="metarBody" class="sub-panel-content" style="display:none;">
       <div class="metar-search-box">
         <input type="text" id="icaoInput" value="" placeholder="Enter ICAOs separated by commas (e.g. LFBO, EGLL, EDBB)">
@@ -911,7 +902,6 @@
       </div>
     </div>
 
-    <!-- TOP OF DESCENT (TOD) CALCULATOR BODY -->
     <div id="todBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Descent Profile Parameters</h3>
@@ -948,7 +938,6 @@
       </div>
     </div>
 
-    <!-- CROSSWIND CALCULATOR BODY -->
     <div id="xwindBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Runway & Wind Parameters</h3>
@@ -975,7 +964,6 @@
       </div>
     </div>
 
-    <!-- FUEL BURN & ETE ESTIMATOR BODY -->
     <div id="fuelBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Leg Distance & Burn Parameters</h3>
@@ -1009,7 +997,6 @@
       </div>
     </div>
 
-    <!-- UTC / ZULU TIME CONVERTER & MISSION CLOCK BODY -->
     <div id="clockBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Live Mission Time & FIR Offset Clock</h3>
@@ -1048,7 +1035,6 @@
       </div>
     </div>
 
-    <!-- DENSITY ALTITUDE & PERFORMANCE INDEXER BODY -->
     <div id="daBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Aerodrome Environment Parameters</h3>
@@ -1082,7 +1068,6 @@
       </div>
     </div>
 
-    <!-- MANUAL VIEW 1: OPERATIONAL AIR TRAFFIC (OAT) GUIDE -->
     <div id="oatGuideBody" class="sub-manual-content active">
       <div class="disclaimer-box">
         <b>Operational Disclaimer:</b> This software and manual are proprietary assets of <b>Virtual NATO</b> (re-established in 2017) and are designed exclusively for simulated virtual aviation environments (such as VATSIM). Distribution outside Virtual NATO or without express authorization from vCMC & vDCMC is strictly prohibited. This tool must <b>never</b> be used for real-world flight planning, navigation, or operational dispatch.
@@ -1126,7 +1111,6 @@
       <p><b>Remarks Example:</b> <code>STAYINFO1/AARAS AAR MARSA/NATO11/ DELAY 0030 1200 TO 1230</code></p>
     </div>
 
-    <!-- MANUAL VIEW 2: PARAMETER GLOSSARY -->
     <div id="paramGlossaryBody" class="sub-manual-content" style="display:none;">
       <h2>Detailed Parameter Glossary</h2>
       
@@ -1162,7 +1146,6 @@
       </ul>
     </div>
 
-    <!-- MANUAL VIEW 3: METAR HELPER -->
     <div id="metarHelperBody" class="sub-manual-content" style="display:none;">
       <h2>METAR Decoding & Reading Guide</h2>
       <p>Meteorological Aerodrome Reports (METAR) follow a strict sequential format governed by international WMO/ICAO standards. Use this operational reference guide and descriptor tables to decode weather observations rapidly during flight planning.</p>
@@ -1278,11 +1261,67 @@
 
       <p style="font-size: 11px; color: #64748b; margin-top: 20px;">Reference guidance adapted from <a href="https://flyapg.com/blog/how-to-read-decode-metar-reports" target="_blank" style="color: #0072CE;">APG METAR Decoding Guide</a>.</p>
     </div>
+
+    <div id="tafHelperBody" class="sub-manual-content" style="display:none;">
+      <h2>Terminal Aerodrome Forecast (TAF) Decoding Guide</h2>
+      <p>Terminal Aerodrome Forecasts (TAF) provide expected meteorological conditions at an aerodrome over a specific 24- or 30-hour validity period. Use this operational guide to interpret forecast trends, operational probability groups, and conditional weather shifts.</p>
+
+      <div style="background: rgba(0, 114, 206, 0.08); border: 1px solid rgba(0, 114, 206, 0.2); border-radius: 6px; padding: 14px 16px; margin-bottom: 16px;">
+        <h3 style="margin-top: 0; color: #002B49; font-size: 14px; border-bottom: 1px solid rgba(0, 114, 206, 0.2); padding-bottom: 6px;">Anatomy of a Standard TAF String</h3>
+        <p style="font-family: monospace; font-size: 12px; background: #fff; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; color: #0072CE; margin-bottom: 10px;">TAF AMD LFBO 141730Z 1418/1524 24015G25KT 9999 BKN020<br>TEMPO 1420/1424 4000 TSRA OVC010CB<br>BECMG 1506/1508 26010KT CAVOK</p>
+        <ol style="margin: 0; padding-left: 20px; font-size: 12px; line-height: 1.6;">
+          <li><b>TAF Header / Modifier:</b> Indicates report type. Routine TAF or <code>AMD</code> (Amended forecast) or <code>COR</code> (Corrected).</li>
+          <li><b>Station Identifier & Issue Time:</b> 4-letter ICAO code and date/time of issuance in Zulu (e.g., <code>LFBO 141730Z</code>).</li>
+          <li><b>Validity Period:</b> Valid 2-digit date, starting hour, and ending hour of the forecast window (e.g., <code>1418/1524</code> = 14th day at 18:00 UTC through 15th day at 24:00 UTC).</li>
+          <li><b>Base Forecast Weather:</b> Prevailing wind, horizontal visibility, weather phenomena, and cloud layers expected across the primary validity block.</li>
+          <li><b>Forecast Change Groups:</b> Trend indicators detailing expected shifts over time (detailed below).</li>
+        </ol>
+      </div>
+
+      <h3 style="color: #002B49; font-size: 14px; margin-top: 20px; margin-bottom: 8px;">TAF Change Indicators & Probability Groups</h3>
+      <div style="overflow-x: auto; margin-bottom: 16px;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 12px; background: #fff;">
+          <thead>
+            <tr style="background: #002B49; color: #fff; text-align: left;">
+              <th style="padding: 8px; border: 1px solid #cbd5e1;">Indicator</th>
+              <th style="padding: 8px; border: 1px solid #cbd5e1;">Significance / Operational Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">BECMG (Becoming)</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Gradual transition of weather conditions occurring at a regular or irregular rate over the specified time window (e.g., <code>BECMG 1506/1508</code>). Permanent change once window concludes.</td>
+            </tr>
+            <tr style="background: #f8fafc;">
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">TEMPO (Temporary)</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Temporary fluctuations expected to last for less than one hour per occurrence and accumulate to less than half of the indicated time period. Conditions revert to base forecast afterward.</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">PROB30 / PROB40</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">Indicates a 30% or 40% probability of occurrence for thunderstorms, heavy precipitation, or low visibility hazards during the stated sub-window.</td>
+            </tr>
+            <tr style="background: #f8fafc;">
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">FM (From)</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Rapid, complete, and permanent sweep of prevailing conditions starting at an exact hour and minute (e.g., <code>FM151230</code>). Supersedes all previous groups.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3 style="color: #002B49; font-size: 14px; margin-top: 20px; margin-bottom: 8px;">Specialized Aerodrome Terms</h3>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; font-size: 12px; margin-bottom: 14px;">
+        <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 10px; border-radius: 4px;">
+          <b>CAVOK:</b> Visibility 10km+, no cloud below 5,000ft or MSA, no CB/TCU, and no significant weather.
+        </div>
+        <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 10px; border-radius: 4px;">
+          <b>NSW:</b> No Significant Weather expected to affect approach or departures.
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 
-<!-- LINK TO MODULAR SCRIPTS -->
-<script src="js/core.js?v=6"></script>
+<script src="js/core.js?v=7"></script>
 <script src="js/generators.js"></script>
 <script src="js/weather.js"></script>
 <script src="js/calculators.js"></script>
