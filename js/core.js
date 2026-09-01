@@ -156,6 +156,50 @@ function toggleRightPanelMode(mode) {
   }
 }
 
+// Live Mission Clock Updater Function
+function updateMissionClock() {
+  const now = new Date();
+  
+  // UTC / Zulu Time
+  const utcHours = String(now.getUTCHours()).padStart(2, '0');
+  const utcMinutes = String(now.getUTCMinutes()).padStart(2, '0');
+  const utcSeconds = String(now.getUTCSeconds()).padStart(2, '0');
+  const utcDateStr = now.toUTCString().slice(0, 16);
+
+  const clockZulu = document.getElementById('clockZulu');
+  const dateZulu = document.getElementById('dateZulu');
+  if (clockZulu) clockZulu.textContent = `${utcHours}:${utcMinutes}:${utcSeconds}`;
+  if (dateZulu) dateZulu.textContent = utcDateStr;
+
+  // Local System Time
+  const localHours = String(now.getHours()).padStart(2, '0');
+  const localMinutes = String(now.getMinutes()).padStart(2, '0');
+  const localSeconds = String(now.getSeconds()).padStart(2, '0');
+  const localDateStr = now.toDateString();
+
+  const clockLocal = document.getElementById('clockLocal');
+  const dateLocal = document.getElementById('dateLocal');
+  if (clockLocal) clockLocal.textContent = `${localHours}:${localMinutes}:${localSeconds}`;
+  if (dateLocal) dateLocal.textContent = localDateStr;
+
+  // Custom Offset Time Calculation
+  const offsetSelect = document.getElementById('clockOffset');
+  const offsetHours = offsetSelect ? parseInt(offsetSelect.value, 10) || 0 : 0;
+  
+  const customTime = new Date(now.getTime() + (offsetHours * 3600000));
+  const customH = String(customTime.getUTCHours()).padStart(2, '0');
+  const customM = String(customTime.getUTCMinutes()).padStart(2, '0');
+  const customS = String(customTime.getUTCSeconds()).padStart(2, '0');
+
+  const resCustomOffsetTime = document.getElementById('resCustomOffsetTime');
+  if (resCustomOffsetTime) {
+    resCustomOffsetTime.textContent = `${customH}:${customM}:${customS} UTC`;
+  }
+}
+
+// Start the live mission clock ticker immediately upon load
+setInterval(updateMissionClock, 1000);
+
 function togglePbnDropdown(e) {
   if (e) e.stopPropagation();
   const dropdown = document.getElementById('pbnDropdownList');
