@@ -46,12 +46,16 @@ function handleCountryChange() {
   }
 }
 
-// Toggle Manual Views (OAT Guide vs Parameter Glossary)
+// Toggle Manual Views (OAT Guide, Parameter Glossary, METAR Helper)
 function toggleManualView(viewName) {
   const oatGuideBody = document.getElementById('oatGuideBody');
   const paramGlossaryBody = document.getElementById('paramGlossaryBody');
+  const metarHelperBody = document.getElementById('metarHelperBody');
+  
   const oatBtn = document.getElementById('oatGuideBtn');
   const paramBtn = document.getElementById('paramGlossaryBtn');
+  const helperBtn = document.getElementById('metarHelperBtn');
+  
   const titleEl = document.getElementById('rightPanelTitle');
   const allSubPanels = document.querySelectorAll('.sub-panel-content');
   const allToolButtons = document.querySelectorAll('.right-panel-btns .action-toggle-btn');
@@ -63,30 +67,26 @@ function toggleManualView(viewName) {
   });
   allToolButtons.forEach(b => b.classList.remove('active'));
 
+  // Hide all manual bodies
+  [oatGuideBody, paramGlossaryBody, metarHelperBody].forEach(b => {
+    if (b) { b.classList.remove('active'); b.style.display = 'none'; }
+  });
+  
+  // Remove active state from manual buttons
+  [oatBtn, paramBtn, helperBtn].forEach(b => { if (b) b.classList.remove('active'); });
+
   if (viewName === 'oatGuide') {
-    if (oatGuideBody) {
-      oatGuideBody.classList.add('active');
-      oatGuideBody.style.display = 'block';
-    }
-    if (paramGlossaryBody) {
-      paramGlossaryBody.classList.remove('active');
-      paramGlossaryBody.style.display = 'none';
-    }
+    if (oatGuideBody) { oatGuideBody.classList.add('active'); oatGuideBody.style.display = 'block'; }
     if (oatBtn) oatBtn.classList.add('active');
-    if (paramBtn) paramBtn.classList.remove('active');
     if (titleEl) titleEl.textContent = 'Operational Air Traffic (OAT) Guide';
   } else if (viewName === 'paramGlossary') {
-    if (paramGlossaryBody) {
-      paramGlossaryBody.classList.add('active');
-      paramGlossaryBody.style.display = 'block';
-    }
-    if (oatGuideBody) {
-      oatGuideBody.classList.remove('active');
-      oatGuideBody.style.display = 'none';
-    }
+    if (paramGlossaryBody) { paramGlossaryBody.classList.add('active'); paramGlossaryBody.style.display = 'block'; }
     if (paramBtn) paramBtn.classList.add('active');
-    if (oatBtn) oatBtn.classList.remove('active');
     if (titleEl) titleEl.textContent = 'Parameter Glossary';
+  } else if (viewName === 'metarHelper') {
+    if (metarHelperBody) { metarHelperBody.classList.add('active'); metarHelperBody.style.display = 'block'; }
+    if (helperBtn) helperBtn.classList.add('active');
+    if (titleEl) titleEl.textContent = 'METAR Decoding & Reading Guide';
   }
 }
 
@@ -95,9 +95,13 @@ function toggleRightPanelMode(mode) {
   const allSubPanels = document.querySelectorAll('.sub-panel-content');
   const oatGuideBody = document.getElementById('oatGuideBody');
   const paramGlossaryBody = document.getElementById('paramGlossaryBody');
+  const metarHelperBody = document.getElementById('metarHelperBody');
+  
   const allToolButtons = document.querySelectorAll('.right-panel-btns .action-toggle-btn');
   const oatBtn = document.getElementById('oatGuideBtn');
   const paramBtn = document.getElementById('paramGlossaryBtn');
+  const helperBtn = document.getElementById('metarHelperBtn');
+  
   const targetButton = document.getElementById(mode + 'ToggleBtn');
   const targetSubPanel = document.getElementById(mode + 'Body');
   const titleEl = document.getElementById('rightPanelTitle');
@@ -110,16 +114,12 @@ function toggleRightPanelMode(mode) {
     p.style.display = 'none';
   });
   allToolButtons.forEach(b => b.classList.remove('active'));
-  if (oatGuideBody) {
-    oatGuideBody.classList.remove('active');
-    oatGuideBody.style.display = 'none';
-  }
-  if (paramGlossaryBody) {
-    paramGlossaryBody.classList.remove('active');
-    paramGlossaryBody.style.display = 'none';
-  }
-  if (oatBtn) oatBtn.classList.remove('active');
-  if (paramBtn) paramBtn.classList.remove('active');
+  
+  [oatGuideBody, paramGlossaryBody, metarHelperBody].forEach(b => {
+    if (b) { b.classList.remove('active'); b.style.display = 'none'; }
+  });
+  
+  [oatBtn, paramBtn, helperBtn].forEach(b => { if (b) b.classList.remove('active'); });
 
   if (isAlreadyActive) {
     // Second click: Close tool and return to default OAT Guide view
