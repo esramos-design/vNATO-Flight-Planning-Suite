@@ -345,7 +345,15 @@ input, textarea, .wx-raw {
 }
 .sub-manual-content { display: none; }
 .sub-manual-content.active { display: block; }
-.sub-panel-content { display: none; }
+
+.sub-panel-content {
+  padding: 20px;
+  background: #ffffff;
+  color: #1c2d42;
+  width: 100%;
+  clear: both;
+  display: none;
+}
 .sub-panel-content.active { display: block; }
 
 /* WEATHER & CALCULATOR VIEWS */
