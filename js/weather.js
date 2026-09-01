@@ -1,4 +1,3 @@
-// CheckWX API Configuration
 const CHECKWX_API_KEY = "YOUR_CHECKWX_API_KEY_HERE";
 
 async function fetchMetarTaf() {
@@ -11,7 +10,6 @@ async function fetchMetarTaf() {
 
   const rawInput = icaoInput.value.trim().toUpperCase();
   
-  // Validation: Inline error instead of alert popup
   if (!rawInput) {
     if (metarDiv) metarDiv.innerHTML = '<span style="color:#ef4444; font-weight:bold;">Please enter one or more ICAO codes separated by commas (e.g. LFBO, EGLL, EDBB).</span>';
     if (tafDiv) tafDiv.textContent = 'Awaiting ICAO input...';
@@ -19,7 +17,6 @@ async function fetchMetarTaf() {
     return;
   }
 
-  // Split comma-separated inputs, strip spaces, and filter out invalid strings
   const icaoArray = rawInput.split(',')
                             .map(code => code.trim())
                             .filter(code => code.length === 4);
@@ -41,7 +38,6 @@ async function fetchMetarTaf() {
     'X-API-Key': CHECKWX_API_KEY
   };
 
-  // 1. FETCH MULTI-METAR & DECODED PARAMS
   try {
     const metarRes = await fetch(`https://api.checkwx.com/metar/${icaoQuery}/decoded`, { headers });
     if (metarRes.ok) {
@@ -53,10 +49,8 @@ async function fetchMetarTaf() {
         data.data.forEach(wx => {
           const station = wx.icao || 'UNKNOWN';
           
-          // Raw METAR String
           metarOutputs.push(`[ ${station} ]\n${wx.raw_text || 'No raw METAR string returned.'}`);
 
-          // Decoder Breakdown
           const windStr = wx.wind ? `${wx.wind.degrees ?? 'VRB'}° at ${wx.wind.speed_kts ?? 0} kts (Gusts: ${wx.wind.gust_kts ? wx.wind.gust_kts + ' kts' : 'None'})` : 'Calm / Unreported';
           const visStr = wx.visibility ? `${wx.visibility.miles ? wx.visibility.miles + ' SM' : (wx.visibility.meters ? wx.visibility.meters + ' m' : 'N/A')}` : 'Unreported';
           const tempStr = wx.temperature ? `${wx.temperature.celsius}°C (Dewpoint: ${wx.dewpoint ? wx.dewpoint.celsius + '°C' : 'N/A'})` : 'N/A';
@@ -91,7 +85,6 @@ async function fetchMetarTaf() {
     if (metarDiv) metarDiv.textContent = `Network error connecting to CheckWX API.`;
   }
 
-  // 2. FETCH MULTI-TAF
   try {
     const tafRes = await fetch(`https://api.checkwx.com/taf/${icaoQuery}`, { headers });
     if (tafRes.ok) {
@@ -111,13 +104,5 @@ async function fetchMetarTaf() {
     }
   } catch (e) {
     if (tafDiv) tafDiv.textContent = `Error loading TAF feed.`;
-  }
-}
-
-// Fallback helper for UI tab switches
-function updateDecoderState() {
-  const decoderDiv = document.getElementById('decoderOutput');
-  if (decoderDiv && decoderDiv.textContent === '') {
-    decoderDiv.textContent = "Click 'Fetch Weather' to generate plain language breakdown...";
   }
 }

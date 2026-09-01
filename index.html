@@ -20,7 +20,7 @@
         <span class="help-icon" onclick="toggleHelp('helpCountry')">?</span>
       </div>
       <div id="helpCountry" class="help-text-box">Selects national OAT reporting and remark conventions for France (DGAC/DIRCAM), Germany (BMVg/Luftwaffe), or United Kingdom (RAF/MilAIP).</div>
-      <select id="countrySelect" style="font-weight:bold; color:#1a73e8;" onchange="handleCountryChange()">
+      <select id="countrySelect" style="font-weight:bold; color:#002B49;" onchange="handleCountryChange()">
         <option value="FR" selected>France (DGAC / DIRCAM)</option>
         <option value="DE">Germany (BMVg / Luftwaffe)</option>
         <option value="UK">United Kingdom (RAF / MilAIP)</option>
@@ -404,22 +404,10 @@
 
       <div class="fpl-section">
         <div class="label-with-help">
-          <label>STAYINFO Segment</label>
-          <span class="help-icon" onclick="toggleHelp('helpStayInfoSeg')">?</span>
-        </div>
-        <div id="helpStayInfoSeg" class="help-text-box">Designates which STAY waypoint corresponds to the working area remarks below.</div>
-        <select id="stayInfoSeg">
-          <option value="NONE" selected>[NONE]</option>
-          <option value="STAYINFO1">STAYINFO1</option>
-          <option value="STAYINFO2">STAYINFO2</option>
-          <option value="STAYINFO3">STAYINFO3</option>
-        </select>
-
-        <div class="label-with-help">
-          <label>STAYINFO Details</label>
+          <label>STAYINFO / Working Area Notes</label>
           <span class="help-icon" onclick="toggleHelp('helpStayinfoDetails')">?</span>
         </div>
-        <div id="helpStayinfoDetails" class="help-text-box">Detailed description of military exercise, low-flying, or refueling activity within the designated STAY area.</div>
+        <div id="helpStayinfoDetails" class="help-text-box">Detailed description of military exercise, low-flying, or refueling activity within the designated STAY area. Automatically mapped to STAYINFO1/, STAYINFO2/, STAYINFO3/.</div>
         <input type="text" id="stayinfo" value="" placeholder="e.g. AIR TO AIR WORK IN TSA43">
       </div>
 
@@ -462,7 +450,7 @@
           <label>Flight Rules</label>
           <span class="help-icon" onclick="toggleHelp('helpIcaoRules')">?</span>
         </div>
-        <div id="helpIcaoRules" class="help-text-box">I (IFR), V (VFR), T (OAT Tactical), Y (IFR then VFR), Z (VFR then IFR).</div>
+        <div id="helpIcaoRules" class="help-text-box">I (IFR), V (VFR), T (OAT Tactical), Y (IFR then VFR), Z (VFR then IFR). Note: VATSIM parser automatically maps tactical 'T' to 'I'.</div>
         <select id="icaoRules">
           <option value="" selected>[Select Rules]</option>
           <option value="I">I - IFR</option>
@@ -557,7 +545,7 @@
 
       <!-- Route Configuration Section -->
       <div class="fpl-section">
-        <label style="color:#1a73e8; font-size:13px; border-bottom:1px solid #1a73e8; padding-bottom:3px; margin-bottom:6px;">Route Configuration</label>
+        <label style="color:#0072CE; font-size:13px; border-bottom:1px solid #0072CE; padding-bottom:3px; margin-bottom:6px;">Route Configuration</label>
 
         <div class="label-with-help">
           <label>Route Type</label>
@@ -644,7 +632,7 @@
 
       <!-- Item 18 / Remarks Configuration inside vPILOT FPL Mode -->
       <div class="fpl-section">
-        <label style="color:#1a73e8; font-size:13px; border-bottom:1px solid #1a73e8; padding-bottom:3px; margin-bottom:6px;">Item 18 / Remarks Configuration</label>
+        <label style="color:#0072CE; font-size:13px; border-bottom:1px solid #0072CE; padding-bottom:3px; margin-bottom:6px;">Item 18 / Remarks Configuration</label>
         
         <div class="label-with-help">
           <label>Wake Turbulence Category</label>
@@ -819,7 +807,7 @@
           <span class="help-icon" onclick="toggleHelp('helpIcaoStayinfo')">?</span>
         </div>
         <div id="helpIcaoStayinfo" class="help-text-box">Detailed working area description for military exercises within the route.</div>
-        <input type="text" id="icaoStayinfo" value="" placeholder="e.g. STAYINFO1/AIR TO AIR WORK IN TSA43">
+        <input type="text" id="icaoStayinfo" value="" placeholder="e.g. AIR TO AIR WORK IN TSA43">
 
         <div class="label-with-help">
           <label>RMK / OAT Status & VSO Tag</label>
@@ -851,57 +839,77 @@
     <div class="widget-meta">
       <b>Virtual NATO Flight Planning Suite</b><br>
       Property of Virtual NATO &copy; 2017–2026. All rights reserved.<br>
-      Version 4.9.2-LIVE
+      Version 4.9.2-ALPHA
     </div>
   </div>
 
-  <!-- RIGHT COLUMN: DOCUMENTATION, METAR, TOD, XWIND, FUEL, CLOCK & DENSITY ALTITUDE VIEWER -->
+  <!-- RIGHT COLUMN: COMMAND SUITE & MANUAL VIEWS -->
   <div class="docs-container">
     <div class="docs-header">
-      <h1 id="rightPanelTitle">Operational Air Traffic (OAT) Manual</h1>
+      <h1 id="rightPanelTitle">Operational Air Traffic (OAT) Guide</h1>
       <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
     </div>
 
+    <!-- CONTROL BAR WITH OAT GUIDE & PARAMETER GLOSSARY BUTTONS -->
     <div class="right-panel-controls">
-      <div class="doc-columns-toggle" id="docColumnsToggleContainer">
-        <input type="checkbox" id="toggleThreeCol" onchange="toggleThreeColumnLayout(this.checked)">
-        <label for="toggleThreeCol" style="font-weight:bold; color:#1a73e8; cursor:pointer; margin:0;">Switch Manual to 3-Column View</label>
+      <div class="doc-columns-toggle" style="display:flex; gap:8px;">
+        <button type="button" class="action-toggle-btn active" id="oatGuideBtn" onclick="toggleManualView('oatGuide')">
+          <span>Operational Air Traffic (OAT) Guide</span>
+        </button>
+        <button type="button" class="action-toggle-btn" id="paramGlossaryBtn" onclick="toggleManualView('paramGlossary')">
+          <span>Parameter Glossary</span>
+        </button>
       </div>
       <div class="right-panel-btns">
-        <button type="button" class="action-toggle-btn" id="metarToggleBtn" onclick="toggleRightPanelMode('metar')">🌦️ WX</button>
-        <button type="button" class="action-toggle-btn" id="todToggleBtn" onclick="toggleRightPanelMode('tod')">📉 TOD</button>
-        <button type="button" class="action-toggle-btn" id="xwindToggleBtn" onclick="toggleRightPanelMode('xwind')">💨 X-Wind</button>
-        <button type="button" class="action-toggle-btn" id="fuelToggleBtn" onclick="toggleRightPanelMode('fuel')">⛽ ETE/Fuel</button>
-        <button type="button" class="action-toggle-btn" id="clockToggleBtn" onclick="toggleRightPanelMode('clock')">🕒 UTC Clock</button>
-        <button type="button" class="action-toggle-btn" id="daToggleBtn" onclick="toggleRightPanelMode('da')">🌡️ Density Alt</button>
+        <button type="button" class="action-toggle-btn" id="metarToggleBtn" onclick="toggleRightPanelMode('metar')">
+          <img src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f326.svg" class="btn-img-icon" alt="WX">
+          <span>WX BRIEF</span>
+        </button>
+        <button type="button" class="action-toggle-btn" id="todToggleBtn" onclick="toggleRightPanelMode('tod')">
+          <img src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f4c9.svg" class="btn-img-icon" alt="TOD">
+          <span>TOD</span>
+        </button>
+        <button type="button" class="action-toggle-btn" id="xwindToggleBtn" onclick="toggleRightPanelMode('xwind')">
+          <img src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f32c.svg" class="btn-img-icon" alt="X-Wind">
+          <span>X-WIND</span>
+        </button>
+        <button type="button" class="action-toggle-btn" id="fuelToggleBtn" onclick="toggleRightPanelMode('fuel')">
+          <img src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/26fd.svg" class="btn-img-icon" alt="Fuel">
+          <span>FUEL/ETE</span>
+        </button>
+        <button type="button" class="action-toggle-btn" id="clockToggleBtn" onclick="toggleRightPanelMode('clock')">
+          <img src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/23f1.svg" class="btn-img-icon" alt="Clock">
+          <span>ZULU / UTC</span>
+        </button>
+        <button type="button" class="action-toggle-btn" id="daToggleBtn" onclick="toggleRightPanelMode('da')">
+          <img src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f321.svg" class="btn-img-icon" alt="Density Alt">
+          <span>DENSITY ALT</span>
+        </button>
       </div>
     </div>
 
     <!-- METAR / TAF VIEWER BODY -->
-    <div id="metarBody" class="sub-panel-content">
+    <div id="metarBody" class="sub-panel-content" style="display:none;">
       <div class="metar-search-box">
         <input type="text" id="icaoInput" value="" placeholder="Enter ICAOs separated by commas (e.g. LFBO, EGLL, EDBB)">
         <button type="button" onclick="fetchMetarTaf()">Fetch Weather</button>
       </div>
-
       <div class="wx-card">
-        <h3>METAR (Meteorological Aerodrome Report)</h3>
+        <h3>METAR Reports</h3>
         <div id="metarOutput" class="wx-raw">Enter ICAO code(s) above and click 'Fetch Weather'...</div>
       </div>
-
       <div class="wx-card">
-        <h3>TAF (Terminal Aerodrome Forecast)</h3>
+        <h3>Terminal Aerodrome Forecast (TAF)</h3>
         <div id="tafOutput" class="wx-raw">Enter ICAO code(s) above and click 'Fetch Weather'...</div>
       </div>
-
       <div class="wx-card">
-        <h3>METAR / TAF Plain Language Decoder</h3>
-        <div id="decoderOutput" class="wx-raw" style="color: #1a73e8; background: #e8f0fe; border-color: #cce0ff;">Click 'Fetch Weather' to generate plain language breakdown...</div>
+        <h3>Decoded Weather Parameters</h3>
+        <div id="decoderOutput" class="wx-raw" style="color: #0072CE; background: #e6f0fa; border-color: #b3d7ff;">Click 'Fetch Weather' to generate plain language breakdown...</div>
       </div>
     </div>
 
     <!-- TOP OF DESCENT (TOD) CALCULATOR BODY -->
-    <div id="todBody" class="sub-panel-content">
+    <div id="todBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Descent Profile Parameters</h3>
         <div class="calc-form-grid">
@@ -927,31 +935,18 @@
             </select>
           </div>
         </div>
-
         <div class="calc-results-box">
           <h3>Calculated Descent Metrics</h3>
-          <div class="calc-result-item">
-            <span>Altitude to Lose:</span>
-            <span id="resAltLoss">0 ft</span>
-          </div>
-          <div class="calc-result-item">
-            <span>Distance to Top of Descent (TOD):</span>
-            <span id="resDistance">0.0 NM</span>
-          </div>
-          <div class="calc-result-item">
-            <span>Required Vertical Speed (FPM):</span>
-            <span id="resVs">0 FPM</span>
-          </div>
-          <div class="calc-result-item">
-            <span>Time to Target:</span>
-            <span id="resTime">0.0 min</span>
-          </div>
+          <div class="calc-result-item"><span>Altitude to Lose:</span><span id="resAltLoss">0 ft</span></div>
+          <div class="calc-result-item"><span>Distance to Top of Descent (TOD):</span><span id="resDistance">0.0 NM</span></div>
+          <div class="calc-result-item"><span>Required Vertical Speed (FPM):</span><span id="resVs">0 FPM</span></div>
+          <div class="calc-result-item"><span>Time to Target:</span><span id="resTime">0.0 min</span></div>
         </div>
       </div>
     </div>
 
     <!-- CROSSWIND CALCULATOR BODY -->
-    <div id="xwindBody" class="sub-panel-content">
+    <div id="xwindBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Runway & Wind Parameters</h3>
         <div class="calc-form-grid">
@@ -968,27 +963,17 @@
             <input type="text" id="xwWindSpeed" value="" placeholder="e.g. 25" oninput="calculateXwind()">
           </div>
         </div>
-
         <div class="calc-results-box">
           <h3>Crosswind & Headwind Breakdown</h3>
-          <div class="calc-result-item">
-            <span>Headwind Component:</span>
-            <span id="resHeadwind">0 kts</span>
-          </div>
-          <div class="calc-result-item">
-            <span>Crosswind Component:</span>
-            <span id="resCrosswind">0 kts</span>
-          </div>
-          <div class="calc-result-item">
-            <span>Wind Angle Offset:</span>
-            <span id="resAngleOffset">0° off runway</span>
-          </div>
+          <div class="calc-result-item"><span>Headwind Component:</span><span id="resHeadwind">0 kts</span></div>
+          <div class="calc-result-item"><span>Crosswind Component:</span><span id="resCrosswind">0 kts</span></div>
+          <div class="calc-result-item"><span>Wind Angle Offset:</span><span id="resAngleOffset">0° off runway</span></div>
         </div>
       </div>
     </div>
 
     <!-- FUEL BURN & ETE ESTIMATOR BODY -->
-    <div id="fuelBody" class="sub-panel-content">
+    <div id="fuelBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Leg Distance & Burn Parameters</h3>
         <div class="calc-form-grid">
@@ -1012,30 +997,19 @@
             </select>
           </div>
         </div>
-
         <div class="calc-results-box">
           <h3>Estimated Time Enroute & Fuel Required</h3>
-          <div class="calc-result-item">
-            <span>Estimated Time Enroute (ETE):</span>
-            <span id="resEte">00:00 (HH:MM)</span>
-          </div>
-          <div class="calc-result-item">
-            <span>Leg Fuel Required:</span>
-            <span id="resLegFuel">0 lbs</span>
-          </div>
-          <div class="calc-result-item">
-            <span>Total with 30m Reserve:</span>
-            <span id="resReserveFuel">0 lbs</span>
-          </div>
+          <div class="calc-result-item"><span>Estimated Time Enroute (ETE):</span><span id="resEte">00:00 (HH:MM)</span></div>
+          <div class="calc-result-item"><span>Leg Fuel Required:</span><span id="resLegFuel">0 lbs</span></div>
+          <div class="calc-result-item"><span>Total with 30m Reserve:</span><span id="resReserveFuel">0 lbs</span></div>
         </div>
       </div>
     </div>
 
     <!-- UTC / ZULU TIME CONVERTER & MISSION CLOCK BODY -->
-    <div id="clockBody" class="sub-panel-content">
+    <div id="clockBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Live Mission Time & FIR Offset Clock</h3>
-        
         <div class="clock-display-box">
           <div class="clock-card">
             <h4>Zulu / UTC Time</h4>
@@ -1048,7 +1022,6 @@
             <div id="dateLocal" class="clock-date">--</div>
           </div>
         </div>
-
         <div class="calc-form-grid" style="margin-top: 14px;">
           <div class="calc-form-group" style="grid-column: span 2;">
             <label for="clockOffset">Quick FIR / Timezone Offset (Hours relative to UTC)</label>
@@ -1065,19 +1038,15 @@
             </select>
           </div>
         </div>
-
         <div class="calc-results-box">
           <h3>Custom Offset Time</h3>
-          <div class="calc-result-item">
-            <span>Selected Timezone Clock:</span>
-            <span id="resCustomOffsetTime">00:00:00 UTC</span>
-          </div>
+          <div class="calc-result-item"><span>Selected Timezone Clock:</span><span id="resCustomOffsetTime">00:00:00 UTC</span></div>
         </div>
       </div>
     </div>
 
     <!-- DENSITY ALTITUDE & PERFORMANCE INDEXER BODY -->
-    <div id="daBody" class="sub-panel-content">
+    <div id="daBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Aerodrome Environment Parameters</h3>
         <div class="calc-form-grid">
@@ -1101,107 +1070,99 @@
             </select>
           </div>
         </div>
-
         <div class="calc-results-box">
           <h3>Calculated Performance Index</h3>
-          <div class="calc-result-item">
-            <span>Pressure Altitude:</span>
-            <span id="resPressAlt">0 ft</span>
-          </div>
-          <div class="calc-result-item">
-            <span>Density Altitude (DA):</span>
-            <span id="resDensityAlt">0 ft</span>
-          </div>
-          <div class="calc-result-item">
-            <span>Estimated Takeoff Roll Increase:</span>
-            <span id="resPerfDegradation">+0.0%</span>
-          </div>
+          <div class="calc-result-item"><span>Pressure Altitude:</span><span id="resPressAlt">0 ft</span></div>
+          <div class="calc-result-item"><span>Density Altitude (DA):</span><span id="resDensityAlt">0 ft</span></div>
+          <div class="calc-result-item"><span>Estimated Takeoff Roll Increase:</span><span id="resPerfDegradation">+0.0%</span></div>
         </div>
       </div>
     </div>
 
-    <!-- VIEW 1: DOCUMENTATION BODY -->
-    <div id="docBody" class="doc-content-body active">
+    <!-- MANUAL VIEW 1: OPERATIONAL AIR TRAFFIC (OAT) GUIDE -->
+    <div id="oatGuideBody" class="sub-manual-content active">
       <div class="disclaimer-box">
         <b>Operational Disclaimer:</b> This software and manual are proprietary assets of <b>Virtual NATO</b> (established 2010) and are designed exclusively for simulated virtual aviation environments (such as VATSIM). This tool must <b>never</b> be used for real-world flight planning, navigation, or operational dispatch.
       </div>
 
-      <h2>1. Introduction & Operational Context</h2>
-      <p>This manual assists pilots in accurately filing Fields 8 (Route) and 11 (Remarks) for military OAT flights adapted from national AIP standards for virtual network operations.</p>
+      <h2>1. Introduction & Regulatory Context</h2>
+      <p>Operational Air Traffic (OAT) flight planning governs military and state-configured aircraft operations, requiring strict adherence to national Aeronautical Information Publication (AIP) standards and virtual network (such as VATSIM) filing rules. Because live pre-file systems automatically reject tactical flight rules (<code>T</code>), flights must utilize a safe fallback framework (<code>I</code> for IFR or <code>Z</code> for hybrid rules) while preserving OAT routing rules inside the main route string and Item 18 remarks.</p>
 
-      <div style="margin-bottom: 14px;">
-        <a id="manualPdfLink" href="https://virtualnato.org/icrew/index.php/modernui#/documentation/document/146" target="_blank" class="manual-link-btn">📄 Open Official Selected Country PDF Manual</a>
+      <h2>2. Country-Specific Routing & Remark Standards</h2>
+      <div style="background: rgba(0, 114, 206, 0.08); border: 1px solid rgba(0, 114, 206, 0.2); border-radius: 6px; padding: 14px 16px;">
+        <ul style="margin: 0; padding-left: 20px;">
+          <li><b>France (DGAC / DIRCAM):</b> The route string must <b>never</b> start with the term "OAT". However, active OAT phases must be declared by placing <code>RMK/OAT</code> at the beginning of the Item 18 remarks field.</li>
+        </ul>
+        <hr style="border: none; border-top: 1px solid rgba(0, 114, 206, 0.2); margin: 12px 0;">
+        <ul style="margin: 0; padding-left: 20px;">
+          <li><b>Germany (BMVg / Luftwaffe):</b> The route string <b>must start with "OAT"</b> followed by a space. Remarks do not require the OAT prefix (using standard tags like <code>RMK/VIRTUALNATO.ORG</code>), and airspace blocks follow structured formats (e.g., <code>EDR208 308 1600 1700 FL100 FL350 FOR TRAINING</code>) alongside standard fuel endurance parameters (<code>FUEL0200</code>).</li>
+        </ul>
+        <hr style="border: none; border-top: 1px solid rgba(0, 114, 206, 0.2); margin: 12px 0;">
+        <ul style="margin: 0; padding-left: 20px;">
+          <li><b>United Kingdom (RAF / MilAIP):</b> The route string <b>must start with "OAT"</b> followed by a space. Operations incorporate specialized national infrastructure including <b>Radar Corridors</b> (e.g., <code>LICHFIELD RC</code>, <code>DAVENTRY RC</code>), <b>Low-Flying Areas</b> (e.g., <code>LFA7</code>), and specific <code>STAYINFO</code> tags.</li>
+        </ul>
       </div>
 
-      <div class="diff-box">
-        <b>Active Country-Specific Formatting Rules & Differences:</b>
-        <hr>
-        • <b>France (DGAC / DIRCAM):</b> The Route field must <b>never</b> start with the word "OAT". However, the <code>OAT</code> status must appear at the beginning of the remarks (RKS) field to indicate that at least one OAT phase is taking place.
-        <hr>
-        • <b>Germany (BMVg / Luftwaffe):</b> The Route field <b>must start with "OAT"</b> followed by a space. Remarks do <b>not</b> start with "OAT" (uses standard <code>RMK/VIRTUALNATO.ORG</code> and optional <code>VSO TRAINEE</code>). STAYINFO airspace blocks follow a strict structured format (e.g., <code>EDR208 308 1600 1700 FL100 FL350 FOR TRAINING</code>), and fuel endurance (e.g., <code>FUEL0200</code>) is standard.
-        <hr>
-        • <b>United Kingdom (RAF / MilAIP):</b> The Route field <b>must start with the term "OAT"</b> followed by a space. Utilizes national infrastructure such as <b>Radar Corridors</b> (e.g., <code>LICHFIELD RC</code>, <code>DAVENTRY RC</code>), <b>Low-Flying Areas</b> (<code>LFA7</code>), and specific <code>STAYINFO</code> formats (e.g., <code>STAYINFO1/LFA7 LOWAT DELAY 0020</code>).
-      </div>
-
-      <h2>2. Instructions: How to Build Your Route & Remarks</h2>
+      <h2>3. Route Construction & Formatting Rules</h2>
       <ul>
-        <li><b>No Airfield ICAOs in Route:</b> Do not include departure or destination airfield ICAO codes inside the middle of your route string.</li>
-        <li><b>Space Separation:</b> Separate chronological route waypoints, radar corridors, and performance descriptors with single spaces.</li>
-        <li><b>STAY Segment Sequence:</b> Low-Flying Areas, AAR, or working areas require a <code>STAYx/HHMM</code> entry in the Route, with matching details in <code>STAYINFOx/</code>.</li>
+        <li><b>No Airfield ICAOs in Route:</b> Never insert departure or destination airfield ICAO codes inside the middle of a route string.</li>
+        <li><b>Space-Separated Syntax:</b> Chronological waypoints, radar corridors, and transition descriptors must be separated by single spaces.</li>
+        <li><b>STAY Segment Sequence:</b> Low-Flying Areas, Air Refueling tracks (AAR), or working blocks require a <code>STAYX/HHMM</code> entry attached to their waypoint in the route, paired with matching <code>STAYINFOx/</code> remarks.</li>
       </ul>
 
-      <h2>3. How to File Using the vPILOT FPL Import Tool</h2>
-      <ul>
-        <li><b>Step 1:</b> Select <b>vPILOT FPL String</b> from the generator mode menu.</li>
-        <li><b>Step 2:</b> Click <b>Generate vPILOT String</b>, then click <b>Copy</b>.</li>
-        <li><b>Step 3:</b> Click <b>Import ICAO FPL</b> or <b>Import ICAO FPL (Beta)</b>, paste your string, and click <b>Parse / Import</b>.</li>
-      </ul>
-
-      <h2>4. Operational Flight Scenarios</h2>
+      <h2>4. Tactical Flight Scenarios & Examples</h2>
       <h3>OAT IFR — Ferry / Liaison Flight & Radar Corridors</h3>
-      <p>Select applicable Radar Corridors and include the full corridor name where required (e.g., <code>LICHFIELD RC</code>, <code>DAVENTRY RC</code>).<br>
-      Route Example: <code>CGY LICHFIELD RC LFA7 STAY1/0015 DCT CGY</code></p>
+      <p><b>Route Example:</b> <code>CGY LICHFIELD RC LFA7 STAY1/0015 DCT CGY</code></p>
 
       <h3>OAT VFR — Low-Level Navigation & Low-Flying Areas (LFA)</h3>
-      <p>Specify the LFA and delay in remarks as outlined in national supplements.<br>
-      Route Example: <code>CGY/MID07S LICHFIELD RC LFA7 STAY1/0020 DCT LCH RC DCT CGY</code><br>
-      Remarks Example: <code>STAYINFO1/LFA7 LOWAT DELAY 0020</code></p>
+      <p><b>Route Example:</b> <code>CGY/MID07S LICHFIELD RC LFA7 STAY1/0020 DCT LCH RC DCT CGY</code></p>
+      <p><b>Remarks Example:</b> <code>STAYINFO1/LFA7 LOWAT DELAY 0020</code></p>
 
       <h3>Air Refueling (AAR) & Danger Areas</h3>
-      <p>Route Example: <code>BZN DCT DAVENTRY RC DCT AARA8 STAY1/0030 DCT DAVENTRY RC DCT BZN</code><br>
-      Remarks Example: <code>STAYINFO1/AARAS AAR MARSA/NATO11/ DELAY 0030 1200 TO 1230</code></p>
+      <p><b>Route Example:</b> <code>BZN DCT DAVENTRY RC DCT AARA8 STAY1/0030 DCT DAVENTRY RC DCT BZN</code></p>
+      <p><b>Remarks Example:</b> <code>STAYINFO1/AARAS AAR MARSA/NATO11/ DELAY 0030 1200 TO 1230</code></p>
+    </div>
 
-      <h2>5. Detailed Parameter Glossary</h2>
-      <h3>Route Generator Parameters</h3>
+    <!-- MANUAL VIEW 2: PARAMETER GLOSSARY -->
+    <div id="paramGlossaryBody" class="sub-manual-content" style="display:none;">
+      <h2>Detailed Parameter Glossary</h2>
+      
+      <p><b>Route & General Parameters</b></p>
       <ul>
-        <li><b>DOF:</b> Flight departure date in <code>YYMMDD</code> format.</li>
-        <li><b>Flight Rules:</b> <code>I</code> (IFR), <code>V</code> (VFR), <code>T</code> (OAT Tactical), <code>Y</code> (IFR then VFR), <code>Z</code> (VFR to IFR).</li>
-        <li><b>Speed & Altitude Units:</b> Knots/Mach/Kmh (<code>N</code>, <code>M</code>, <code>K</code>) and Flight Level/Altitude/Metric (<code>F</code>, <code>A</code>, <code>S</code>).</li>
-        <li><b>STAY Segments:</b> <code>STAY1</code>, <code>STAY2</code>, <code>STAY3</code> with duration in <code>HHMM</code>.</li>
+        <li><b>Jurisdiction / Country Standard:</b> Selects national OAT reporting and remark conventions for France (DGAC/DIRCAM), Germany (BMVg/Luftwaffe), or United Kingdom (RAF/MilAIP).</li>
+        <li><b>Generator Mode:</b> Switches between building individual SWIFT Route strings, Item 18 Remarks, or the complete standalone vPILOT flight plan string.</li>
+        <li><b>Date of Flight (DOF):</b> Flight departure date formatted in standard 6-digit <code>YYMMDD</code> format.</li>
+        <li><b>Flight Rules:</b> <code>I</code> (IFR), <code>V</code> (VFR), <code>T</code> (OAT Tactical), <code>Y</code> (IFR then VFR), <code>Z</code> (VFR then IFR). Note: VATSIM parser compatibility automatically maps tactical rules safely.</li>
+        <li><b>Type of Flight:</b> General operations category indicator (<code>M</code> for Military, <code>S</code> for Scheduled, <code>N</code> for Non-scheduled, <code>G</code> for General Aviation, <code>X</code> for Special).</li>
+        <li><b>Speed & Altitude Units:</b> Cruising speed units (<code>N</code> knots, <code>M</code> Mach, <code>K</code> km/h) paired with numerical values, and Flight Level/Altitude/Metric units (<code>F</code>, <code>A</code>, <code>S</code>).</li>
+        <li><b>Route Type & Transfer Points:</b> Pre-configured OAT templates, GAT-to-OAT, OAT-to-GAT, and VFR transition waypoints.</li>
+        <li><b>STAY Segments:</b> <code>STAY1</code>, <code>STAY2</code>, <code>STAY3</code> integrated with chronological route fixes and duration in <code>HHMM</code> format.</li>
       </ul>
 
-      <h3>Remarks Generator Parameters</h3>
+      <p><b>Item 18 & Remarks Parameters</b></p>
       <ul>
-        <li><b>Type of Flight:</b> Indicates the general category of operations being conducted. Common military and operational codes include <code>M</code> (Military), <code>S</code> (Scheduled air transport), <code>N</code> (Non-scheduled air transport), <code>G</code> (General aviation), and <code>X</code> (Other / Special operations).</li>
-        <li><b>Wake Turbulence Category:</b> Denotes the aircraft's wake turbulence generation classification based on its maximum certificated takeoff mass. Standard ICAO codes include <code>J</code> (Super - for A380), <code>H</code> (Heavy - 136 kg or more), <code>M</code> (Medium - between 7 kg and 136 kg), and <code>L</code> (Light - 7 kg or less).</li>
-        <li><b>Equipment & Transponder:</b> Field 10a (e.g., <code>SDE3G</code>) and Field 10b surveillance codes covering full capabilities from <code>N</code> (No transponder), <code>A</code>, <code>C</code>, <code>E</code>, <code>H</code>, <code>I</code>, <code>L</code>, <code>P</code>, <code>S</code>, to <code>X</code>.</li>
-        <li><b>PBN / Performance Based Navigation:</b> Multi-selected RNAV/RNP capabilities concatenated without spaces (e.g., <code>S1B1</code>).</li>
-        <li><b>STS / Special Handling:</b> Identifiers such as <code>STATE</code>, <code>NONRVSM</code>, <code>MARSA</code>, <code>SAR</code>, <code>MEDEVAC</code>, <code>FLTCK</code>, <code>HAZMAT</code>, <code>HEAD</code>, and <code>HUM</code>.</li>
-        <li><b>SEL / SELCAL:</b> Selective calling radio system code.</li>
-        <li><b>SUR / Surveillance:</b> Surveillance capabilities and data link identifiers (e.g., SUR/260B).</li>
-        <li><b>PER / Performance:</b> Aircraft performance data, PBN capabilities, or RNP compliance indicators.</li>
-        <li><b>ORGN / Origin:</b> Originator address or dispatch identifier for the filed flight plan.</li>
-        <li><b>COM / Comms:</b> Communication radio capabilities and frequencies.</li>
-        <li><b>REG/ & OPR/:</b> Aircraft registration and operator identification (e.g., <code>29 SQN ROYAL AIR FORCE</code>, <code>GAF</code>, <code>FAF</code>).</li>
-        <li><b>FUEL / EET / STAYINFO:</b> Fuel endurance (e.g., <code>FUEL0200</code>), estimated elapsed times, and specific area working notes.</li>
-        <li><b>RMK/ & VSO Tag:</b> Regulatory tags like <code>RMK/OAT FERRY</code>, <code>VIRTUALNATO.ORG</code>, plus optional <code>VSO TRAINEE</code> student tag. For France, OAT appears at the beginning of remarks.</li>
+        <li><b>Wake Turbulence Category:</b> Aircraft wake turbulence classification based on maximum certificated takeoff mass (<code>J</code> Super, <code>H</code> Heavy, <code>M</code> Medium, <code>L</code> Light).</li>
+        <li><b>Equipment & Transponder:</b> Field 10a radio communication, navigation, and approach aid equipment codes (e.g., <code>SDE3G</code>, <code>SDT</code>) and Field 10b surveillance equipment codes (e.g., <code>S</code>, <code>E</code>).</li>
+        <li><b>PBN / Performance Based Navigation:</b> Multi-selected RNAV/RNP capabilities concatenated without spaces (e.g., <code>S1</code>).</li>
+        <li><b>NAV Capability:</b> Additional navigation equipment identifiers or equipment augmentation (e.g., <code>TACAN</code>, <code>RNAV5</code>).</li>
+        <li><b>STS / Special Handling:</b> Required ATC special handling indicators such as <code>STATE</code>, <code>NONRVSM</code>, <code>MARSA</code>, or <code>SAR</code>.</li>
+        <li><b>SEL / SELCAL:</b> Selective calling radio system code format (e.g., <code>ABDE</code>).</li>
+        <li><b>SUR / Surveillance:</b> Surveillance equipment capabilities and data link identifiers (e.g., <code>260B</code>).</li>
+        <li><b>PER / Performance:</b> Aircraft performance data, PBN capabilities, or RNP compliance indicators (e.g., <code>C1</code>).</li>
+        <li><b>ORGN / Origin:</b> Originator address or dispatch identifier for the filed flight plan (e.g., <code>LFBOOANX</code>).</li>
+        <li><b>COM / Comms:</b> Communication radio capabilities and voice frequencies.</li>
+        <li><b>REG / Registration:</b> Aircraft registration or military tail number identifier (e.g., <code>FA1801</code>).</li>
+        <li><b>OPR / Operator:</b> Operator designator or military unit identifier (e.g., <code>FAF</code>, <code>GAF</code>, <code>29 SQN ROYAL AIR FORCE</code>).</li>
+        <li><b>Fuel Endurance & EET:</b> Total fuel endurance (e.g., <code>FUEL0200</code>) and estimated elapsed times (<code>EET/</code>).</li>
+        <li><b>STAYINFO / Working Area Notes:</b> Detailed military exercise working area descriptions mapped automatically to <code>STAYINFO1/</code>, <code>STAYINFO2/</code>, and <code>STAYINFO3/</code>.</li>
+        <li><b>RMK / VSO Tag:</b> Regulatory tags like <code>RMK/OAT</code>, organization signatures like <code>VIRTUALNATO.ORG</code>, and optional student tags like <code>VSO TRAINEE</code>.</li>
       </ul>
     </div>
   </div>
 </div>
 
 <!-- LINK TO MODULAR SCRIPTS -->
-<script src="js/core.js?v=2"></script>
+<script src="js/core.js?v=3"></script>
 <script src="js/generators.js"></script>
 <script src="js/weather.js"></script>
 <script src="js/calculators.js"></script>

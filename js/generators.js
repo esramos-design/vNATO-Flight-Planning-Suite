@@ -120,7 +120,6 @@ function generateIcaoFplString() {
   const eetArr = document.getElementById('fplEetArr').value.trim().toUpperCase();
   const altAerodrome = document.getElementById('fplAlt').value.trim().toUpperCase();
 
-  const routeType = document.getElementById('icaoRouteType').value;
   const rawRoute = document.getElementById('icaoRoute').value.trim().toUpperCase();
   const gatToOat = document.getElementById('icaoGatToOat').value.trim().toUpperCase();
   const oatToGat = document.getElementById('icaoOatToGat').value.trim().toUpperCase();
