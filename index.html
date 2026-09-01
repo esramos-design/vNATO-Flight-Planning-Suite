@@ -830,7 +830,7 @@
     <div class="widget-meta">
       <b>Virtual NATO Flight Planning Suite</b><br>
       Property of Virtual NATO &copy; 2017–2026. All rights reserved.<br>
-      Version 5.0.0 - LIVE
+      Version 5.0.0 - ALPHA
     </div>
   </div>
 
@@ -902,7 +902,7 @@
       </div>
     </div>
 
-    <div id="todBody" class="sub-panel-content" style="display:none;">
+<div id="todBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Descent Profile Parameters</h3>
         <div class="calc-form-grid">
@@ -927,13 +927,18 @@
               <option value="2.5">2.5° Shallow Cruise Descent</option>
             </select>
           </div>
+          <div class="calc-form-group" style="grid-column: span 2;">
+            <label for="todOffset">Target Offset (NM before fix)</label>
+            <input type="text" id="todOffset" value="" placeholder="e.g. 20 (Optional)" oninput="calculateTod()">
+          </div>
         </div>
         <div class="calc-results-box">
           <h3>Calculated Descent Metrics</h3>
           <div class="calc-result-item"><span>Altitude to Lose:</span><span id="resAltLoss">0 ft</span></div>
-          <div class="calc-result-item"><span>Distance to Top of Descent (TOD):</span><span id="resDistance">0.0 NM</span></div>
+          <div class="calc-result-item"><span>Pure Descent Distance:</span><span id="resDescDist">0.0 NM</span></div>
+          <div class="calc-result-item"><span>Start Descent (Total NM from Fix):</span><span id="resDistance" style="color: #0072CE;">0.0 NM</span></div>
           <div class="calc-result-item"><span>Required Vertical Speed (FPM):</span><span id="resVs">0 FPM</span></div>
-          <div class="calc-result-item"><span>Time to Target:</span><span id="resTime">0.0 min</span></div>
+          <div class="calc-result-item"><span>Time to Target Alt:</span><span id="resTime">0.0 min</span></div>
         </div>
       </div>
     </div>
