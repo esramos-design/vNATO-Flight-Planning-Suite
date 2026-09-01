@@ -36,7 +36,7 @@
       <select class="fpl-mode-select" onchange="switchFplMode(this.value)">
         <option value="routeTab">SWIFT Route Generator</option>
         <option value="remarksTab">SWIFT Remarks Generator</option>
-        <option value="icaoTab" selected>vPILOT FPL String</option>
+        <option value="icaoTab" selected>vxPILOT FPL String - IMPORT ICAO FPL</option>
       </select>
     </div>
 
@@ -443,7 +443,7 @@
       </div>
     </div>
 
-    <!-- MODE 3: vPILOT FPL STRING -->
+    <!-- MODE 3: vxPILOT FPL STRING -->
     <div id="icaoTab" class="fpl-tab-content active">
       <div class="fpl-section">
         <div class="label-with-help">
@@ -822,7 +822,7 @@
         </div>
       </div>
 
-      <button class="fpl-gen-btn" onclick="generateIcaoFplString()">Generate vPILOT String</button>
+      <button class="fpl-gen-btn" onclick="generateIcaoFplString()">Generate vxPILOT String</button>
       
       <div class="fpl-textarea-container" style="margin-top:10px;">
         <button class="fpl-copy-btn" onclick="copyToClipboard('icaoOutput')">Copy</button>
@@ -839,7 +839,7 @@
     <div class="widget-meta">
       <b>Virtual NATO Flight Planning Suite</b><br>
       Property of Virtual NATO &copy; 2017–2026. All rights reserved.<br>
-      Version 4.9.2-ALPHA
+      Version 5.0.0 - LIVE
     </div>
   </div>
 
@@ -1082,7 +1082,8 @@
     <!-- MANUAL VIEW 1: OPERATIONAL AIR TRAFFIC (OAT) GUIDE -->
     <div id="oatGuideBody" class="sub-manual-content active">
       <div class="disclaimer-box">
-<b>Operational Disclaimer:</b> This software and manual are proprietary assets of <b>Virtual NATO</b> (re-established in 2017) and are designed exclusively for simulated virtual aviation environments (such as VATSIM). Distribution outside Virtual NATO or without express authorization from vCMC & vDCMC is strictly prohibited. This tool must <b>never</b> be used for real-world flight planning, navigation, or operational dispatch.      </div>
+        <b>Operational Disclaimer:</b> This software and manual are proprietary assets of <b>Virtual NATO</b> (re-established in 2017) and are designed exclusively for simulated virtual aviation environments (such as VATSIM). Distribution outside Virtual NATO or without express authorization from vCMC & vDCMC is strictly prohibited. This tool must <b>never</b> be used for real-world flight planning, navigation, or operational dispatch.
+      </div>
 
       <h2>1. Introduction & Regulatory Context</h2>
       <p>Operational Air Traffic (OAT) flight planning governs military and state-configured aircraft operations, requiring strict adherence to national Aeronautical Information Publication (AIP) standards and virtual network (such as VATSIM) filing rules. Because live pre-file systems automatically reject tactical flight rules (<code>T</code>), flights must utilize a safe fallback framework (<code>I</code> for IFR or <code>Z</code> for hybrid rules) while preserving OAT routing rules inside the main route string and Item 18 remarks.</p>
@@ -1161,7 +1162,7 @@
 </div>
 
 <!-- LINK TO MODULAR SCRIPTS -->
-<script src="js/core.js?v=3"></script>
+<script src="js/core.js?v=5"></script>
 <script src="js/generators.js"></script>
 <script src="js/weather.js"></script>
 <script src="js/calculators.js"></script>
