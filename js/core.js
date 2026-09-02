@@ -1,3 +1,4 @@
+// js/core.js
 function toggleHelp(id) {
   const box = document.getElementById(id);
   if (box) {
@@ -46,15 +47,17 @@ function handleCountryChange() {
   }
 }
 
-// Toggle Manual Views (OAT Guide, Parameter Glossary, METAR Helper, TAF Helper)
+// Toggle Manual Views (OAT Guide, Parameter Glossary, Equip & PBN Guide, METAR Helper, TAF Helper)
 function toggleManualView(viewName) {
   const oatGuideBody = document.getElementById('oatGuideBody');
   const paramGlossaryBody = document.getElementById('paramGlossaryBody');
+  const equipGuideBody = document.getElementById('equipGuideBody');
   const metarHelperBody = document.getElementById('metarHelperBody');
   const tafHelperBody = document.getElementById('tafHelperBody');
   
   const oatBtn = document.getElementById('oatGuideBtn');
   const paramBtn = document.getElementById('paramGlossaryBtn');
+  const equipBtn = document.getElementById('equipGuideBtn');
   const helperBtn = document.getElementById('metarHelperBtn');
   const tafBtn = document.getElementById('tafHelperBtn');
   
@@ -70,12 +73,12 @@ function toggleManualView(viewName) {
   allToolButtons.forEach(b => b.classList.remove('active'));
 
   // Hide all manual bodies
-  [oatGuideBody, paramGlossaryBody, metarHelperBody, tafHelperBody].forEach(b => {
+  [oatGuideBody, paramGlossaryBody, equipGuideBody, metarHelperBody, tafHelperBody].forEach(b => {
     if (b) { b.classList.remove('active'); b.style.display = 'none'; }
   });
   
   // Remove active state from manual buttons
-  [oatBtn, paramBtn, helperBtn, tafBtn].forEach(b => { if (b) b.classList.remove('active'); });
+  [oatBtn, paramBtn, equipBtn, helperBtn, tafBtn].forEach(b => { if (b) b.classList.remove('active'); });
 
   if (viewName === 'oatGuide') {
     if (oatGuideBody) { oatGuideBody.classList.add('active'); oatGuideBody.style.display = 'block'; }
@@ -85,6 +88,10 @@ function toggleManualView(viewName) {
     if (paramGlossaryBody) { paramGlossaryBody.classList.add('active'); paramGlossaryBody.style.display = 'block'; }
     if (paramBtn) paramBtn.classList.add('active');
     if (titleEl) titleEl.textContent = 'Parameter Glossary';
+  } else if (viewName === 'equipGuide') {
+    if (equipGuideBody) { equipGuideBody.classList.add('active'); equipGuideBody.style.display = 'block'; }
+    if (equipBtn) equipBtn.classList.add('active');
+    if (titleEl) titleEl.textContent = 'Equipment, Transponder & PBN Reference Guide';
   } else if (viewName === 'metarHelper') {
     if (metarHelperBody) { metarHelperBody.classList.add('active'); metarHelperBody.style.display = 'block'; }
     if (helperBtn) helperBtn.classList.add('active');
@@ -101,12 +108,14 @@ function toggleRightPanelMode(mode) {
   const allSubPanels = document.querySelectorAll('.sub-panel-content');
   const oatGuideBody = document.getElementById('oatGuideBody');
   const paramGlossaryBody = document.getElementById('paramGlossaryBody');
+  const equipGuideBody = document.getElementById('equipGuideBody');
   const metarHelperBody = document.getElementById('metarHelperBody');
   const tafHelperBody = document.getElementById('tafHelperBody');
   
   const allToolButtons = document.querySelectorAll('.right-panel-btns .action-toggle-btn');
   const oatBtn = document.getElementById('oatGuideBtn');
   const paramBtn = document.getElementById('paramGlossaryBtn');
+  const equipBtn = document.getElementById('equipGuideBtn');
   const helperBtn = document.getElementById('metarHelperBtn');
   const tafBtn = document.getElementById('tafHelperBtn');
   
@@ -123,14 +132,13 @@ function toggleRightPanelMode(mode) {
   });
   allToolButtons.forEach(b => b.classList.remove('active'));
   
-  [oatGuideBody, paramGlossaryBody, metarHelperBody, tafHelperBody].forEach(b => {
+  [oatGuideBody, paramGlossaryBody, equipGuideBody, metarHelperBody, tafHelperBody].forEach(b => {
     if (b) { b.classList.remove('active'); b.style.display = 'none'; }
   });
   
-  [oatBtn, paramBtn, helperBtn, tafBtn].forEach(b => { if (b) b.classList.remove('active'); });
+  [oatBtn, paramBtn, equipBtn, helperBtn, tafBtn].forEach(b => { if (b) b.classList.remove('active'); });
 
   if (isAlreadyActive) {
-    // Second click: Close tool and return to default OAT Guide view
     if (oatGuideBody) {
       oatGuideBody.classList.add('active');
       oatGuideBody.style.display = 'block';
@@ -138,7 +146,6 @@ function toggleRightPanelMode(mode) {
     if (oatBtn) oatBtn.classList.add('active');
     if (titleEl) titleEl.textContent = 'Operational Air Traffic (OAT) Guide';
   } else {
-    // First click: Open tool view and highlight button
     if (targetSubPanel) {
       targetSubPanel.classList.add('active');
       targetSubPanel.style.display = 'block';
@@ -150,55 +157,45 @@ function toggleRightPanelMode(mode) {
       else if (mode === 'tod') titleEl.textContent = 'Top of Descent (TOD) Calculator';
       else if (mode === 'xwind') titleEl.textContent = 'Crosswind & Headwind Calculator';
       else if (mode === 'fuel') titleEl.textContent = 'Fuel Burn & ETE Estimator';
-      else if (mode === 'clock') titleEl.textContent = 'Zulu / UTC Mission Clock';
       else if (mode === 'da') titleEl.textContent = 'Density Altitude & Performance Indexer';
     }
   }
 }
 
-// Live Mission Clock Updater Function
+// Flanked Header Mission Clock Updater Function
 function updateMissionClock() {
   const now = new Date();
   
-  // UTC / Zulu Time
   const utcHours = String(now.getUTCHours()).padStart(2, '0');
   const utcMinutes = String(now.getUTCMinutes()).padStart(2, '0');
   const utcSeconds = String(now.getUTCSeconds()).padStart(2, '0');
-  const utcDateStr = now.toUTCString().slice(0, 16);
-
-  const clockZulu = document.getElementById('clockZulu');
-  const dateZulu = document.getElementById('dateZulu');
-  if (clockZulu) clockZulu.textContent = `${utcHours}:${utcMinutes}:${utcSeconds}`;
-  if (dateZulu) dateZulu.textContent = utcDateStr;
-
-  // Local System Time
+  
   const localHours = String(now.getHours()).padStart(2, '0');
   const localMinutes = String(now.getMinutes()).padStart(2, '0');
   const localSeconds = String(now.getSeconds()).padStart(2, '0');
-  const localDateStr = now.toDateString();
 
-  const clockLocal = document.getElementById('clockLocal');
-  const dateLocal = document.getElementById('dateLocal');
-  if (clockLocal) clockLocal.textContent = `${localHours}:${localMinutes}:${localSeconds}`;
-  if (dateLocal) dateLocal.textContent = localDateStr;
+  const headerClockZulu = document.getElementById('headerClockZulu');
+  const headerClockLocal = document.getElementById('headerClockLocal');
 
-  // Custom Offset Time Calculation
-  const offsetSelect = document.getElementById('clockOffset');
-  const offsetHours = offsetSelect ? parseInt(offsetSelect.value, 10) || 0 : 0;
-  
-  const customTime = new Date(now.getTime() + (offsetHours * 3600000));
-  const customH = String(customTime.getUTCHours()).padStart(2, '0');
-  const customM = String(customTime.getUTCMinutes()).padStart(2, '0');
-  const customS = String(customTime.getUTCSeconds()).padStart(2, '0');
-
-  const resCustomOffsetTime = document.getElementById('resCustomOffsetTime');
-  if (resCustomOffsetTime) {
-    resCustomOffsetTime.textContent = `${customH}:${customM}:${customS} UTC`;
-  }
+  if (headerClockZulu) headerClockZulu.textContent = `${utcHours}:${utcMinutes}:${utcSeconds}`;
+  if (headerClockLocal) headerClockLocal.textContent = `${localHours}:${localMinutes}:${localSeconds}`;
 }
 
-// Start the live mission clock ticker immediately upon load
 setInterval(updateMissionClock, 1000);
+
+function resetForm(tabId) {
+  const container = document.getElementById(tabId);
+  if (!container) return;
+  container.querySelectorAll('input[type="text"], textarea').forEach(input => {
+    input.value = '';
+  });
+  container.querySelectorAll('select').forEach(select => select.selectedIndex = 0);
+  container.querySelectorAll('input[type="checkbox"]').forEach(cb => cb.checked = false);
+  const pbnDisplay = container.querySelector('[id$="PbnToggleText"]');
+  if (pbnDisplay) pbnDisplay.textContent = 'Select PBN Capabilities...';
+  const hiddenPbn = container.querySelector('input[type="hidden"]');
+  if (hiddenPbn) hiddenPbn.value = '';
+}
 
 function togglePbnDropdown(e) {
   if (e) e.stopPropagation();

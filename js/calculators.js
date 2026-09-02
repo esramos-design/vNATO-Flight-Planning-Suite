@@ -6,7 +6,7 @@ function calculateTod() {
   const offset = parseFloat(document.getElementById('todOffset').value) || 0;
 
   const resAltLoss = document.getElementById('resAltLoss');
-  const resDescDist = document.getElementById('resDescDist'); // New field
+  const resDescDist = document.getElementById('resDescDist');
   const resDistance = document.getElementById('resDistance');
   const resVs = document.getElementById('resVs');
   const resTime = document.getElementById('resTime');
@@ -21,18 +21,11 @@ function calculateTod() {
   }
 
   const altLoss = currentAlt - targetAlt;
-  
-  // Calculate precise distance required to lose altitude at the given angle
   const angleRad = angle * (Math.PI / 180);
-  const descentDist = altLoss / (Math.tan(angleRad) * 6076.115); // 6076.115 ft per NM
-  
-  // Add the user's offset (e.g., reaching target 20 NM before the fix)
+  const descentDist = altLoss / (Math.tan(angleRad) * 6076.115);
   const totalDistance = descentDist + offset;
 
-  // Vertical Speed = GS (nm/hr) converted to ft/min against the descent angle
   const fpm = (gs * 101.268) * Math.tan(angleRad);
-  
-  // Time = Distance / (GS / 60)
   const timeMins = descentDist / (gs / 60);
 
   resAltLoss.textContent = altLoss.toLocaleString() + ' ft';
