@@ -9,9 +9,26 @@
 <body>
 
 <div class="fpl-main-layout">
+  <!-- LEFT COLUMN: GENERATOR WIDGET -->
   <div class="fpl-container">
-    <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" class="vnato-logo" style="max-height: 50px;" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
+    <!-- HEADER WITH LOGO IN BETWEEN CLOCKS ON THE SAME LINE -->
+    <div class="vnato-header-stacked">
+      <div class="header-clock-banner" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+        <div class="clock-col" style="flex: 1; text-align: center;">
+          <span class="clock-label">ZULU / UTC</span>
+          <div id="headerClockZulu" class="clock-time-val">00:00:00</div>
+        </div>
+        <div class="clock-logo-col" style="flex: 0 0 auto; text-align: center; padding: 0 10px;">
+          <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" style="max-height: 42px; display: block; margin: 0 auto;" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
+        </div>
+        <div class="clock-col" style="flex: 1; text-align: center;">
+          <span class="clock-label">LOCAL SYSTEM</span>
+          <div id="headerClockLocal" class="clock-time-val">00:00:00</div>
+        </div>
+      </div>
+    </div>
     
+    <!-- Country & Mode Selector -->
     <div class="fpl-section" style="padding-top:0;">
       <div class="label-with-help">
         <label>Jurisdiction / Country Standard</label>
@@ -38,7 +55,12 @@
       </select>
     </div>
 
+    <!-- MODE 1: SWIFT ROUTE GENERATOR -->
     <div id="routeTab" class="fpl-tab-content">
+      <div style="display:flex; justify-content: flex-end; margin-bottom: 10px;">
+        <button type="button" class="fpl-copy-btn" style="position:static; background:#ef4444;" onclick="resetForm('routeTab')">Reset Form</button>
+      </div>
+
       <div class="fpl-section">
         <div class="label-with-help">
           <label>Date of Flight (DOF - YYMMDD)</label>
@@ -200,7 +222,12 @@
       </div>
     </div>
 
+    <!-- MODE 2: SWIFT REMARKS GENERATOR -->
     <div id="remarksTab" class="fpl-tab-content">
+      <div style="display:flex; justify-content: flex-end; margin-bottom: 10px;">
+        <button type="button" class="fpl-copy-btn" style="position:static; background:#ef4444;" onclick="resetForm('remarksTab')">Reset Form</button>
+      </div>
+
       <div class="fpl-section">
         <div class="label-with-help">
           <label>Wake Turbulence Category</label>
@@ -254,6 +281,7 @@
       </div>
 
       <div class="fpl-section">
+        <!-- PBN MULTI-SELECT DROPDOWN -->
         <div class="label-with-help">
           <label>PBN Capability (Multiple Select)</label>
           <span class="help-icon" onclick="toggleHelp('helpPbn')">?</span>
@@ -438,7 +466,12 @@
       </div>
     </div>
 
+    <!-- MODE 3: vxPILOT FPL STRING -->
     <div id="icaoTab" class="fpl-tab-content active">
+      <div style="display:flex; justify-content: flex-end; margin-bottom: 10px;">
+        <button type="button" class="fpl-copy-btn" style="position:static; background:#ef4444;" onclick="resetForm('icaoTab')">Reset Form</button>
+      </div>
+
       <div class="fpl-section">
         <div class="label-with-help">
           <label>Flight Rules</label>
@@ -537,6 +570,7 @@
         <input type="text" id="fplAlt" value="" placeholder="e.g. LFML">
       </div>
 
+      <!-- Route Configuration Section -->
       <div class="fpl-section">
         <label style="color:#0072CE; font-size:13px; border-bottom:1px solid #0072CE; padding-bottom:3px; margin-bottom:6px;">Route Configuration</label>
 
@@ -623,6 +657,7 @@
         </div>
       </div>
 
+      <!-- Item 18 / Remarks Configuration inside vPILOT FPL Mode -->
       <div class="fpl-section">
         <label style="color:#0072CE; font-size:13px; border-bottom:1px solid #0072CE; padding-bottom:3px; margin-bottom:6px;">Item 18 / Remarks Configuration</label>
         
@@ -827,19 +862,18 @@
       </div>
     </div>
 
-    <div class="widget-meta">
-      <b>Virtual NATO Flight Planning Suite</b><br>
-      Property of Virtual NATO &copy; 2017–2026. All rights reserved.<br>
-      Version 5.0.0 - LIVE
-    </div>
+    <!-- DYNAMIC WIDGET FOOTER CONTAINER -->
+    <div id="widgetFooterContainer"></div>
   </div>
 
+  <!-- RIGHT COLUMN: COMMAND SUITE & MANUAL VIEWS -->
   <div class="docs-container">
     <div class="docs-header">
       <h1 id="rightPanelTitle">Operational Air Traffic (OAT) Guide</h1>
       <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
     </div>
 
+    <!-- CONTROL BAR WITH MANUAL VIEWS & TOOLS -->
     <div class="right-panel-controls">
       <div class="doc-columns-toggle" style="display:flex; gap:6px; flex-wrap:wrap;">
         <button type="button" class="action-toggle-btn active" id="oatGuideBtn" onclick="toggleManualView('oatGuide')">
@@ -847,6 +881,9 @@
         </button>
         <button type="button" class="action-toggle-btn" id="paramGlossaryBtn" onclick="toggleManualView('paramGlossary')">
           <span>Parameter Glossary</span>
+        </button>
+        <button type="button" class="action-toggle-btn" id="equipGuideBtn" onclick="toggleManualView('equipGuide')">
+          <span>Equip & PBN Guide</span>
         </button>
         <button type="button" class="action-toggle-btn" id="metarHelperBtn" onclick="toggleManualView('metarHelper')">
           <span>METAR Helper</span>
@@ -872,10 +909,6 @@
           <img src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/26fd.svg" class="btn-img-icon" alt="Fuel">
           <span>FUEL/ETE</span>
         </button>
-        <button type="button" class="action-toggle-btn" id="clockToggleBtn" onclick="toggleRightPanelMode('clock')">
-          <img src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/23f1.svg" class="btn-img-icon" alt="Clock">
-          <span>ZULU / UTC</span>
-        </button>
         <button type="button" class="action-toggle-btn" id="daToggleBtn" onclick="toggleRightPanelMode('da')">
           <img src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f321.svg" class="btn-img-icon" alt="Density Alt">
           <span>DENSITY ALT</span>
@@ -883,6 +916,7 @@
       </div>
     </div>
 
+    <!-- METAR / TAF VIEWER BODY -->
     <div id="metarBody" class="sub-panel-content" style="display:none;">
       <div class="metar-search-box">
         <input type="text" id="icaoInput" value="" placeholder="Enter ICAOs separated by commas (e.g. LFBO, EGLL, EDBB)">
@@ -902,7 +936,8 @@
       </div>
     </div>
 
-<div id="todBody" class="sub-panel-content" style="display:none;">
+    <!-- TOP OF DESCENT (TOD) CALCULATOR BODY -->
+    <div id="todBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Descent Profile Parameters</h3>
         <div class="calc-form-grid">
@@ -943,6 +978,7 @@
       </div>
     </div>
 
+    <!-- CROSSWIND CALCULATOR BODY -->
     <div id="xwindBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Runway & Wind Parameters</h3>
@@ -969,6 +1005,7 @@
       </div>
     </div>
 
+    <!-- FUEL BURN & ETE ESTIMATOR BODY -->
     <div id="fuelBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Leg Distance & Burn Parameters</h3>
@@ -1002,44 +1039,7 @@
       </div>
     </div>
 
-    <div id="clockBody" class="sub-panel-content" style="display:none;">
-      <div class="wx-card">
-        <h3>Live Mission Time & FIR Offset Clock</h3>
-        <div class="clock-display-box">
-          <div class="clock-card">
-            <h4>Zulu / UTC Time</h4>
-            <div id="clockZulu" class="clock-time">00:00:00</div>
-            <div id="dateZulu" class="clock-date">--</div>
-          </div>
-          <div class="clock-card">
-            <h4>Local System Time</h4>
-            <div id="clockLocal" class="clock-time">00:00:00</div>
-            <div id="dateLocal" class="clock-date">--</div>
-          </div>
-        </div>
-        <div class="calc-form-grid" style="margin-top: 14px;">
-          <div class="calc-form-group" style="grid-column: span 2;">
-            <label for="clockOffset">Quick FIR / Timezone Offset (Hours relative to UTC)</label>
-            <select id="clockOffset" onchange="updateMissionClock()">
-              <option value="0">UTC +0 (London / Lisbon / Dakar)</option>
-              <option value="1">UTC +1 (Berlin / Paris / Rome / Madrid)</option>
-              <option value="2">UTC +2 (Athens / Cairo / Berlin Summer)</option>
-              <option value="-4">UTC -4 (New York / San Juan - EDT)</option>
-              <option value="-5">UTC -5 (New York - EST / Bogota)</option>
-              <option value="-6">UTC -6 (Chicago - CDT)</option>
-              <option value="-8">UTC -8 (Los Angeles - PST)</option>
-              <option value="10">UTC +10 (Sydney - AEST)</option>
-              <option value="12">UTC +12 (Auckland - NZST)</option>
-            </select>
-          </div>
-        </div>
-        <div class="calc-results-box">
-          <h3>Custom Offset Time</h3>
-          <div class="calc-result-item"><span>Selected Timezone Clock:</span><span id="resCustomOffsetTime">00:00:00 UTC</span></div>
-        </div>
-      </div>
-    </div>
-
+    <!-- DENSITY ALTITUDE & PERFORMANCE INDEXER BODY -->
     <div id="daBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Aerodrome Environment Parameters</h3>
@@ -1073,6 +1073,7 @@
       </div>
     </div>
 
+    <!-- MANUAL VIEW 1: OPERATIONAL AIR TRAFFIC (OAT) GUIDE -->
     <div id="oatGuideBody" class="sub-manual-content active">
       <div class="disclaimer-box">
         <b>Operational Disclaimer:</b> This software and manual are proprietary assets of <b>Virtual NATO</b> (re-established in 2017) and are designed exclusively for simulated virtual aviation environments (such as VATSIM). Distribution outside Virtual NATO or without express authorization from vCMC & vDCMC is strictly prohibited. This tool must <b>never</b> be used for real-world flight planning, navigation, or operational dispatch.
@@ -1116,6 +1117,7 @@
       <p><b>Remarks Example:</b> <code>STAYINFO1/AARAS AAR MARSA/NATO11/ DELAY 0030 1200 TO 1230</code></p>
     </div>
 
+    <!-- MANUAL VIEW 2: PARAMETER GLOSSARY -->
     <div id="paramGlossaryBody" class="sub-manual-content" style="display:none;">
       <h2>Detailed Parameter Glossary</h2>
       
@@ -1142,7 +1144,7 @@
         <li><b>SUR / Surveillance:</b> Surveillance equipment capabilities and data link identifiers (e.g., <code>260B</code>).</li>
         <li><b>PER / Performance:</b> Aircraft performance data, PBN capabilities, or RNP compliance indicators (e.g., <code>C1</code>).</li>
         <li><b>ORGN / Origin:</b> Originator address or dispatch identifier for the filed flight plan (e.g., <code>LFBOOANX</code>).</li>
-        <li><b>COM / Comms:</b> Communication radio capabilities and voice frequencies.</li>
+        <li><b>COM / Comms:</b> Communication capabilities and voice frequencies.</li>
         <li><b>REG / Registration:</b> Aircraft registration or military tail number identifier (e.g., <code>FA1801</code>).</li>
         <li><b>OPR / Operator:</b> Operator designator or military unit identifier (e.g., <code>FAF</code>, <code>GAF</code>, <code>29 SQN ROYAL AIR FORCE</code>).</li>
         <li><b>Fuel Endurance & EET:</b> Total fuel endurance (e.g., <code>FUEL0200</code>) and estimated elapsed times (<code>EET/</code>).</li>
@@ -1151,6 +1153,115 @@
       </ul>
     </div>
 
+    <!-- MANUAL VIEW 3: EQUIPMENT, TRANSPONDER & PBN GUIDE -->
+    <div id="equipGuideBody" class="sub-manual-content" style="display:none;">
+      <h2>Equipment, Transponder & PBN Reference Guide</h2>
+      <p>Detailed breakdown of ICAO Field 10 communication/navigation equipment, surveillance transponder codes, and Performance-Based Navigation (PBN) specifications utilized in military flight planning.</p>
+
+      <h3>1. Field 10a: Radio Communication, Navigation & Approach Aid Equipment</h3>
+      <div style="overflow-x: auto; margin-bottom: 16px;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 12px; background: #fff;">
+          <thead>
+            <tr style="background: #002B49; color: #fff; text-align: left;">
+              <th style="padding: 8px; border: 1px solid #cbd5e1;">Code</th>
+              <th style="padding: 8px; border: 1px solid #cbd5e1;">Configuration / Suite Description</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">S</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Standard equipment (VHF RTF, VOR, and ILS capability).</td>
+            </tr>
+            <tr style="background: #f8fafc;">
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">SD</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Standard + DME (Distance Measuring Equipment).</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">SDT</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Standard + DME + TACAN (Tactical Air Navigation system equipped). Essential for military tactical flights.</td>
+            </tr>
+            <tr style="background: #f8fafc;">
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">SDE3</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Standard + DME + RNAV (Area Navigation via approved sensors).</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">SDE3G</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Standard + DME + RNAV + GNSS (Global Navigation Satellite System / GPS integration).</td>
+            </tr>
+            <tr style="background: #f8fafc;">
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">SDE3GI</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Standard + DME + RNAV + GPS + INS (Inertial Navigation System augmentation).</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">SDE3GHI</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Advanced Military Suite incorporating full GPS, INS, and high-integrity tactical navigation data links.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>2. Field 10b: Surveillance Equipment & Transponder Codes</h3>
+      <div style="overflow-x: auto; margin-bottom: 16px;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 12px; background: #fff;">
+          <thead>
+            <tr style="background: #002B49; color: #fff; text-align: left;">
+              <th style="padding: 8px; border: 1px solid #cbd5e1;">Code</th>
+              <th style="padding: 8px; border: 1px solid #cbd5e1;">Surveillance & Transponder Capabilities</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">N</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">No transponder equipment installed or operational.</td>
+            </tr>
+            <tr style="background: #f8fafc;">
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">A</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Mode A only (4-digit identity code, no pressure-altitude reporting).</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">C</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Mode A and Mode C (Identity code plus pressure-altitude reporting).</td>
+            </tr>
+            <tr style="background: #f8fafc;">
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">E</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Mode S including aircraft identification, pressure-altitude, and extended squitter (ADS-B) capability.</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">S</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Mode S including both pressure-altitude and aircraft identification capability.</td>
+            </tr>
+            <tr style="background: #f8fafc;">
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">L</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Full Mode S suite: aircraft ID, pressure-altitude, ADS-B extended squitter, and enhanced surveillance capability.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <h3>3. Performance-Based Navigation (PBN) Specifications</h3>
+      <p>PBN qualifiers define authorized RNAV and RNP navigation standards. Multiple selected capabilities are concatenated directly into Item 18 without spaces (e.g., <code>PBN/B2S1</code>).</p>
+      <ul>
+        <li><b>RNAV Specifications (Enroute & Terminal):</b> 
+          <ul>
+            <li><code>A1</code>: RNAV 10 (RNP 10) oceanic/remote operations.</li>
+            <li><code>B1 - B5</code>: RNAV 5 operations utilizing all sensors, GNSS, DME/DME, VOR/DME, or INS/IRS.</li>
+            <li><code>C1 - C4</code>: RNAV 2 precision operations.</li>
+            <li><code>D1 - D4</code>: RNAV 1 high-density terminal operations.</li>
+          </ul>
+        </li>
+        <li style="margin-top: 8px;"><b>RNP Specifications (Advanced Performance):</b>
+          <ul>
+            <li><code>L1</code>: RNP 4 oceanic/remote monitoring.</li>
+            <li><code>O1 - O4</code>: RNP 1 Basic area navigation and radius-to-fix capability.</li>
+            <li><code>S1</code>: RNP APCH (Standard approach capability).</li>
+            <li><code>S2</code>: RNP APCH with BARO-NAV vertical guidance.</li>
+            <li><code>T1 / T2</code>: RNP Authorization Required (AR) APCH with or without RF turns.</li>
+          </ul>
+        </li>
+      </ul>
+    </div>
+
+    <!-- MANUAL VIEW 4: METAR HELPER -->
     <div id="metarHelperBody" class="sub-manual-content" style="display:none;">
       <h2>METAR Decoding & Reading Guide</h2>
       <p>Meteorological Aerodrome Reports (METAR) follow a strict sequential format governed by international WMO/ICAO standards. Use this operational reference guide and descriptor tables to decode weather observations rapidly during flight planning.</p>
@@ -1264,8 +1375,10 @@
         </div>
       </div>
 
+      <p style="font-size: 11px; color: #64748b; margin-top: 20px;">Reference guidance adapted from <a href="https://flyapg.com/blog/how-to-read-decode-metar-reports" target="_blank" style="color: #0072CE;">APG METAR Decoding Guide</a>.</p>
     </div>
 
+    <!-- MANUAL VIEW 5: TAF HELPER -->
     <div id="tafHelperBody" class="sub-manual-content" style="display:none;">
       <h2>Terminal Aerodrome Forecast (TAF) Decoding Guide</h2>
       <p>Terminal Aerodrome Forecasts (TAF) provide expected meteorological conditions at an aerodrome over a specific 24- or 30-hour validity period. Use this operational guide to interpret forecast trends, operational probability groups, and conditional weather shifts.</p>
@@ -1325,10 +1438,12 @@
   </div>
 </div>
 
-<script src="js/core.js?v=7"></script>
+<!-- LINK TO MODULAR SCRIPTS -->
+<script src="js/core.js?v=15"></script>
 <script src="js/generators.js"></script>
 <script src="js/weather.js"></script>
 <script src="js/calculators.js"></script>
+<script src="js/footer.js"></script>
 
 </body>
 </html>
