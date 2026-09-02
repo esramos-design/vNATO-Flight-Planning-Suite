@@ -27,11 +27,54 @@ input, textarea, .wx-raw {
   max-width: 1650px;
   margin: 0 auto;
 }
+
+/* STACKED LOGO & DUAL-TIME BANNER STYLES */
+.vnato-header-stacked {
+  text-align: center;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #0072CE;
+}
 .vnato-logo {
+  max-height: 42px;
+  width: auto;
+  object-fit: contain;
+  margin: 0 auto 8px auto;
   display: block;
-  max-width: 100%;
-  height: auto;
-  margin: 0 auto 12px auto;
+}
+.header-clock-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 6px 12px;
+}
+.clock-col {
+  flex: 1;
+  text-align: center;
+}
+.clock-label {
+  display: block;
+  font-size: 8px;
+  font-weight: bold;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.clock-time-val {
+  font-family: monospace;
+  font-size: 11px;
+  font-weight: bold;
+  color: #0072CE;
+  margin-top: 2px;
+}
+.clock-divider {
+  width: 1px;
+  height: 24px;
+  background-color: #cbd5e1;
+  margin: 0 8px;
 }
 
 /* WIDGET STYLES */
@@ -422,12 +465,6 @@ input, textarea, .wx-raw {
 .calc-result-item { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; }
 .calc-result-item span:last-child { font-weight: bold; color: #0072CE; font-family: monospace; font-size: 14px; }
 
-.clock-display-box { display: flex; justify-content: space-around; gap: 12px; text-align: center; margin-bottom: 16px; }
-.clock-card { flex: 1; background: #ffffff; border: 1px solid #b3d7ff; border-radius: 6px; padding: 14px; }
-.clock-card h4 { margin: 0 0 6px 0; color: #002B49; font-size: 12px; text-transform: uppercase; }
-.clock-time { font-family: monospace; font-size: 22px; font-weight: bold; color: #0072CE; }
-.clock-date { font-size: 11px; color: #64748b; margin-top: 4px; }
-
 .disclaimer-box { background: #fffbe0; border-left: 4px solid #f59e0b; padding: 12px 16px; margin: 16px 0; font-size: 12px; color: #451a03; }
 .disclaimer-box b { color: #002B49; }
 
@@ -437,5 +474,4 @@ input, textarea, .wx-raw {
   .fpl-container { max-width: 100%; position: static; }
   .docs-container { width: 100%; padding: 0; }
   .calc-form-grid { grid-template-columns: 1fr; }
-  .clock-display-box { flex-direction: column; }
 }
