@@ -65,7 +65,7 @@ input, textarea, .wx-raw {
 }
 .clock-time-val {
   font-family: monospace;
-  font-size: 11px;
+  font-size: 1.20rem; /* Increase this value slightly if you want them even bigger (e.g., 1.35rem) */
   font-weight: bold;
   color: #0072CE;
   margin-top: 2px;
