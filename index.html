@@ -9,9 +9,7 @@
 <body>
 
 <div class="fpl-main-layout">
-  <!-- LEFT COLUMN: GENERATOR WIDGET -->
   <div class="fpl-container">
-    <!-- HEADER WITH LOGO IN BETWEEN CLOCKS ON THE SAME LINE -->
     <div class="vnato-header-stacked">
       <div class="header-clock-banner" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
         <div class="clock-col" style="flex: 1; text-align: center;">
@@ -28,7 +26,6 @@
       </div>
     </div>
     
-    <!-- Country & Mode Selector -->
     <div class="fpl-section" style="padding-top:0;">
       <div class="label-with-help">
         <label>Jurisdiction / Country Standard</label>
@@ -55,7 +52,6 @@
       </select>
     </div>
 
-    <!-- MODE 1: SWIFT ROUTE GENERATOR -->
     <div id="routeTab" class="fpl-tab-content">
       <div style="display:flex; justify-content: flex-end; margin-bottom: 10px;">
         <button type="button" class="fpl-copy-btn" style="position:static; background:#ef4444;" onclick="resetForm('routeTab')">Reset Form</button>
@@ -150,21 +146,28 @@
           <span class="help-icon" onclick="toggleHelp('helpGatOat')">?</span>
         </div>
         <div id="helpGatOat" class="help-text-box">Fix and conditional format where flight transitions from General Air Traffic to Operational Air Traffic.</div>
-        <input type="text" id="gatToOat" value="" placeholder="e.g. SOTAK/OAT I M080F235">
+        <input type="text" id="gatToOat" value="" placeholder="e.g. SOTAK OAT I M080F235">
 
         <div class="label-with-help">
           <label>OAT to GAT Transfer Point</label>
           <span class="help-icon" onclick="toggleHelp('helpOatGat')">?</span>
         </div>
         <div id="helpOatGat" class="help-text-box">Fix where flight transitions back from OAT to GAT reporting standards.</div>
-        <input type="text" id="oatToGat" value="" placeholder="e.g. SURUD/GAT N350F115">
+        <input type="text" id="oatToGat" value="" placeholder="e.g. SURUD GAT N350F115">
 
         <div class="label-with-help">
           <label>VFR Transfer Point</label>
           <span class="help-icon" onclick="toggleHelp('helpVfrTrans')">?</span>
         </div>
         <div id="helpVfrTrans" class="help-text-box">Reporting fix where flight switches into VFR operational segments.</div>
-        <input type="text" id="vfrTrans" value="" placeholder="e.g. LMG/N0240A010 VFR">
+        <input type="text" id="vfrTrans" value="" placeholder="e.g. LMG OAT V N0240A010">
+
+        <div class="label-with-help">
+          <label>IFR Transfer Point</label>
+          <span class="help-icon" onclick="toggleHelp('helpIfrTrans')">?</span>
+        </div>
+        <div id="helpIfrTrans" class="help-text-box">Reporting fix where flight switches into IFR operational segments.</div>
+        <input type="text" id="ifrTrans" value="" placeholder="e.g. MDM OAT I N0350F215">
 
         <div class="label-with-help">
           <label>Route Details / Fixes</label>
@@ -176,42 +179,45 @@
 
       <div class="fpl-section">
         <div class="label-with-help">
-          <label>STAY 1 Segment & Duration</label>
+          <label>STAY 1 Target WPT, Segment & Duration</label>
           <span class="help-icon" onclick="toggleHelp('helpStay1')">?</span>
         </div>
-        <div id="helpStay1" class="help-text-box">Working area or low-flying delay segment 1 with associated duration in HHMM.</div>
+        <div id="helpStay1" class="help-text-box">Target waypoint to inject the STAY block, followed by segment and delay duration (HHMM).</div>
         <div style="display:flex; gap:6px;">
-          <select id="staySeg1" style="width:40%;">
+          <input type="text" id="stayWpt1" value="" style="width:30%;" placeholder="WPT (e.g. MDM)">
+          <select id="staySeg1" style="width:35%;">
             <option value="NONE" selected>NONE</option>
             <option value="STAY1">STAY1</option>
           </select>
-          <input type="text" id="stayDur1" value="" style="width:60%;" placeholder="Duration (HHMM)">
+          <input type="text" id="stayDur1" value="" style="width:35%;" placeholder="Time (HHMM)">
         </div>
 
         <div class="label-with-help">
-          <label>STAY 2 Segment & Duration</label>
+          <label>STAY 2 Target WPT, Segment & Duration</label>
           <span class="help-icon" onclick="toggleHelp('helpStay2')">?</span>
         </div>
-        <div id="helpStay2" class="help-text-box">Optional working area or delay segment 2 with duration in HHMM.</div>
+        <div id="helpStay2" class="help-text-box">Optional working area or delay segment 2.</div>
         <div style="display:flex; gap:6px;">
-          <select id="staySeg2" style="width:40%;">
+          <input type="text" id="stayWpt2" value="" style="width:30%;" placeholder="WPT">
+          <select id="staySeg2" style="width:35%;">
             <option value="NONE" selected>NONE</option>
             <option value="STAY2">STAY2</option>
           </select>
-          <input type="text" id="stayDur2" value="" style="width:60%;" placeholder="Duration (HHMM)">
+          <input type="text" id="stayDur2" value="" style="width:35%;" placeholder="Time (HHMM)">
         </div>
 
         <div class="label-with-help">
-          <label>STAY 3 Segment & Duration</label>
+          <label>STAY 3 Target WPT, Segment & Duration</label>
           <span class="help-icon" onclick="toggleHelp('helpStay3')">?</span>
         </div>
-        <div id="helpStay3" class="help-text-box">Optional working area or delay segment 3 with duration in HHMM.</div>
+        <div id="helpStay3" class="help-text-box">Optional working area or delay segment 3.</div>
         <div style="display:flex; gap:6px;">
-          <select id="staySeg3" style="width:40%;">
+          <input type="text" id="stayWpt3" value="" style="width:30%;" placeholder="WPT">
+          <select id="staySeg3" style="width:35%;">
             <option value="NONE" selected>NONE</option>
             <option value="STAY3">STAY3</option>
           </select>
-          <input type="text" id="stayDur3" value="" style="width:60%;" placeholder="Duration (HHMM)">
+          <input type="text" id="stayDur3" value="" style="width:35%;" placeholder="Time (HHMM)">
         </div>
       </div>
 
@@ -222,7 +228,6 @@
       </div>
     </div>
 
-    <!-- MODE 2: SWIFT REMARKS GENERATOR -->
     <div id="remarksTab" class="fpl-tab-content">
       <div style="display:flex; justify-content: flex-end; margin-bottom: 10px;">
         <button type="button" class="fpl-copy-btn" style="position:static; background:#ef4444;" onclick="resetForm('remarksTab')">Reset Form</button>
@@ -267,21 +272,17 @@
         <div id="helpTrans" class="help-text-box">Field 10b surveillance equipment and transponder capability codes.</div>
         <select id="trans">
           <option value="" selected>[Select Transponder Code]</option>
-          <option value="N">N - No transponder equipment</option>
-          <option value="A">A - Mode A only (no altitude reporting)</option>
-          <option value="C">C - Mode A and Mode C</option>
-          <option value="E">E - Mode S, including aircraft identification, pressure-altitude and extended squitter (ADS-B) capability</option>
-          <option value="H">H - Mode S, including aircraft identification, pressure-altitude and enhanced surveillance capability</option>
-          <option value="I">I - Mode S, including aircraft identification, but no pressure-altitude capability</option>
-          <option value="L">L - Mode S, including aircraft identification, pressure-altitude, extended squitter (ADS-B) and enhanced surveillance capability</option>
-          <option value="P">P - Mode S, including pressure-altitude, but no aircraft identification capability</option>
-          <option value="S">S - Mode S, including both pressure altitude and aircraft identification capability</option>
-          <option value="X">X - Mode S with neither aircraft identification nor pressure-altitude capability</option>
+          <option value="C">C - Mode A/C (Legacy transponder with 4096 codes and pressure altitude reporting)</option>
+          <option value="S">S - Mode S (Transmits altitude and aircraft identification)</option>
+          <option value="H">H - Mode S Enhanced (Transmits altitude, callsign, heading, speed)</option>
+          <option value="E">E - Mode S ADS-B Out (Includes Extended Squitter for 1090 MHz)</option>
+          <option value="L">L - Mode S Enhanced + ADS-B (Combines Enhanced Surveillance and Extended Squitter)</option>
+          <option value="B1">B1 - ADS-B Out (Dedicated 1090 MHz ADS-B Out capability)</option>
+          <option value="B2">B2 - ADS-B In and Out (Dedicated 1090 MHz ADS-B Out and In capability)</option>
         </select>
       </div>
 
       <div class="fpl-section">
-        <!-- PBN MULTI-SELECT DROPDOWN -->
         <div class="label-with-help">
           <label>PBN Capability (Multiple Select)</label>
           <span class="help-icon" onclick="toggleHelp('helpPbn')">?</span>
@@ -380,7 +381,7 @@
           <span class="help-icon" onclick="toggleHelp('helpOrgn')">?</span>
         </div>
         <div id="helpOrgn" class="help-text-box">Originator address or dispatch identifier for the filed flight plan.</div>
-        <input type="text" id="oragn" value="" placeholder="e.g. LFBOOANX">
+        <input type="text" id="orgn" value="" placeholder="e.g. LFBOOANX">
 
         <div class="label-with-help">
           <label>COM / Comms</label>
@@ -466,7 +467,6 @@
       </div>
     </div>
 
-    <!-- MODE 3: vxPILOT FPL STRING -->
     <div id="icaoTab" class="fpl-tab-content active">
       <div style="display:flex; justify-content: flex-end; margin-bottom: 10px;">
         <button type="button" class="fpl-copy-btn" style="position:static; background:#ef4444;" onclick="resetForm('icaoTab')">Reset Form</button>
@@ -570,7 +570,6 @@
         <input type="text" id="fplAlt" value="" placeholder="e.g. LFML">
       </div>
 
-      <!-- Route Configuration Section -->
       <div class="fpl-section">
         <label style="color:#0072CE; font-size:13px; border-bottom:1px solid #0072CE; padding-bottom:3px; margin-bottom:6px;">Route Configuration</label>
 
@@ -594,21 +593,28 @@
           <span class="help-icon" onclick="toggleHelp('helpGatOat2')">?</span>
         </div>
         <div id="helpGatOat2" class="help-text-box">Fix and conditional format where flight transitions from General Air Traffic to Operational Air Traffic.</div>
-        <input type="text" id="icaoGatToOat" value="" placeholder="e.g. SOTAK/OAT I M080F235">
+        <input type="text" id="icaoGatToOat" value="" placeholder="e.g. SOTAK OAT I M080F235">
 
         <div class="label-with-help">
           <label>OAT to GAT Transfer Point</label>
           <span class="help-icon" onclick="toggleHelp('helpOatGat2')">?</span>
         </div>
         <div id="helpOatGat2" class="help-text-box">Fix where flight transitions back from OAT to GAT reporting standards.</div>
-        <input type="text" id="icaoOatToGat" value="" placeholder="e.g. SURUD/GAT N350F115">
+        <input type="text" id="icaoOatToGat" value="" placeholder="e.g. SURUD GAT N350F115">
 
         <div class="label-with-help">
           <label>VFR Transfer Point</label>
           <span class="help-icon" onclick="toggleHelp('helpVfrTrans2')">?</span>
         </div>
         <div id="helpVfrTrans2" class="help-text-box">Reporting fix where flight switches into VFR operational segments.</div>
-        <input type="text" id="icaoVfrTrans" value="" placeholder="e.g. LMG/N0240A010 VFR">
+        <input type="text" id="icaoVfrTrans" value="" placeholder="e.g. LMG OAT V N0240A010">
+
+        <div class="label-with-help">
+          <label>IFR Transfer Point</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoIfrTrans')">?</span>
+        </div>
+        <div id="helpIcaoIfrTrans" class="help-text-box">Reporting fix where flight switches into IFR operational segments.</div>
+        <input type="text" id="icaoIfrTrans" value="" placeholder="e.g. MDM OAT I N0350F215">
 
         <div class="label-with-help">
           <label>Route Details / Fixes</label>
@@ -618,46 +624,48 @@
         <textarea id="icaoRoute" style="height:70px; font-family:inherit; font-size:12px; padding:7px;" placeholder="Enter waypoints (e.g. DCT CHP01 DCT MAR01)"></textarea>
 
         <div class="label-with-help">
-          <label>STAY 1 Segment & Duration</label>
+          <label>STAY 1 Target WPT, Segment & Duration</label>
           <span class="help-icon" onclick="toggleHelp('helpStay1_2')">?</span>
         </div>
-        <div id="helpStay1_2" class="help-text-box">Working area or low-flying delay segment 1 with associated duration in HHMM.</div>
+        <div id="helpStay1_2" class="help-text-box">Working area target waypoint, segment, and delay duration in HHMM.</div>
         <div style="display:flex; gap:6px;">
-          <select id="icaoStaySeg1" style="width:40%;">
+          <input type="text" id="icaoStayWpt1" value="" style="width:30%;" placeholder="WPT (e.g. MDM)">
+          <select id="icaoStaySeg1" style="width:35%;">
             <option value="NONE" selected>NONE</option>
             <option value="STAY1">STAY1</option>
           </select>
-          <input type="text" id="icaoStayDur1" value="" style="width:60%;" placeholder="Duration (HHMM)">
+          <input type="text" id="icaoStayDur1" value="" style="width:35%;" placeholder="Time (HHMM)">
         </div>
 
         <div class="label-with-help">
-          <label>STAY 2 Segment & Duration</label>
+          <label>STAY 2 Target WPT, Segment & Duration</label>
           <span class="help-icon" onclick="toggleHelp('helpStay2_2')">?</span>
         </div>
-        <div id="helpStay2_2" class="help-text-box">Optional working area or delay segment 2 with duration in HHMM.</div>
+        <div id="helpStay2_2" class="help-text-box">Optional working area or delay segment 2.</div>
         <div style="display:flex; gap:6px;">
-          <select id="icaoStaySeg2" style="width:40%;">
+          <input type="text" id="icaoStayWpt2" value="" style="width:30%;" placeholder="WPT">
+          <select id="icaoStaySeg2" style="width:35%;">
             <option value="NONE" selected>NONE</option>
             <option value="STAY2">STAY2</option>
           </select>
-          <input type="text" id="icaoStayDur2" value="" style="width:60%;" placeholder="Duration (HHMM)">
+          <input type="text" id="icaoStayDur2" value="" style="width:35%;" placeholder="Time (HHMM)">
         </div>
 
         <div class="label-with-help">
-          <label>STAY 3 Segment & Duration</label>
+          <label>STAY 3 Target WPT, Segment & Duration</label>
           <span class="help-icon" onclick="toggleHelp('helpStay3_2')">?</span>
         </div>
-        <div id="helpStay3_2" class="help-text-box">Optional working area or delay segment 3 with duration in HHMM.</div>
+        <div id="helpStay3_2" class="help-text-box">Optional working area or delay segment 3.</div>
         <div style="display:flex; gap:6px;">
-          <select id="icaoStaySeg3" style="width:40%;">
+          <input type="text" id="icaoStayWpt3" value="" style="width:30%;" placeholder="WPT">
+          <select id="icaoStaySeg3" style="width:35%;">
             <option value="NONE" selected>NONE</option>
             <option value="STAY3">STAY3</option>
           </select>
-          <input type="text" id="icaoStayDur3" value="" style="width:60%;" placeholder="Duration (HHMM)">
+          <input type="text" id="icaoStayDur3" value="" style="width:35%;" placeholder="Time (HHMM)">
         </div>
       </div>
 
-      <!-- Item 18 / Remarks Configuration inside vPILOT FPL Mode -->
       <div class="fpl-section">
         <label style="color:#0072CE; font-size:13px; border-bottom:1px solid #0072CE; padding-bottom:3px; margin-bottom:6px;">Item 18 / Remarks Configuration</label>
         
@@ -690,16 +698,13 @@
           </select>
           <select id="icaoTrans" style="width:40%;">
             <option value="" selected>[Transponder]</option>
-            <option value="N">N - No transponder equipment</option>
-            <option value="A">A - Mode A only (no altitude reporting)</option>
-            <option value="C">C - Mode A and Mode C</option>
-            <option value="E">E - Mode S, including aircraft identification, pressure-altitude and extended squitter (ADS-B) capability</option>
-            <option value="H">H - Mode S, including aircraft identification, pressure-altitude and enhanced surveillance capability</option>
-            <option value="I">I - Mode S, including aircraft identification, but no pressure-altitude capability</option>
-            <option value="L">L - Mode S, including aircraft identification, pressure-altitude, extended squitter (ADS-B) and enhanced surveillance capability</option>
-            <option value="P">P - Mode S, including pressure-altitude, but no aircraft identification capability</option>
-            <option value="S">S - Mode S, including both pressure altitude and aircraft identification capability</option>
-            <option value="X">X - Mode S with neither aircraft identification nor pressure-altitude capability</option>
+            <option value="C">C - Mode A/C (Legacy transponder with 4096 codes and pressure altitude reporting)</option>
+            <option value="S">S - Mode S (Transmits altitude and aircraft identification)</option>
+            <option value="H">H - Mode S Enhanced (Transmits altitude, callsign, heading, speed)</option>
+            <option value="E">E - Mode S ADS-B Out (Includes Extended Squitter for 1090 MHz)</option>
+            <option value="L">L - Mode S Enhanced + ADS-B (Combines Enhanced Surveillance and Extended Squitter)</option>
+            <option value="B1">B1 - ADS-B Out (Dedicated 1090 MHz ADS-B Out capability)</option>
+            <option value="B2">B2 - ADS-B In and Out (Dedicated 1090 MHz ADS-B Out and In capability)</option>
           </select>
         </div>
 
@@ -841,7 +846,7 @@
           <span class="help-icon" onclick="toggleHelp('helpIcaoRmk')">?</span>
         </div>
         <div id="helpIcaoRmk" class="help-text-box">Regulatory remarks and organization tags.</div>
-        <input type="text" id="icaoRmk" value="" placeholder="e.g. RMK/OAT VIRTUALNATO.ORG">
+        <input type="text" id="icaoRmk" value="RMK/OAT VIRTUALNATO.ORG" placeholder="e.g. RMK/OAT VIRTUALNATO.ORG">
 
         <div class="checkbox-group" style="margin-top:10px;">
           <input type="checkbox" id="icaoVsoTrainee">
@@ -862,18 +867,15 @@
       </div>
     </div>
 
-    <!-- DYNAMIC WIDGET FOOTER CONTAINER -->
     <div id="widgetFooterContainer"></div>
   </div>
 
-  <!-- RIGHT COLUMN: COMMAND SUITE & MANUAL VIEWS -->
   <div class="docs-container">
     <div class="docs-header">
       <h1 id="rightPanelTitle">Operational Air Traffic (OAT) Guide</h1>
       <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
     </div>
 
-    <!-- CONTROL BAR WITH MANUAL VIEWS & TOOLS -->
     <div class="right-panel-controls">
       <div class="doc-columns-toggle" style="display:flex; gap:6px; flex-wrap:wrap;">
         <button type="button" class="action-toggle-btn active" id="oatGuideBtn" onclick="toggleManualView('oatGuide')">
@@ -916,7 +918,6 @@
       </div>
     </div>
 
-    <!-- METAR / TAF VIEWER BODY -->
     <div id="metarBody" class="sub-panel-content" style="display:none;">
       <div class="metar-search-box">
         <input type="text" id="icaoInput" value="" placeholder="Enter ICAOs separated by commas (e.g. LFBO, EGLL, EDBB)">
@@ -936,7 +937,6 @@
       </div>
     </div>
 
-    <!-- TOP OF DESCENT (TOD) CALCULATOR BODY -->
     <div id="todBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Descent Profile Parameters</h3>
@@ -978,7 +978,6 @@
       </div>
     </div>
 
-    <!-- CROSSWIND CALCULATOR BODY -->
     <div id="xwindBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Runway & Wind Parameters</h3>
@@ -1005,7 +1004,6 @@
       </div>
     </div>
 
-    <!-- FUEL BURN & ETE ESTIMATOR BODY -->
     <div id="fuelBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Leg Distance & Burn Parameters</h3>
@@ -1039,7 +1037,6 @@
       </div>
     </div>
 
-    <!-- DENSITY ALTITUDE & PERFORMANCE INDEXER BODY -->
     <div id="daBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Aerodrome Environment Parameters</h3>
@@ -1073,7 +1070,6 @@
       </div>
     </div>
 
-    <!-- MANUAL VIEW 1: OPERATIONAL AIR TRAFFIC (OAT) GUIDE -->
     <div id="oatGuideBody" class="sub-manual-content active">
       <div class="disclaimer-box">
         <b>Operational Disclaimer:</b> This software and manual are proprietary assets of <b>Virtual NATO</b> (re-established in 2017) and are designed exclusively for simulated virtual aviation environments (such as VATSIM). Distribution outside Virtual NATO or without express authorization from vCMC & vDCMC is strictly prohibited. This tool must <b>never</b> be used for real-world flight planning, navigation, or operational dispatch.
@@ -1117,43 +1113,122 @@
       <p><b>Remarks Example:</b> <code>STAYINFO1/AARAS AAR MARSA/NATO11/ DELAY 0030 1200 TO 1230</code></p>
     </div>
 
-    <!-- MANUAL VIEW 2: PARAMETER GLOSSARY -->
+<!-- MANUAL VIEW 2: PARAMETER GLOSSARY -->
     <div id="paramGlossaryBody" class="sub-manual-content" style="display:none;">
-      <h2>Detailed Parameter Glossary</h2>
-      
-      <p><b>Route & General Parameters</b></p>
-      <ul>
-        <li><b>Jurisdiction / Country Standard:</b> Selects national OAT reporting and remark conventions for France (DGAC/DIRCAM), Germany (BMVg/Luftwaffe), or United Kingdom (RAF/MilAIP).</li>
-        <li><b>Generator Mode:</b> Switches between building individual SWIFT Route strings, Item 18 Remarks, or the complete standalone vPILOT flight plan string.</li>
-        <li><b>Date of Flight (DOF):</b> Flight departure date formatted in standard 6-digit <code>YYMMDD</code> format.</li>
-        <li><b>Flight Rules:</b> <code>I</code> (IFR), <code>V</code> (VFR), <code>T</code> (OAT Tactical), <code>Y</code> (IFR then VFR), <code>Z</code> (VFR then IFR). Note: VATSIM parser compatibility automatically maps tactical rules safely.</li>
-        <li><b>Type of Flight:</b> General operations category indicator (<code>M</code> for Military, <code>S</code> for Scheduled, <code>N</code> for Non-scheduled, <code>G</code> for General Aviation, <code>X</code> for Special).</li>
-        <li><b>Speed & Altitude Units:</b> Cruising speed units (<code>N</code> knots, <code>M</code> Mach, <code>K</code> km/h) paired with numerical values, and Flight Level/Altitude/Metric units (<code>F</code>, <code>A</code>, <code>S</code>).</li>
-        <li><b>Route Type & Transfer Points:</b> Pre-configured OAT templates, GAT-to-OAT, OAT-to-GAT, and VFR transition waypoints.</li>
-        <li><b>STAY Segments:</b> <code>STAY1</code>, <code>STAY2</code>, <code>STAY3</code> integrated with chronological route fixes and duration in <code>HHMM</code> format.</li>
-      </ul>
+      <h2>Comprehensive Parameter Glossary & Operational Index</h2>
+      <p>An exhaustive technical reference detailing every configuration parameter, input field, and flight plan variable supported across the Virtual NATO Flight Planning Suite.</p>
 
-      <p><b>Item 18 & Remarks Parameters</b></p>
-      <ul>
-        <li><b>Wake Turbulence Category:</b> Aircraft wake turbulence classification based on maximum certificated takeoff mass (<code>J</code> Super, <code>H</code> Heavy, <code>M</code> Medium, <code>L</code> Light).</li>
-        <li><b>Equipment & Transponder:</b> Field 10a radio communication, navigation, and approach aid equipment codes (e.g., <code>SDE3G</code>, <code>SDT</code>) and Field 10b surveillance equipment codes (e.g., <code>S</code>, <code>E</code>).</li>
-        <li><b>PBN / Performance Based Navigation:</b> Multi-selected RNAV/RNP capabilities concatenated without spaces (e.g., <code>S1</code>).</li>
-        <li><b>NAV Capability:</b> Additional navigation equipment identifiers or equipment augmentation (e.g., <code>TACAN</code>, <code>RNAV5</code>).</li>
-        <li><b>STS / Special Handling:</b> Required ATC special handling indicators such as <code>STATE</code>, <code>NONRVSM</code>, <code>MARSA</code>, or <code>SAR</code>.</li>
-        <li><b>SEL / SELCAL:</b> Selective calling radio system code format (e.g., <code>ABDE</code>).</li>
-        <li><b>SUR / Surveillance:</b> Surveillance equipment capabilities and data link identifiers (e.g., <code>260B</code>).</li>
-        <li><b>PER / Performance:</b> Aircraft performance data, PBN capabilities, or RNP compliance indicators (e.g., <code>C1</code>).</li>
-        <li><b>ORGN / Origin:</b> Originator address or dispatch identifier for the filed flight plan (e.g., <code>LFBOOANX</code>).</li>
-        <li><b>COM / Comms:</b> Communication capabilities and voice frequencies.</li>
-        <li><b>REG / Registration:</b> Aircraft registration or military tail number identifier (e.g., <code>FA1801</code>).</li>
-        <li><b>OPR / Operator:</b> Operator designator or military unit identifier (e.g., <code>FAF</code>, <code>GAF</code>, <code>29 SQN ROYAL AIR FORCE</code>).</li>
-        <li><b>Fuel Endurance & EET:</b> Total fuel endurance (e.g., <code>FUEL0200</code>) and estimated elapsed times (<code>EET/</code>).</li>
-        <li><b>STAYINFO / Working Area Notes:</b> Detailed military exercise working area descriptions mapped automatically to <code>STAYINFO1/</code>, <code>STAYINFO2/</code>, and <code>STAYINFO3/</code>.</li>
-        <li><b>RMK / VSO Tag:</b> Regulatory tags like <code>RMK/OAT</code>, organization signatures like <code>VIRTUALNATO.ORG</code>, and optional student tags like <code>VSO TRAINEE</code>.</li>
-      </ul>
+      <!-- SECTION 1: GENERAL & FLIGHT IDENTIFICATION -->
+      <h3 style="color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 4px; margin-top: 24px;">1. General & Flight Identification</h3>
+      
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+        <h4 style="margin: 0 0 4px 0; color: #002B49; font-size: 13px;">Jurisdiction / Country Standard (<code style="color: #0072CE;">countrySelect</code>)</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> National regulatory authority & OAT convention selector.<br><b>Description:</b> Automatically configures prefix rules, airway routing logic, and remark structures for <b>France (DGAC/DIRCAM)</b>, <b>Germany (BMVg/Luftwaffe)</b>, or <b>United Kingdom (RAF/MilAIP)</b>.</p>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+        <h4 style="margin: 0 0 4px 0; color: #002B49; font-size: 13px;">Generator Mode (<code style="color: #0072CE;">fpl-mode-select</code>)</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> Operational output profile switcher.<br><b>Description:</b> Switches between building individual SWIFT route strings, standalone Item 18 remark blocks, or the complete standalone vxPILOT ICAO flight plan string.</p>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+        <h4 style="margin: 0 0 4px 0; color: #002B49; font-size: 13px;">Date of Flight (<code style="color: #0072CE;">dof</code>)</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> Flight departure date stamp.<br><b>Description:</b> Formatted in standard 6-digit <code style="background: #e2e8f0; padding: 1px 4px; border-radius: 3px;">YYMMDD</code> configuration (e.g., <code style="background: #e2e8f0; padding: 1px 4px; border-radius: 3px;">260826</code>) for network coordination.</p>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+        <h4 style="margin: 0 0 4px 0; color: #002B49; font-size: 13px;">Callsign (<code style="color: #0072CE;">fplCallsign</code>)</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> Radiotelephony tactical callsign.<br><b>Description:</b> Official unit callsign assigned for the sortie (e.g., <code style="color: #0072CE;">NATO01</code>, <code style="color: #0072CE;">BAROK31</code>) mapped directly into the FPL header.</p>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+        <h4 style="margin: 0 0 4px 0; color: #002B49; font-size: 13px;">Aircraft ICAO Type (<code style="color: #0072CE;">fplAcftType</code>)</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> Standard 2 to 4-character aircraft designator.<br><b>Description:</b> Identifies the airframe type for performance and wake tracking (e.g., <code style="color: #0072CE;">C17</code>, <code style="color: #0072CE;">FA18</code>, <code style="color: #0072CE;">A400</code>).</p>
+      </div>
+
+
+      <!-- SECTION 2: FLIGHT RULES, SPEEDS & AERODROMES -->
+      <h3 style="color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 4px; margin-top: 28px;">2. Flight Rules, Speeds & Aerodromes</h3>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+        <h4 style="margin: 0 0 4px 0; color: #002B49; font-size: 13px;">Flight Rules (<code style="color: #0072CE;">rules / icaoRules</code>)</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> Air traffic service rules framework.<br><b>Description:</b> <code style="color: #0072CE;">I</code> (IFR), <code style="color: #0072CE;">V</code> (VFR), <code style="color: #0072CE;">T</code> (OAT Tactical), <code style="color: #0072CE;">Y</code> (IFR then VFR), <code style="color: #0072CE;">Z</code> (VFR then IFR). <i>Note: Automatically maps tactical 'T' rules to safe 'I' fallbacks for VATSIM pre-file compatibility.</i></p>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+        <h4 style="margin: 0 0 4px 0; color: #002B49; font-size: 13px;">Type of Flight (<code style="color: #0072CE;">type</code>)</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> General operations category indicator.<br><b>Description:</b> <code style="color: #0072CE;">M</code> (Military), <code style="color: #0072CE;">S</code> (Scheduled), <code style="color: #0072CE;">N</code> (Non-scheduled), <code style="color: #0072CE;">G</code> (General Aviation), <code style="color: #0072CE;">X</code> (Special operations).</p>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+        <h4 style="margin: 0 0 4px 0; color: #002B49; font-size: 13px;">Speed & Altitude Units (<code style="color: #0072CE;">spdUnit / altUnit</code>)</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> Cruising performance metrics.<br><b>Description:</b> Speed identifiers (<code style="color: #0072CE;">N</code> Knots, <code style="color: #0072CE;">M</code> Mach, <code style="color: #0072CE;">K</code> Km/h) paired with numerical values, and level type indicators (<code style="color: #0072CE;">F</code> Flight Level, <code style="color: #0072CE;">A</code> Altitude in hundreds of feet, <code style="color: #0072CE;">S</code> Metric tens of meters).</p>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+        <h4 style="margin: 0 0 4px 0; color: #002B49; font-size: 13px;">Departure, Arrival & Alternate Aerodromes (<code style="color: #0072CE;">fplDep / fplArr / fplAlt</code>)</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> 4-letter ICAO aerodrome designators.<br><b>Description:</b> Specifies departure point alongside Estimated Off-Block Time (<code style="background: #e2e8f0; padding: 1px 4px; border-radius: 3px;">EOBT</code>), destination with Estimated Elapsed Time (<code style="background: #e2e8f0; padding: 1px 4px; border-radius: 3px;">EET</code>), and optional alternate airfields.</p>
+      </div>
+
+
+      <!-- SECTION 3: ROUTING & OAT TRANSFER ARCHITECTURE -->
+      <h3 style="color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 4px; margin-top: 28px;">3. Routing & OAT Transfer Architecture</h3>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+        <h4 style="margin: 0 0 4px 0; color: #002B49; font-size: 13px;">Transfer Points & Route Types (<code style="color: #0072CE;">gatToOat / oatToGat / vfrTrans / ifrTrans</code>)</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> Airspace boundary transition fixes.<br><b>Description:</b> Transition fixes where flights switch between GAT and OAT rules. Automatically strips trailing slashes to enforce clean space-separated formats (e.g., <code style="background: #e2e8f0; padding: 1px 4px; border-radius: 3px;">LMG OAT V N0240A010</code>).</p>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+        <h4 style="margin: 0 0 4px 0; color: #002B49; font-size: 13px;">STAY Working Segments & Target WPTs (<code style="color: #0072CE;">staySeg / stayDur / stayWpt</code>)</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> Tactical orbit and delay block injection.<br><b>Description:</b> Target waypoints paired with working blocks (<code style="color: #0072CE;">STAY1</code>, <code style="color: #0072CE;">STAY2</code>, <code style="color: #0072CE;">STAY3</code>) and delay durations in <code style="background: #e2e8f0; padding: 1px 4px; border-radius: 3px;">HHMM</code> format. Dynamically hunts for the target waypoint in the route string and injects the delay block directly beside it.</p>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+        <h4 style="margin: 0 0 4px 0; color: #002B49; font-size: 13px;">Route Details / Fixes (<code style="color: #0072CE;">route / icaoRoute</code>)</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> Chronological waypoint string.<br><b>Description:</b> Sequence of direct routing nodes, radar corridors, and navigation fixes separated by single spaces.</p>
+      </div>
+
+
+      <!-- SECTION 4: ITEM 18 & REMARKS PARAMETERS -->
+      <h3 style="color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 4px; margin-top: 28px;">4. Item 18 & Remarks Parameters</h3>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+        <h4 style="margin: 0 0 4px 0; color: #002B49; font-size: 13px;">Wake Turbulence Category (<code style="color: #0072CE;">wake / icaoWake</code>)</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> Maximum certificated takeoff mass classification.<br><b>Description:</b> <code style="color: #0072CE;">J</code> (Super), <code style="color: #0072CE;">H</code> (Heavy, 136t+), <code style="color: #0072CE;">M</code> (Medium), <code style="color: #0072CE;">L</code> (Light). Automatically populates Item 9 formatting.</p>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+        <h4 style="margin: 0 0 4px 0; color: #002B49; font-size: 13px;">Equipment & Transponder IFF (<code style="color: #0072CE;">equip / trans</code>)</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> Field 10a avionics and Field 10b surveillance suite.<br><b>Description:</b> Radio/navigation configuration codes (e.g., <code style="color: #0072CE;">SDE3G</code>, <code style="color: #0072CE;">SDT</code>) and military transponder modes (<code style="color: #0072CE;">C</code>, <code style="color: #0072CE;">S</code>, <code style="color: #0072CE;">H</code>, <code style="color: #0072CE;">E</code>, <code style="color: #0072CE;">L</code>, <code style="color: #0072CE;">B1</code>, <code style="color: #0072CE;">B2</code>) cleanly separated into Item 9/10 without remark syntax corruption.</p>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+        <h4 style="margin: 0 0 4px 0; color: #002B49; font-size: 13px;">PBN Performance-Based Navigation (<code style="color: #0072CE;">pbnValue</code>)</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> RNAV/RNP approval qualifiers.<br><b>Description:</b> Multi-selected navigation specifications concatenated automatically without spaces (e.g., <code style="background: #e2e8f0; padding: 1px 4px; border-radius: 3px;">PBN/B2S1</code>).</p>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+        <h4 style="margin: 0 0 4px 0; color: #002B49; font-size: 13px;">NAV & STS Special Handling (<code style="color: #0072CE;">nav / sts</code>)</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> Navigation augmentation and ATC priority indicators.<br><b>Description:</b> Secondary navigation specs (e.g., <code style="color: #0072CE;">TACAN</code>, <code style="color: #0072CE;">INS</code>) and mandatory priority tags such as <code style="color: #0072CE;">STATE</code>, <code style="color: #0072CE;">MARSA</code>, or <code style="color: #0072CE;">SAR</code>.</p>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+        <h4 style="margin: 0 0 4px 0; color: #002B49; font-size: 13px;">Supplementary Item 18 Fields (<code style="color: #0072CE;">sel / sur / per / orgn / com / reg / opr</code>)</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> Tactical dispatch and avionics telemetry codes.<br><b>Description:</b> Includes selective calling (<code style="color: #0072CE;">SEL/</code>), surveillance datalinks (<code style="color: #0072CE;">SUR/</code>), aircraft performance data (<code style="color: #0072CE;">PER/</code>), originator dispatch addresses (<code style="color: #0072CE;">ORGN/</code>), communications suites (<code style="color: #0072CE;">COM/</code>), military tail numbers (<code style="color: #0072CE;">REG/</code>), and squadron/unit operators (<code style="color: #0072CE;">OPR/</code>).</p>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+        <h4 style="margin: 0 0 4px 0; color: #002B49; font-size: 13px;">Fuel Endurance & EET (<code style="color: #0072CE;">fuelEnd / eet</code>)</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> Total fuel capacity and FIR boundary estimates.<br><b>Description:</b> Total fuel endurance in <code style="background: #e2e8f0; padding: 1px 4px; border-radius: 3px;">HHMM</code> format appended cleanly as <code style="background: #e2e8f0; padding: 1px 4px; border-radius: 3px;">-E/HHMM</code>, alongside FIR estimated elapsed times.</p>
+      </div>
+
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
+        <h4 style="margin: 0 0 4px 0; color: #002B49; font-size: 13px;">STAYINFO, RMK & Organization Tags (<code style="color: #0072CE;">stayinfo / rmkOat / vso</code>)</h4>
+        <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> Exercise descriptions and organizational metadata.<br><b>Description:</b> Working area notes mapped to <code style="color: #0072CE;">STAYINFO1/</code>, regulatory operational air traffic tags (<code style="color: #0072CE;">RMK/OAT</code>), organization signatures (<code style="color: #0072CE;">VIRTUALNATO.ORG</code>), and optional student pilot designators (<code style="color: #0072CE;">VSO TRAINEE</code>).</p>
+      </div>
     </div>
 
-    <!-- MANUAL VIEW 3: EQUIPMENT, TRANSPONDER & PBN GUIDE -->
     <div id="equipGuideBody" class="sub-manual-content" style="display:none;">
       <h2>Equipment, Transponder & PBN Reference Guide</h2>
       <p>Detailed breakdown of ICAO Field 10 communication/navigation equipment, surveillance transponder codes, and Performance-Based Navigation (PBN) specifications utilized in military flight planning.</p>
@@ -1261,7 +1336,6 @@
       </ul>
     </div>
 
-    <!-- MANUAL VIEW 4: METAR HELPER -->
     <div id="metarHelperBody" class="sub-manual-content" style="display:none;">
       <h2>METAR Decoding & Reading Guide</h2>
       <p>Meteorological Aerodrome Reports (METAR) follow a strict sequential format governed by international WMO/ICAO standards. Use this operational reference guide and descriptor tables to decode weather observations rapidly during flight planning.</p>
@@ -1378,7 +1452,6 @@
       <p style="font-size: 11px; color: #64748b; margin-top: 20px;">Reference guidance adapted from <a href="https://flyapg.com/blog/how-to-read-decode-metar-reports" target="_blank" style="color: #0072CE;">APG METAR Decoding Guide</a>.</p>
     </div>
 
-    <!-- MANUAL VIEW 5: TAF HELPER -->
     <div id="tafHelperBody" class="sub-manual-content" style="display:none;">
       <h2>Terminal Aerodrome Forecast (TAF) Decoding Guide</h2>
       <p>Terminal Aerodrome Forecasts (TAF) provide expected meteorological conditions at an aerodrome over a specific 24- or 30-hour validity period. Use this operational guide to interpret forecast trends, operational probability groups, and conditional weather shifts.</p>
@@ -1438,7 +1511,6 @@
   </div>
 </div>
 
-<!-- LINK TO MODULAR SCRIPTS -->
 <script src="js/core.js?v=15"></script>
 <script src="js/generators.js"></script>
 <script src="js/weather.js"></script>
