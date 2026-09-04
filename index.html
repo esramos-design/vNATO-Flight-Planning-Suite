@@ -927,8 +927,21 @@
       <button class="fpl-gen-btn" onclick="generateIcaoFplString()">Generate vxPILOT String</button>
       
       <div class="fpl-textarea-container" style="margin-top:10px;">
-        <button class="fpl-copy-btn" onclick="copyToClipboard('icaoOutput')">Copy</button>
+        <button class="fpl-copy-btn" onclick="copyToClipboard('icaoOutput'); logIcaoExport();">Copy</button>
         <textarea id="icaoOutput" style="height: 140px; white-space: pre;" readonly></textarea>
+      </div>
+
+      <!-- AUTOMATIC FLIGHT EXPORT LOG SECTION -->
+      <div class="fpl-section" style="margin-top: 15px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px;">
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <label style="font-weight: bold; color: #002B49; font-size: 13px; margin: 0;">Automatic Flight Export Log</label>
+          <div>
+            <button type="button" class="fpl-copy-btn" style="position:static; background:#34a853; padding: 4px 10px; font-size: 11px; margin-right: 4px;" onclick="downloadFlightLog()">Download Log File</button>
+            <button type="button" class="fpl-copy-btn" style="position:static; background:#ef4444; padding: 4px 10px; font-size: 11px;" onclick="clearFlightLog()">Clear Log</button>
+          </div>
+        </div>
+        <div style="font-size: 11px; color: #64748b; margin-bottom: 6px;">Automatically captures exports with timestamp and Date of Flight (DOF) when clicking 'Copy' above.</div>
+        <textarea id="flightLogOutput" style="height: 90px; font-family: monospace; font-size: 11px; background: #fff; padding: 6px; width: 100%; border: 1px solid #cbd5e1; border-radius: 4px;" readonly placeholder="Export log is empty. Click 'Copy' on the ICAO FPL to record an entry..."></textarea>
       </div>
 
       <div style="display:flex; gap:8px; margin-top:8px;">
@@ -1536,6 +1549,53 @@ function formatDof(input) {
     const dd = parts[2];
     input.type = 'text';
     input.value = yy + mm + dd;
+  }
+}
+
+let flightExportLog = [];
+
+function logIcaoExport() {
+  const outputText = document.getElementById('icaoOutput').value;
+  if (!outputText.trim()) return;
+  
+  const now = new Date();
+  const timestamp = now.toISOString().replace('T', ' ').substring(0, 19) + ' UTC';
+  const dofVal = document.getElementById('dof').value.trim() || 'NOT_SPECIFIED';
+  
+  const logEntry = `[EXPORT TIMESTAMP: ${timestamp}] [DATE OF FLIGHT (DOF): ${dofVal}]\n${outputText}\n--------------------------------------------------\n`;
+  
+  flightExportLog.push(logEntry);
+  updateLogDisplay();
+}
+
+function updateLogDisplay() {
+  const logBox = document.getElementById('flightLogOutput');
+  if (logBox) {
+    logBox.value = flightExportLog.join('\n');
+    logBox.scrollTop = logBox.scrollHeight;
+  }
+}
+
+function downloadFlightLog() {
+  if (flightExportLog.length === 0) {
+    alert('Export log is currently empty.');
+    return;
+  }
+  const blob = new Blob([flightExportLog.join('\n')], { type: 'text/plain;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'vnat_flight_export_log.txt';
+  document.body.appendChild(a);
+  a.click();
+  document.body.removeChild(a);
+  URL.revokeObjectURL(url);
+}
+
+function clearFlightLog() {
+  if (confirm('Are you sure you want to clear the flight export log?')) {
+    flightExportLog = [];
+    updateLogDisplay();
   }
 }
 </script>
