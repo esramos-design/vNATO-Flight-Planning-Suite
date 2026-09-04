@@ -15,45 +15,60 @@ function generateRouteString() {
   let route = getVal('route').toUpperCase();
   const gatToOat = formatTransferPoint(getVal('gatToOat').toUpperCase());
   const oatToGat = formatTransferPoint(getVal('oatToGat').toUpperCase());
-  const vfrTrans = formatTransferPoint(getVal('vfrTrans').toUpperCase());
-  const ifrTrans = formatTransferPoint(getVal('ifrTrans').toUpperCase());
+  
+  let injections = {};
+  function addInj(wpt, str) {
+    if(!wpt || !str) return;
+    if(!injections[wpt]) injections[wpt] = [];
+    injections[wpt].push(str);
+  }
 
-  // Inject STAY points at target waypoints
+  const vfrWpt = getVal('vfrTransWpt').toUpperCase();
+  const vfrType = getVal('vfrTransType');
+  const vfrParams = getVal('vfrTransParams').toUpperCase();
+  if (vfrWpt && vfrType && vfrParams) addInj(vfrWpt, `${vfrType} ${vfrParams}`);
+
+  const ifrWpt = getVal('ifrTransWpt').toUpperCase();
+  const ifrType = getVal('ifrTransType');
+  const ifrParams = getVal('ifrTransParams').toUpperCase();
+  if (ifrWpt && ifrType && ifrParams) addInj(ifrWpt, `${ifrType} ${ifrParams}`);
+
   for (let i = 1; i <= 3; i++) {
     const staySeg = getVal(`staySeg${i}`);
     const stayDur = getVal(`stayDur${i}`);
     const stayWpt = getVal(`stayWpt${i}`).toUpperCase();
-
-    if (staySeg !== 'NONE' && stayDur) {
-      const stayStr = `${staySeg}/${stayDur}`;
-      if (stayWpt) {
-        const regex = new RegExp(`\\b${stayWpt}\\b`, 'g');
-        if (route.match(regex)) {
-          route = route.replace(regex, `${stayWpt} ${stayStr}`);
-        } else {
-          route += ` ${stayWpt} ${stayStr}`; 
-        }
-      } else {
-        route += ` ${stayStr}`; 
-      }
+    if (staySeg !== 'NONE' && stayDur && stayWpt) {
+      addInj(stayWpt, `${staySeg}/${stayDur}`);
     }
   }
 
-  let routeParts = [];
-
+  let routeArray = route.split(/\s+/).filter(Boolean);
+  let finalRouteArray = [];
+  
   if (country === 'DE' || country === 'UK') {
-    if (!route.startsWith('OAT')) {
-      routeParts.push('OAT');
+    if (routeArray.length > 0 && routeArray[0] !== 'OAT') {
+      finalRouteArray.push('OAT');
+    }
+  }
+  
+  if (gatToOat) finalRouteArray.push(gatToOat);
+
+  for (let item of routeArray) {
+    finalRouteArray.push(item);
+    if (injections[item]) {
+      finalRouteArray.push(injections[item].join(' '));
+      delete injections[item];
     }
   }
 
-  if (gatToOat) routeParts.push(gatToOat);
-  if (route) routeParts.push(route);
-  if (oatToGat) routeParts.push(oatToGat);
-  if (vfrTrans) routeParts.push(vfrTrans);
-  if (ifrTrans) routeParts.push(ifrTrans);
+  for (let wpt in injections) {
+    finalRouteArray.push(wpt);
+    finalRouteArray.push(injections[wpt].join(' '));
+  }
 
-  const finalRoute = routeParts.filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
+  if (oatToGat) finalRouteArray.push(oatToGat);
+
+  const finalRoute = finalRouteArray.join(' ').replace(/\s+/g, ' ').trim();
   const outputBox = document.getElementById('routeOutput');
   if (outputBox) outputBox.value = finalRoute;
 }
@@ -94,13 +109,9 @@ function generateRemarksString() {
   if (opr) remarksList.push(`OPR/${opr}`);
   if (eet) remarksList.push(`EET/${eet}`);
 
-  const stayDur1 = getVal('stayDur1');
-  const stayDur2 = getVal('stayDur2');
-  const stayDur3 = getVal('stayDur3');
-
-  if (stayDur1 && stayinfo1) remarksList.push(`STAYINFO1/${stayinfo1}`);
-  if (stayDur2 && stayinfo2) remarksList.push(`STAYINFO2/${stayinfo2}`);
-  if (stayDur3 && stayinfo3) remarksList.push(`STAYINFO3/${stayinfo3}`);
+  if (stayinfo1) remarksList.push(`STAYINFO1/${stayinfo1}`);
+  if (stayinfo2) remarksList.push(`STAYINFO2/${stayinfo2}`);
+  if (stayinfo3) remarksList.push(`STAYINFO3/${stayinfo3}`);
 
   let rmkString = [];
   if (rmkOat) rmkString.push(rmkOat);
@@ -117,9 +128,7 @@ function generateRemarksString() {
 // vPILOT FPL String Generator
 function generateIcaoFplString() {
   let rules = getVal('icaoRules', 'I');
-  if (rules === 'T') {
-    rules = 'I'; 
-  }
+  if (rules === 'T') rules = 'I'; 
 
   const type = getVal('icaoType', 'M');
   const spdUnit = getVal('icaoSpdUnit', 'N');
@@ -142,45 +151,60 @@ function generateIcaoFplString() {
   let route = getVal('icaoRoute').toUpperCase();
   const gatToOat = formatTransferPoint(getVal('icaoGatToOat').toUpperCase());
   const oatToGat = formatTransferPoint(getVal('icaoOatToGat').toUpperCase());
-  const vfrTrans = formatTransferPoint(getVal('icaoVfrTrans').toUpperCase());
-  const ifrTrans = formatTransferPoint(getVal('icaoIfrTrans').toUpperCase());
+  
+  let injections = {};
+  function addInj(wpt, str) {
+    if(!wpt || !str) return;
+    if(!injections[wpt]) injections[wpt] = [];
+    injections[wpt].push(str);
+  }
 
-  // Inject STAY points at target waypoints
+  const vfrWpt = getVal('icaoVfrTransWpt').toUpperCase();
+  const vfrType = getVal('icaoVfrTransType');
+  const vfrParams = getVal('icaoVfrTransParams').toUpperCase();
+  if (vfrWpt && vfrType && vfrParams) addInj(vfrWpt, `${vfrType} ${vfrParams}`);
+
+  const ifrWpt = getVal('icaoIfrTransWpt').toUpperCase();
+  const ifrType = getVal('icaoIfrTransType');
+  const ifrParams = getVal('icaoIfrTransParams').toUpperCase();
+  if (ifrWpt && ifrType && ifrParams) addInj(ifrWpt, `${ifrType} ${ifrParams}`);
+
   for (let i = 1; i <= 3; i++) {
     const staySeg = getVal(`icaoStaySeg${i}`);
     const stayDur = getVal(`icaoStayDur${i}`);
     const stayWpt = getVal(`icaoStayWpt${i}`).toUpperCase();
-
-    if (staySeg !== 'NONE' && stayDur) {
-      const stayStr = `${staySeg}/${stayDur}`;
-      if (stayWpt) {
-        const regex = new RegExp(`\\b${stayWpt}\\b`, 'g');
-        if (route.match(regex)) {
-          route = route.replace(regex, `${stayWpt} ${stayStr}`);
-        } else {
-          route += ` ${stayWpt} ${stayStr}`; 
-        }
-      } else {
-        route += ` ${stayStr}`; 
-      }
+    if (staySeg !== 'NONE' && stayDur && stayWpt) {
+      addInj(stayWpt, `${staySeg}/${stayDur}`);
     }
   }
 
-  let routeParts = [];
+  let routeArray = route.split(/\s+/).filter(Boolean);
+  let finalRouteArray = [];
   const country = getVal('countrySelect');
+  
   if (country === 'DE' || country === 'UK') {
-    if (!route.startsWith('OAT')) {
-      routeParts.push('OAT');
+    if (routeArray.length > 0 && routeArray[0] !== 'OAT') {
+      finalRouteArray.push('OAT');
     }
   }
 
-  if (gatToOat) routeParts.push(gatToOat);
-  if (route) routeParts.push(route);
-  if (oatToGat) routeParts.push(oatToGat);
-  if (vfrTrans) routeParts.push(vfrTrans);
-  if (ifrTrans) routeParts.push(ifrTrans);
+  if (gatToOat) finalRouteArray.push(gatToOat);
 
-  const finalRoute = routeParts.filter(Boolean).join(' ').replace(/\s+/g, ' ').trim();
+  for (let item of routeArray) {
+    finalRouteArray.push(item);
+    if (injections[item]) {
+      finalRouteArray.push(injections[item].join(' '));
+      delete injections[item];
+    }
+  }
+
+  for (let wpt in injections) {
+    finalRouteArray.push(wpt);
+    finalRouteArray.push(injections[wpt].join(' '));
+  }
+
+  if (oatToGat) finalRouteArray.push(oatToGat);
+  const finalRoute = finalRouteArray.join(' ').replace(/\s+/g, ' ').trim();
 
   const pbn = getVal('icaoPbnValue');
   const nav = getVal('icaoNav');
@@ -193,7 +217,6 @@ function generateIcaoFplString() {
   const reg = getVal('icaoReg').toUpperCase();
   const opr = getVal('icaoOpr').toUpperCase();
   const eetItem18 = getVal('icaoEet').toUpperCase(); 
-  
   const fuelEnd = getVal('icaoFuel', '0200');
   
   const stayinfo1 = getVal('icaoStayinfo1').toUpperCase();
@@ -217,13 +240,9 @@ function generateIcaoFplString() {
   if (opr) item18List.push(`OPR/${opr}`);
   if (eetItem18) item18List.push(`EET/${eetItem18}`);
 
-  const stayDur1 = getVal('icaoStayDur1');
-  const stayDur2 = getVal('icaoStayDur2');
-  const stayDur3 = getVal('icaoStayDur3');
-  
-  if (stayDur1 && stayinfo1) item18List.push(`STAYINFO1/${stayinfo1}`);
-  if (stayDur2 && stayinfo2) item18List.push(`STAYINFO2/${stayinfo2}`);
-  if (stayDur3 && stayinfo3) item18List.push(`STAYINFO3/${stayinfo3}`);
+  if (stayinfo1) item18List.push(`STAYINFO1/${stayinfo1}`);
+  if (stayinfo2) item18List.push(`STAYINFO2/${stayinfo2}`);
+  if (stayinfo3) item18List.push(`STAYINFO3/${stayinfo3}`);
 
   let rmkString = [];
   if (customRmk) rmkString.push(customRmk);
@@ -234,7 +253,6 @@ function generateIcaoFplString() {
   const item18Str = item18List.length > 0 ? '-' + item18List.join(' ') : '';
   const altStr = altAerodrome ? ` ${altAerodrome}` : '';
   const speedAltBlock = `${spdUnit}${spdVal}${altUnit}${altVal}`;
-  
   const item9_10 = `-${acftType}/${wake}-${equip}/${trans}`;
 
   const fplString = `(FPL-${callsign}-${rules}${type}
