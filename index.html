@@ -955,13 +955,16 @@
 
   <div class="docs-container">
     <div class="docs-header">
-      <h1 id="rightPanelTitle">Operational Air Traffic (OAT) Guide</h1>
+      <h1 id="rightPanelTitle">Virtual NATO Flight Planning Suite</h1>
       <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
     </div>
 
     <div class="right-panel-controls">
       <div class="doc-columns-toggle" style="display:flex; gap:6px; flex-wrap:wrap;">
-        <button type="button" class="action-toggle-btn active" id="oatGuideBtn" onclick="toggleManualView('oatGuide')">
+        <button type="button" class="action-toggle-btn active" id="homeWelcomeBtn" onclick="toggleManualView('homeWelcome')">
+          <span>Home / About</span>
+        </button>
+        <button type="button" class="action-toggle-btn" id="oatGuideBtn" onclick="toggleManualView('oatGuide')">
           <span>OAT Guide</span>
         </button>
         <button type="button" class="action-toggle-btn" id="paramGlossaryBtn" onclick="toggleManualView('paramGlossary')">
@@ -1156,7 +1159,50 @@
       </div>
     </div>
 
-    <div id="oatGuideBody" class="sub-manual-content active">
+    <!-- HOME / ABOUT WELCOME PANEL -->
+    <div id="homeWelcomeBody" class="sub-manual-content active">
+      <div style="text-align: center; padding: 10px 0 16px 0; border-bottom: 2px solid #0072CE; margin-bottom: 16px;">
+        <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" style="max-height: 52px; margin-bottom: 8px; display: block; margin-left: auto; margin-right: auto;" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
+        <h1 style="color: #002B49; margin: 0 0 4px 0; font-size: 20px;">Virtual NATO Flight Planning Suite</h1>
+        <p style="color: #64748b; font-size: 12px; margin: 0;">Operational Air Traffic (OAT) & Tactical Dispatch System</p>
+      </div>
+
+      <div class="disclaimer-box" style="margin-bottom: 16px;">
+        <b>Operational Disclaimer:</b> Designed exclusively for simulated virtual aviation environments (such as VATSIM). Never use for real-world flight planning, navigation, or operational dispatch.
+      </div>
+
+      <h2 style="font-size: 14px; color: #002B49; margin-bottom: 6px;">Quick System Overview</h2>
+      <p style="font-size: 12px; color: #334155; line-height: 1.5; margin-bottom: 14px;">
+        Welcome to the vNATO Flight Planning Suite. This system integrates automated route generation, country-specific OAT reporting conventions (France, Germany, United Kingdom), Item 18 remark formatting, and live METAR/TAF weather decoding (powered by <a href="https://www.checkwxapi.com" target="_blank" style="color: #0072CE; text-decoration: none;">https://www.checkwxapi.com</a>) into a single unified dispatch console.
+      </p>
+
+      <h2 style="font-size: 14px; color: #002B49; margin-bottom: 6px;">Quick Navigation</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); gap: 8px; margin-bottom: 16px;">
+        <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 10px; border-radius: 6px; cursor: pointer;" onclick="toggleManualView('oatGuide')">
+          <b style="color: #0072CE; font-size: 12px;">OAT Guide & Rules</b>
+          <p style="margin: 3px 0 0 0; font-size: 11px; color: #64748b;">Review national air traffic regulations and routing protocols.</p>
+        </div>
+        <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 10px; border-radius: 6px; cursor: pointer;" onclick="toggleManualView('paramGlossary')">
+          <b style="color: #0072CE; font-size: 12px;">Parameter Glossary</b>
+          <p style="margin: 3px 0 0 0; font-size: 11px; color: #64748b;">Comprehensive reference of all flight plan variables and inputs.</p>
+        </div>
+        <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 10px; border-radius: 6px; cursor: pointer;" onclick="toggleManualView('equipGuide')">
+          <b style="color: #0072CE; font-size: 12px;">Equip & PBN Guide</b>
+          <p style="margin: 3px 0 0 0; font-size: 11px; color: #64748b;">Avionics codes, transponder modes, and PBN qualifications.</p>
+        </div>
+        <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 10px; border-radius: 6px; cursor: pointer;" onclick="toggleManualView('flightLogGuide')">
+          <b style="color: #0072CE; font-size: 12px;">Export Log Guide</b>
+          <p style="margin: 3px 0 0 0; font-size: 11px; color: #64748b;">Manage and download your automated flight export logs.</p>
+        </div>
+      </div>
+
+      <div style="background: rgba(0, 114, 206, 0.05); border: 1px solid rgba(0, 114, 206, 0.2); border-radius: 6px; padding: 10px; text-align: center;">
+        <span style="font-size: 11px; color: #002B49;"><b>Virtual NATO Command</b> &bull; Re-established 2017 &bull; vCMC & vDCMC Operational Infrastructure</span>
+      </div>
+    </div>
+
+    <!-- OAT GUIDE -->
+    <div id="oatGuideBody" class="sub-manual-content" style="display:none;">
       <div class="disclaimer-box">
         <b>Operational Disclaimer:</b> This software and manual are proprietary assets of <b>Virtual NATO</b> (re-established in 2017) and are designed exclusively for simulated virtual aviation environments (such as VATSIM). Distribution outside Virtual NATO or without express authorization from vCMC & vDCMC is strictly prohibited. This tool must <b>never</b> be used for real-world flight planning, navigation, or operational dispatch.
       </div>
@@ -1659,6 +1705,7 @@ window.toggleManualView = function(viewName) {
   const titleEl = document.getElementById('rightPanelTitle');
   if (titleEl) {
     switch(viewName) {
+      case 'homeWelcome': titleEl.textContent = 'Virtual NATO Flight Planning Suite'; break;
       case 'oatGuide': titleEl.textContent = 'Operational Air Traffic (OAT) Guide'; break;
       case 'paramGlossary': titleEl.textContent = 'Comprehensive Parameter Glossary & Operational Index'; break;
       case 'equipGuide': titleEl.textContent = 'Equipment, Transponder & PBN Reference Guide'; break;
