@@ -14,14 +14,14 @@
       <div class="header-clock-banner" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
         <div class="clock-col" style="flex: 1; text-align: center;">
           <span class="clock-label">ZULU / UTC</span>
-          <div id="headerClockZulu" class="clock-time-val" style="font-size: 1.25rem;">00:00:00</div>
+          <div id="headerClockZulu" class="clock-time-val" style="font-size: 1.20rem;">00:00:00</div>
         </div>
         <div class="clock-logo-col" style="flex: 0 0 auto; text-align: center; padding: 0 10px;">
           <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" style="max-height: 42px; display: block; margin: 0 auto;" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
         </div>
         <div class="clock-col" style="flex: 1; text-align: center;">
           <span class="clock-label">LOCAL SYSTEM</span>
-          <div id="headerClockLocal" class="clock-time-val" style="font-size: 1.25rem;">00:00:00</div>
+          <div id="headerClockLocal" class="clock-time-val" style="font-size: 1.20rem;">00:00:00</div>
         </div>
       </div>
     </div>
@@ -426,14 +426,17 @@
         <input type="text" id="eet" value="" placeholder="e.g. ENSAC0030 MG0010045">
       </div>
 
-      <div class="fpl-section">
+            <div class="fpl-section">
         <div class="label-with-help">
-          <label>STAYINFO / Working Area Notes</label>
+          <label>STAYINFO / Working Area Notes (1, 2, 3)</label>
           <span class="help-icon" onclick="toggleHelp('helpStayinfoDetails')">?</span>
         </div>
-        <div id="helpStayinfoDetails" class="help-text-box">Detailed description of military exercise, low-flying, or refueling activity within the designated STAY area. Automatically mapped to STAYINFO1/, STAYINFO2/, STAYINFO3/.</div>
-        <input type="text" id="stayinfo" value="" placeholder="e.g. AIR TO AIR WORK IN TSA43">
+        <div id="helpStayinfoDetails" class="help-text-box">Detailed working area descriptions. Automatically mapped to STAYINFO1/, STAYINFO2/, STAYINFO3/.</div>
+        <input type="text" id="stayinfo1" value="" placeholder="STAYINFO1 (e.g. AIRDROP LACOURTINE)" style="margin-bottom:6px;">
+        <input type="text" id="stayinfo2" value="" placeholder="STAYINFO2 (Optional)" style="margin-bottom:6px;">
+        <input type="text" id="stayinfo3" value="" placeholder="STAYINFO3 (Optional)">
       </div>
+
 
       <div class="fpl-section">
         <div class="label-with-help">
