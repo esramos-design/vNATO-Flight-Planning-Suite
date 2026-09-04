@@ -14,14 +14,14 @@
       <div class="header-clock-banner" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
         <div class="clock-col" style="flex: 1; text-align: center;">
           <span class="clock-label">ZULU / UTC</span>
-          <div id="headerClockZulu" class="clock-time-val" style="font-size: 1.20rem;">00:00:00</div>
+          <div id="headerClockZulu" class="clock-time-val">00:00:00</div>
         </div>
         <div class="clock-logo-col" style="flex: 0 0 auto; text-align: center; padding: 0 10px;">
           <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" style="max-height: 42px; display: block; margin: 0 auto;" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
         </div>
         <div class="clock-col" style="flex: 1; text-align: center;">
           <span class="clock-label">LOCAL SYSTEM</span>
-          <div id="headerClockLocal" class="clock-time-val" style="font-size: 1.20rem;">00:00:00</div>
+          <div id="headerClockLocal" class="clock-time-val">00:00:00</div>
         </div>
       </div>
     </div>
@@ -156,18 +156,36 @@
         <input type="text" id="oatToGat" value="" placeholder="e.g. SURUD GAT N350F115">
 
         <div class="label-with-help">
-          <label>VFR Transfer Point</label>
+          <label>VFR Transfer Point, Flight type, New parameters</label>
           <span class="help-icon" onclick="toggleHelp('helpVfrTrans')">?</span>
         </div>
-        <div id="helpVfrTrans" class="help-text-box">Reporting fix where flight switches into VFR operational segments.</div>
-        <input type="text" id="vfrTrans" value="" placeholder="e.g. LMG OAT V N0240A010">
+        <div id="helpVfrTrans" class="help-text-box">Target waypoint, flight rules, and speed/altitude parameters.</div>
+        <div style="display:flex; gap:6px;">
+          <input type="text" id="vfrTransWpt" value="" style="width:30%;" placeholder="WPT (e.g. LMG)">
+          <select id="vfrTransType" style="width:35%;">
+            <option value="" selected>[Select]</option>
+            <option value="OAT V">OAT V</option>
+            <option value="OAT T">OAT T</option>
+            <option value="GAT V">GAT V</option>
+          </select>
+          <input type="text" id="vfrTransParams" value="" style="width:35%;" placeholder="e.g. N0450A010">
+        </div>
 
         <div class="label-with-help">
-          <label>IFR Transfer Point</label>
+          <label>IFR Transfer Point, Flight type, New parameters</label>
           <span class="help-icon" onclick="toggleHelp('helpIfrTrans')">?</span>
         </div>
-        <div id="helpIfrTrans" class="help-text-box">Reporting fix where flight switches into IFR operational segments.</div>
-        <input type="text" id="ifrTrans" value="" placeholder="e.g. MDM OAT I N0350F215">
+        <div id="helpIfrTrans" class="help-text-box">Target waypoint, flight rules, and speed/altitude parameters.</div>
+        <div style="display:flex; gap:6px;">
+          <input type="text" id="ifrTransWpt" value="" style="width:30%;" placeholder="WPT (e.g. MDM)">
+          <select id="ifrTransType" style="width:35%;">
+            <option value="" selected>[Select]</option>
+            <option value="OAT I">OAT I</option>
+            <option value="OAT T">OAT T</option>
+            <option value="GAT I">GAT I</option>
+          </select>
+          <input type="text" id="ifrTransParams" value="" style="width:35%;" placeholder="e.g. M080F310">
+        </div>
 
         <div class="label-with-help">
           <label>Route Details / Fixes</label>
@@ -370,11 +388,18 @@
         <input type="text" id="sur" value="" placeholder="e.g. 260B">
 
         <div class="label-with-help">
-          <label>PER / Performance</label>
+          <label>PER / Performance (Approach Speed Category)</label>
           <span class="help-icon" onclick="toggleHelp('helpPer')">?</span>
         </div>
-        <div id="helpPer" class="help-text-box">Aircraft performance data, PBN capabilities, or RNP compliance indicators.</div>
-        <input type="text" id="per" value="" placeholder="e.g. C1">
+        <div id="helpPer" class="help-text-box">Select aircraft approach speed category for PER/ remark.</div>
+        <select id="per">
+          <option value="" selected>[Select Performance Category]</option>
+          <option value="A">Cat A — Up to 90 knots IAS</option>
+          <option value="B">Cat B — 91 to 120 knots IAS</option>
+          <option value="C">Cat C — 121 to 140 knots IAS</option>
+          <option value="D">Cat D — 141 to 165 knots IAS</option>
+          <option value="E">Cat E — Above 165 knots IAS</option>
+        </select>
 
         <div class="label-with-help">
           <label>ORGN / Origin</label>
@@ -426,17 +451,24 @@
         <input type="text" id="eet" value="" placeholder="e.g. ENSAC0030 MG0010045">
       </div>
 
-            <div class="fpl-section">
+      <div class="fpl-section">
         <div class="label-with-help">
-          <label>STAYINFO / Working Area Notes (1, 2, 3)</label>
+          <label>STAYINFO 1 / Working Area Notes</label>
           <span class="help-icon" onclick="toggleHelp('helpStayinfoDetails')">?</span>
         </div>
-        <div id="helpStayinfoDetails" class="help-text-box">Detailed working area descriptions. Automatically mapped to STAYINFO1/, STAYINFO2/, STAYINFO3/.</div>
-        <input type="text" id="stayinfo1" value="" placeholder="STAYINFO1 (e.g. AIRDROP LACOURTINE)" style="margin-bottom:6px;">
-        <input type="text" id="stayinfo2" value="" placeholder="STAYINFO2 (Optional)" style="margin-bottom:6px;">
-        <input type="text" id="stayinfo3" value="" placeholder="STAYINFO3 (Optional)">
-      </div>
+        <div id="helpStayinfoDetails" class="help-text-box">Detailed description of military exercise or low-flying activity within STAY 1 area.</div>
+        <input type="text" id="stayinfo1" value="" placeholder="e.g. AIR TO AIR WORK IN TSA43">
 
+        <div class="label-with-help" style="margin-top:6px;">
+          <label>STAYINFO 2 / Working Area Notes</label>
+        </div>
+        <input type="text" id="stayinfo2" value="" placeholder="e.g. LOW FLYING TRAINING">
+
+        <div class="label-with-help" style="margin-top:6px;">
+          <label>STAYINFO 3 / Working Area Notes</label>
+        </div>
+        <input type="text" id="stayinfo3" value="" placeholder="e.g. REFUELING TRACK AARA8">
+      </div>
 
       <div class="fpl-section">
         <div class="label-with-help">
@@ -456,7 +488,7 @@
           <span class="help-icon" onclick="toggleHelp('helpVsoTag')">?</span>
         </div>
         <div id="helpVsoTag" class="help-text-box">Virtual organization identifier tag (e.g., VIRTUALNATO.ORG).</div>
-        <input type="text" id="vso" value="" placeholder="e.g. VIRTUALNATO.ORG">
+        <input type="text" id="vso" value="VIRTUALNATO.ORG" placeholder="e.g. VIRTUALNATO.ORG">
         <div class="checkbox-group">
           <input type="checkbox" id="vsoTrainee">
           <label for="vsoTrainee">Append VSO TRAINEE (Student Pilots)</label>
@@ -606,18 +638,36 @@
         <input type="text" id="icaoOatToGat" value="" placeholder="e.g. SURUD GAT N350F115">
 
         <div class="label-with-help">
-          <label>VFR Transfer Point</label>
+          <label>VFR Transfer Point, Flight type, New parameters</label>
           <span class="help-icon" onclick="toggleHelp('helpVfrTrans2')">?</span>
         </div>
-        <div id="helpVfrTrans2" class="help-text-box">Reporting fix where flight switches into VFR operational segments.</div>
-        <input type="text" id="icaoVfrTrans" value="" placeholder="e.g. LMG OAT V N0240A010">
+        <div id="helpVfrTrans2" class="help-text-box">Target waypoint, flight rules, and speed/altitude parameters.</div>
+        <div style="display:flex; gap:6px;">
+          <input type="text" id="icaoVfrTransWpt" value="" style="width:30%;" placeholder="WPT (e.g. LMG)">
+          <select id="icaoVfrTransType" style="width:35%;">
+            <option value="" selected>[Select]</option>
+            <option value="OAT V">OAT V</option>
+            <option value="OAT T">OAT T</option>
+            <option value="GAT V">GAT V</option>
+          </select>
+          <input type="text" id="icaoVfrTransParams" value="" style="width:35%;" placeholder="e.g. N0450A010">
+        </div>
 
         <div class="label-with-help">
-          <label>IFR Transfer Point</label>
+          <label>IFR Transfer Point, Flight type, New parameters</label>
           <span class="help-icon" onclick="toggleHelp('helpIcaoIfrTrans')">?</span>
         </div>
-        <div id="helpIcaoIfrTrans" class="help-text-box">Reporting fix where flight switches into IFR operational segments.</div>
-        <input type="text" id="icaoIfrTrans" value="" placeholder="e.g. MDM OAT I N0350F215">
+        <div id="helpIcaoIfrTrans" class="help-text-box">Target waypoint, flight rules, and speed/altitude parameters.</div>
+        <div style="display:flex; gap:6px;">
+          <input type="text" id="icaoIfrTransWpt" value="" style="width:30%;" placeholder="WPT (e.g. MDM)">
+          <select id="icaoIfrTransType" style="width:35%;">
+            <option value="" selected>[Select]</option>
+            <option value="OAT I">OAT I</option>
+            <option value="OAT T">OAT T</option>
+            <option value="GAT I">GAT I</option>
+          </select>
+          <input type="text" id="icaoIfrTransParams" value="" style="width:35%;" placeholder="e.g. M080F310">
+        </div>
 
         <div class="label-with-help">
           <label>Route Details / Fixes</label>
@@ -796,11 +846,18 @@
         <input type="text" id="icaoSur" value="" placeholder="e.g. 260B">
 
         <div class="label-with-help">
-          <label>PER / Performance</label>
+          <label>PER / Performance (Approach Speed Category)</label>
           <span class="help-icon" onclick="toggleHelp('helpIcaoPer')">?</span>
         </div>
-        <div id="helpIcaoPer" class="help-text-box">Aircraft performance data, PBN capabilities, or RNP compliance indicators.</div>
-        <input type="text" id="icaoPer" value="" placeholder="e.g. C1">
+        <div id="helpIcaoPer" class="help-text-box">Select approach speed category for PER/ remark.</div>
+        <select id="icaoPer">
+          <option value="" selected>[Select Performance Category]</option>
+          <option value="A">Cat A — Up to 90 knots IAS</option>
+          <option value="B">Cat B — 91 to 120 knots IAS</option>
+          <option value="C">Cat C — 121 to 140 knots IAS</option>
+          <option value="D">Cat D — 141 to 165 knots IAS</option>
+          <option value="E">Cat E — Above 165 knots IAS</option>
+        </select>
 
         <div class="label-with-help">
           <label>ORGN / Origin</label>
@@ -838,11 +895,21 @@
         <input type="text" id="icaoFuel" value="" placeholder="e.g. 0200">
 
         <div class="label-with-help">
-          <label>STAYINFO / Working Area Notes</label>
+          <label>STAYINFO 1 / Working Area Notes</label>
           <span class="help-icon" onclick="toggleHelp('helpIcaoStayinfo')">?</span>
         </div>
-        <div id="helpIcaoStayinfo" class="help-text-box">Detailed working area description for military exercises within the route.</div>
-        <input type="text" id="icaoStayinfo" value="" placeholder="e.g. AIR TO AIR WORK IN TSA43">
+        <div id="helpIcaoStayinfo" class="help-text-box">Detailed working area description for military exercises.</div>
+        <input type="text" id="icaoStayinfo1" value="" placeholder="e.g. AIR TO AIR WORK IN TSA43">
+
+        <div class="label-with-help" style="margin-top:6px;">
+          <label>STAYINFO 2 / Working Area Notes</label>
+        </div>
+        <input type="text" id="icaoStayinfo2" value="" placeholder="e.g. LOW FLYING TRAINING">
+
+        <div class="label-with-help" style="margin-top:6px;">
+          <label>STAYINFO 3 / Working Area Notes</label>
+        </div>
+        <input type="text" id="icaoStayinfo3" value="" placeholder="e.g. REFUELING TRACK AARA8">
 
         <div class="label-with-help">
           <label>RMK / OAT Status & VSO Tag</label>
@@ -1116,12 +1183,11 @@
       <p><b>Remarks Example:</b> <code>STAYINFO1/AARAS AAR MARSA/NATO11/ DELAY 0030 1200 TO 1230</code></p>
     </div>
 
-<!-- MANUAL VIEW 2: PARAMETER GLOSSARY -->
+    <!-- MANUAL VIEW 2: PARAMETER GLOSSARY -->
     <div id="paramGlossaryBody" class="sub-manual-content" style="display:none;">
       <h2>Comprehensive Parameter Glossary & Operational Index</h2>
       <p>An exhaustive technical reference detailing every configuration parameter, input field, and flight plan variable supported across the Virtual NATO Flight Planning Suite.</p>
 
-      <!-- SECTION 1: GENERAL & FLIGHT IDENTIFICATION -->
       <h3 style="color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 4px; margin-top: 24px;">1. General & Flight Identification</h3>
       
       <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
@@ -1149,8 +1215,6 @@
         <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> Standard 2 to 4-character aircraft designator.<br><b>Description:</b> Identifies the airframe type for performance and wake tracking (e.g., <code style="color: #0072CE;">C17</code>, <code style="color: #0072CE;">FA18</code>, <code style="color: #0072CE;">A400</code>).</p>
       </div>
 
-
-      <!-- SECTION 2: FLIGHT RULES, SPEEDS & AERODROMES -->
       <h3 style="color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 4px; margin-top: 28px;">2. Flight Rules, Speeds & Aerodromes</h3>
 
       <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
@@ -1173,8 +1237,6 @@
         <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> 4-letter ICAO aerodrome designators.<br><b>Description:</b> Specifies departure point alongside Estimated Off-Block Time (<code style="background: #e2e8f0; padding: 1px 4px; border-radius: 3px;">EOBT</code>), destination with Estimated Elapsed Time (<code style="background: #e2e8f0; padding: 1px 4px; border-radius: 3px;">EET</code>), and optional alternate airfields.</p>
       </div>
 
-
-      <!-- SECTION 3: ROUTING & OAT TRANSFER ARCHITECTURE -->
       <h3 style="color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 4px; margin-top: 28px;">3. Routing & OAT Transfer Architecture</h3>
 
       <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
@@ -1192,8 +1254,6 @@
         <p style="margin: 0; font-size: 12px; color: #334155;"><b>Descriptor:</b> Chronological waypoint string.<br><b>Description:</b> Sequence of direct routing nodes, radar corridors, and navigation fixes separated by single spaces.</p>
       </div>
 
-
-      <!-- SECTION 4: ITEM 18 & REMARKS PARAMETERS -->
       <h3 style="color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 4px; margin-top: 28px;">4. Item 18 & Remarks Parameters</h3>
 
       <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 10px;">
@@ -1232,6 +1292,7 @@
       </div>
     </div>
 
+    <!-- MANUAL VIEW 3: EQUIP & PBN GUIDE -->
     <div id="equipGuideBody" class="sub-manual-content" style="display:none;">
       <h2>Equipment, Transponder & PBN Reference Guide</h2>
       <p>Detailed breakdown of ICAO Field 10 communication/navigation equipment, surveillance transponder codes, and Performance-Based Navigation (PBN) specifications utilized in military flight planning.</p>
@@ -1339,6 +1400,7 @@
       </ul>
     </div>
 
+    <!-- MANUAL VIEW 4: METAR HELPER -->
     <div id="metarHelperBody" class="sub-manual-content" style="display:none;">
       <h2>METAR Decoding & Reading Guide</h2>
       <p>Meteorological Aerodrome Reports (METAR) follow a strict sequential format governed by international WMO/ICAO standards. Use this operational reference guide and descriptor tables to decode weather observations rapidly during flight planning.</p>
@@ -1451,65 +1513,12 @@
           <b>VV:</b> Indefinite Ceiling / Vertical Visibility
         </div>
       </div>
-
-      <p style="font-size: 11px; color: #64748b; margin-top: 20px;">Reference guidance adapted from <a href="https://flyapg.com/blog/how-to-read-decode-metar-reports" target="_blank" style="color: #0072CE;">APG METAR Decoding Guide</a>.</p>
     </div>
 
+    <!-- MANUAL VIEW 5: TAF HELPER -->
     <div id="tafHelperBody" class="sub-manual-content" style="display:none;">
       <h2>Terminal Aerodrome Forecast (TAF) Decoding Guide</h2>
-      <p>Terminal Aerodrome Forecasts (TAF) provide expected meteorological conditions at an aerodrome over a specific 24- or 30-hour validity period. Use this operational guide to interpret forecast trends, operational probability groups, and conditional weather shifts.</p>
-
-      <div style="background: rgba(0, 114, 206, 0.08); border: 1px solid rgba(0, 114, 206, 0.2); border-radius: 6px; padding: 14px 16px; margin-bottom: 16px;">
-        <h3 style="margin-top: 0; color: #002B49; font-size: 14px; border-bottom: 1px solid rgba(0, 114, 206, 0.2); padding-bottom: 6px;">Anatomy of a Standard TAF String</h3>
-        <p style="font-family: monospace; font-size: 12px; background: #fff; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; color: #0072CE; margin-bottom: 10px;">TAF AMD LFBO 141730Z 1418/1524 24015G25KT 9999 BKN020<br>TEMPO 1420/1424 4000 TSRA OVC010CB<br>BECMG 1506/1508 26010KT CAVOK</p>
-        <ol style="margin: 0; padding-left: 20px; font-size: 12px; line-height: 1.6;">
-          <li><b>TAF Header / Modifier:</b> Indicates report type. Routine TAF or <code>AMD</code> (Amended forecast) or <code>COR</code> (Corrected).</li>
-          <li><b>Station Identifier & Issue Time:</b> 4-letter ICAO code and date/time of issuance in Zulu (e.g., <code>LFBO 141730Z</code>).</li>
-          <li><b>Validity Period:</b> Valid 2-digit date, starting hour, and ending hour of the forecast window (e.g., <code>1418/1524</code> = 14th day at 18:00 UTC through 15th day at 24:00 UTC).</li>
-          <li><b>Base Forecast Weather:</b> Prevailing wind, horizontal visibility, weather phenomena, and cloud layers expected across the primary validity block.</li>
-          <li><b>Forecast Change Groups:</b> Trend indicators detailing expected shifts over time (detailed below).</li>
-        </ol>
-      </div>
-
-      <h3 style="color: #002B49; font-size: 14px; margin-top: 20px; margin-bottom: 8px;">TAF Change Indicators & Probability Groups</h3>
-      <div style="overflow-x: auto; margin-bottom: 16px;">
-        <table style="width: 100%; border-collapse: collapse; font-size: 12px; background: #fff;">
-          <thead>
-            <tr style="background: #002B49; color: #fff; text-align: left;">
-              <th style="padding: 8px; border: 1px solid #cbd5e1;">Indicator</th>
-              <th style="padding: 8px; border: 1px solid #cbd5e1;">Significance / Operational Meaning</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">BECMG (Becoming)</td>
-              <td style="padding: 8px; border: 1px solid #cbd5e1;">Gradual transition of weather conditions occurring at a regular or irregular rate over the specified time window (e.g., <code>BECMG 1506/1508</code>). Permanent change once window concludes.</td>
-            </tr>
-            <tr style="background: #f8fafc;">
-              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">TEMPO (Temporary)</td>
-              <td style="padding: 8px; border: 1px solid #cbd5e1;">Temporary fluctuations expected to last for less than one hour per occurrence and accumulate to less than half of the indicated time period. Conditions revert to base forecast afterward.</td>
-            </tr>
-            <tr>
-              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">PROB30 / PROB40</td>
-              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">Indicates a 30% or 40% probability of occurrence for thunderstorms, heavy precipitation, or low visibility hazards during the stated sub-window.</td>
-            </tr>
-            <tr style="background: #f8fafc;">
-              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">FM (From)</td>
-              <td style="padding: 8px; border: 1px solid #cbd5e1;">Rapid, complete, and permanent sweep of prevailing conditions starting at an exact hour and minute (e.g., <code>FM151230</code>). Supersedes all previous groups.</td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-      <h3 style="color: #002B49; font-size: 14px; margin-top: 20px; margin-bottom: 8px;">Specialized Aerodrome Terms</h3>
-      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 10px; font-size: 12px; margin-bottom: 14px;">
-        <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 10px; border-radius: 4px;">
-          <b>CAVOK:</b> Visibility 10km+, no cloud below 5,000ft or MSA, no CB/TCU, and no significant weather.
-        </div>
-        <div style="background: #f8fafc; border: 1px solid #cbd5e1; padding: 10px; border-radius: 4px;">
-          <b>NSW:</b> No Significant Weather expected to affect approach or departures.
-        </div>
-      </div>
+      <p>Terminal Aerodrome Forecasts (TAF) provide expected meteorological conditions at an aerodrome over a specific 24- or 30-hour validity period.</p>
     </div>
   </div>
 </div>
