@@ -62,8 +62,8 @@
           <label>Date of Flight (DOF - YYMMDD)</label>
           <span class="help-icon" onclick="toggleHelp('helpDof')">?</span>
         </div>
-        <div id="helpDof" class="help-text-box">Flight departure date formatted in standard 6-digit YYMMDD format.</div>
-        <input type="text" id="dof" value="" placeholder="e.g. 260826">
+        <div id="helpDof" class="help-text-box">Flight departure date formatted in standard 6-digit YYMMDD format. Double-click to open calendar.</div>
+        <input type="text" id="dof" value="" placeholder="e.g. 260826 (Dbl-click for calendar)" ondblclick="this.type='date'; try{this.showPicker();}catch(e){}" onchange="formatDof(this)" onblur="if(this.type==='date' && !this.value) { this.type='text'; }">
       </div>
 
       <div class="fpl-section">
@@ -1523,6 +1523,22 @@
   </div>
 </div>
 
+<script>
+function formatDof(input) {
+  if (!input.value) {
+    input.type = 'text';
+    return;
+  }
+  const parts = input.value.split('-');
+  if (parts.length === 3) {
+    const yy = parts[0].slice(-2);
+    const mm = parts[1];
+    const dd = parts[2];
+    input.type = 'text';
+    input.value = yy + mm + dd;
+  }
+}
+</script>
 <script src="js/core.js?v=15"></script>
 <script src="js/generators.js"></script>
 <script src="js/weather.js"></script>
