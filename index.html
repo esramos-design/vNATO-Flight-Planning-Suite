@@ -924,7 +924,7 @@
         </div>
       </div>
 
-      <button class="fpl-gen-btn" onclick="generateIcaoFplString()">Generate ICAO FPL String</button>
+      <button class="fpl-gen-btn" onclick="generateIcaoFplString()">Generate ICAO String</button>
       
       <div class="fpl-textarea-container" style="margin-top:10px;">
         <button class="fpl-copy-btn" onclick="copyToClipboard('icaoOutput'); logIcaoExport();">Copy</button>
@@ -1535,6 +1535,57 @@
     <div id="tafHelperBody" class="sub-manual-content" style="display:none;">
       <h2>Terminal Aerodrome Forecast (TAF) Decoding Guide</h2>
       <p>Terminal Aerodrome Forecasts (TAF) provide expected meteorological conditions at an aerodrome over a specific 24- or 30-hour validity period.</p>
+
+      <div style="background: rgba(0, 114, 206, 0.08); border: 1px solid rgba(0, 114, 206, 0.2); border-radius: 6px; padding: 14px 16px; margin-bottom: 16px;">
+        <h3 style="margin-top: 0; color: #002B49; font-size: 14px; border-bottom: 1px solid rgba(0, 114, 206, 0.2); padding-bottom: 6px;">Anatomy of a Standard TAF String</h3>
+        <p style="font-family: monospace; font-size: 12px; background: #fff; padding: 8px; border: 1px solid #cbd5e1; border-radius: 4px; color: #0072CE; margin-bottom: 10px;">TAF LFBO 141700Z 1418/1518 24015G25KT 9999 -RA FEW025 SCT042CB BECMG 1502/1504 20010KT</p>
+        <ol style="margin: 0; padding-left: 20px; font-size: 12px; line-height: 1.6;">
+          <li><b>Report Type:</b> <code>TAF</code> (routine forecast) or <code>TAF AMD</code> (amended forecast).</li>
+          <li><b>Station Identifier:</b> 4-letter ICAO aerodrome designator (e.g., <code>LFBO</code>).</li>
+          <li><b>Issuance Time Stamp:</b> Day of the month and Zulu time when the forecast was generated (e.g., <code>141700Z</code>).</li>
+          <li><b>Validity Period:</b> Start day and hours through end day and hours in UTC (e.g., <code>1418/1518</code> means valid from the 18th hour of the 14th to the 18th hour of the 15th).</li>
+          <li><b>Forecast Wind:</b> Mean predicted wind direction in degrees true and speed in knots, including gusts (e.g., <code>24015G25KT</code>).</li>
+          <li><b>Forecast Visibility:</b> Prevailing horizontal visibility in meters (e.g., <code>9999</code> for 10km or greater).</li>
+          <li><b>Weather Phenomena:</b> Expected precipitation or obscurations (e.g., <code>-RA</code> light rain).</li>
+          <li><b>Cloud Layers:</b> Forecast cloud coverage and base heights (e.g., <code>FEW025 SCT042CB</code>).</li>
+          <li><b>Change Groups:</b> Subsequent expected weather transitions indicated by timing and trend codes (e.g., <code>BECMG</code>, <code>TEMPO</code>, <code>FM</code>).</li>
+        </ol>
+      </div>
+
+      <h3 style="color: #002B49; font-size: 14px; margin-top: 20px; margin-bottom: 8px;">TAF Change & Trend Indicators</h3>
+      <div style="overflow-x: auto; margin-bottom: 16px;">
+        <table style="width: 100%; border-collapse: collapse; font-size: 12px; background: #fff;">
+          <thead>
+            <tr style="background: #002B49; color: #fff; text-align: left;">
+              <th style="padding: 8px; border: 1px solid #cbd5e1;">Code</th>
+              <th style="padding: 8px; border: 1px solid #cbd5e1;">Indicator Type</th>
+              <th style="padding: 8px; border: 1px solid #cbd5e1;">Operational Meaning</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">FM</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">From</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Rapid and permanent change occurring at a specific exact hour/minute (e.g., <code>FM142030</code>). Erases all previous conditions.</td>
+            </tr>
+            <tr style="background: #f8fafc;">
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">BECMG</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Becoming</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Gradual transition of conditions taking place evenly over a specified time window (e.g., <code>BECMG 1502/1504</code>).</td>
+            </tr>
+            <tr>
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">TEMPO</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Temporary</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Temporary fluctuations expected to last for less than an hour at a time and covering less than half the period.</td>
+            </tr>
+            <tr style="background: #f8fafc;">
+              <td style="padding: 8px; border: 1px solid #cbd5e1; font-family: monospace; font-weight: bold;">PROB30 / PROB40</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">Probability</td>
+              <td style="padding: 8px; border: 1px solid #cbd5e1;">30% or 40% probability of occurrence for specific thunderstorm or weather phenomena.</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
     </div>
 
     <!-- MANUAL VIEW 6: FLIGHT LOG GUIDE -->
@@ -1578,6 +1629,37 @@ function formatDof(input) {
     const dd = parts[2];
     input.type = 'text';
     input.value = yy + mm + dd;
+  }
+}
+
+// Robust local override for toggleManualView to ensure all manual views and titles resolve correctly
+function toggleManualView(viewName) {
+  const bodies = document.querySelectorAll('.sub-manual-content');
+  bodies.forEach(b => b.style.display = 'none');
+
+  const buttons = document.querySelectorAll('.doc-columns-toggle .action-toggle-btn');
+  buttons.forEach(btn => btn.classList.remove('active'));
+
+  const targetBody = document.getElementById(viewName + 'Body');
+  if (targetBody) {
+    targetBody.style.display = 'block';
+  }
+
+  const targetBtn = document.getElementById(viewName + 'Btn');
+  if (targetBtn) {
+    targetBtn.classList.add('active');
+  }
+
+  const titleEl = document.getElementById('rightPanelTitle');
+  if (titleEl) {
+    switch(viewName) {
+      case 'oatGuide': titleEl.textContent = 'Operational Air Traffic (OAT) Guide'; break;
+      case 'paramGlossary': titleEl.textContent = 'Comprehensive Parameter Glossary & Operational Index'; break;
+      case 'equipGuide': titleEl.textContent = 'Equipment, Transponder & PBN Reference Guide'; break;
+      case 'metarHelper': titleEl.textContent = 'METAR Decoding & Reading Guide'; break;
+      case 'tafHelper': titleEl.textContent = 'Terminal Aerodrome Forecast (TAF) Guide'; break;
+      case 'flightLogGuide': titleEl.textContent = 'Automatic Flight Export Log Guide'; break;
+    }
   }
 }
 
