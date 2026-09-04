@@ -924,7 +924,7 @@
         </div>
       </div>
 
-      <button class="fpl-gen-btn" onclick="generateIcaoFplString()">Generate ICAO FPL String</button>
+      <button class="fpl-gen-btn" onclick="generateIcaoFplString()">Generate ICAO String</button>
       
       <div class="fpl-textarea-container" style="margin-top:10px;">
         <button class="fpl-copy-btn" onclick="copyToClipboard('icaoOutput'); logIcaoExport();">Copy</button>
@@ -975,6 +975,9 @@
         </button>
         <button type="button" class="action-toggle-btn" id="tafHelperBtn" onclick="toggleManualView('tafHelper')">
           <span>TAF Helper</span>
+        </button>
+        <button type="button" class="action-toggle-btn" id="flightLogGuideBtn" onclick="toggleManualView('flightLogGuide')">
+          <span>Flight Log Guide</span>
         </button>
       </div>
       <div class="right-panel-btns">
@@ -1532,6 +1535,32 @@
     <div id="tafHelperBody" class="sub-manual-content" style="display:none;">
       <h2>Terminal Aerodrome Forecast (TAF) Decoding Guide</h2>
       <p>Terminal Aerodrome Forecasts (TAF) provide expected meteorological conditions at an aerodrome over a specific 24- or 30-hour validity period.</p>
+    </div>
+
+    <!-- MANUAL VIEW 6: FLIGHT LOG GUIDE -->
+    <div id="flightLogGuideBody" class="sub-manual-content" style="display:none;">
+      <h2>Automatic Flight Export Log Guide</h2>
+      <p>The Automatic Flight Export Log is an integrated tracking feature designed to capture, archive, and export generated ICAO flight plans directly within your browser workspace.</p>
+
+      <h3 style="color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 4px; margin-top: 24px;">1. Operational Workflow</h3>
+      <p style="font-size: 12px; color: #334155;">Whenever you generate an ICAO flight plan string under the <b>VATSIM - IMPORT ICAO FPL</b> tab and click the <b>Copy</b> button, the suite automatically captures and records a structured log entry into the export archive box without requiring extra steps.</p>
+
+      <h3 style="color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 4px; margin-top: 24px;">2. Log Entry Formatting & Metadata</h3>
+      <div style="background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px; margin-bottom: 12px;">
+        <p style="margin: 0 0 6px 0; font-size: 12px; color: #334155;">Each logged entry includes:</p>
+        <ul style="margin: 0; padding-left: 20px; font-size: 12px; color: #334155; line-height: 1.6;">
+          <li><b>Export Timestamp:</b> Precise UTC date and time when the copy action occurred.</li>
+          <li><b>Date of Flight (DOF):</b> The departure date stamp specified in the flight plan form (formatted in YYMMDD).</li>
+          <li><b>Flight Plan String:</b> The exact generated ICAO string copied to your clipboard.</li>
+        </ul>
+      </div>
+
+      <h3 style="color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 4px; margin-top: 24px;">3. Log Management Actions</h3>
+      <p style="font-size: 12px; color: #334155;">You can manage your flight records directly from the log panel controls:</p>
+      <ul style="margin: 0; padding-left: 20px; font-size: 12px; color: #334155; line-height: 1.6;">
+        <li><b>Download Log File:</b> Exports your entire session log archive as a text file named <code>vnato_flight_export_log.txt</code> for record-keeping or operational debriefs.</li>
+        <li><b>Clear Log:</b> Wipes the active browser text buffer after confirmation to start a fresh sequence.</li>
+      </ul>
     </div>
   </div>
 </div>
