@@ -189,12 +189,10 @@ function generateRemarksString() {
 // 3. VATSIM - IMPORT ICAO FPL GENERATOR (V5.0.8.ALPHA PATCHED)
 // ============================================================================
 function generateIcaoFplString() {
-  // Test #5 Fix: Explicitly read Flight Rules selection to ensure proper header population (e.g. Y, Z, I, T)
   const rules = document.getElementById('icaoRules').value || 'I';
   const flightType = document.getElementById('icaoType').value || 'M';
   const callsign = document.getElementById('fplCallsign').value.trim().toUpperCase() || 'NATO01';
   
-  // Test #6 Fix: Concatenate Speed Unit & Value correctly to preserve Mach numbers (e.g. M078)
   const spdUnit = document.getElementById('icaoSpdUnit').value || 'N';
   const spdVal = document.getElementById('icaoSpdVal').value.trim() || '0450';
   const cruisingSpeed = spdUnit + spdVal;
@@ -303,5 +301,67 @@ function generateIcaoFplString() {
   const outputArea = document.getElementById('icaoOutput');
   if (outputArea) {
     outputArea.value = fplString;
+  }
+}
+
+// ============================================================================
+// 4. PROFILE MANAGEMENT FUNCTIONS (MANAGEMENT MODAL & INDIVIDUAL DELETE)
+// ============================================================================
+
+function openManageProfilesModal() {
+  renderProfilesListModal();
+  const modal = document.getElementById('manageProfilesModal');
+  if (modal) modal.style.display = 'block';
+}
+
+function closeManageProfilesModal() {
+  const modal = document.getElementById('manageProfilesModal');
+  if (modal) modal.style.display = 'none';
+}
+
+function renderProfilesListModal() {
+  const container = document.getElementById('profilesListContainer');
+  if (!container) return;
+
+  let profiles = JSON.parse(localStorage.getItem('vnato_flight_profiles') || '{}');
+  const keys = Object.keys(profiles);
+
+  if (keys.length === 0) {
+    container.innerHTML = '<div style="padding: 10px; text-align: center; font-size: 11px; color: #64748b;">No saved sortie profiles found.</div>';
+    return;
+  }
+
+  let html = '';
+  keys.forEach(name => {
+    html += `
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; border-bottom: 1px solid #e2e8f0; background: #fff; margin-bottom: 4px; border-radius: 4px;">
+        <span style="font-size: 11px; font-weight: bold; color: #002B49; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 250px;">${name}</span>
+        <button type="button" class="fpl-copy-btn" style="position: static; background: #ef4444; padding: 2px 6px; font-size: 10px;" onclick="deleteSingleProfile('${name}')">Delete</button>
+      </div>
+    `;
+  });
+  container.innerHTML = html;
+}
+
+function deleteSingleProfile(name) {
+  if (confirm(`Are you sure you want to delete profile "${name}"?`)) {
+    let profiles = JSON.parse(localStorage.getItem('vnato_flight_profiles') || '{}');
+    delete profiles[name];
+    localStorage.setItem('vnato_flight_profiles', JSON.stringify(profiles));
+    
+    renderProfilesListModal();
+    if (typeof loadSavedProfilesList === 'function') {
+      loadSavedProfilesList();
+    }
+  }
+}
+
+function clearAllProfiles() {
+  if (confirm('Are you sure you want to wipe ALL saved sortie profiles? This action cannot be undone.')) {
+    localStorage.removeItem('vnato_flight_profiles');
+    renderProfilesListModal();
+    if (typeof loadSavedProfilesList === 'function') {
+      loadSavedProfilesList();
+    }
   }
 }
