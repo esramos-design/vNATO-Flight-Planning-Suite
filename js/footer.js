@@ -9,7 +9,7 @@ document.addEventListener("DOMContentLoaded", function() {
       <div class="widget-meta">
         <b>Virtual NATO Flight Planning Suite</b><br>
         Property of Virtual NATO &copy; 2017–2026. All rights reserved.<br>
-        Version 5.0.8 - ALPHA BUILD
+        Version 5.0.8 - LIVE (05/08/2026|1143z)
       </div>
     `;
   }
