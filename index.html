@@ -1098,23 +1098,25 @@
     </div>
 
     <div id="metarBody" class="sub-panel-content" style="display:none;">
-      <div class="metar-search-box">
-        <input type="text" id="icaoInput" value="" placeholder="Enter ICAOs separated by commas (e.g. LFBO, EGLL, EDBB)">
-        <button type="button" onclick="fetchMetarTaf()">Fetch Weather</button>
-      </div>
-      <div class="wx-card">
-        <h3>METAR Reports</h3>
-        <div id="metarOutput" class="wx-raw">Enter ICAO code(s) above and click 'Fetch Weather'...</div>
-      </div>
-      <div class="wx-card">
-        <h3>Terminal Aerodrome Forecast (TAF)</h3>
-        <div id="tafOutput" class="wx-raw">Enter ICAO code(s) above and click 'Fetch Weather'...</div>
-      </div>
-      <div class="wx-card">
-        <h3>Decoded Weather Parameters</h3>
-        <div id="decoderOutput" class="wx-raw" style="color: #0072CE; background: #e6f0fa; border-color: #b3d7ff;">Click 'Fetch Weather' to generate plain language breakdown...</div>
-      </div>
+  <div class="metar-search-box" style="margin-bottom: 8px;">
+    <input type="text" id="icaoInput" value="" placeholder="Enter ICAOs separated by commas (e.g. LFBO, EGLL, EDBB)">
+    <button type="button" onclick="fetchMetarTaf()">Fetch Weather</button>
+  </div>
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
+    <div class="wx-card" style="margin-bottom: 0; padding: 10px;">
+      <h3 style="margin-top: 0; margin-bottom: 6px; font-size: 13px; color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 3px;">METAR Reports</h3>
+      <div id="metarOutput" class="wx-raw" style="font-size: 11px; color: #64748b;">Enter ICAO code(s) above and click 'Fetch Weather'...</div>
     </div>
+    <div class="wx-card" style="margin-bottom: 0; padding: 10px;">
+      <h3 style="margin-top: 0; margin-bottom: 6px; font-size: 13px; color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 3px;">Terminal Aerodrome Forecast (TAF)</h3>
+      <div id="tafOutput" class="wx-raw" style="font-size: 11px; color: #64748b;">Enter ICAO code(s) above and click 'Fetch Weather'...</div>
+    </div>
+  </div>
+  <div class="wx-card" style="padding: 10px;">
+    <h3 style="margin-top: 0; margin-bottom: 6px; font-size: 13px; color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 3px;">Decoded Weather Parameters</h3>
+    <div id="decoderOutput" class="wx-raw" style="color: #002B49; font-size: 11px;">Click 'Fetch Weather' to generate plain language breakdown...</div>
+  </div>
+</div>
 
     <div id="todBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
