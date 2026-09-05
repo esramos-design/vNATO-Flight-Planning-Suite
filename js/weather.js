@@ -1,108 +1,114 @@
+
+// ============================================================================
+// VIRTUAL NATO FLIGHT PLANNING SUITE - WEATHER.JS (V5.0.9.ALPHA)
+// CheckWX API Integration & Column Grid Weather Fetcher
+// ============================================================================
+
+// Replace with your CheckWX API Key or configure via settings
 const CHECKWX_API_KEY = "d6bfc15fbcb744b98d259eb2f20495d6";
 
 async function fetchMetarTaf() {
-  const icaoInput = document.getElementById('icaoInput');
-  if (!icaoInput) return;
-
-  const metarDiv = document.getElementById('metarOutput');
-  const tafDiv = document.getElementById('tafOutput');
-  const decoderDiv = document.getElementById('decoderOutput');
-
-  const rawInput = icaoInput.value.trim().toUpperCase();
-  
-  if (!rawInput) {
-    if (metarDiv) metarDiv.innerHTML = '<span style="color:#ef4444; font-weight:bold;">Please enter one or more ICAO codes separated by commas (e.g. LFBO, EGLL, EDBB).</span>';
-    if (tafDiv) tafDiv.textContent = 'Awaiting ICAO input...';
-    if (decoderDiv) decoderDiv.textContent = 'Awaiting ICAO input...';
+  const inputVal = document.getElementById('icaoInput').value.trim();
+  if (!inputVal) {
+    alert('Please enter at least one ICAO code (e.g. LFBO, EGLL).');
     return;
   }
 
-  const icaoArray = rawInput.split(',')
-                            .map(code => code.trim())
-                            .filter(code => code.length === 4);
+  const icaos = inputVal.split(',').map(s => s.trim().toUpperCase()).filter(s => s.length > 0);
+  if (icaos.length === 0) return;
 
-  if (icaoArray.length === 0) {
-    if (metarDiv) metarDiv.innerHTML = '<span style="color:#ef4444; font-weight:bold;">Invalid format: Please enter valid 4-letter ICAO codes (e.g. LFBO, EGLL, EDBB).</span>';
-    if (tafDiv) tafDiv.textContent = 'Invalid ICAO code(s).';
-    if (decoderDiv) decoderDiv.textContent = 'Invalid ICAO code(s).';
+  const metarContainer = document.getElementById('metarOutput');
+  const tafContainer = document.getElementById('tafOutput');
+  const decoderContainer = document.getElementById('decoderOutput');
+
+  metarContainer.innerHTML = 'Fetching METAR reports from CheckWX API...';
+  tafContainer.innerHTML = 'Fetching TAF reports from CheckWX API...';
+  decoderContainer.innerHTML = 'Decoding weather parameters...';
+
+  if (CHECKWX_API_KEY === 'YOUR_CHECKWX_API_KEY_HERE') {
+    metarContainer.innerHTML = '<span style="color: #ef4444;">Error: Please configure your CheckWX API key in weather.js</span>';
+    tafContainer.innerHTML = '<span style="color: #ef4444;">API key missing.</span>';
+    decoderContainer.innerHTML = '<span style="color: #ef4444;">API key missing.</span>';
     return;
   }
 
-  const icaoQuery = icaoArray.join(',');
-
-  if (metarDiv) metarDiv.textContent = `Fetching live METAR for ${icaoQuery}...`;
-  if (tafDiv) tafDiv.textContent = `Fetching live TAF for ${icaoQuery}...`;
-  if (decoderDiv) decoderDiv.textContent = 'Decoding weather parameters...';
-
+  const stationsQuery = icaos.join(',');
   const headers = {
     'X-API-Key': CHECKWX_API_KEY
   };
 
   try {
-    const metarRes = await fetch(`https://api.checkwx.com/metar/${icaoQuery}/decoded`, { headers });
-    if (metarRes.ok) {
-      const data = await metarRes.json();
-      if (data.data && data.data.length > 0) {
-        let metarOutputs = [];
-        let decoderOutputs = [];
+    const [metarRes, tafRes] = await Promise.all([
+      fetch(`https://api.checkwx.com/metar/${stationsQuery}/decoded`, { headers }),
+      fetch(`https://api.checkwx.com/taf/${stationsQuery}/decoded`, { headers })
+    ]);
 
-        data.data.forEach(wx => {
-          const station = wx.icao || 'UNKNOWN';
-          
-          metarOutputs.push(`[ ${station} ]\n${wx.raw_text || 'No raw METAR string returned.'}`);
+    const metarData = await metarRes.json();
+    const tafData = await tafRes.json();
 
-          const windStr = wx.wind ? `${wx.wind.degrees ?? 'VRB'}° at ${wx.wind.speed_kts ?? 0} kts (Gusts: ${wx.wind.gust_kts ? wx.wind.gust_kts + ' kts' : 'None'})` : 'Calm / Unreported';
-          const visStr = wx.visibility ? `${wx.visibility.miles ? wx.visibility.miles + ' SM' : (wx.visibility.meters ? wx.visibility.meters + ' m' : 'N/A')}` : 'Unreported';
-          const tempStr = wx.temperature ? `${wx.temperature.celsius}°C (Dewpoint: ${wx.dewpoint ? wx.dewpoint.celsius + '°C' : 'N/A'})` : 'N/A';
-          const altStr = wx.barometer ? `${wx.barometer.in_hg} inHg (${wx.barometer.hpa} hPa)` : 'N/A';
-          const flightCat = wx.flight_category || 'UNKNOWN';
+    let metarHtml = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px;">';
+    let tafHtml = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 10px;">';
+    let decoderHtml = '<div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(260px, 1fr)); gap: 10px;">';
 
-          decoderOutputs.push(`
-            <div style="margin-bottom:8px; padding-bottom:6px; border-bottom:1px solid #cce0ff;">
-              <b>Station ${station} (${flightCat}):</b><br>
-              • <b>Wind:</b> ${windStr}<br>
-              • <b>Visibility:</b> ${visStr}<br>
-              • <b>Temp / Dewpoint:</b> ${tempStr}<br>
-              • <b>Altimeter:</b> ${altStr}
-            </div>
-          `);
-        });
+    // Process METARs
+    if (metarData && metarData.data && metarData.data.length > 0) {
+      metarData.data.forEach(m => {
+        metarHtml += `
+          <div style="background: #fff; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px;">
+            <div style="font-weight: bold; color: #002B49; margin-bottom: 4px; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; font-size: 12px;">${m.icao} METAR</div>
+            <div style="font-family: monospace; font-size: 11px; color: #334155; word-break: break-all;">${m.raw || 'No raw METAR available'}</div>
+          </div>
+        `;
 
-        if (metarDiv) metarDiv.textContent = metarOutputs.join('\n\n');
-        if (decoderDiv) decoderDiv.innerHTML = decoderOutputs.join('');
-      } else {
-        if (metarDiv) metarDiv.textContent = `No active METAR reports found for ${icaoQuery}.`;
-        if (decoderDiv) decoderDiv.textContent = 'No decoder data available.';
-      }
-    } else if (metarRes.status === 401) {
-      if (metarDiv) metarDiv.textContent = `CheckWX API Key Error: Please verify your API key in js/weather.js.`;
-    } else if (metarRes.status === 429) {
-      if (metarDiv) metarDiv.textContent = `Rate limit exceeded: Daily CheckWX request quota reached.`;
+        // Compact Decoded Weather Column Card with Reduced Spacing
+        const windStr = m.wind ? `${m.wind.degrees || 'VRB'}° at ${m.wind.speed_kts || 0} kts${m.wind.gust_kts ? ' (Gusts: ' + m.wind.gust_kts + ' kts)' : ''}` : 'Calm / Not Reported';
+        const visStr = m.visibility ? `${m.visibility.miles || m.visibility.meters || 'VMC'} SM` : 'Not Reported';
+        const tempStr = m.temperature ? `${m.temperature.celsius}°C (Dewpoint: ${m.dewpoint ? m.dewpoint.celsius : 'N/A'}°C)` : 'Not Reported';
+        const altStr = m.barometer ? `${m.barometer.hg || 'N/A'} inHg (${m.barometer.mb || 'N/A'} hPa)` : 'Not Reported';
+
+        decoderHtml += `
+          <div style="background: #fff; border: 1px solid #cbd5e1; border-radius: 6px; padding: 8px 10px; margin-bottom: 0;">
+            <div style="font-weight: bold; color: #002B49; font-size: 12px; margin-bottom: 4px; border-bottom: 1px solid #e2e8f0; padding-bottom: 2px;">Station ${m.icao}</div>
+            <ul style="margin: 0; padding-left: 16px; font-size: 11px; color: #334155; line-height: 1.25;">
+              <li style="margin-bottom: 2px;"><b>Wind:</b> ${windStr}</li>
+              <li style="margin-bottom: 2px;"><b>Visibility:</b> ${visStr}</li>
+              <li style="margin-bottom: 2px;"><b>Temp / Dewpoint:</b> ${tempStr}</li>
+              <li style="margin-bottom: 0;"><b>Altimeter:</b> ${altStr}</li>
+            </ul>
+          </div>
+        `;
+      });
     } else {
-      if (metarDiv) metarDiv.textContent = `Unable to retrieve METAR for ${icaoQuery} (HTTP ${metarRes.status}).`;
+      metarHtml += '<div style="padding: 10px; font-size: 12px; color: #64748b;">No METAR data returned for specified stations.</div>';
+      decoderHtml += '<div style="padding: 10px; font-size: 12px; color: #64748b;">No weather data to decode.</div>';
     }
-  } catch (e) {
-    if (metarDiv) metarDiv.textContent = `Network error connecting to CheckWX API.`;
-  }
 
-  try {
-    const tafRes = await fetch(`https://api.checkwx.com/taf/${icaoQuery}`, { headers });
-    if (tafRes.ok) {
-      const data = await tafRes.json();
-      if (data.data && data.data.length > 0) {
-        let tafOutputs = [];
-        data.data.forEach(tafData => {
-          const rawTaf = typeof tafData === 'string' ? tafData : (tafData.raw_text || JSON.stringify(tafData));
-          tafOutputs.push(rawTaf);
-        });
-        if (tafDiv) tafDiv.textContent = tafOutputs.join('\n\n');
-      } else {
-        if (tafDiv) tafDiv.textContent = `No active TAF report found for ${icaoQuery}.`;
-      }
+    // Process TAFs
+    if (tafData && tafData.data && tafData.data.length > 0) {
+      tafData.data.forEach(t => {
+        tafHtml += `
+          <div style="background: #fff; border: 1px solid #cbd5e1; border-radius: 6px; padding: 10px;">
+            <div style="font-weight: bold; color: #002B49; margin-bottom: 4px; border-bottom: 1px solid #e2e8f0; padding-bottom: 4px; font-size: 12px;">${t.icao} TAF</div>
+            <div style="font-family: monospace; font-size: 11px; color: #334155; word-break: break-all;">${t.raw || 'No raw TAF available'}</div>
+          </div>
+        `;
+      });
     } else {
-      if (tafDiv) tafDiv.textContent = `No TAF report available for ${icaoQuery}.`;
+      tafHtml += '<div style="padding: 10px; font-size: 12px; color: #64748b;">No TAF data returned for specified stations.</div>';
     }
-  } catch (e) {
-    if (tafDiv) tafDiv.textContent = `Error loading TAF feed.`;
+
+    metarHtml += '</div>';
+    tafHtml += '</div>';
+    decoderHtml += '</div>';
+
+    metarContainer.innerHTML = metarHtml;
+    tafContainer.innerHTML = tafHtml;
+    decoderContainer.innerHTML = decoderHtml;
+
+  } catch (err) {
+    console.error('CheckWX API Fetch Error:', err);
+    metarContainer.innerHTML = '<span style="color: #ef4444;">Failed to retrieve METAR reports from API. Check network or API key.</span>';
+    tafContainer.innerHTML = '<span style="color: #ef4444;">Failed to retrieve TAF forecasts from API.</span>';
+    decoderContainer.innerHTML = '<span style="color: #ef4444;">Decoder offline due to API error.</span>';
   }
 }

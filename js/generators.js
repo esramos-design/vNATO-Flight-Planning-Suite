@@ -1,268 +1,307 @@
-// js/generators.js
-function getVal(id, defaultVal = "") {
-  const el = document.getElementById(id);
-  return el && el.value.trim() !== "" ? el.value.trim() : defaultVal;
+// ============================================================================
+// VIRTUAL NATO FLIGHT PLANNING SUITE - GENERATORS.JS (V5.0.8.ALPHA)
+// Operational Air Traffic (OAT) & Tactical Dispatch System
+// ============================================================================
+
+// Switch between generator tabs/modes
+function switchFplMode(modeId) {
+  const contents = document.querySelectorAll('.fpl-tab-content');
+  contents.forEach(c => c.classList.remove('active'));
+  
+  const targetTab = document.getElementById(modeId);
+  if (targetTab) {
+    targetTab.classList.add('active');
+  }
 }
 
-function formatTransferPoint(val) {
-  if (!val) return "";
-  return val.replace(/\//g, ' ');
+// Helper: Copy content to clipboard
+function copyToClipboard(elementId) {
+  const el = document.getElementById(elementId);
+  if (!el) return;
+  el.select();
+  el.setSelectionRange(0, 99999);
+  navigator.clipboard.writeText(el.value).catch(err => {
+    console.error('Failed to copy text: ', err);
+  });
 }
 
-// SWIFT Route Generator
+// Reset form fields within a specified tab
+function resetForm(tabId) {
+  const tab = document.getElementById(tabId);
+  if (!tab) return;
+  const inputs = tab.querySelectorAll('input:not([type="checkbox"]), textarea');
+  inputs.forEach(input => input.value = '');
+  const selects = tab.querySelectorAll('select');
+  selects.forEach(select => select.selectedIndex = 0);
+  const checkboxes = tab.querySelectorAll('input[type="checkbox"]');
+  checkboxes.forEach(cb => cb.checked = false);
+}
+
+// PBN Dropdown toggles & selection updaters
+function togglePbnDropdown(e) {
+  if (e) e.stopPropagation();
+  const list = document.getElementById('pbnDropdownList');
+  if (list) {
+    list.style.display = list.style.display === 'block' ? 'none' : 'block';
+  }
+}
+
+function updatePbnSelection() {
+  const checkboxes = document.querySelectorAll('#pbnDropdownList input[type="checkbox"]:checked');
+  const values = Array.from(checkboxes).map(cb => cb.value);
+  const pbnValInput = document.getElementById('pbnValue');
+  const toggleText = document.getElementById('pbnToggleText');
+  
+  if (pbnValInput) pbnValInput.value = values.join('');
+  if (toggleText) {
+    toggleText.textContent = values.length > 0 ? values.join('') : 'Select PBN Capabilities...';
+  }
+}
+
+function toggleIcaoPbnDropdown(e) {
+  if (e) e.stopPropagation();
+  const list = document.getElementById('icaoPbnDropdownList');
+  if (list) {
+    list.style.display = list.style.display === 'block' ? 'none' : 'block';
+  }
+}
+
+function updateIcaoPbnSelection() {
+  const checkboxes = document.querySelectorAll('#icaoPbnDropdownList input[type="checkbox"]:checked');
+  const values = Array.from(checkboxes).map(cb => cb.value);
+  const pbnValInput = document.getElementById('icaoPbnValue');
+  const toggleText = document.getElementById('icaoPbnToggleText');
+  
+  if (pbnValInput) pbnValInput.value = values.join('');
+  if (toggleText) {
+    toggleText.textContent = values.length > 0 ? values.join('') : 'Select PBN Capabilities...';
+  }
+}
+
+window.addEventListener('click', () => {
+  const pbnList = document.getElementById('pbnDropdownList');
+  if (pbnList) pbnList.style.display = 'none';
+  const icaoPbnList = document.getElementById('icaoPbnDropdownList');
+  if (icaoPbnList) icaoPbnList.style.display = 'none';
+});
+
+// ============================================================================
+// 1. SWIFT ROUTE GENERATOR
+// ============================================================================
 function generateRouteString() {
-  const country = getVal('countrySelect');
-  let route = getVal('route').toUpperCase();
-  const gatToOat = formatTransferPoint(getVal('gatToOat').toUpperCase());
-  const oatToGat = formatTransferPoint(getVal('oatToGat').toUpperCase());
-  
-  let injections = {};
-  function addInj(wpt, str) {
-    if(!wpt || !str) return;
-    if(!injections[wpt]) injections[wpt] = [];
-    injections[wpt].push(str);
+  const gatToOat = document.getElementById('gatToOat').value.trim();
+  const oatToGat = document.getElementById('oatToGat').value.trim();
+  const vfrWpt = document.getElementById('vfrTransWpt').value.trim();
+  const vfrType = document.getElementById('vfrTransType').value;
+  const vfrParams = document.getElementById('vfrTransParams').value.trim();
+  const ifrWpt = document.getElementById('ifrTransWpt').value.trim();
+  const ifrType = document.getElementById('ifrTransType').value;
+  const ifrParams = document.getElementById('ifrTransParams').value.trim();
+  const routeFixes = document.getElementById('route').value.trim();
+
+  let routeParts = [];
+  if (gatToOat) routeParts.push(gatToOat);
+  if (vfrWpt && vfrType) {
+    routeParts.push(`${vfrWpt} ${vfrType}${vfrParams ? ' ' + vfrParams : ''}`);
   }
-
-  const vfrWpt = getVal('vfrTransWpt').toUpperCase();
-  const vfrType = getVal('vfrTransType');
-  const vfrParams = getVal('vfrTransParams').toUpperCase();
-  if (vfrWpt && vfrType && vfrParams) addInj(vfrWpt, `${vfrType} ${vfrParams}`);
-
-  const ifrWpt = getVal('ifrTransWpt').toUpperCase();
-  const ifrType = getVal('ifrTransType');
-  const ifrParams = getVal('ifrTransParams').toUpperCase();
-  if (ifrWpt && ifrType && ifrParams) addInj(ifrWpt, `${ifrType} ${ifrParams}`);
+  if (ifrWpt && ifrType) {
+    routeParts.push(`${ifrWpt} ${ifrType}${ifrParams ? ' ' + ifrParams : ''}`);
+  }
+  if (routeFixes) routeParts.push(routeFixes);
+  if (oatToGat) routeParts.push(oatToGat);
 
   for (let i = 1; i <= 3; i++) {
-    const staySeg = getVal(`staySeg${i}`);
-    const stayDur = getVal(`stayDur${i}`);
-    const stayWpt = getVal(`stayWpt${i}`).toUpperCase();
-    if (staySeg !== 'NONE' && stayDur && stayWpt) {
-      addInj(stayWpt, `${staySeg}/${stayDur}`);
+    const sWpt = document.getElementById(`stayWpt${i}`)?.value.trim();
+    const sSeg = document.getElementById(`staySeg${i}`)?.value;
+    const sDur = document.getElementById(`stayDur${i}`)?.value.trim();
+    if (sWpt && sSeg && sSeg !== 'NONE' && sDur) {
+      routeParts.push(`${sWpt} ${sSeg}/${sDur}`);
     }
   }
 
-  let routeArray = route.split(/\s+/).filter(Boolean);
-  let finalRouteArray = [];
-  
-  if (country === 'DE' || country === 'UK') {
-    if (routeArray.length > 0 && routeArray[0] !== 'OAT') {
-      finalRouteArray.push('OAT');
-    }
-  }
-  
-  if (gatToOat) finalRouteArray.push(gatToOat);
-
-  for (let item of routeArray) {
-    finalRouteArray.push(item);
-    if (injections[item]) {
-      finalRouteArray.push(injections[item].join(' '));
-      delete injections[item];
-    }
-  }
-
-  for (let wpt in injections) {
-    finalRouteArray.push(wpt);
-    finalRouteArray.push(injections[wpt].join(' '));
-  }
-
-  if (oatToGat) finalRouteArray.push(oatToGat);
-
-  const finalRoute = finalRouteArray.join(' ').replace(/\s+/g, ' ').trim();
-  const outputBox = document.getElementById('routeOutput');
-  if (outputBox) outputBox.value = finalRoute;
+  const finalRoute = routeParts.join(' ');
+  const output = document.getElementById('routeOutput');
+  if (output) output.value = finalRoute;
 }
 
-// SWIFT Remarks Generator
+// ============================================================================
+// 2. SWIFT REMARKS GENERATOR
+// ============================================================================
 function generateRemarksString() {
-  const pbn = getVal('pbnValue');
-  const nav = getVal('nav');
-  const sts = getVal('sts');
-  const sel = getVal('sel').toUpperCase();
-  const sur = getVal('sur').toUpperCase();
-  const per = getVal('per').toUpperCase();
-  const oragn = getVal('oragn').toUpperCase();
-  const com = getVal('com').toUpperCase();
-  const reg = getVal('reg').toUpperCase();
-  const opr = getVal('opr');
-  const eet = getVal('eet').toUpperCase();
-  
-  const stayinfo1 = getVal('stayinfo1').toUpperCase();
-  const stayinfo2 = getVal('stayinfo2').toUpperCase();
-  const stayinfo3 = getVal('stayinfo3').toUpperCase();
-  
-  const rmkOat = getVal('rmkOat', 'RMK/OAT');
-  const vso = getVal('vso', 'VIRTUALNATO.ORG').toUpperCase();
-  const vsoTrainee = document.getElementById('vsoTrainee')?.checked;
-
   let remarksList = [];
+  
+  const rmkOat = document.getElementById('rmkOat').value;
+  if (rmkOat) remarksList.push(rmkOat);
 
+  const pbn = document.getElementById('pbnValue').value;
   if (pbn) remarksList.push(`PBN/${pbn}`);
+
+  const nav = document.getElementById('nav').value;
   if (nav) remarksList.push(`NAV/${nav}`);
+
+  const sts = document.getElementById('sts').value;
   if (sts) remarksList.push(`STS/${sts}`);
+
+  const sel = document.getElementById('sel').value.trim();
   if (sel) remarksList.push(`SEL/${sel}`);
+
+  const sur = document.getElementById('sur').value.trim();
   if (sur) remarksList.push(`SUR/${sur}`);
+
+  const per = document.getElementById('per').value;
   if (per) remarksList.push(`PER/${per}`);
-  if (oragn) remarksList.push(`ORGN/${oragn}`);
+
+  const orgn = document.getElementById('orgn').value.trim();
+  if (orgn) remarksList.push(`ORGN/${orgn}`);
+
+  const com = document.getElementById('com').value.trim();
   if (com) remarksList.push(`COM/${com}`);
+
+  const reg = document.getElementById('reg').value.trim();
   if (reg) remarksList.push(`REG/${reg}`);
+
+  const opr = document.getElementById('opr').value.trim();
   if (opr) remarksList.push(`OPR/${opr}`);
-  if (eet) remarksList.push(`EET/${eet}`);
 
-  if (stayinfo1) remarksList.push(`STAYINFO1/${stayinfo1}`);
-  if (stayinfo2) remarksList.push(`STAYINFO2/${stayinfo2}`);
-  if (stayinfo3) remarksList.push(`STAYINFO3/${stayinfo3}`);
+  const fuelEnd = document.getElementById('fuelEnd').value.trim();
+  if (fuelEnd) remarksList.push(`-E/${fuelEnd}`);
 
-  let rmkString = [];
-  if (rmkOat) rmkString.push(rmkOat);
-  if (vso) rmkString.push(vso);
-  if (vsoTrainee) rmkString.push('VSO TRAINEE');
-  
-  if (rmkString.length > 0) remarksList.push(rmkString.join(' '));
-
-  const finalRemarks = remarksList.filter(Boolean).join(' ');
-  const outputBox = document.getElementById('remarksOutput');
-  if (outputBox) outputBox.value = finalRemarks;
-}
-
-// vPILOT FPL String Generator
-function generateIcaoFplString() {
-  let rules = getVal('icaoRules', 'I');
-  if (rules === 'T') rules = 'I'; 
-
-  const type = getVal('icaoType', 'M');
-  const spdUnit = getVal('icaoSpdUnit', 'N');
-  const spdVal = getVal('icaoSpdVal', '0000').toUpperCase();
-  const altUnit = getVal('icaoAltUnit', 'F');
-  const altVal = getVal('icaoAltVal', '000').toUpperCase();
-  const callsign = getVal('fplCallsign', 'NATO01').toUpperCase();
-  const acftType = getVal('fplAcftType', 'ZZZZ').toUpperCase();
-  
-  const wake = getVal('icaoWake', 'M');
-  const equip = getVal('icaoEquip', 'S');
-  const trans = getVal('icaoTrans', 'C');
-  
-  const dep = getVal('fplDep', 'LFMI').toUpperCase();
-  const eobt = getVal('fplEobt', '0000').toUpperCase();
-  const arr = getVal('fplArr', 'LFBM').toUpperCase();
-  const eetArr = getVal('fplEetArr', '0000').toUpperCase();
-  const altAerodrome = getVal('fplAlt').toUpperCase();
-
-  let route = getVal('icaoRoute').toUpperCase();
-  const gatToOat = formatTransferPoint(getVal('icaoGatToOat').toUpperCase());
-  const oatToGat = formatTransferPoint(getVal('icaoOatToGat').toUpperCase());
-  
-  let injections = {};
-  function addInj(wpt, str) {
-    if(!wpt || !str) return;
-    if(!injections[wpt]) injections[wpt] = [];
-    injections[wpt].push(str);
-  }
-
-  const vfrWpt = getVal('icaoVfrTransWpt').toUpperCase();
-  const vfrType = getVal('icaoVfrTransType');
-  const vfrParams = getVal('icaoVfrTransParams').toUpperCase();
-  if (vfrWpt && vfrType && vfrParams) addInj(vfrWpt, `${vfrType} ${vfrParams}`);
-
-  const ifrWpt = getVal('icaoIfrTransWpt').toUpperCase();
-  const ifrType = getVal('icaoIfrTransType');
-  const ifrParams = getVal('icaoIfrTransParams').toUpperCase();
-  if (ifrWpt && ifrType && ifrParams) addInj(ifrWpt, `${ifrType} ${ifrParams}`);
+  const eet = document.getElementById('eet').value.trim();
+  if (eet) remarksList.push(eet);
 
   for (let i = 1; i <= 3; i++) {
-    const staySeg = getVal(`icaoStaySeg${i}`);
-    const stayDur = getVal(`icaoStayDur${i}`);
-    const stayWpt = getVal(`icaoStayWpt${i}`).toUpperCase();
-    if (staySeg !== 'NONE' && stayDur && stayWpt) {
-      addInj(stayWpt, `${staySeg}/${stayDur}`);
+    const sInfo = document.getElementById(`stayinfo${i}`)?.value.trim();
+    if (sInfo) remarksList.push(`STAYINFO${i}/${sInfo}`);
+  }
+
+  const vso = document.getElementById('vso').value.trim() || 'VIRTUALNATO.ORG';
+  remarksList.push(vso);
+
+  if (document.getElementById('vsoTrainee')?.checked) {
+    remarksList.push('VSO TRAINEE');
+  }
+
+  const output = document.getElementById('remarksOutput');
+  if (output) output.value = remarksList.join(' ');
+}
+
+// ============================================================================
+// 3. VATSIM - IMPORT ICAO FPL GENERATOR (V5.0.8.ALPHA PATCHED)
+// ============================================================================
+function generateIcaoFplString() {
+  // Test #5 Fix: Explicitly read Flight Rules selection to ensure proper header population (e.g. Y, Z, I, T)
+  const rules = document.getElementById('icaoRules').value || 'I';
+  const flightType = document.getElementById('icaoType').value || 'M';
+  const callsign = document.getElementById('fplCallsign').value.trim().toUpperCase() || 'NATO01';
+  
+  // Test #6 Fix: Concatenate Speed Unit & Value correctly to preserve Mach numbers (e.g. M078)
+  const spdUnit = document.getElementById('icaoSpdUnit').value || 'N';
+  const spdVal = document.getElementById('icaoSpdVal').value.trim() || '0450';
+  const cruisingSpeed = spdUnit + spdVal;
+
+  const altUnit = document.getElementById('icaoAltUnit').value || 'F';
+  const altVal = document.getElementById('icaoAltVal').value.trim() || '245';
+  const cruisingLevel = altUnit + altVal;
+
+  const acftType = document.getElementById('fplAcftType').value.trim().toUpperCase() || 'FA18';
+  const wake = document.getElementById('icaoWake').value || 'M';
+  const equip = document.getElementById('icaoEquip').value || 'SDE3G';
+  const trans = document.getElementById('icaoTrans').value || 'S';
+
+  const dep = document.getElementById('fplDep').value.trim().toUpperCase() || 'LFBO';
+  const eobt = document.getElementById('fplEobt').value.trim() || '1200';
+  const arr = document.getElementById('fplArr').value.trim().toUpperCase() || 'LFMI';
+  const eetArr = document.getElementById('fplEetArr').value.trim() || '0100';
+  const altAerodrome = document.getElementById('fplAlt').value.trim().toUpperCase();
+
+  const routeFixes = document.getElementById('icaoRoute').value.trim();
+  const gatToOat = document.getElementById('icaoGatToOat').value.trim();
+  const oatToGat = document.getElementById('icaoOatToGat').value.trim();
+  const vfrWpt = document.getElementById('icaoVfrTransWpt').value.trim();
+  const vfrType = document.getElementById('icaoVfrTransType').value;
+  const vfrParams = document.getElementById('icaoVfrTransParams').value.trim();
+  const ifrWpt = document.getElementById('icaoIfrTransWpt').value.trim();
+  const ifrType = document.getElementById('icaoIfrTransType').value;
+  const ifrParams = document.getElementById('icaoIfrTransParams').value.trim();
+
+  let routeParts = [];
+  if (gatToOat) routeParts.push(gatToOat);
+  if (vfrWpt && vfrType) {
+    routeParts.push(`${vfrWpt} ${vfrType}${vfrParams ? ' ' + vfrParams : ''}`);
+  }
+  if (ifrWpt && ifrType) {
+    routeParts.push(`${ifrWpt} ${ifrType}${ifrParams ? ' ' + ifrParams : ''}`);
+  }
+  if (routeFixes) routeParts.push(routeFixes);
+  if (oatToGat) routeParts.push(oatToGat);
+
+  for (let i = 1; i <= 3; i++) {
+    const sWpt = document.getElementById(`icaoStayWpt${i}`)?.value.trim();
+    const sSeg = document.getElementById(`icaoStaySeg${i}`)?.value;
+    const sDur = document.getElementById(`icaoStayDur${i}`)?.value.trim();
+    if (sWpt && sSeg && sSeg !== 'NONE' && sDur) {
+      routeParts.push(`${sWpt} ${sSeg}/${sDur}`);
     }
   }
 
-  let routeArray = route.split(/\s+/).filter(Boolean);
-  let finalRouteArray = [];
-  const country = getVal('countrySelect');
+  const compiledRoute = routeParts.join(' ');
+
+  let fplString = `(FPL-${callsign}-${rules}${flightType}\n`;
+  fplString += `-${acftType}/${wake}-${equip}/${trans}\n`;
+  fplString += `-${dep}${eobt}\n`;
+  fplString += `-${cruisingSpeed}${cruisingLevel}${compiledRoute ? ' ' + compiledRoute : ''}\n`;
+  fplString += `-${arr}${eetArr}${altAerodrome ? ' ' + altAerodrome : ''}\n`;
   
-  if (country === 'DE' || country === 'UK') {
-    if (routeArray.length > 0 && routeArray[0] !== 'OAT') {
-      finalRouteArray.push('OAT');
-    }
+  let remarksList = [];
+  const pbn = document.getElementById('icaoPbnValue').value;
+  if (pbn) remarksList.push(`PBN/${pbn}`);
+  
+  const nav = document.getElementById('icaoNav').value;
+  if (nav) remarksList.push(`NAV/${nav}`);
+  
+  const sts = document.getElementById('icaoSts').value;
+  if (sts) remarksList.push(`STS/${sts}`);
+
+  const sel = document.getElementById('icaoSel').value.trim();
+  if (sel) remarksList.push(`SEL/${sel}`);
+
+  const sur = document.getElementById('icaoSur').value.trim();
+  if (sur) remarksList.push(`SUR/${sur}`);
+  
+  const per = document.getElementById('icaoPer').value;
+  if (per) remarksList.push(`PER/${per}`);
+  
+  const orgn = document.getElementById('icaoOrgn').value.trim();
+  if (orgn) remarksList.push(`ORGN/${orgn}`);
+
+  const com = document.getElementById('icaoCom').value.trim();
+  if (com) remarksList.push(`COM/${com}`);
+  
+  const reg = document.getElementById('icaoReg').value.trim();
+  if (reg) remarksList.push(`REG/${reg}`);
+  
+  const opr = document.getElementById('icaoOpr').value.trim();
+  if (opr) remarksList.push(`OPR/${opr}`);
+
+  const fuel = document.getElementById('icaoFuel').value.trim();
+  if (fuel) remarksList.push(`-E/${fuel}`);
+
+  for (let i = 1; i <= 3; i++) {
+    const sInfo = document.getElementById(`icaoStayinfo${i}`)?.value.trim();
+    if (sInfo) remarksList.push(`STAYINFO${i}/${sInfo}`);
   }
 
-  if (gatToOat) finalRouteArray.push(gatToOat);
+  const customRmk = document.getElementById('icaoRmk').value.trim() || 'RMK/OAT VIRTUALNATO.ORG';
+  remarksList.push(customRmk);
 
-  for (let item of routeArray) {
-    finalRouteArray.push(item);
-    if (injections[item]) {
-      finalRouteArray.push(injections[item].join(' '));
-      delete injections[item];
-    }
+  if (document.getElementById('icaoVsoTrainee')?.checked) {
+    remarksList.push('VSO TRAINEE');
   }
 
-  for (let wpt in injections) {
-    finalRouteArray.push(wpt);
-    finalRouteArray.push(injections[wpt].join(' '));
+  fplString += `-${remarksList.join(' ')}`;
+
+  const outputArea = document.getElementById('icaoOutput');
+  if (outputArea) {
+    outputArea.value = fplString;
   }
-
-  if (oatToGat) finalRouteArray.push(oatToGat);
-  const finalRoute = finalRouteArray.join(' ').replace(/\s+/g, ' ').trim();
-
-  const pbn = getVal('icaoPbnValue');
-  const nav = getVal('icaoNav');
-  const sts = getVal('icaoSts');
-  const sel = getVal('icaoSel').toUpperCase();
-  const sur = getVal('icaoSur').toUpperCase();
-  const per = getVal('icaoPer').toUpperCase();
-  const oragn = getVal('icaoOrgn').toUpperCase();
-  const com = getVal('icaoCom').toUpperCase();
-  const reg = getVal('icaoReg').toUpperCase();
-  const opr = getVal('icaoOpr').toUpperCase();
-  const eetItem18 = getVal('icaoEet').toUpperCase(); 
-  const fuelEnd = getVal('icaoFuel', '0200');
-  
-  const stayinfo1 = getVal('icaoStayinfo1').toUpperCase();
-  const stayinfo2 = getVal('icaoStayinfo2').toUpperCase();
-  const stayinfo3 = getVal('icaoStayinfo3').toUpperCase();
-  
-  const customRmk = getVal('icaoRmk', 'RMK/OAT VIRTUALNATO.ORG').toUpperCase();
-  const vsoTrainee = document.getElementById('icaoVsoTrainee')?.checked;
-
-  let item18List = [];
-
-  if (pbn) item18List.push(`PBN/${pbn}`);
-  if (nav) item18List.push(`NAV/${nav}`);
-  if (sts) item18List.push(`STS/${sts}`);
-  if (sel) item18List.push(`SEL/${sel}`);
-  if (sur) item18List.push(`SUR/${sur}`);
-  if (per) item18List.push(`PER/${per}`);
-  if (oragn) item18List.push(`ORGN/${oragn}`);
-  if (com) item18List.push(`COM/${com}`);
-  if (reg) item18List.push(`REG/${reg}`);
-  if (opr) item18List.push(`OPR/${opr}`);
-  if (eetItem18) item18List.push(`EET/${eetItem18}`);
-
-  if (stayinfo1) item18List.push(`STAYINFO1/${stayinfo1}`);
-  if (stayinfo2) item18List.push(`STAYINFO2/${stayinfo2}`);
-  if (stayinfo3) item18List.push(`STAYINFO3/${stayinfo3}`);
-
-  let rmkString = [];
-  if (customRmk) rmkString.push(customRmk);
-  if (vsoTrainee) rmkString.push('VSO TRAINEE');
-  
-  if (rmkString.length > 0) item18List.push(rmkString.join(' '));
-
-  const item18Str = item18List.length > 0 ? '-' + item18List.join(' ') : '';
-  const altStr = altAerodrome ? ` ${altAerodrome}` : '';
-  const speedAltBlock = `${spdUnit}${spdVal}${altUnit}${altVal}`;
-  const item9_10 = `-${acftType}/${wake}-${equip}/${trans}`;
-
-  const fplString = `(FPL-${callsign}-${rules}${type}
-${item9_10}
--${dep}${eobt}
--${speedAltBlock} ${finalRoute}
--${arr}${eetArr}${altStr}
-${item18Str}
--E/${fuelEnd})`;
-
-  const outputBox = document.getElementById('icaoOutput');
-  if (outputBox) outputBox.value = fplString;
 }
