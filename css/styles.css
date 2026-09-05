@@ -475,3 +475,19 @@ input, textarea, .wx-raw {
   .docs-container { width: 100%; padding: 0; }
   .calc-form-grid { grid-template-columns: 1fr; }
 }
+
+/* ============================================================================ */
+/* 3. MODAL CSS STYLES: Add this into your existing <style> block or css file */
+/* ============================================================================ */
+body.dark-mode #manageProfilesModal > div {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #f1f5f9 !important;
+}
+body.dark-mode #manageProfilesModal h3 {
+  color: #f8fafc !important;
+}
+body.dark-mode #profilesListContainer {
+  background: #0f172a !important;
+  border-color: #334155 !important;
+}
