@@ -1,5 +1,5 @@
 // ============================================================================
-// VIRTUAL NATO FLIGHT PLANNING SUITE - GENERATORS.JS (V5.0.8.ALPHA)
+// VIRTUAL NATO FLIGHT PLANNING SUITE - GENERATORS.JS (V5.0.8.ALPHA PATCHED)
 // Operational Air Traffic (OAT) & Tactical Dispatch System
 // ============================================================================
 
@@ -78,11 +78,17 @@ function updateIcaoPbnSelection() {
   }
 }
 
-window.addEventListener('click', () => {
+window.addEventListener('click', (e) => {
   const pbnList = document.getElementById('pbnDropdownList');
-  if (pbnList) pbnList.style.display = 'none';
+  const pbnToggle = document.getElementById('pbnToggle');
+  if (pbnList && pbnToggle && !pbnList.contains(e.target) && !pbnToggle.contains(e.target)) {
+    pbnList.style.display = 'none';
+  }
   const icaoPbnList = document.getElementById('icaoPbnDropdownList');
-  if (icaoPbnList) icaoPbnList.style.display = 'none';
+  const icaoPbnToggle = document.getElementById('icaoPbnToggle');
+  if (icaoPbnList && icaoPbnToggle && !icaoPbnList.contains(e.target) && !icaoPbnToggle.contains(e.target)) {
+    icaoPbnList.style.display = 'none';
+  }
 });
 
 // ============================================================================
@@ -108,7 +114,6 @@ function generateRouteString() {
     routeParts.push(`${ifrWpt} ${ifrType}${ifrParams ? ' ' + ifrParams : ''}`);
   }
   if (routeFixes) routeParts.push(routeFixes);
-  if (oatToGat) routeParts.push(oatToGat);
 
   for (let i = 1; i <= 3; i++) {
     const sWpt = document.getElementById(`stayWpt${i}`)?.value.trim();
@@ -118,6 +123,8 @@ function generateRouteString() {
       routeParts.push(`${sWpt} ${sSeg}/${sDur}`);
     }
   }
+
+  if (oatToGat) routeParts.push(oatToGat);
 
   const finalRoute = routeParts.join(' ');
   const output = document.getElementById('routeOutput');
@@ -231,7 +238,6 @@ function generateIcaoFplString() {
     routeParts.push(`${ifrWpt} ${ifrType}${ifrParams ? ' ' + ifrParams : ''}`);
   }
   if (routeFixes) routeParts.push(routeFixes);
-  if (oatToGat) routeParts.push(oatToGat);
 
   for (let i = 1; i <= 3; i++) {
     const sWpt = document.getElementById(`icaoStayWpt${i}`)?.value.trim();
@@ -241,6 +247,8 @@ function generateIcaoFplString() {
       routeParts.push(`${sWpt} ${sSeg}/${sDur}`);
     }
   }
+
+  if (oatToGat) routeParts.push(oatToGat);
 
   const compiledRoute = routeParts.join(' ');
 
