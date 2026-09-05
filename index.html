@@ -5,6 +5,70 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Military Flight Plan Generator & Operational Manual</title>
   <link rel="stylesheet" href="css/styles.css">
+  <style>
+    /* Dark Mode Theme Variables & Overrides */
+    body.dark-mode {
+      background-color: #0f172a !important;
+      color: #f1f5f9 !important;
+    }
+    body.dark-mode .fpl-main-layout {
+      background-color: #0f172a !important;
+    }
+    body.dark-mode .fpl-container,
+    body.dark-mode .docs-container,
+    body.dark-mode .fpl-section,
+    body.dark-mode .wx-card,
+    body.dark-mode .calc-results-box,
+    body.dark-mode .sub-manual-content {
+      background-color: #1e293b !important;
+      color: #f1f5f9 !important;
+      border-color: #334155 !important;
+    }
+    body.dark-mode input,
+    body.dark-mode select,
+    body.dark-mode textarea {
+      background-color: #0f172a !important;
+      color: #f8fafc !important;
+      border-color: #475569 !important;
+    }
+    body.dark-mode .help-text-box {
+      background-color: #334155 !important;
+      color: #e2e8f0 !important;
+      border-color: #475569 !important;
+    }
+    body.dark-mode .action-toggle-btn {
+      background-color: #334155 !important;
+      color: #e2e8f0 !important;
+      border-color: #475569 !important;
+    }
+    body.dark-mode .action-toggle-btn.active {
+      background-color: #0072CE !important;
+      color: #ffffff !important;
+    }
+    body.dark-mode h1, body.dark-mode h2, body.dark-mode h3, body.dark-mode h4, body.dark-mode label {
+      color: #f8fafc !important;
+    }
+    body.dark-mode table th {
+      background-color: #0f172a !important;
+      color: #f8fafc !important;
+      border-color: #334155 !important;
+    }
+    body.dark-mode table td {
+      border-color: #334155 !important;
+      color: #cbd5e1 !important;
+    }
+    body.dark-mode table tr:nth-child(even) {
+      background-color: #162032 !important;
+    }
+    body.dark-mode .pbn-dropdown-list {
+      background-color: #1e293b !important;
+      border-color: #475569 !important;
+      color: #f1f5f9 !important;
+    }
+    body.dark-mode .pbn-checkbox-item:hover {
+      background-color: #334155 !important;
+    }
+  </style>
 </head>
 <body>
 
@@ -19,13 +83,40 @@
         <div class="clock-logo-col" style="flex: 0 0 auto; text-align: center; padding: 0 10px;">
           <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" style="max-height: 42px; display: block; margin: 0 auto;" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
         </div>
-        <div class="clock-col" style="flex: 1; text-align: center;">
-          <span class="clock-label">LOCAL SYSTEM</span>
-          <div id="headerClockLocal" class="clock-time-val">00:00:00</div>
+        <div class="clock-col" style="flex: 1; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px;">
+          <div>
+            <span class="clock-label">LOCAL SYSTEM</span>
+            <div id="headerClockLocal" class="clock-time-val">00:00:00</div>
+          </div>
+          <button type="button" id="darkModeToggleBtn" onclick="toggleDarkMode()" title="Toggle Cockpit Dark Mode" style="background: #002B49; color: #fff; border: 1px solid #0072CE; padding: 4px 8px; border-radius: 4px; font-size: 11px; cursor: pointer; margin-left: 4px;">🌙</button>
         </div>
       </div>
     </div>
     
+    <div class="fpl-section" style="background: rgba(0, 114, 206, 0.04); border: 1px solid rgba(0, 114, 206, 0.2); padding: 10px; margin-bottom: 10px;">
+      <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
+        <label style="font-weight: bold; color: #002B49; font-size: 12px; margin: 0;">Sortie Profiles & Quick Presets</label>
+        <button type="button" class="fpl-copy-btn" style="position:static; background:#34a853; padding: 2px 8px; font-size: 10px;" onclick="copyShareableUrl()">Copy Shareable Link</button>
+      </div>
+      <div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center;">
+        <select id="presetBaseSelect" style="flex: 1; font-size: 11px; padding: 4px;" onchange="applyAirfieldPreset(this.value)">
+          <option value="" selected>[Quick Airfield Presets]</option>
+          <option value="LFBO">LFBO - Toulouse-Blagnac (FAF)</option>
+          <option value="EDBB">EDBB - Berlin Brandenburg (GAF)</option>
+          <option value="EGSH">EGSH - Norwich International (UK)</option>
+          <option value="LFMI">LFMI - Istres-Le Tube (FAF)</option>
+          <option value="ETAD">ETAD - Ramstein Air Base (GAF)</option>
+          <option value="EGVN">EGVN - RAF Brize Norton (UK)</option>
+        </select>
+        <input type="text" id="profileNameInput" placeholder="Profile Name..." style="flex: 1; font-size: 11px; padding: 4px;">
+        <button type="button" class="fpl-copy-btn" style="position:static; background:#0072CE; padding: 4px 8px; font-size: 11px;" onclick="saveFlightProfile()">Save</button>
+        <select id="savedProfilesSelect" style="flex: 1; font-size: 11px; padding: 4px;" onchange="loadFlightProfile(this.value)">
+          <option value="" selected>[Load Saved Profile]</option>
+        </select>
+        <button type="button" class="fpl-copy-btn" style="position:static; background:#ef4444; padding: 4px 8px; font-size: 11px;" onclick="deleteFlightProfile()">Delete</button>
+      </div>
+    </div>
+
     <div class="fpl-section" style="padding-top:0;">
       <div class="label-with-help">
         <label>Jurisdiction / Country Standard</label>
@@ -931,7 +1022,6 @@
         <textarea id="icaoOutput" style="height: 140px; white-space: pre;" readonly></textarea>
       </div>
 
-      <!-- AUTOMATIC FLIGHT EXPORT LOG SECTION -->
       <div class="fpl-section" style="margin-top: 15px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
           <label style="font-weight: bold; color: #002B49; font-size: 13px; margin: 0;">Automatic Flight Export Log</label>
@@ -1159,7 +1249,6 @@
       </div>
     </div>
 
-    <!-- HOME / ABOUT WELCOME PANEL -->
     <div id="homeWelcomeBody" class="sub-manual-content active">
       <div style="text-align: center; padding: 10px 0 16px 0; border-bottom: 2px solid #0072CE; margin-bottom: 16px;">
         <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" style="max-height: 52px; margin-bottom: 8px; display: block; margin-left: auto; margin-right: auto;" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
@@ -1201,7 +1290,6 @@
       </div>
     </div>
 
-    <!-- OAT GUIDE -->
     <div id="oatGuideBody" class="sub-manual-content" style="display:none;">
       <div style="background: #fffdf0; border-left: 4px solid #f59e0b; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7; padding: 10px 14px; font-size: 12px; color: #334155; line-height: 1.5; margin-bottom: 16px; border-radius: 0 4px 4px 0;">
         <b>Operational Disclaimer:</b> This software and manual are proprietary assets of <b>Virtual NATO</b> (re-established in 2017) and are designed exclusively for simulated virtual aviation environments (such as VATSIM). Distribution outside Virtual NATO or without express authorization from vCMC & vDCMC is strictly prohibited. This tool must <b>never</b> be used for real-world flight planning, navigation, or operational dispatch.
@@ -1245,7 +1333,6 @@
       <p><b>Remarks Example:</b> <code>STAYINFO1/AARAS AAR MARSA/NATO11/ DELAY 0030 1200 TO 1230</code></p>
     </div>
 
-    <!-- MANUAL VIEW 2: PARAMETER GLOSSARY -->
     <div id="paramGlossaryBody" class="sub-manual-content" style="display:none;">
       <h2>Comprehensive Parameter Glossary & Operational Index</h2>
       <p>An exhaustive technical reference detailing every configuration parameter, input field, and flight plan variable supported across the Virtual NATO Flight Planning Suite.</p>
@@ -1354,7 +1441,6 @@
       </div>
     </div>
 
-    <!-- MANUAL VIEW 3: EQUIP & PBN GUIDE -->
     <div id="equipGuideBody" class="sub-manual-content" style="display:none;">
       <div style="background: #fffdf0; border-left: 4px solid #f59e0b; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7; padding: 10px 14px; font-size: 12px; color: #334155; line-height: 1.5; margin-bottom: 16px; border-radius: 0 4px 4px 0;">
         <b>Operational Disclaimer:</b> This software and manual are proprietary assets of <b>Virtual NATO</b> (re-established in 2017) and are designed exclusively for simulated virtual aviation environments (such as VATSIM). Distribution outside Virtual NATO or without express authorization from vCMC & vDCMC is strictly prohibited. This tool must <b>never</b> be used for real-world flight planning, navigation, or operational dispatch.
@@ -1466,7 +1552,6 @@
       </ul>
     </div>
 
-    <!-- MANUAL VIEW 4: METAR HELPER -->
     <div id="metarHelperBody" class="sub-manual-content" style="display:none;">
       <h2>METAR Decoding & Reading Guide</h2>
       <p>Meteorological Aerodrome Reports (METAR) follow a strict sequential format governed by international WMO/ICAO standards. Use this operational reference guide and descriptor tables to decode weather observations rapidly during flight planning.</p>
@@ -1581,7 +1666,6 @@
       </div>
     </div>
 
-    <!-- MANUAL VIEW 5: TAF HELPER -->
     <div id="tafHelperBody" class="sub-manual-content" style="display:none;">
       <div style="background: #fffdf0; border-left: 4px solid #f59e0b; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7; padding: 10px 14px; font-size: 12px; color: #334155; line-height: 1.5; margin-bottom: 16px; border-radius: 0 4px 4px 0;">
         <b>Operational Disclaimer:</b> This software and manual are proprietary assets of <b>Virtual NATO</b> (re-established in 2017) and are designed exclusively for simulated virtual aviation environments (such as VATSIM). Distribution outside Virtual NATO or without express authorization from vCMC & vDCMC is strictly prohibited. This tool must <b>never</b> be used for real-world flight planning, navigation, or operational dispatch.
@@ -1642,7 +1726,6 @@
       </div>
     </div>
 
-    <!-- MANUAL VIEW 6: FLIGHT LOG GUIDE -->
     <div id="flightLogGuideBody" class="sub-manual-content" style="display:none;">
       <div style="background: #fffdf0; border-left: 4px solid #f59e0b; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7; padding: 10px 14px; font-size: 12px; color: #334155; line-height: 1.5; margin-bottom: 16px; border-radius: 0 4px 4px 0;">
         <b>Operational Disclaimer:</b> This software and manual are proprietary assets of <b>Virtual NATO</b> (re-established in 2017) and are designed exclusively for simulated virtual aviation environments (such as VATSIM). Distribution outside Virtual NATO or without express authorization from vCMC & vDCMC is strictly prohibited. This tool must <b>never</b> be used for real-world flight planning, navigation, or operational dispatch.
@@ -1773,6 +1856,168 @@ function clearFlightLog() {
     flightExportLog = [];
     updateLogDisplay();
   }
+}
+
+// --- NEW ENHANCEMENTS: DARK MODE, LOCALSTORAGE PROFILES & SHAREABLE URLS ---
+
+function toggleDarkMode() {
+  document.body.classList.toggle('dark-mode');
+  const isDark = document.body.classList.contains('dark-mode');
+  localStorage.setItem('vnato_dark_mode', isDark ? 'enabled' : 'disabled');
+  document.getElementById('darkModeToggleBtn').textContent = isDark ? '☀️' : '🌙';
+}
+
+// Load dark mode preference on start
+window.addEventListener('DOMContentLoaded', () => {
+  if (localStorage.getItem('vnato_dark_mode') === 'enabled') {
+    document.body.classList.add('dark-mode');
+    const btn = document.getElementById('darkModeToggleBtn');
+    if (btn) btn.textContent = '☀️';
+  }
+  loadSavedProfilesList();
+  parseUrlQueryParameters();
+});
+
+function applyAirfieldPreset(icao) {
+  if (!icao) return;
+  const depInput = document.getElementById('fplDep');
+  if (depInput) depInput.value = icao;
+}
+
+function saveFlightProfile() {
+  const nameInput = document.getElementById('profileNameInput');
+  const profileName = nameInput ? nameInput.value.trim() : '';
+  if (!profileName) {
+    alert('Please enter a name for your flight profile.');
+    return;
+  }
+
+  const profileData = {
+    country: document.getElementById('countrySelect')?.value,
+    rules: document.getElementById('icaoRules')?.value,
+    type: document.getElementById('icaoType')?.value,
+    spdUnit: document.getElementById('icaoSpdUnit')?.value,
+    spdVal: document.getElementById('icaoSpdVal')?.value,
+    altUnit: document.getElementById('icaoAltUnit')?.value,
+    altVal: document.getElementById('icaoAltVal')?.value,
+    callsign: document.getElementById('fplCallsign')?.value,
+    acftType: document.getElementById('fplAcftType')?.value,
+    dep: document.getElementById('fplDep')?.value,
+    eobt: document.getElementById('fplEobt')?.value,
+    arr: document.getElementById('fplArr')?.value,
+    eetArr: document.getElementById('fplEetArr')?.value,
+    alt: document.getElementById('fplAlt')?.value,
+    routeType: document.getElementById('icaoRouteType')?.value,
+    route: document.getElementById('icaoRoute')?.value,
+    wake: document.getElementById('icaoWake')?.value,
+    equip: document.getElementById('icaoEquip')?.value,
+    trans: document.getElementById('icaoTrans')?.value,
+    reg: document.getElementById('icaoReg')?.value,
+    opr: document.getElementById('icaoOpr')?.value,
+    fuel: document.getElementById('icaoFuel')?.value
+  };
+
+  let profiles = JSON.parse(localStorage.getItem('vnato_flight_profiles') || '{}');
+  profiles[profileName] = profileData;
+  localStorage.setItem('vnato_flight_profiles', JSON.stringify(profiles));
+  
+  loadSavedProfilesList();
+  alert(`Flight profile "${profileName}" saved successfully.`);
+  nameInput.value = '';
+}
+
+function loadSavedProfilesList() {
+  const select = document.getElementById('savedProfilesSelect');
+  if (!select) return;
+  select.innerHTML = '<option value="" selected>[Load Saved Profile]</option>';
+  
+  let profiles = JSON.parse(localStorage.getItem('vnato_flight_profiles') || '{}');
+  for (let name in profiles) {
+    const opt = document.createElement('option');
+    opt.value = name;
+    opt.textContent = name;
+    select.appendChild(opt);
+  }
+}
+
+function loadFlightProfile(name) {
+  if (!name) return;
+  let profiles = JSON.parse(localStorage.getItem('vnato_flight_profiles') || '{}');
+  const p = profiles[name];
+  if (!p) return;
+
+  if (document.getElementById('countrySelect')) document.getElementById('countrySelect').value = p.country || 'FR';
+  if (document.getElementById('icaoRules')) document.getElementById('icaoRules').value = p.rules || '';
+  if (document.getElementById('icaoType')) document.getElementById('icaoType').value = p.type || 'M';
+  if (document.getElementById('icaoSpdUnit')) document.getElementById('icaoSpdUnit').value = p.spdUnit || 'N';
+  if (document.getElementById('icaoSpdVal')) document.getElementById('icaoSpdVal').value = p.spdVal || '';
+  if (document.getElementById('icaoAltUnit')) document.getElementById('icaoAltUnit').value = p.altUnit || 'F';
+  if (document.getElementById('icaoAltVal')) document.getElementById('icaoAltVal').value = p.altVal || '';
+  if (document.getElementById('fplCallsign')) document.getElementById('fplCallsign').value = p.callsign || '';
+  if (document.getElementById('fplAcftType')) document.getElementById('fplAcftType').value = p.acftType || '';
+  if (document.getElementById('fplDep')) document.getElementById('fplDep').value = p.dep || '';
+  if (document.getElementById('fplEobt')) document.getElementById('fplEobt').value = p.eobt || '';
+  if (document.getElementById('fplArr')) document.getElementById('fplArr').value = p.arr || '';
+  if (document.getElementById('fplEetArr')) document.getElementById('fplEetArr').value = p.eetArr || '';
+  if (document.getElementById('fplAlt')) document.getElementById('fplAlt').value = p.alt || '';
+  if (document.getElementById('icaoRouteType')) document.getElementById('icaoRouteType').value = p.routeType || 'OAT_IFR_DIRECT';
+  if (document.getElementById('icaoRoute')) document.getElementById('icaoRoute').value = p.route || '';
+  if (document.getElementById('icaoWake')) document.getElementById('icaoWake').value = p.wake || '';
+  if (document.getElementById('icaoEquip')) document.getElementById('icaoEquip').value = p.equip || '';
+  if (document.getElementById('icaoTrans')) document.getElementById('icaoTrans').value = p.trans || '';
+  if (document.getElementById('icaoReg')) document.getElementById('icaoReg').value = p.reg || '';
+  if (document.getElementById('icaoOpr')) document.getElementById('icaoOpr').value = p.opr || '';
+  if (document.getElementById('icaoFuel')) document.getElementById('icaoFuel').value = p.fuel || '';
+
+  alert(`Profile "${name}" loaded into dispatch form.`);
+}
+
+function deleteFlightProfile() {
+  const select = document.getElementById('savedProfilesSelect');
+  const name = select ? select.value : '';
+  if (!name) {
+    alert('Please select a saved profile to delete.');
+    return;
+  }
+  if (confirm(`Are you sure you want to delete profile "${name}"?`)) {
+    let profiles = JSON.parse(localStorage.getItem('vnato_flight_profiles') || '{}');
+    delete profiles[name];
+    localStorage.setItem('vnato_flight_profiles', JSON.stringify(profiles));
+    loadSavedProfilesList();
+    alert(`Profile "${name}" deleted.`);
+  }
+}
+
+function copyShareableUrl() {
+  const params = new URLSearchParams({
+    country: document.getElementById('countrySelect')?.value || '',
+    rules: document.getElementById('icaoRules')?.value || '',
+    callsign: document.getElementById('fplCallsign')?.value || '',
+    acft: document.getElementById('fplAcftType')?.value || '',
+    dep: document.getElementById('fplDep')?.value || '',
+    arr: document.getElementById('fplArr')?.value || '',
+    route: document.getElementById('icaoRoute')?.value || ''
+  });
+  
+  const shareUrl = window.location.origin + window.location.pathname + '?' + params.toString();
+  navigator.clipboard.writeText(shareUrl).then(() => {
+    alert('Shareable flight plan link copied to clipboard!');
+  }).catch(() => {
+    prompt('Copy your shareable link below:', shareUrl);
+  });
+}
+
+function parseUrlQueryParameters() {
+  const urlParams = new URLSearchParams(window.location.search);
+  if (!urlParams.toString()) return;
+
+  if (urlParams.has('country') && document.getElementById('countrySelect')) document.getElementById('countrySelect').value = urlParams.get('country');
+  if (urlParams.has('rules') && document.getElementById('icaoRules')) document.getElementById('icaoRules').value = urlParams.get('rules');
+  if (urlParams.has('callsign') && document.getElementById('fplCallsign')) document.getElementById('fplCallsign').value = urlParams.get('callsign');
+  if (urlParams.has('acft') && document.getElementById('fplAcftType')) document.getElementById('fplAcftType').value = urlParams.get('acft');
+  if (urlParams.has('dep') && document.getElementById('fplDep')) document.getElementById('fplDep').value = urlParams.get('dep');
+  if (urlParams.has('arr') && document.getElementById('fplArr')) document.getElementById('fplArr').value = urlParams.get('arr');
+  if (urlParams.has('route') && document.getElementById('icaoRoute')) document.getElementById('icaoRoute').value = urlParams.get('route');
 }
 </script>
 
