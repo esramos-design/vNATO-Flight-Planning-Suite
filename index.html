@@ -1,10 +1,23 @@
 <!DOCTYPE html>
+<!-- ============================================================================ -->
+<!-- VIRTUAL NATO FLIGHT PLANNING SUITE - MASTER INDEX DISPATCH CONSOLE           -->
+<!-- Operational Air Traffic (OAT) & Tactical Dispatch System (Fully Commented)   -->
+<!-- ============================================================================ -->
 <html lang="en">
 <head>
+  <!-- ========================================================================== -->
+  <!-- SECTION: HTML HEAD & METADATA CONFIGURATION                                -->
+  <!-- ========================================================================== -->
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Military Flight Plan Generator & Operational Manual</title>
+  
+  <!-- Main Stylesheet Import -->
   <link rel="stylesheet" href="css/styles.css">
+  
+  <!-- ========================================================================== -->
+  <!-- SECTION: COCKPIT DARK-MODE THEME STYLING & DYNAMIC OVERRIDES               -->
+  <!-- ========================================================================== -->
   <style>
     /* Dark Mode Theme Variables & Overrides */
     body.dark-mode {
@@ -72,17 +85,31 @@
 </head>
 <body>
 
+<!-- ============================================================================ -->
+<!-- SECTION: MASTER APPLICATION LAYOUT CONTAINER                                 -->
+<!-- ============================================================================ -->
 <div class="fpl-main-layout">
+  
+  <!-- ========================================================================== -->
+  <!-- SECTION: LEFT SIDEBAR - FLIGHT PLAN GENERATOR & DISPATCH WIDGET            -->
+  <!-- ========================================================================== -->
   <div class="fpl-container">
+    
+    <!-- ======================================================================== -->
+    <!-- SUB-SECTION: STACKED HEADER, DUAL-TIME CLOCKS & DARK MODE TOGGLE         -->
+    <!-- ======================================================================== -->
     <div class="vnato-header-stacked">
       <div class="header-clock-banner" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
+        <!-- Zulu / UTC Clock Display -->
         <div class="clock-col" style="flex: 1; text-align: center;">
           <span class="clock-label">ZULU / UTC</span>
           <div id="headerClockZulu" class="clock-time-val">00:00:00</div>
         </div>
+        <!-- Virtual NATO Logo Banner -->
         <div class="clock-logo-col" style="flex: 0 0 auto; text-align: center; padding: 0 10px;">
           <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" style="max-height: 42px; display: block; margin: 0 auto;" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
         </div>
+        <!-- Local System Clock & Cockpit Dark Mode Toggle Button -->
         <div class="clock-col" style="flex: 1; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px;">
           <div>
             <span class="clock-label">LOCAL SYSTEM</span>
@@ -93,30 +120,38 @@
       </div>
     </div>
     
+    <!-- ======================================================================== -->
+    <!-- SUB-SECTION: SORTIE PROFILES, AIRFIELD PRESETS & PROFILE MANAGEMENT      -->
+    <!-- ======================================================================== -->
     <div class="fpl-section" style="background: rgba(0, 114, 206, 0.04); border: 1px solid rgba(0, 114, 206, 0.2); padding: 10px; margin-bottom: 10px;">
       <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 6px;">
         <label style="font-weight: bold; color: #002B49; font-size: 12px; margin: 0;">Sortie Profiles & Quick Presets</label>
         <button type="button" class="fpl-copy-btn" style="position:static; background:#34a853; padding: 2px 8px; font-size: 10px;" onclick="copyShareableUrl()">Copy Shareable Link</button>
       </div>
-      <div style="display: flex; gap: 6px; flex-wrap: wrap; align-items: center;">
-        <select id="presetBaseSelect" style="flex: 1; font-size: 11px; padding: 4px;" onchange="applyAirfieldPreset(this.value)">
-          <option value="" selected>[Quick Airfield Presets]</option>
-          <option value="LFBO">LFBO - Toulouse-Blagnac (FAF)</option>
-          <option value="EDBB">EDBB - Berlin Brandenburg (GAF)</option>
-          <option value="EGSH">EGSH - Norwich International (UK)</option>
-          <option value="LFMI">LFMI - Istres-Le Tube (FAF)</option>
-          <option value="ETAD">ETAD - Ramstein Air Base (GAF)</option>
-          <option value="EGVN">EGVN - RAF Brize Norton (UK)</option>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 6px;">
+        <!-- Quick Airfield Preset Selector -->
+       <select id="presetBaseSelect" style="width: 100%; font-size: 11px; padding: 4px;" onchange="applyAirfieldPreset(this.value)">
+  <option value="" selected>[Airfield Presets]</option>
+  <!-- Add your clean, production-ready airfield presets here -->
+</select>
+        <!-- Saved Profiles Selector Dropdown -->
+        <select id="savedProfilesSelect" style="width: 100%; font-size: 11px; padding: 4px;" onchange="loadFlightProfile(this.value)">
+          <option value="" selected>[Load Profile]</option>
         </select>
-        <input type="text" id="profileNameInput" placeholder="Profile Name..." style="flex: 1; font-size: 11px; padding: 4px;">
-        <button type="button" class="fpl-copy-btn" style="position:static; background:#0072CE; padding: 4px 8px; font-size: 11px;" onclick="saveFlightProfile()">Save</button>
-        <select id="savedProfilesSelect" style="flex: 1; font-size: 11px; padding: 4px;" onchange="loadFlightProfile(this.value)">
-          <option value="" selected>[Load Saved Profile]</option>
-        </select>
-        <button type="button" class="fpl-copy-btn" style="position:static; background:#ef4444; padding: 4px 8px; font-size: 11px;" onclick="deleteFlightProfile()">Delete</button>
+      </div>
+      <div style="display: flex; gap: 6px; align-items: center;">
+        <!-- Custom Profile Name Input -->
+        <input type="text" id="profileNameInput" placeholder="New Profile Name..." style="flex: 1; font-size: 11px; padding: 4px;">
+        <!-- Save Profile Button -->
+        <button type="button" class="fpl-copy-btn" style="position:static; background:#0072CE; padding: 4px 10px; font-size: 11px;" onclick="saveFlightProfile()">Save</button>
+        <!-- Manage Profiles Modal Trigger Button -->
+        <button type="button" class="fpl-copy-btn" style="position:static; background:#64748b; padding: 4px 10px; font-size: 11px;" onclick="openManageProfilesModal()">Manage</button>
       </div>
     </div>
 
+    <!-- ======================================================================== -->
+    <!-- SUB-SECTION: JURISDICTION / COUNTRY STANDARD SELECTOR                    -->
+    <!-- ======================================================================== -->
     <div class="fpl-section" style="padding-top:0;">
       <div class="label-with-help">
         <label>Jurisdiction / Country Standard</label>
@@ -130,6 +165,9 @@
       </select>
     </div>
 
+    <!-- ======================================================================== -->
+    <!-- SUB-SECTION: GENERATOR MODE SELECTOR DROPDOWN                            -->
+    <!-- ======================================================================== -->
     <div class="fpl-mode-container">
       <div class="label-with-help">
         <label style="margin-top:0; margin-bottom:4px;">Generator Mode:</label>
@@ -143,11 +181,15 @@
       </select>
     </div>
 
+    <!-- ======================================================================== -->
+    <!-- SUB-SECTION: TAB 1 - SWIFT ROUTE GENERATOR PANEL                         -->
+    <!-- ======================================================================== -->
     <div id="routeTab" class="fpl-tab-content">
       <div style="display:flex; justify-content: flex-end; margin-bottom: 10px;">
         <button type="button" class="fpl-copy-btn" style="position:static; background:#ef4444;" onclick="resetForm('routeTab')">Reset Form</button>
       </div>
 
+      <!-- Date of Flight Field -->
       <div class="fpl-section">
         <div class="label-with-help">
           <label>Date of Flight (DOF - YYMMDD)</label>
@@ -157,6 +199,7 @@
         <input type="text" id="dof" value="" placeholder="e.g. 260826 (Dbl-click for calendar)" ondblclick="this.type='date'; try{this.showPicker();}catch(e){}" onchange="formatDof(this)" onblur="if(this.type==='date' && !this.value) { this.type='text'; }">
       </div>
 
+      <!-- Flight Rules & Flight Type -->
       <div class="fpl-section">
         <div class="label-with-help">
           <label>Flight Rules</label>
@@ -186,6 +229,7 @@
         </select>
       </div>
 
+      <!-- Cruising Speed & Altitude Inputs -->
       <div class="fpl-section">
         <div class="label-with-help">
           <label>Speed Unit & Value</label>
@@ -216,6 +260,7 @@
         </div>
       </div>
 
+      <!-- Route Type & Transfer Points -->
       <div class="fpl-section">
         <div class="label-with-help">
           <label>Route Type</label>
@@ -286,6 +331,7 @@
         <textarea id="route" style="height:60px; font-family:inherit; font-size:12px; padding:7px;" placeholder="Enter waypoints (e.g. DCT CHP01 DCT MAR01)"></textarea>
       </div>
 
+      <!-- STAY Working Segments -->
       <div class="fpl-section">
         <div class="label-with-help">
           <label>STAY 1 Target WPT, Segment & Duration</label>
@@ -337,11 +383,15 @@
       </div>
     </div>
 
+    <!-- ======================================================================== -->
+    <!-- SUB-SECTION: TAB 2 - SWIFT REMARKS GENERATOR PANEL                       -->
+    <!-- ======================================================================== -->
     <div id="remarksTab" class="fpl-tab-content">
       <div style="display:flex; justify-content: flex-end; margin-bottom: 10px;">
         <button type="button" class="fpl-copy-btn" style="position:static; background:#ef4444;" onclick="resetForm('remarksTab')">Reset Form</button>
       </div>
 
+      <!-- Avionics & Wake Turbulence -->
       <div class="fpl-section">
         <div class="label-with-help">
           <label>Wake Turbulence Category</label>
@@ -391,6 +441,7 @@
         </select>
       </div>
 
+      <!-- PBN Capabilities & Special Handling -->
       <div class="fpl-section">
         <div class="label-with-help">
           <label>PBN Capability (Multiple Select)</label>
@@ -463,6 +514,7 @@
         </select>
       </div>
 
+      <!-- Item 18 Telemetry & Identifiers -->
       <div class="fpl-section">
         <div class="label-with-help">
           <label>SEL / SELCAL</label>
@@ -542,6 +594,7 @@
         <input type="text" id="eet" value="" placeholder="e.g. ENSAC0030 MG0010045">
       </div>
 
+      <!-- STAYINFO Working Notes -->
       <div class="fpl-section">
         <div class="label-with-help">
           <label>STAYINFO 1 / Working Area Notes</label>
@@ -561,6 +614,7 @@
         <input type="text" id="stayinfo3" value="" placeholder="e.g. REFUELING TRACK AARA8">
       </div>
 
+      <!-- RMK & VSO Tags -->
       <div class="fpl-section">
         <div class="label-with-help">
           <label>RMK / OAT Status</label>
@@ -593,11 +647,15 @@
       </div>
     </div>
 
+    <!-- ======================================================================== -->
+    <!-- SUB-SECTION: TAB 3 - VATSIM ICAO FLIGHT PLAN GENERATOR PANEL             -->
+    <!-- ======================================================================== -->
     <div id="icaoTab" class="fpl-tab-content active">
       <div style="display:flex; justify-content: flex-end; margin-bottom: 10px;">
         <button type="button" class="fpl-copy-btn" style="position:static; background:#ef4444;" onclick="resetForm('icaoTab')">Reset Form</button>
       </div>
 
+      <!-- Basic ICAO Flight Plan Header Inputs -->
       <div class="fpl-section">
         <div class="label-with-help">
           <label>Flight Rules</label>
@@ -696,6 +754,7 @@
         <input type="text" id="fplAlt" value="" placeholder="e.g. LFML">
       </div>
 
+      <!-- ICAO Route Configuration & STAY Segments -->
       <div class="fpl-section">
         <label style="color:#0072CE; font-size:13px; border-bottom:1px solid #0072CE; padding-bottom:3px; margin-bottom:6px;">Route Configuration</label>
 
@@ -810,6 +869,7 @@
         </div>
       </div>
 
+      <!-- Item 18 Remarks & Avionics Configuration -->
       <div class="fpl-section">
         <label style="color:#0072CE; font-size:13px; border-bottom:1px solid #0072CE; padding-bottom:3px; margin-bottom:6px;">Item 18 / Remarks Configuration</label>
         
@@ -1022,6 +1082,7 @@
         <textarea id="icaoOutput" style="height: 140px; white-space: pre;" readonly></textarea>
       </div>
 
+      <!-- Automatic Flight Export Log Panel -->
       <div class="fpl-section" style="margin-top: 15px; background: #f8fafc; border: 1px solid #cbd5e1; border-radius: 6px; padding: 12px;">
         <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
           <label style="font-weight: bold; color: #002B49; font-size: 13px; margin: 0;">Automatic Flight Export Log</label>
@@ -1034,22 +1095,31 @@
         <textarea id="flightLogOutput" style="height: 90px; font-family: monospace; font-size: 11px; background: #fff; padding: 6px; width: 100%; border: 1px solid #cbd5e1; border-radius: 4px;" readonly placeholder="Export log is empty. Click 'Copy' on the ICAO FPL to record an entry..."></textarea>
       </div>
 
+      <!-- VATSIM Import Links -->
       <div style="display:flex; gap:8px; margin-top:8px;">
         <a href="https://my.vatsim.net/pilots/flightplan" target="_blank" class="fpl-gen-btn" style="flex:1; text-align:center; text-decoration:none; background:#34a853; margin-top:0;">Import ICAO FPL</a>
         <a href="https://my.vatsim.net/pilots/flightplan/beta" target="_blank" class="fpl-gen-btn" style="flex:1; text-align:center; text-decoration:none; background:#1e8e3e; margin-top:0;">Import ICAO FPL (Beta)</a>
       </div>
     </div>
 
+    <!-- Widget Footer Container -->
     <div id="widgetFooterContainer"></div>
   </div>
 
+  <!-- ========================================================================== -->
+  <!-- SECTION: RIGHT PANEL - DOCUMENTATION, GUIDES & OPERATIONAL TOOLS           -->
+  <!-- ========================================================================== -->
   <div class="docs-container">
+    
+    <!-- Documentation Header Banner -->
     <div class="docs-header">
       <h1 id="rightPanelTitle">Virtual NATO Flight Planning Suite</h1>
       <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
     </div>
 
+    <!-- Top Action & Tool Control Bar -->
     <div class="right-panel-controls">
+      <!-- Manual / Guide Navigation Buttons -->
       <div class="doc-columns-toggle" style="display:flex; gap:6px; flex-wrap:wrap;">
         <button type="button" class="action-toggle-btn active" id="homeWelcomeBtn" onclick="toggleManualView('homeWelcome')">
           <span>Home / About</span>
@@ -1073,6 +1143,7 @@
           <span>Flight Log Guide</span>
         </button>
       </div>
+      <!-- Calculator & Weather Tool Toggles -->
       <div class="right-panel-btns">
         <button type="button" class="action-toggle-btn" id="metarToggleBtn" onclick="toggleRightPanelMode('metar')">
           <img src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f326.svg" class="btn-img-icon" alt="WX">
@@ -1097,27 +1168,33 @@
       </div>
     </div>
 
+    <!-- ======================================================================== -->
+    <!-- SUB-SECTION: TOOL VIEW 1 - METAR / TAF WEATHER BRIEFING PANEL            -->
+    <!-- ======================================================================== -->
     <div id="metarBody" class="sub-panel-content" style="display:none;">
-  <div class="metar-search-box" style="margin-bottom: 8px;">
-    <input type="text" id="icaoInput" value="" placeholder="Enter ICAOs separated by commas (e.g. LFBO, EGLL, EDBB)">
-    <button type="button" onclick="fetchMetarTaf()">Fetch Weather</button>
-  </div>
-  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
-    <div class="wx-card" style="margin-bottom: 0; padding: 10px;">
-      <h3 style="margin-top: 0; margin-bottom: 6px; font-size: 13px; color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 3px;">METAR Reports</h3>
-      <div id="metarOutput" class="wx-raw" style="font-size: 11px; color: #64748b;">Enter ICAO code(s) above and click 'Fetch Weather'...</div>
+      <div class="metar-search-box" style="margin-bottom: 8px;">
+        <input type="text" id="icaoInput" value="" placeholder="Enter ICAOs separated by commas (e.g. LFBO, EGLL, EDBB)">
+        <button type="button" onclick="fetchMetarTaf()">Fetch Weather</button>
+      </div>
+      <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px;">
+        <div class="wx-card" style="margin-bottom: 0; padding: 10px;">
+          <h3 style="margin-top: 0; margin-bottom: 6px; font-size: 13px; color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 3px;">METAR Reports</h3>
+          <div id="metarOutput" class="wx-raw" style="font-size: 11px; color: #64748b;">Enter ICAO code(s) above and click 'Fetch Weather'...</div>
+        </div>
+        <div class="wx-card" style="margin-bottom: 0; padding: 10px;">
+          <h3 style="margin-top: 0; margin-bottom: 6px; font-size: 13px; color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 3px;">Terminal Aerodrome Forecast (TAF)</h3>
+          <div id="tafOutput" class="wx-raw" style="font-size: 11px; color: #64748b;">Enter ICAO code(s) above and click 'Fetch Weather'...</div>
+        </div>
+      </div>
+      <div class="wx-card" style="padding: 10px;">
+        <h3 style="margin-top: 0; margin-bottom: 6px; font-size: 13px; color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 3px;">Decoded Weather Parameters</h3>
+        <div id="decoderOutput" class="wx-raw" style="color: #002B49; font-size: 11px;">Click 'Fetch Weather' to generate plain language breakdown...</div>
+      </div>
     </div>
-    <div class="wx-card" style="margin-bottom: 0; padding: 10px;">
-      <h3 style="margin-top: 0; margin-bottom: 6px; font-size: 13px; color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 3px;">Terminal Aerodrome Forecast (TAF)</h3>
-      <div id="tafOutput" class="wx-raw" style="font-size: 11px; color: #64748b;">Enter ICAO code(s) above and click 'Fetch Weather'...</div>
-    </div>
-  </div>
-  <div class="wx-card" style="padding: 10px;">
-    <h3 style="margin-top: 0; margin-bottom: 6px; font-size: 13px; color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 3px;">Decoded Weather Parameters</h3>
-    <div id="decoderOutput" class="wx-raw" style="color: #002B49; font-size: 11px;">Click 'Fetch Weather' to generate plain language breakdown...</div>
-  </div>
-</div>
 
+    <!-- ======================================================================== -->
+    <!-- SUB-SECTION: TOOL VIEW 2 - TOP OF DESCENT (TOD) CALCULATOR               -->
+    <!-- ======================================================================== -->
     <div id="todBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Descent Profile Parameters</h3>
@@ -1159,6 +1236,9 @@
       </div>
     </div>
 
+    <!-- ======================================================================== -->
+    <!-- SUB-SECTION: TOOL VIEW 3 - CROSSWIND & HEADWIND CALCULATOR               -->
+    <!-- ======================================================================== -->
     <div id="xwindBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Runway & Wind Parameters</h3>
@@ -1185,6 +1265,9 @@
       </div>
     </div>
 
+    <!-- ======================================================================== -->
+    <!-- SUB-SECTION: TOOL VIEW 4 - FUEL BURN & ETE CALCULATOR                    -->
+    <!-- ======================================================================== -->
     <div id="fuelBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Leg Distance & Burn Parameters</h3>
@@ -1218,6 +1301,9 @@
       </div>
     </div>
 
+    <!-- ======================================================================== -->
+    <!-- SUB-SECTION: TOOL VIEW 5 - DENSITY ALTITUDE CALCULATOR                   -->
+    <!-- ======================================================================== -->
     <div id="daBody" class="sub-panel-content" style="display:none;">
       <div class="wx-card">
         <h3>Aerodrome Environment Parameters</h3>
@@ -1251,6 +1337,9 @@
       </div>
     </div>
 
+    <!-- ======================================================================== -->
+    <!-- SUB-SECTION: MANUAL VIEW 1 - HOME / ABOUT WELCOME MANUAL                 -->
+    <!-- ======================================================================== -->
     <div id="homeWelcomeBody" class="sub-manual-content active">
       <div style="text-align: center; padding: 10px 0 16px 0; border-bottom: 2px solid #0072CE; margin-bottom: 16px;">
         <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" style="max-height: 52px; margin-bottom: 8px; display: block; margin-left: auto; margin-right: auto;" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
@@ -1292,6 +1381,9 @@
       </div>
     </div>
 
+    <!-- ======================================================================== -->
+    <!-- SUB-SECTION: MANUAL VIEW 2 - OAT OPERATIONAL GUIDE                       -->
+    <!-- ======================================================================== -->
     <div id="oatGuideBody" class="sub-manual-content" style="display:none;">
       <div style="background: #fffdf0; border-left: 4px solid #f59e0b; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7; padding: 10px 14px; font-size: 12px; color: #334155; line-height: 1.5; margin-bottom: 16px; border-radius: 0 4px 4px 0;">
         <b>Operational Disclaimer:</b> This software and manual are proprietary assets of <b>Virtual NATO</b> (re-established in 2017) and are designed exclusively for simulated virtual aviation environments (such as VATSIM). Distribution outside Virtual NATO or without express authorization from vCMC & vDCMC is strictly prohibited. This tool must <b>never</b> be used for real-world flight planning, navigation, or operational dispatch.
@@ -1335,6 +1427,9 @@
       <p><b>Remarks Example:</b> <code>STAYINFO1/AARAS AAR MARSA/NATO11/ DELAY 0030 1200 TO 1230</code></p>
     </div>
 
+    <!-- ======================================================================== -->
+    <!-- SUB-SECTION: MANUAL VIEW 3 - COMPREHENSIVE PARAMETER GLOSSARY            -->
+    <!-- ======================================================================== -->
     <div id="paramGlossaryBody" class="sub-manual-content" style="display:none;">
       <h2>Comprehensive Parameter Glossary & Operational Index</h2>
       <p>An exhaustive technical reference detailing every configuration parameter, input field, and flight plan variable supported across the Virtual NATO Flight Planning Suite.</p>
@@ -1443,6 +1538,9 @@
       </div>
     </div>
 
+    <!-- ======================================================================== -->
+    <!-- SUB-SECTION: MANUAL VIEW 4 - EQUIPMENT & PBN REFERENCE GUIDE             -->
+    <!-- ======================================================================== -->
     <div id="equipGuideBody" class="sub-manual-content" style="display:none;">
       <div style="background: #fffdf0; border-left: 4px solid #f59e0b; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7; padding: 10px 14px; font-size: 12px; color: #334155; line-height: 1.5; margin-bottom: 16px; border-radius: 0 4px 4px 0;">
         <b>Operational Disclaimer:</b> This software and manual are proprietary assets of <b>Virtual NATO</b> (re-established in 2017) and are designed exclusively for simulated virtual aviation environments (such as VATSIM). Distribution outside Virtual NATO or without express authorization from vCMC & vDCMC is strictly prohibited. This tool must <b>never</b> be used for real-world flight planning, navigation, or operational dispatch.
@@ -1554,6 +1652,9 @@
       </ul>
     </div>
 
+    <!-- ======================================================================== -->
+    <!-- SUB-SECTION: MANUAL VIEW 5 - METAR DECODING & READING GUIDE              -->
+    <!-- ======================================================================== -->
     <div id="metarHelperBody" class="sub-manual-content" style="display:none;">
       <h2>METAR Decoding & Reading Guide</h2>
       <p>Meteorological Aerodrome Reports (METAR) follow a strict sequential format governed by international WMO/ICAO standards. Use this operational reference guide and descriptor tables to decode weather observations rapidly during flight planning.</p>
@@ -1668,6 +1769,9 @@
       </div>
     </div>
 
+    <!-- ======================================================================== -->
+    <!-- SUB-SECTION: MANUAL VIEW 6 - TAF FORECAST DECODING GUIDE                 -->
+    <!-- ======================================================================== -->
     <div id="tafHelperBody" class="sub-manual-content" style="display:none;">
       <div style="background: #fffdf0; border-left: 4px solid #f59e0b; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7; padding: 10px 14px; font-size: 12px; color: #334155; line-height: 1.5; margin-bottom: 16px; border-radius: 0 4px 4px 0;">
         <b>Operational Disclaimer:</b> This software and manual are proprietary assets of <b>Virtual NATO</b> (re-established in 2017) and are designed exclusively for simulated virtual aviation environments (such as VATSIM). Distribution outside Virtual NATO or without express authorization from vCMC & vDCMC is strictly prohibited. This tool must <b>never</b> be used for real-world flight planning, navigation, or operational dispatch.
@@ -1728,6 +1832,9 @@
       </div>
     </div>
 
+    <!-- ======================================================================== -->
+    <!-- SUB-SECTION: MANUAL VIEW 7 - FLIGHT EXPORT LOG GUIDE                     -->
+    <!-- ======================================================================== -->
     <div id="flightLogGuideBody" class="sub-manual-content" style="display:none;">
       <div style="background: #fffdf0; border-left: 4px solid #f59e0b; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7; padding: 10px 14px; font-size: 12px; color: #334155; line-height: 1.5; margin-bottom: 16px; border-radius: 0 4px 4px 0;">
         <b>Operational Disclaimer:</b> This software and manual are proprietary assets of <b>Virtual NATO</b> (re-established in 2017) and are designed exclusively for simulated virtual aviation environments (such as VATSIM). Distribution outside Virtual NATO or without express authorization from vCMC & vDCMC is strictly prohibited. This tool must <b>never</b> be used for real-world flight planning, navigation, or operational dispatch.
@@ -1759,13 +1866,20 @@
   </div>
 </div>
 
+<!-- ============================================================================ -->
+<!-- SECTION: JAVASCRIPT MODULE SCRIPTS IMPORT                                    -->
+<!-- ============================================================================ -->
 <script src="js/core.js?v=15"></script>
 <script src="js/generators.js"></script>
 <script src="js/weather.js"></script>
 <script src="js/calculators.js"></script>
 <script src="js/footer.js"></script>
 
+<!-- ============================================================================ -->
+<!-- SECTION: MASTER INLINE JAVASCRIPT & EVENT HANDLERS                           -->
+<!-- ============================================================================ -->
 <script>
+// Format Date of Flight input helper
 function formatDof(input) {
   if (!input.value) {
     input.type = 'text';
@@ -1813,6 +1927,7 @@ window.toggleManualView = function(viewName) {
   }
 };
 
+// Flight Export Log Buffer & Management
 let flightExportLog = [];
 
 function logIcaoExport() {
@@ -1860,7 +1975,7 @@ function clearFlightLog() {
   }
 }
 
-// --- NEW ENHANCEMENTS: DARK MODE, LOCALSTORAGE PROFILES & SHAREABLE URLS ---
+// --- COCKPIT DARK MODE, LOCALSTORAGE PROFILES & SHAREABLE URLS ---
 
 function toggleDarkMode() {
   document.body.classList.toggle('dark-mode');
@@ -1869,7 +1984,7 @@ function toggleDarkMode() {
   document.getElementById('darkModeToggleBtn').textContent = isDark ? '☀️' : '🌙';
 }
 
-// Load dark mode preference on start
+// Initialization event listener on DOM content load
 window.addEventListener('DOMContentLoaded', () => {
   if (localStorage.getItem('vnato_dark_mode') === 'enabled') {
     document.body.classList.add('dark-mode');
@@ -2023,5 +2138,26 @@ function parseUrlQueryParameters() {
 }
 </script>
 
+<!-- ============================================================================ -->
+<!-- SECTION: PROFILE MANAGEMENT MODAL POPUP HTML                                 -->
+<!-- ============================================================================ -->
+<div id="manageProfilesModal" style="display: none; position: fixed; z-index: 9999; left: 0; top: 0; width: 100%; height: 100%; background-color: rgba(0,0,0,0.5); backdrop-filter: blur(2px);">
+  <div style="background-color: #fff; margin: 10% auto; padding: 20px; border: 1px solid #cbd5e1; width: 400px; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0,0,0,0.1);">
+    <div style="display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid #e2e8f0; padding-bottom: 8px; margin-bottom: 12px;">
+      <h3 style="margin: 0; font-size: 14px; color: #002B49;">Manage Saved Sortie Profiles</h3>
+      <button type="button" onclick="closeManageProfilesModal()" style="background: none; border: none; font-size: 16px; cursor: pointer; color: #64748b;">✕</button>
+    </div>
+    
+    <div id="profilesListContainer" style="max-height: 220px; overflow-y: auto; margin-bottom: 15px; border: 1px solid #e2e8f0; border-radius: 4px; padding: 6px; background: #f8fafc;">
+      <!-- Dynamically populated profile items go here -->
+    </div>
+
+    <div style="display: flex; justify-content: space-between; align-items: center;">
+      <button type="button" class="fpl-copy-btn" style="position: static; background: #ef4444; padding: 6px 12px; font-size: 11px;" onclick="clearAllProfiles()">Wipe All Profiles</button>
+      <button type="button" class="fpl-copy-btn" style="position: static; background: #0072CE; padding: 6px 12px; font-size: 11px;" onclick="closeManageProfilesModal()">Close</button>
+    </div>
+  </div>
+</div>
+  
 </body>
 </html>
