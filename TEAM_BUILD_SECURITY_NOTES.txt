@@ -1,0 +1,10 @@
+vNATO Flight Planning Suite V5.7.16 TEAM LIVE
+
+Runtime-only public package.
+- Minimal bootstrap index.html
+- Application shell encoded in js/app-shell.obf.js
+- External JavaScript distributed through UTF-8 base64 runtime wrappers
+- CSS minified/runtime-only
+- No ALPHA docs, tests, changelogs or audit files
+
+This is source-hardening/deterrence only. Browser-delivered code is not secret.
