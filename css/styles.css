@@ -931,3 +931,49 @@ body[data-theme="night-ops"] .vnato-theme-clockbox .clock-time-val{color:#63EAA0
   .fpl-container{flex-basis:485px;max-width:485px;}
   .vnato-theme-hero{min-height:184px;}
 }
+
+/* ========================================================================== */
+/* V5.7.4 — THEME ARTWORK FRAMING                                             */
+/* Keep the V5.7.3 column width; bias each panoramic artwork toward aircraft. */
+/* ========================================================================== */
+@media (min-width:651px){
+  body[data-theme="day"] .vnato-theme-hero{background-position:68% center;}
+  body[data-theme="dusk"] .vnato-theme-hero{background-position:78% center;}
+  body[data-theme="night"] .vnato-theme-hero{background-position:62% center;}
+  body[data-theme="night-ops"] .vnato-theme-hero{background-position:76% center;}
+}
+@media (max-width:650px){
+  body[data-theme="day"] .vnato-theme-hero{background-position:66% center;}
+  body[data-theme="dusk"] .vnato-theme-hero{background-position:80% center;}
+  body[data-theme="night"] .vnato-theme-hero{background-position:64% center;}
+  body[data-theme="night-ops"] .vnato-theme-hero{background-position:78% center;}
+}
+
+
+/* V5.7.5 — Night Ops full-theme reinforcement */
+body.dark-mode.night-ops .guide-hero,
+body.dark-mode.night-ops .guide-hero.milops{background:linear-gradient(135deg,#061d15,#0a2a1e)!important;border-color:#176347!important;border-left-color:#35df91!important}
+body.dark-mode.night-ops .milops-tabs{background:#04130e!important;border-color:#176347!important}
+body.dark-mode.night-ops .milops-tab{background:#071e16!important;border-color:#176347!important;color:#d6f7e6!important}
+body.dark-mode.night-ops .milops-tab.active{background:#0a8f59!important;border-color:#35df91!important;color:#fff!important}
+body.dark-mode.night-ops .country-head,body.dark-mode.night-ops .rtf-phase-grid span{background:#081d16!important;border-color:#176347!important;color:#d8f5e6!important}
+body.dark-mode.night-ops .resource-buttons a{background:#0a8f59!important;color:#fff!important}
+body.dark-mode.night-ops .mobile-jump{background:rgba(3,20,14,.94)!important;border-color:#176347!important}
+body.dark-mode.night-ops .mobile-jump button{background:#0a2a1e!important;color:#d8f5e6!important}
+
+
+/* V5.7.6 — Theme Artwork Scale + Darker Night Ops */
+@media (min-width:651px){
+ body[data-theme="day"] .vnato-theme-hero,body[data-theme="dusk"] .vnato-theme-hero,body[data-theme="night"] .vnato-theme-hero,body[data-theme="night-ops"] .vnato-theme-hero{background-position:center center!important;}
+}
+body[data-theme="night-ops"] .vnato-theme-hero-shade{background:linear-gradient(90deg,rgba(0,12,8,.88),rgba(0,20,13,.48) 52%,rgba(0,8,5,.70))!important}
+body.dark-mode.night-ops{background:#010705!important;color:#ccebdc!important}
+body.dark-mode.night-ops .fpl-container,body.dark-mode.night-ops .docs-container{background:#03100b!important;border-color:#0b402d!important}
+body.dark-mode.night-ops .docs-header{background:#010a07!important;border-bottom-color:#128554!important}
+body.dark-mode.night-ops .right-panel-controls,body.dark-mode.night-ops .header-clock-banner{background:#03110c!important;border-color:#0d4632!important}
+body.dark-mode.night-ops .fpl-section,body.dark-mode.night-ops .wx-card,body.dark-mode.night-ops .calc-results-box,body.dark-mode.night-ops .sub-manual-content,body.dark-mode.night-ops .sub-panel-content,body.dark-mode.night-ops .oceanic-panel-card,body.dark-mode.night-ops .oceanic-live-card,body.dark-mode.night-ops .oceanic-report-card,body.dark-mode.night-ops .guide-card,body.dark-mode.night-ops .guide-flow,body.dark-mode.night-ops .guide-oceanic-steps>div,body.dark-mode.night-ops .intel-grid article,body.dark-mode.night-ops .equip-builder{background:#04140e!important;border-color:#0e4a34!important}
+body.dark-mode.night-ops input,body.dark-mode.night-ops select,body.dark-mode.night-ops textarea,body.dark-mode.night-ops .pbn-select-toggle,body.dark-mode.night-ops .equip-chip{background:#010a07!important;border-color:#11563c!important}
+body.dark-mode.night-ops .action-toggle-btn,body.dark-mode.night-ops .country-tab,body.dark-mode.night-ops .ctx-guide-btn{background:#03150e!important;border-color:#11563c!important}
+body.dark-mode.night-ops .help-text-box,body.dark-mode.night-ops .source-status{background:#052016!important;border-color:#168454!important}
+body[data-theme="night-ops"] .vnato-theme-clockbox{background:rgba(0,14,9,.91)!important;border-color:rgba(30,161,99,.82)!important}
+body[data-theme="night-ops"] .vnato-theme-cycle{background:#137a4a!important;color:#ecfff5!important;border-color:#31c77b!important}
