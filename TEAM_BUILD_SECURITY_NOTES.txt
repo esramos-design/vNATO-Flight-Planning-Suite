@@ -1,4 +1,4 @@
-vNATO Flight Planning Suite — V5.3 TEAM OBFUSCATED LIVE
+vNATO Flight Planning Suite — V5.4 TEAM OBFUSCATED LIVE
 
 THIS IS THE PUBLIC / TEAM PACKAGE.
 
@@ -8,8 +8,8 @@ Contents
 - css/
 - js/ (obfuscated)
 
-Do not mix with ALPHA files. Replace the LIVE repository/deployment with the complete contents of this package.
+V5.4 adds the reorganised helper library and comprehensive Oceanic/VATSIM documentation while retaining Day / Night / Night Ops.
 
-V5.3 adds Day, Night (Raised Panels), and Night Ops appearance modes. Application/ICAO semantics remain based on the V5.2 consolidated master.
+DO NOT MIX FILES WITH ALPHA. Replace the LIVE repository/deployment with the complete contents of this package.
 
 Client-side obfuscation is deterrence, not cryptographic source protection.
