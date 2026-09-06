@@ -1,2 +1,0 @@
-V5.7.9 TEAM LIVE runtime package.
-Public bootstrap HTML is intentionally minimal. Application HTML and JavaScript are runtime encoded/obfuscated as a deterrent to casual source copying. No source maps, tests, audit documents or ALPHA documentation are included. Client-side code can never be made cryptographically secret; move true secrets server-side.
