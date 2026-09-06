@@ -652,7 +652,7 @@
     <!-- ======================================================================== -->
     <div id="icaoTab" class="fpl-tab-content active">
       <div style="display:flex; justify-content: flex-end; margin-bottom: 10px;">
-        <button type="button" class="fpl-copy-btn" style="position:static; background:#ef4444;" onclick="resetForm('icaoTab')">Reset Form</button>
+        <button type="button" class="fpl-copy-btn" style="position:static; background:#ef4444;" onclick="newIcaoFlightPlan()">New / Clear FPL</button>
       </div>
 
       <!-- Basic ICAO Flight Plan Header Inputs -->
@@ -661,7 +661,7 @@
           <label>Flight Rules</label>
           <span class="help-icon" onclick="toggleHelp('helpIcaoRules')">?</span>
         </div>
-        <div id="helpIcaoRules" class="help-text-box">I (IFR), V (VFR), T (OAT Tactical), Y (IFR then VFR), Z (VFR then IFR). Note: VATSIM parser automatically maps tactical 'T' to 'I'.</div>
+        <div id="helpIcaoRules" class="help-text-box">I (IFR), V (VFR), Y (IFR then VFR), Z (VFR then IFR). T is available as a vNATO input convenience but the generator maps T to I for the VATSIM ICAO import string; keep OAT status in the route/RMK.</div>
         <select id="icaoRules">
           <option value="" selected>[Select Rules]</option>
           <option value="I">I - IFR</option>
@@ -802,6 +802,13 @@
           </select>
           <input type="text" id="icaoVfrTransParams" value="" style="width:35%;" placeholder="e.g. N0450A010">
         </div>
+        <div style="display:flex; align-items:center; gap:6px; margin-top:4px;">
+          <label style="margin:0; width:48%; font-size:11px;">Insert VFR change relative to WPT</label>
+          <select id="icaoVfrInsertMode" style="width:52%;">
+            <option value="AFTER" selected>AFTER target WPT</option>
+            <option value="BEFORE">BEFORE target WPT</option>
+          </select>
+        </div>
 
         <div class="label-with-help">
           <label>IFR Transfer Point, Flight type, New parameters</label>
@@ -817,6 +824,13 @@
             <option value="GAT I">GAT I</option>
           </select>
           <input type="text" id="icaoIfrTransParams" value="" style="width:35%;" placeholder="e.g. M080F310">
+        </div>
+        <div style="display:flex; align-items:center; gap:6px; margin-top:4px;">
+          <label style="margin:0; width:48%; font-size:11px;">Insert IFR change relative to WPT</label>
+          <select id="icaoIfrInsertMode" style="width:52%;">
+            <option value="AFTER" selected>AFTER target WPT</option>
+            <option value="BEFORE">BEFORE target WPT</option>
+          </select>
         </div>
 
         <div class="label-with-help">
@@ -871,7 +885,7 @@
 
       <!-- Item 18 Remarks & Avionics Configuration -->
       <div class="fpl-section">
-        <label style="color:#0072CE; font-size:13px; border-bottom:1px solid #0072CE; padding-bottom:3px; margin-bottom:6px;">Item 18 / Remarks Configuration</label>
+        <label style="color:#0072CE; font-size:13px; border-bottom:1px solid #0072CE; padding-bottom:3px; margin-bottom:6px;">Items 9/10 Equipment & Item 18 Remarks</label>
         
         <div class="label-with-help">
           <label>Wake Turbulence Category</label>
@@ -911,6 +925,13 @@
             <option value="B2">B2 - ADS-B In and Out (Dedicated 1090 MHz ADS-B Out and In capability)</option>
           </select>
         </div>
+
+        <div class="label-with-help" style="margin-top:6px;">
+          <label>Custom Item 10a Equipment (Optional Override)</label>
+          <span class="help-icon" onclick="toggleHelp('helpIcaoEquipCustom')">?</span>
+        </div>
+        <div id="helpIcaoEquipCustom" class="help-text-box">Enter the exact ICAO Item 10a equipment string when the dropdown does not represent the aircraft. This overrides the dropdown. Example: SDE3R. Capability codes are never added automatically.</div>
+        <input type="text" id="icaoEquipCustom" value="" placeholder="e.g. SDE3R">
 
         <div class="label-with-help">
           <label>PBN Capability (Multiple Select)</label>
@@ -1076,6 +1097,9 @@
       </div>
 
       <button class="fpl-gen-btn" onclick="generateIcaoFplString()">Generate ICAO String</button>
+      <div id="icaoValidationOutput" class="icao-audit-panel">
+        <div class="icao-audit-neutral">VATSIM import preflight is ready. Generate the FPL to run structural validation.</div>
+      </div>
       
       <div class="fpl-textarea-container" style="margin-top:10px;">
         <button class="fpl-copy-btn" onclick="copyToClipboard('icaoOutput'); logIcaoExport();">Copy</button>
@@ -1097,8 +1121,7 @@
 
       <!-- VATSIM Import Links -->
       <div style="display:flex; gap:8px; margin-top:8px;">
-        <a href="https://my.vatsim.net/pilots/flightplan" target="_blank" class="fpl-gen-btn" style="flex:1; text-align:center; text-decoration:none; background:#34a853; margin-top:0;">Import ICAO FPL</a>
-        <a href="https://my.vatsim.net/pilots/flightplan/beta" target="_blank" class="fpl-gen-btn" style="flex:1; text-align:center; text-decoration:none; background:#1e8e3e; margin-top:0;">Import ICAO FPL (Beta)</a>
+        <a href="https://my.vatsim.net/pilots/flightplan" target="_blank" class="fpl-gen-btn" style="flex:1; text-align:center; text-decoration:none; background:#34a853; margin-top:0;">Open VATSIM Flight Plan / Import ICAO FPL</a>
       </div>
     </div>
 
@@ -1165,6 +1188,10 @@
           <img src="https://raw.githubusercontent.com/twitter/twemoji/master/assets/svg/1f321.svg" class="btn-img-icon" alt="Density Alt">
           <span>DENSITY ALT</span>
         </button>
+        <button type="button" class="action-toggle-btn" id="oceanicToggleBtn" onclick="toggleRightPanelMode('oceanic')">
+          <span style="font-size:16px; line-height:1;">🌐</span>
+          <span>OCEANIC REPORT</span>
+        </button>
       </div>
     </div>
 
@@ -1189,6 +1216,96 @@
       <div class="wx-card" style="padding: 10px;">
         <h3 style="margin-top: 0; margin-bottom: 6px; font-size: 13px; color: #002B49; border-bottom: 2px solid #0072CE; padding-bottom: 3px;">Decoded Weather Parameters</h3>
         <div id="decoderOutput" class="wx-raw" style="color: #002B49; font-size: 11px;">Click 'Fetch Weather' to generate plain language breakdown...</div>
+      </div>
+    </div>
+
+    <!-- ======================================================================== -->
+    <!-- SUB-SECTION: TOOL VIEW - OCEANIC REPORT V1.1                            -->
+    <!-- ======================================================================== -->
+    <div id="oceanicBody" class="sub-panel-content" style="display:none;">
+      <div class="wx-card oceanic-panel-card">
+        <h3>🌐 Oceanic Report — Version 1.1</h3>
+        <div class="oceanic-note">
+          V1.1 adds automatic named-fix resolution. Coordinate fixes are decoded directly; named fixes are resolved from a locally imported X-Plane-style waypoint/navaid dataset or from your vNATO custom-fix library. Navigation data stays in your browser and is not included with this suite.
+        </div>
+
+        <div class="oceanic-navdata-card">
+          <div class="oceanic-route-header" style="margin-top:0;">
+            <strong>NAVIGATION DATA</strong>
+            <span id="oceanicNavStatus" class="oceanic-nav-chip empty">NO DATA</span>
+          </div>
+          <div class="oceanic-nav-grid">
+            <div><span>Source</span><strong id="oceanicNavSource">—</strong></div>
+            <div><span>AIRAC / Version</span><strong id="oceanicNavCycle">—</strong></div>
+            <div><span>Waypoints</span><strong id="oceanicNavWaypointCount">0</strong></div>
+            <div><span>Navaids</span><strong id="oceanicNavNavaidCount">0</strong></div>
+          </div>
+          <div class="oceanic-control-row" style="margin:8px 0 0;">
+            <input id="oceanicNavFile" type="file" accept=".zip,.txt,.dat" multiple style="display:none" onchange="oceanicImportNavdata(event)">
+            <button type="button" class="fpl-copy-btn" onclick="document.getElementById('oceanicNavFile').click()">Import Navdata</button>
+            <button type="button" class="fpl-copy-btn" style="background:#64748b;" onclick="oceanicForgetNavdata()">Forget Navdata</button>
+            <span id="oceanicNavProgress" class="oceanic-progress-text">Import a ZIP or Waypoints.txt + Navaids.txt.</span>
+          </div>
+          <div class="oceanic-license-note">Use only navigation data you are licensed or otherwise authorised to process. The vNATO suite does not redistribute third-party navdata.</div>
+        </div>
+
+        <div class="oceanic-grid">
+          <div class="calc-form-group">
+            <label for="oceanicCallsign">VATSIM Callsign</label>
+            <input type="text" id="oceanicCallsign" placeholder="e.g. BARTOK31" autocomplete="off" oninput="oceanicSetDirty()">
+          </div>
+          <div class="calc-form-group">
+            <label>FPL Source</label>
+            <div class="oceanic-inline-buttons">
+              <button type="button" class="fpl-copy-btn" onclick="oceanicLoadFromFpl()">Load Current FPL</button>
+              <button type="button" class="fpl-copy-btn" style="background:#64748b;" onclick="oceanicClear()">Clear Flight</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="oceanic-control-row">
+          <button type="button" class="fpl-gen-btn" onclick="oceanicBuildRoute()">Build / Resolve Route</button>
+          <button type="button" class="fpl-gen-btn" id="oceanicConnectBtn" style="background:#16a34a;" onclick="oceanicToggleLive()">Connect VATSIM</button>
+          <span id="oceanicStatus" class="oceanic-status offline">OFFLINE</span>
+        </div>
+
+        <div class="oceanic-live-card">
+          <div class="oceanic-live-title">LIVE AIRCRAFT</div>
+          <div class="oceanic-live-grid">
+            <div><span>Position</span><strong id="oceanicPosition">—</strong></div>
+            <div><span>Altitude</span><strong id="oceanicAltitude">—</strong></div>
+            <div><span>Groundspeed</span><strong id="oceanicGroundspeed">—</strong></div>
+            <div><span>Heading</span><strong id="oceanicHeading">—</strong></div>
+            <div><span>Last VATSIM update</span><strong id="oceanicLastUpdate">—</strong></div>
+          </div>
+        </div>
+
+        <div class="oceanic-route-header">
+          <strong>ROUTE / REPORTING POINTS</strong>
+          <span id="oceanicRouteSummary">No route loaded</span>
+        </div>
+        <div id="oceanicRouteTable" class="oceanic-route-table">
+          <div class="oceanic-empty">Load a flight plan to build the Oceanic Report route.</div>
+        </div>
+
+        <div class="oceanic-report-card">
+          <div class="oceanic-route-header">
+            <strong>POSITION REPORT</strong>
+            <button type="button" class="fpl-copy-btn" style="position:static;background:#34a853;" onclick="oceanicCopyReport()">Copy Report</button>
+          </div>
+          <textarea id="oceanicReportOutput" readonly placeholder="Your next oceanic position report will appear here."></textarea>
+        </div>
+
+        <details class="oceanic-help">
+          <summary>V1.1 notes / limitations</summary>
+          <ul>
+            <li>Coordinate fixes such as <code>454901N0013507E</code> are decoded without navdata.</li>
+            <li>Named fixes are resolved locally from imported X-Plane-style <code>Waypoints.txt</code> and <code>Navaids.txt</code> data. ZIP import is supported in modern Chromium browsers.</li>
+            <li>If an identifier has several candidates, the resolver prefers waypoint records and uses surrounding resolved route geometry/current aircraft position to choose the most plausible candidate.</li>
+            <li>Unknown military/OAT points can be saved as vNATO custom fixes with the <b>Set Fix</b> action; they are retained in this browser.</li>
+            <li>Live position comes from the public VATSIM Data API and is polled about every 15 seconds. Crossing time is interpolated between consecutive network positions.</li>
+          </ul>
+        </details>
       </div>
     </div>
 
@@ -1873,6 +1990,7 @@
 <script src="js/generators.js"></script>
 <script src="js/weather.js"></script>
 <script src="js/calculators.js"></script>
+<script src="js/oceanic.js"></script>
 <script src="js/footer.js"></script>
 
 <!-- ============================================================================ -->
@@ -2031,7 +2149,11 @@ function saveFlightProfile() {
     trans: document.getElementById('icaoTrans')?.value,
     reg: document.getElementById('icaoReg')?.value,
     opr: document.getElementById('icaoOpr')?.value,
-    fuel: document.getElementById('icaoFuel')?.value
+    fuel: document.getElementById('icaoFuel')?.value,
+    dof: document.getElementById('dof')?.value,
+    equipCustom: document.getElementById('icaoEquipCustom')?.value,
+    vfrInsertMode: document.getElementById('icaoVfrInsertMode')?.value,
+    ifrInsertMode: document.getElementById('icaoIfrInsertMode')?.value
   };
 
   let profiles = JSON.parse(localStorage.getItem('vnato_flight_profiles') || '{}');
@@ -2085,6 +2207,10 @@ function loadFlightProfile(name) {
   if (document.getElementById('icaoReg')) document.getElementById('icaoReg').value = p.reg || '';
   if (document.getElementById('icaoOpr')) document.getElementById('icaoOpr').value = p.opr || '';
   if (document.getElementById('icaoFuel')) document.getElementById('icaoFuel').value = p.fuel || '';
+  if (document.getElementById('dof')) document.getElementById('dof').value = p.dof || '';
+  if (document.getElementById('icaoEquipCustom')) document.getElementById('icaoEquipCustom').value = p.equipCustom || '';
+  if (document.getElementById('icaoVfrInsertMode')) document.getElementById('icaoVfrInsertMode').value = p.vfrInsertMode || 'AFTER';
+  if (document.getElementById('icaoIfrInsertMode')) document.getElementById('icaoIfrInsertMode').value = p.ifrInsertMode || 'AFTER';
 
   alert(`Profile "${name}" loaded into dispatch form.`);
 }
@@ -2137,6 +2263,7 @@ function parseUrlQueryParameters() {
   if (urlParams.has('route') && document.getElementById('icaoRoute')) document.getElementById('icaoRoute').value = urlParams.get('route');
 }
 </script>
+<script src="js/v52.js?v=52"></script>
 
 <!-- ============================================================================ -->
 <!-- SECTION: PROFILE MANAGEMENT MODAL POPUP HTML                                 -->
