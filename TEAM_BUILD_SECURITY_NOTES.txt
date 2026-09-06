@@ -1,1 +1,0 @@
-V5.7.15 TEAM LIVE hardened runtime package. Public client-side code is obfuscated/encoded as a deterrent only. Do not place secrets in browser code.
