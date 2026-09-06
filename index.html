@@ -1811,54 +1811,149 @@
         <tr><td>RMK ordering</td><td>Structured Item 18 values are serialized before final RMK so remarks do not swallow later indicators.</td><td>Include the complete generated FPL in any defect report.</td></tr>
       </tbody></table></div>
       <h3 class="guide-section-title">Best Tester Report</h3>
-      <div class="guide-report-template"><b>BUILD:</b> V5.4<br><b>GENERATED ICAO FPL:</b> [paste exact output]<br><b>EXPECTED:</b> [what should happen]<br><b>ACTUAL:</b> [what happened]<br><b>VATSIM MESSAGE:</b> [exact parser/import text if present]<br><b>SCREENSHOT:</b> [attach the resulting form]</div>
+      <div class="guide-report-template"><b>BUILD:</b> V5.5<br><b>GENERATED ICAO FPL:</b> [paste exact output]<br><b>EXPECTED:</b> [what should happen]<br><b>ACTUAL:</b> [what happened]<br><b>VATSIM MESSAGE:</b> [exact parser/import text if present]<br><b>SCREENSHOT:</b> [attach the resulting form]</div>
       <div class="guide-actions"><button type="button" class="guide-action" onclick="toggleManualView('flightPlanningGuide')">Flight Planning Guide</button></div>
     </div>
 
     <!-- ======================================================================== -->
-    <!-- SUB-SECTION: MANUAL VIEW 2 - OAT OPERATIONAL GUIDE                       -->
+    <!-- V5.5 GUIDE: OAT / MIL OPS INTELLIGENCE                                  -->
     <!-- ======================================================================== -->
-    <div id="oatGuideBody" class="sub-manual-content" style="display:none;">
-      <div style="background: #fffdf0; border-left: 4px solid #f59e0b; border-top: 1px solid #fef3c7; border-right: 1px solid #fef3c7; border-bottom: 1px solid #fef3c7; padding: 10px 14px; font-size: 12px; color: #334155; line-height: 1.5; margin-bottom: 16px; border-radius: 0 4px 4px 0;">
-        <b>Operational Disclaimer:</b> This software and manual are proprietary assets of <b>Virtual NATO</b> (re-established in 2017) and are designed exclusively for simulated virtual aviation environments (such as VATSIM). Distribution outside Virtual NATO or without express authorization from vCMC & vDCMC is strictly prohibited. This tool must <b>never</b> be used for real-world flight planning, navigation, or operational dispatch.
+    <div id="oatGuideBody" class="sub-manual-content guide-page" style="display:none;">
+      <div class="guide-hero milops">
+        <div><span class="guide-kicker">V5.5 COUNTRY-AWARE GUIDE</span><h2>OAT / Military Operations</h2><p>Country-specific planning guidance for France, Germany and the United Kingdom, separated from common ICAO/iOAT concepts so national procedures are not silently merged.</p></div>
+        <div class="guide-hero-badge">OAT</div>
+      </div>
+      <div class="guide-callout warning"><b>Simulator use only.</b> The material below is an operational training summary derived from the supplied vNATO / EUROCONTROL reference documents and adapted for the suite. It is not a replacement for current real-world AIP/MilAIP publications.</div>
+      <div class="guide-callout info"><b>Source-integrity rule:</b> when two supplied documents differ, V5.5 shows the difference instead of silently choosing one. Country guidance is therefore version-labelled.</div>
+
+      <div class="milops-tabs" role="tablist" aria-label="OAT guide sections">
+        <button type="button" class="milops-tab active" data-milops-tab="general" onclick="showMilOpsTab('general',this)">GENERAL</button>
+        <button type="button" class="milops-tab" data-milops-tab="france" onclick="showMilOpsTab('france',this)">FRANCE</button>
+        <button type="button" class="milops-tab" data-milops-tab="germany" onclick="showMilOpsTab('germany',this)">GERMANY</button>
+        <button type="button" class="milops-tab" data-milops-tab="uk" onclick="showMilOpsTab('uk',this)">UNITED KINGDOM</button>
+        <button type="button" class="milops-tab" data-milops-tab="missions" onclick="showMilOpsTab('missions',this)">MISSION TYPES</button>
+        <button type="button" class="milops-tab" data-milops-tab="rtf" onclick="showMilOpsTab('rtf',this)">RTF & PROCEDURES</button>
       </div>
 
-      <h2>1. Introduction & Regulatory Context</h2>
-      <p>Operational Air Traffic (OAT) flight planning governs military and state-configured aircraft operations, requiring strict adherence to national Aeronautical Information Publication (AIP) standards and virtual network (such as VATSIM) filing rules. Because live pre-file systems automatically reject tactical flight rules (<code>T</code>), flights must utilize a safe fallback framework (<code>I</code> for IFR or <code>Z</code> for hybrid rules) while preserving OAT routing rules inside the main route string and Item 18 remarks.</p>
+      <section class="milops-pane active" data-milops-pane="general">
+        <h3 class="guide-section-title">Common Planning Architecture</h3>
+        <div class="guide-flow"><span>MISSION</span><b>→</b><span>COUNTRY</span><b>→</b><span>FLIGHT RULES</span><b>→</b><span>ITEM 15</span><b>→</b><span>STAY / TRANSFERS</span><b>→</b><span>ITEM 18</span><b>→</b><span>VATSIM CHECK</span></div>
+        <div class="guide-card-grid three">
+          <div class="guide-card"><h4>OAT I</h4><p>Instrument OAT / controlled military routing. Use country guidance for route composition and transition points.</p></div>
+          <div class="guide-card"><h4>OAT V</h4><p>Visual OAT / low-level operations. Significant turns, speed/altitude changes and working areas remain explicit in the route.</p></div>
+          <div class="guide-card"><h4>OAT Tactical</h4><p>Mission phases that cannot be executed simply as OAT I or OAT V. France explicitly documents OAT T and RTBA as tactical.</p></div>
+          <div class="guide-card"><h4>Mixed GAT/OAT</h4><p>Use GAT/OAT transition keywords at the actual change point. Y/Z describes the relevant flight-rule sequence where applicable.</p></div>
+          <div class="guide-card"><h4>STAY / STAYINFO</h4><p><code>STAYx/HHMM</code> belongs in Item 15; the corresponding <code>STAYINFOx/</code> carries the activity details in Item 18.</p></div>
+          <div class="guide-card"><h4>Special Handling</h4><p>STS, PBN, NAV, DOF, REG, OPR, PER, ORGN, COM and RMK remain structured Item 18 data. Do not advertise capabilities not simulated.</p></div>
+        </div>
 
-      <h2>2. Country-Specific Routing & Remark Standards</h2>
-      <div style="background: rgba(0, 114, 206, 0.08); border: 1px solid rgba(0, 114, 206, 0.2); border-radius: 6px; padding: 14px 16px;">
-        <ul style="margin: 0; padding-left: 20px;">
-          <li><b>France (DGAC / DIRCAM):</b> The route string must <b>never</b> start with the term "OAT". However, active OAT phases must be declared by placing <code>RMK/OAT</code> at the beginning of the Item 18 remarks field.</li>
-        </ul>
-        <hr style="border: none; border-top: 1px solid rgba(0, 114, 206, 0.2); margin: 12px 0;">
-        <ul style="margin: 0; padding-left: 20px;">
-          <li><b>Germany (BMVg / Luftwaffe):</b> The route string <b>must start with "OAT"</b> followed by a space. Remarks do not require the OAT prefix (using standard tags like <code>RMK/VIRTUALNATO.ORG</code>), and airspace blocks follow structured formats (e.g., <code>EDR208 308 1600 1700 FL100 FL350 FOR TRAINING</code>) alongside standard fuel endurance parameters (<code>FUEL0200</code>).</li>
-        </ul>
-        <hr style="border: none; border-top: 1px solid rgba(0, 114, 206, 0.2); margin: 12px 0;">
-        <ul style="margin: 0; padding-left: 20px;">
-          <li><b>United Kingdom (RAF / MilAIP):</b> The route string <b>must start with "OAT"</b> followed by a space. Operations incorporate specialized national infrastructure including <b>Radar Corridors</b> (e.g., <code>LICHFIELD RC</code>, <code>DAVENTRY RC</code>), <b>Low-Flying Areas</b> (e.g., <code>LFA7</code>), and specific <code>STAYINFO</code> tags.</li>
-        </ul>
-      </div>
+        <h3 class="guide-section-title">Country Source Status</h3>
+        <div class="guide-table-wrap"><table class="guide-table"><thead><tr><th>Country</th><th>Primary supplied source</th><th>V5.5 treatment</th></tr></thead><tbody>
+          <tr><td><b>France</b></td><td>OAT Flight Plan Support Guide — 26 AUG 2026</td><td><span class="source-chip current">CURRENT SUPPLIED</span> Used as the primary France reference.</td></tr>
+          <tr><td><b>Germany</b></td><td>vNATO Germany guide — 10 NOV 2024 + EUROCONTROL iOAT workshop — 23 JAN 2025</td><td><span class="source-chip review">VERSION SPLIT</span> Differences are displayed; no silent reconciliation.</td></tr>
+          <tr><td><b>United Kingdom</b></td><td>OAT Flight Plan Support Guide — JAN 2025 + UK RTF / TACAN / Radar Corridor references</td><td><span class="source-chip current">SUPPLIED SET</span> Used for UK-specific training guidance.</td></tr>
+        </tbody></table></div>
 
-      <h2>3. Route Construction & Formatting Rules</h2>
-      <ul>
-        <li><b>No Airfield ICAOs in Route:</b> Never insert departure or destination airfield ICAO codes inside the middle of a route string.</li>
-        <li><b>Space-Separated Syntax:</b> Chronological waypoints, radar corridors, and transition descriptors must be separated by single spaces.</li>
-        <li><b>STAY Segment Sequence:</b> Low-Flying Areas, Air Refueling tracks (AAR), or working blocks require a <code>STAYX/HHMM</code> entry attached to their waypoint in the route, paired with matching <code>STAYINFOx/</code> remarks.</li>
-      </ul>
+        <h3 class="guide-section-title">iOAT Context</h3>
+        <p class="guide-copy">The supplied EUROCONTROL workshop describes iOAT as a harmonised military ATM flight-plan structure. Its pure-iOAT example uses normal Item 15 route syntax with <code>STAY</code>, while Item 18 includes <code>EUR/OAT</code>, PBN/NAV and <code>RMK/OAT</code>. Its mixed example places <code>GAT</code> and <code>OAT</code> inside Item 15 at transition points.</p>
+        <div class="guide-code">PURE iOAT CONCEPT<br>M085F070 ... STAY1/0050 ...<br>STS/NONRVSM PBN/B2B5 EUR/OAT NAV/GPS RMK/OAT ... STAYINFO1/...</div>
+        <div class="guide-code">MIXED iOAT/GAT CONCEPT<br>... MEDIL GAT N872 ... NVO OAT Y841 ...</div>
+      </section>
 
-      <h2>4. Tactical Flight Scenarios & Examples</h2>
-      <h3>OAT IFR — Ferry / Liaison Flight & Radar Corridors</h3>
-      <p><b>Route Example:</b> <code>CGY LICHFIELD RC LFA7 STAY1/0015 DCT CGY</code></p>
+      <section class="milops-pane" data-milops-pane="france">
+        <div class="country-head"><span class="country-flag">FR</span><div><h3>France — DGAC / DIRCAM-adapted vNATO guidance</h3><small>Primary supplied source: 26 AUG 2026 — replaces older copy.</small></div></div>
+        <div class="guide-callout info"><b>Key V5.5 correction:</b> the current supplied France guide states that a flight departing in OAT does <b>not</b> place <code>OAT</code> at the beginning of Item 15. OAT/GAT keywords are inserted at traffic-type change points.</div>
+        <div class="guide-card-grid two">
+          <div class="guide-card"><h4>OAT IFR / FRA</h4><p>France's guide notes that the former ITI concept has been removed with FRA. Plan through a reduced set of suitable waypoints and do not place departure/destination aerodrome ICAOs inside the route.</p><div class="guide-code">SDI DCT CHP01 DCT MAR01 DCT MAR02 DCT MAR04 DCT HYE</div></div>
+          <div class="guide-card"><h4>OAT VFR</h4><p>Use chronological significant points and attach new speed/altitude data where conditions change. The guide instructs pilots to put OAT identification in RMK when at least one phase is CAM/OAT.</p><div class="guide-code">AVD DCT 471034N0030041E N0350A015 ...</div></div>
+          <div class="guide-card"><h4>OAT Tactical</h4><p>France defines OAT T for missions that cannot be executed simply as OAT I or OAT V. Tactical phases may be flown in visual or instrument conditions and are recorded in the plan.</p></div>
+          <div class="guide-card"><h4>Mixed OAT / GAT</h4><p>Place the change at the relevant waypoint. The current France guide gives <code>GAT</code>/<code>OAT</code> transition syntax and requires the mixed status to be amplified in RMK.</p><div class="guide-code">SURUD/GAT N350F115 ...<br>SOTAK/OAT I M080F235 ...</div></div>
+        </div>
+        <h3 class="guide-section-title">RTBA Mission</h3>
+        <p class="guide-copy">The supplied 2026 France guide classifies RTBA sorties as OAT Tactical. <code>STAYx</code> and matching <code>STAYINFOx</code> are mandatory for the RTBA mission example.</p>
+        <div class="mission-example-grid">
+          <div><small>ITEM 15</small><code>MDM DCT M1 N0450A005 STAY1/0045 AVD</code></div>
+          <div><small>ITEM 18 ACTIVITY</small><code>STAYINFO1/MA01 AT 1410 SPARE AT 1415</code></div>
+        </div>
+        <div class="guide-callout warning"><b>RTBA operating note from supplied training guide:</b> the RTBA reference contains qualification, separation, speed, squawk and reporting-point procedures. Treat those as mission-training procedures, not generic ICAO flight-plan syntax.</div>
+        <h3 class="guide-section-title">Working Areas / AAR / AEW</h3>
+        <div class="guide-code">ITR DCT MGO04 DCT PCT34 M064F230 STAY1/0200 ...<br>STAYINFO1/AR ON CECILE IN TRA34 FROM 1030 TO 1230</div>
+      </section>
 
-      <h3>OAT VFR — Low-Level Navigation & Low-Flying Areas (LFA)</h3>
-      <p><b>Route Example:</b> <code>CGY/MID07S LICHFIELD RC LFA7 STAY1/0020 DCT LCH RC DCT CGY</code></p>
-      <p><b>Remarks Example:</b> <code>STAYINFO1/LFA7 LOWAT DELAY 0020</code></p>
+      <section class="milops-pane" data-milops-pane="germany">
+        <div class="country-head"><span class="country-flag">DE</span><div><h3>Germany — vNATO legacy guide + iOAT transition context</h3><small>Supplied sources: 10 NOV 2024 national vNATO guide; EUROCONTROL workshop 23 JAN 2025.</small></div></div>
+        <div class="guide-callout warning"><b>Version conflict detected:</b> the 10 NOV 2024 Germany vNATO guide says to start the route with <code>OAT</code>. The later EUROCONTROL iOAT pure-flight example does not; instead it uses <code>EUR/OAT</code> and <code>RMK/OAT</code> in Item 18. V5.5 therefore does <b>not</b> label the older route-prefix rule as current iOAT doctrine.</div>
+        <div class="guide-card-grid two">
+          <div class="guide-card"><h4>Legacy national guide</h4><p>Chronological OAT routing uses DCT and records transfer points, level/type/speed changes. The supplied 2024 guide contains detailed German working-area formats.</p></div>
+          <div class="guide-card"><h4>iOAT example</h4><p>The 2025 workshop's pure iOAT example contains STAY in Item 15 and <code>EUR/OAT</code>, PBN/NAV, <code>RMK/OAT</code> and STAYINFO in Item 18.</p></div>
+        </div>
+        <h3 class="guide-section-title">German STAYINFO Patterns from Supplied Guide</h3>
+        <div class="guide-card-grid two">
+          <div class="guide-card"><h4>Training airspace</h4><div class="guide-code">STAYINFO1/EDR208 308 1600 1700 FL100 FL350 FOR TRAINING</div></div>
+          <div class="guide-card"><h4>AAR</h4><div class="guide-code">STAYINFO1/GRETCHEN ANCHOR 1900 0000 FL240 FOR AAR WITH LAGER11</div></div>
+          <div class="guide-card"><h4>Low altitude</h4><div class="guide-code">STAYINFO1/EDR166 LANTA ROSTOCK 0000 0000 HEIGHT2500 FL100 FOR LOW ALTITUDE TRAINING CRC</div></div>
+          <div class="guide-card"><h4>Practice approach</h4><div class="guide-code">STAYINFO1/REQ TACAN APCH ETNL 1830 1845</div></div>
+        </div>
+        <h3 class="guide-section-title">High–Low–High Example</h3>
+        <p class="guide-copy">The supplied Germany guide gives an explicit speed/altitude and VFR/IFR transition example for a high-low-high profile:</p>
+        <div class="guide-code">NL127 DCT ETSH/N0450A005 VFR MAG HLZ ETNW/M080F215 IFR DCT CEL BKD DCT LAG</div>
+      </section>
 
-      <h3>Air Refueling (AAR) & Danger Areas</h3>
-      <p><b>Route Example:</b> <code>BZN DCT DAVENTRY RC DCT AARA8 STAY1/0030 DCT DAVENTRY RC DCT BZN</code></p>
-      <p><b>Remarks Example:</b> <code>STAYINFO1/AARAS AAR MARSA/NATO11/ DELAY 0030 1200 TO 1230</code></p>
+      <section class="milops-pane" data-milops-pane="uk">
+        <div class="country-head"><span class="country-flag">UK</span><div><h3>United Kingdom — OAT / MilAIP-adapted vNATO guidance</h3><small>Primary supplied OAT source: JAN 2025, supported by UK TACAN, Radar Corridor and RTF references.</small></div></div>
+        <div class="guide-callout info"><b>Key V5.5 correction:</b> the UK guide's mixed-flight section states that if a flight starts in OAT, do <b>not</b> put <code>OAT</code> at the beginning of Item 15. This replaces the older generic helper statement that UK routes must always start with OAT.</div>
+        <h3 class="guide-section-title">Domestic OAT IFR Planning</h3>
+        <p class="guide-copy">The supplied UK guide tells planners to consider both TACAN routing and Military Radar Corridors. Outside controlled airspace, the most direct routing should be sought.</p>
+        <div class="guide-card-grid two">
+          <div class="guide-card"><h4>TACAN Routes</h4><p>The route identifier such as <code>TB1</code> should not normally be written in Item 15; use the points along the route. The guide says TR identifiers may optionally be included.</p><div class="guide-code">VYL WD8 LSM</div></div>
+          <div class="guide-card"><h4>Radar Corridors</h4><p>Use the full corridor name where applicable, and identify its entry/exit structure during planning.</p><div class="guide-code">CGY LICHFIELD RC LFA7 STAY1/0015</div></div>
+        </div>
+        <h3 class="guide-section-title">UK Radar Corridor Reference</h3>
+        <div class="guide-table-wrap"><table class="guide-table"><thead><tr><th>Corridor</th><th>Supplied reference level</th><th>Training note</th></tr></thead><tbody>
+          <tr><td>Lichfield</td><td>FL140</td><td>Lincolnshire ↔ Mid Wales; supplied controller guide says minimum 5-minute contact before entry.</td></tr>
+          <tr><td>Daventry</td><td>FL100</td><td>East Anglia ↔ South Wales; supplied guide calls for FPL Remarks and as much notice as possible.</td></tr>
+          <tr><td>Westcott</td><td>FL230 / FL240</td><td>Westcott / Terminal Control Area.</td></tr>
+          <tr><td>Swindon</td><td>FL230 / FL240</td><td>Swindon / West TCA.</td></tr>
+          <tr><td>Gamston</td><td>FL190</td><td>Lincolnshire ↔ Vale of York / North Sea.</td></tr>
+          <tr><td>Tilni</td><td>FL190</td><td>Spadeadam ↔ Vale of York; minimum 5-minute notice in supplied guide.</td></tr>
+          <tr><td>Dean Cross</td><td>FL190</td><td>West Scotland ↔ Spadeadam.</td></tr>
+        </tbody></table></div>
+        <h3 class="guide-section-title">Low Flying Area (LFA)</h3>
+        <div class="mission-example-grid"><div><small>ITEM 15</small><code>CGY/MID07S LICHFIELD RC LFA7 STAY1/0020 DCT LCH RC DCT CGY</code></div><div><small>ITEM 18 ACTIVITY</small><code>STAYINFO1/LFA7 LOWAT DELAY0020</code></div></div>
+        <h3 class="guide-section-title">AAR / AEW</h3>
+        <div class="guide-code">BZN DCT DAVENTRY RC DCT AARA8 STAY1/0030 DCT DAVENTRY RC DCT BZN<br>STAYINFO1/AARA8 AAR MARSA/NATO11/NATO12/NATO13 ...</div>
+      </section>
+
+      <section class="milops-pane" data-milops-pane="missions">
+        <h3 class="guide-section-title">Mission Type Matrix</h3>
+        <div class="guide-table-wrap"><table class="guide-table"><thead><tr><th>Mission</th><th>Typical planning feature</th><th>Country notes from supplied manuals</th></tr></thead><tbody>
+          <tr><td>Ferry / Liaison</td><td>OAT IFR, direct or country network routing</td><td>France uses FRA-style reduced waypoints; UK considers TACAN/RC; Germany legacy guide contains OAT route/off-route methods.</td></tr>
+          <tr><td>Low Level</td><td>OAT V / tactical, explicit speed-altitude changes</td><td>France RTBA / low-level points; UK LFA; Germany NLFS / EDR examples.</td></tr>
+          <tr><td>AAR / AEW</td><td>STAY + STAYINFO activity block</td><td>All supplied national material contains working-area/orbit examples.</td></tr>
+          <tr><td>TRA / TSA / Danger Area</td><td>Area point + duration + activity details</td><td>France and Germany provide structured STAYINFO examples; UK includes Danger Area examples.</td></tr>
+          <tr><td>RTBA</td><td>OAT Tactical + mandatory STAY/STAYINFO</td><td>France-specific supplied RTBA material.</td></tr>
+          <tr><td>Mixed GAT/OAT</td><td>Transition keyword at change point + RMK amplification</td><td>France and UK supplied guides explicitly document this; EUROCONTROL iOAT presentation shows mixed Item 15 GAT/OAT transitions.</td></tr>
+          <tr><td>Practice Approaches</td><td>Country-specific request / STAYINFO format where applicable</td><td>Germany supplied guide gives <code>REQ TACAN APCH</code> example; UK RTF guide covers PAR/ILS/TACAN phraseology.</td></tr>
+        </tbody></table></div>
+        <div class="guide-callout info"><b>Generator principle:</b> mission selection should suggest fields and validation rules, not silently invent tactical details. The pilot remains responsible for selecting the correct route, area, duration and simulated capabilities.</div>
+      </section>
+
+      <section class="milops-pane" data-milops-pane="rtf">
+        <h3 class="guide-section-title">UK Military RTF Quick Index</h3>
+        <p class="guide-copy">The supplied UK RTF guide is complementary to NATO STANAG 3817 and military phraseology elements from CAP 413. V5.5 exposes its training structure as a quick reference index rather than reproducing the complete manual.</p>
+        <div class="rtf-phase-grid">
+          <span>START UP</span><span>TAXI</span><span>CLEARANCE</span><span>TAKE OFF</span><span>VFR CIRCUITS</span><span>JOINING</span><span>IFR RECOVERY</span><span>ILS</span><span>PAR</span><span>LOW LEVEL</span><span>MIL MISSED APPROACH</span><span>TRAIL</span><span>FORMATION</span><span>TACAN</span><span>SUPERSONIC</span><span>RANGE</span><span>SPECIAL USE AIRSPACE</span>
+        </div>
+        <h3 class="guide-section-title">Radar Corridor Training Reminder</h3>
+        <p class="guide-copy">The supplied VATSIM UK corridor guide describes seven corridors used to transit civilian airspace and access training areas. It includes controller coordination and prior-notice expectations. Because that document is dated 2012, V5.5 labels it as a <b>historical/simulation reference</b>, not a current real-world authority.</p>
+        <h3 class="guide-section-title">Military Airfield Colour State</h3>
+        <div class="guide-callout warning"><b>Source discrepancy detected:</b> the supplied colour-state PDF's text table and its chart do not agree on the YLO2 cloud-ceiling threshold. V5.5 therefore does not automate a colour-state calculator yet. The reference can be displayed, but an automatic result should wait until the intended YLO2 threshold is confirmed.</div>
+        <div class="guide-table-wrap"><table class="guide-table"><thead><tr><th>State</th><th>Visibility shown in supplied table</th><th>Cloud ceiling shown in supplied table</th></tr></thead><tbody>
+          <tr><td>BLU+</td><td>8000 m</td><td>No BKN/OVC below 20000 ft</td></tr><tr><td>BLU</td><td>8000 m</td><td>At least 2500 ft</td></tr><tr><td>WHT</td><td>5000 m</td><td>At least 1500 ft</td></tr><tr><td>GRN</td><td>3700 m</td><td>At least 700 ft</td></tr><tr><td>YLO1</td><td>1600 m</td><td>At least 500 ft</td></tr><tr><td>YLO2</td><td>1600 m</td><td><b>Source conflict: table says 1600 ft; chart shows 300 ft</b></td></tr><tr><td>AMB</td><td>800 m</td><td>At least 800 ft in table; chart visually differs</td></tr><tr><td>RED</td><td>&lt;800 m</td><td>&lt;200 ft</td></tr><tr><td>BLACK</td><td>—</td><td>Aerodrome unavailable for non-weather reason</td></tr>
+        </tbody></table></div>
+      </section>
+
+      <div class="guide-actions"><button type="button" class="guide-action" onclick="toggleManualView('flightPlanningGuide')">ICAO Flight Planning</button><button type="button" class="guide-action secondary" onclick="toggleManualView('vatsimCompatGuide')">VATSIM Compatibility</button></div>
     </div>
 
     <!-- ======================================================================== -->
@@ -2313,10 +2408,11 @@
 <!-- ============================================================================ -->
 <!-- SECTION: MASTER INLINE JAVASCRIPT & EVENT HANDLERS                           -->
 <!-- ============================================================================ -->
-<script src="js/master-inline.obf.js?v=54"></script>
+<script src="js/master-inline.obf.js?v=55"></script>
 <script src="js/v52.js?v=52"></script>
 <script src="js/v53.js?v=53"></script>
 <script src="js/v54.js?v=54"></script>
+<script src="js/v55.js?v=55"></script>
 
 <!-- ============================================================================ -->
 <!-- SECTION: PROFILE MANAGEMENT MODAL POPUP HTML                                 -->
