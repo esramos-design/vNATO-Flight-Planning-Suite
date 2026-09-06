@@ -1,8 +1,10 @@
-vNATO Flight Planning Suite V5.5 TEAM / LIVE
+vNATO Flight Planning Suite V5.6 TEAM / LIVE
 
-PUBLIC RUNTIME PACKAGE.
+PUBLIC RUNTIME PACKAGE
+- Complete runtime package for the public GitHub / Cloudflare Pages tester site.
 - JavaScript is obfuscated as a copy/reverse-engineering deterrent.
-- No source maps.
-- Development documentation and regression tests are intentionally excluded.
-- Obfuscation is not cryptographic protection and must not be treated as secret storage.
+- No source maps, tests, audit files, source docs or changelogs are included.
+- Obfuscation is not cryptographic protection and is not secret storage.
 - Deploy this package as a complete replacement. Never mix individual files with ALPHA MASTER.
+
+Release: V5.6 — Contextual Help & Field Intelligence — 06 SEP 2026

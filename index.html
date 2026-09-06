@@ -1811,7 +1811,7 @@
         <tr><td>RMK ordering</td><td>Structured Item 18 values are serialized before final RMK so remarks do not swallow later indicators.</td><td>Include the complete generated FPL in any defect report.</td></tr>
       </tbody></table></div>
       <h3 class="guide-section-title">Best Tester Report</h3>
-      <div class="guide-report-template"><b>BUILD:</b> V5.5<br><b>GENERATED ICAO FPL:</b> [paste exact output]<br><b>EXPECTED:</b> [what should happen]<br><b>ACTUAL:</b> [what happened]<br><b>VATSIM MESSAGE:</b> [exact parser/import text if present]<br><b>SCREENSHOT:</b> [attach the resulting form]</div>
+      <div class="guide-report-template"><b>BUILD:</b> V5.6<br><b>GENERATED ICAO FPL:</b> [paste exact output]<br><b>EXPECTED:</b> [what should happen]<br><b>ACTUAL:</b> [what happened]<br><b>VATSIM MESSAGE:</b> [exact parser/import text if present]<br><b>SCREENSHOT:</b> [attach the resulting form]</div>
       <div class="guide-actions"><button type="button" class="guide-action" onclick="toggleManualView('flightPlanningGuide')">Flight Planning Guide</button></div>
     </div>
 
@@ -1820,11 +1820,11 @@
     <!-- ======================================================================== -->
     <div id="oatGuideBody" class="sub-manual-content guide-page" style="display:none;">
       <div class="guide-hero milops">
-        <div><span class="guide-kicker">V5.5 COUNTRY-AWARE GUIDE</span><h2>OAT / Military Operations</h2><p>Country-specific planning guidance for France, Germany and the United Kingdom, separated from common ICAO/iOAT concepts so national procedures are not silently merged.</p></div>
+        <div><span class="guide-kicker">V5.6 COUNTRY-AWARE GUIDE</span><h2>OAT / Military Operations</h2><p>Country-specific planning guidance for France, Germany and the United Kingdom, separated from common ICAO/iOAT concepts so national procedures are not silently merged.</p></div>
         <div class="guide-hero-badge">OAT</div>
       </div>
       <div class="guide-callout warning"><b>Simulator use only.</b> The material below is an operational training summary derived from the supplied vNATO / EUROCONTROL reference documents and adapted for the suite. It is not a replacement for current real-world AIP/MilAIP publications.</div>
-      <div class="guide-callout info"><b>Source-integrity rule:</b> when two supplied documents differ, V5.5 shows the difference instead of silently choosing one. Country guidance is therefore version-labelled.</div>
+      <div class="guide-callout info"><b>Source-integrity rule:</b> when two supplied documents differ, V5.6 shows the difference instead of silently choosing one. Country guidance is therefore version-labelled.</div>
 
       <div class="milops-tabs" role="tablist" aria-label="OAT guide sections">
         <button type="button" class="milops-tab active" data-milops-tab="general" onclick="showMilOpsTab('general',this)">GENERAL</button>
@@ -1848,7 +1848,7 @@
         </div>
 
         <h3 class="guide-section-title">Country Source Status</h3>
-        <div class="guide-table-wrap"><table class="guide-table"><thead><tr><th>Country</th><th>Primary supplied source</th><th>V5.5 treatment</th></tr></thead><tbody>
+        <div class="guide-table-wrap"><table class="guide-table"><thead><tr><th>Country</th><th>Primary supplied source</th><th>V5.6 treatment</th></tr></thead><tbody>
           <tr><td><b>France</b></td><td>OAT Flight Plan Support Guide — 26 AUG 2026</td><td><span class="source-chip current">CURRENT SUPPLIED</span> Used as the primary France reference.</td></tr>
           <tr><td><b>Germany</b></td><td>vNATO Germany guide — 10 NOV 2024 + EUROCONTROL iOAT workshop — 23 JAN 2025</td><td><span class="source-chip review">VERSION SPLIT</span> Differences are displayed; no silent reconciliation.</td></tr>
           <tr><td><b>United Kingdom</b></td><td>OAT Flight Plan Support Guide — JAN 2025 + UK RTF / TACAN / Radar Corridor references</td><td><span class="source-chip current">SUPPLIED SET</span> Used for UK-specific training guidance.</td></tr>
@@ -1862,7 +1862,7 @@
 
       <section class="milops-pane" data-milops-pane="france">
         <div class="country-head"><span class="country-flag">FR</span><div><h3>France — DGAC / DIRCAM-adapted vNATO guidance</h3><small>Primary supplied source: 26 AUG 2026 — replaces older copy.</small></div></div>
-        <div class="guide-callout info"><b>Key V5.5 correction:</b> the current supplied France guide states that a flight departing in OAT does <b>not</b> place <code>OAT</code> at the beginning of Item 15. OAT/GAT keywords are inserted at traffic-type change points.</div>
+        <div class="guide-callout info"><b>Key V5.6 guidance:</b> the current supplied France guide states that a flight departing in OAT does <b>not</b> place <code>OAT</code> at the beginning of Item 15. OAT/GAT keywords are inserted at traffic-type change points.</div>
         <div class="guide-card-grid two">
           <div class="guide-card"><h4>OAT IFR / FRA</h4><p>France's guide notes that the former ITI concept has been removed with FRA. Plan through a reduced set of suitable waypoints and do not place departure/destination aerodrome ICAOs inside the route.</p><div class="guide-code">SDI DCT CHP01 DCT MAR01 DCT MAR02 DCT MAR04 DCT HYE</div></div>
           <div class="guide-card"><h4>OAT VFR</h4><p>Use chronological significant points and attach new speed/altitude data where conditions change. The guide instructs pilots to put OAT identification in RMK when at least one phase is CAM/OAT.</p><div class="guide-code">AVD DCT 471034N0030041E N0350A015 ...</div></div>
@@ -1882,7 +1882,7 @@
 
       <section class="milops-pane" data-milops-pane="germany">
         <div class="country-head"><span class="country-flag">DE</span><div><h3>Germany — vNATO legacy guide + iOAT transition context</h3><small>Supplied sources: 10 NOV 2024 national vNATO guide; EUROCONTROL workshop 23 JAN 2025.</small></div></div>
-        <div class="guide-callout warning"><b>Version conflict detected:</b> the 10 NOV 2024 Germany vNATO guide says to start the route with <code>OAT</code>. The later EUROCONTROL iOAT pure-flight example does not; instead it uses <code>EUR/OAT</code> and <code>RMK/OAT</code> in Item 18. V5.5 therefore does <b>not</b> label the older route-prefix rule as current iOAT doctrine.</div>
+        <div class="guide-callout warning"><b>Version conflict detected:</b> the 10 NOV 2024 Germany vNATO guide says to start the route with <code>OAT</code>. The later EUROCONTROL iOAT pure-flight example does not; instead it uses <code>EUR/OAT</code> and <code>RMK/OAT</code> in Item 18. V5.6 therefore does <b>not</b> label the older route-prefix rule as current iOAT doctrine.</div>
         <div class="guide-card-grid two">
           <div class="guide-card"><h4>Legacy national guide</h4><p>Chronological OAT routing uses DCT and records transfer points, level/type/speed changes. The supplied 2024 guide contains detailed German working-area formats.</p></div>
           <div class="guide-card"><h4>iOAT example</h4><p>The 2025 workshop's pure iOAT example contains STAY in Item 15 and <code>EUR/OAT</code>, PBN/NAV, <code>RMK/OAT</code> and STAYINFO in Item 18.</p></div>
@@ -1901,7 +1901,7 @@
 
       <section class="milops-pane" data-milops-pane="uk">
         <div class="country-head"><span class="country-flag">UK</span><div><h3>United Kingdom — OAT / MilAIP-adapted vNATO guidance</h3><small>Primary supplied OAT source: JAN 2025, supported by UK TACAN, Radar Corridor and RTF references.</small></div></div>
-        <div class="guide-callout info"><b>Key V5.5 correction:</b> the UK guide's mixed-flight section states that if a flight starts in OAT, do <b>not</b> put <code>OAT</code> at the beginning of Item 15. This replaces the older generic helper statement that UK routes must always start with OAT.</div>
+        <div class="guide-callout info"><b>Key V5.6 guidance:</b> the UK guide's mixed-flight section states that if a flight starts in OAT, do <b>not</b> put <code>OAT</code> at the beginning of Item 15. This replaces the older generic helper statement that UK routes must always start with OAT.</div>
         <h3 class="guide-section-title">Domestic OAT IFR Planning</h3>
         <p class="guide-copy">The supplied UK guide tells planners to consider both TACAN routing and Military Radar Corridors. Outside controlled airspace, the most direct routing should be sought.</p>
         <div class="guide-card-grid two">
@@ -1940,14 +1940,14 @@
 
       <section class="milops-pane" data-milops-pane="rtf">
         <h3 class="guide-section-title">UK Military RTF Quick Index</h3>
-        <p class="guide-copy">The supplied UK RTF guide is complementary to NATO STANAG 3817 and military phraseology elements from CAP 413. V5.5 exposes its training structure as a quick reference index rather than reproducing the complete manual.</p>
+        <p class="guide-copy">The supplied UK RTF guide is complementary to NATO STANAG 3817 and military phraseology elements from CAP 413. V5.6 exposes its training structure as a quick reference index rather than reproducing the complete manual.</p>
         <div class="rtf-phase-grid">
           <span>START UP</span><span>TAXI</span><span>CLEARANCE</span><span>TAKE OFF</span><span>VFR CIRCUITS</span><span>JOINING</span><span>IFR RECOVERY</span><span>ILS</span><span>PAR</span><span>LOW LEVEL</span><span>MIL MISSED APPROACH</span><span>TRAIL</span><span>FORMATION</span><span>TACAN</span><span>SUPERSONIC</span><span>RANGE</span><span>SPECIAL USE AIRSPACE</span>
         </div>
         <h3 class="guide-section-title">Radar Corridor Training Reminder</h3>
-        <p class="guide-copy">The supplied VATSIM UK corridor guide describes seven corridors used to transit civilian airspace and access training areas. It includes controller coordination and prior-notice expectations. Because that document is dated 2012, V5.5 labels it as a <b>historical/simulation reference</b>, not a current real-world authority.</p>
+        <p class="guide-copy">The supplied VATSIM UK corridor guide describes seven corridors used to transit civilian airspace and access training areas. It includes controller coordination and prior-notice expectations. Because that document is dated 2012, V5.6 labels it as a <b>historical/simulation reference</b>, not a current real-world authority.</p>
         <h3 class="guide-section-title">Military Airfield Colour State</h3>
-        <div class="guide-callout warning"><b>Source discrepancy detected:</b> the supplied colour-state PDF's text table and its chart do not agree on the YLO2 cloud-ceiling threshold. V5.5 therefore does not automate a colour-state calculator yet. The reference can be displayed, but an automatic result should wait until the intended YLO2 threshold is confirmed.</div>
+        <div class="guide-callout warning"><b>Source discrepancy detected:</b> the supplied colour-state PDF's text table and its chart do not agree on the YLO2 cloud-ceiling threshold. V5.6 therefore does not automate a colour-state calculator yet. The reference can be displayed, but an automatic result should wait until the intended YLO2 threshold is confirmed.</div>
         <div class="guide-table-wrap"><table class="guide-table"><thead><tr><th>State</th><th>Visibility shown in supplied table</th><th>Cloud ceiling shown in supplied table</th></tr></thead><tbody>
           <tr><td>BLU+</td><td>8000 m</td><td>No BKN/OVC below 20000 ft</td></tr><tr><td>BLU</td><td>8000 m</td><td>At least 2500 ft</td></tr><tr><td>WHT</td><td>5000 m</td><td>At least 1500 ft</td></tr><tr><td>GRN</td><td>3700 m</td><td>At least 700 ft</td></tr><tr><td>YLO1</td><td>1600 m</td><td>At least 500 ft</td></tr><tr><td>YLO2</td><td>1600 m</td><td><b>Source conflict: table says 1600 ft; chart shows 300 ft</b></td></tr><tr><td>AMB</td><td>800 m</td><td>At least 800 ft in table; chart visually differs</td></tr><tr><td>RED</td><td>&lt;800 m</td><td>&lt;200 ft</td></tr><tr><td>BLACK</td><td>—</td><td>Aerodrome unavailable for non-weather reason</td></tr>
         </tbody></table></div>
@@ -2398,21 +2398,23 @@
 <!-- ============================================================================ -->
 <!-- SECTION: JAVASCRIPT MODULE SCRIPTS IMPORT                                    -->
 <!-- ============================================================================ -->
-<script src="js/core.js?v=54"></script>
+<script src="js/build.js?v=56"></script>
+<script src="js/core.js?v=56"></script>
 <script src="js/generators.js"></script>
 <script src="js/weather.js"></script>
 <script src="js/calculators.js"></script>
 <script src="js/oceanic.js"></script>
-<script src="js/footer.js"></script>
+<script src="js/footer.js?v=56"></script>
 
 <!-- ============================================================================ -->
 <!-- SECTION: MASTER INLINE JAVASCRIPT & EVENT HANDLERS                           -->
 <!-- ============================================================================ -->
-<script src="js/master-inline.obf.js?v=55"></script>
+<script src="js/master-inline.obf.js?v=56"></script>
 <script src="js/v52.js?v=52"></script>
 <script src="js/v53.js?v=53"></script>
 <script src="js/v54.js?v=54"></script>
 <script src="js/v55.js?v=55"></script>
+<script src="js/v56.js?v=56"></script>
 
 <!-- ============================================================================ -->
 <!-- SECTION: PROFILE MANAGEMENT MODAL POPUP HTML                                 -->
