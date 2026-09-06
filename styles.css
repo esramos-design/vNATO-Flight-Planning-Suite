@@ -1,0 +1,580 @@
+/* --- DISABLE MOUSE HIGHLIGHTING & TEXT SELECTION --- */
+* { box-sizing: border-box; }
+body {
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif;
+  margin: 0;
+  padding: 20px;
+  background-color: #f0f4f8;
+  color: #1c2d42;
+  line-height: 1.5;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+input, textarea, .wx-raw {
+  -webkit-user-select: text;
+  -moz-user-select: text;
+  -ms-user-select: text;
+  user-select: text;
+}
+
+.fpl-main-layout {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  max-width: 1650px;
+  margin: 0 auto;
+}
+
+/* STACKED LOGO & DUAL-TIME BANNER STYLES */
+.vnato-header-stacked {
+  text-align: center;
+  margin-bottom: 12px;
+  padding-bottom: 10px;
+  border-bottom: 2px solid #0072CE;
+}
+.vnato-logo {
+  max-height: 42px;
+  width: auto;
+  object-fit: contain;
+  margin: 0 auto 8px auto;
+  display: block;
+}
+.header-clock-banner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: #f8fafc;
+  border: 1px solid #cbd5e1;
+  border-radius: 6px;
+  padding: 6px 12px;
+}
+.clock-col {
+  flex: 1;
+  text-align: center;
+}
+.clock-label {
+  display: block;
+  font-size: 8px;
+  font-weight: bold;
+  color: #64748b;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+}
+.clock-time-val {
+  font-family: monospace;
+  font-size: 1.20rem; /* Increase this value slightly if you want them even bigger (e.g., 1.35rem) */
+  font-weight: bold;
+  color: #0072CE;
+  margin-top: 2px;
+}
+.clock-divider {
+  width: 1px;
+  height: 24px;
+  background-color: #cbd5e1;
+  margin: 0 8px;
+}
+
+/* WIDGET STYLES */
+.fpl-container {
+  flex: 1 1 380px;
+  max-width: 440px;
+  background: #ffffff;
+  padding: 18px;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,27,68,0.06);
+  align-self: flex-start;
+  position: sticky;
+  top: 20px;
+}
+.fpl-mode-container {
+  margin-bottom: 14px;
+  padding-bottom: 12px;
+  border-bottom: 2px solid #0072CE;
+}
+.fpl-mode-select {
+  width: 100%;
+  padding: 9px;
+  font-size: 13px;
+  font-weight: bold;
+  color: #002B49;
+  background: #e6f0fa;
+  border: 1px solid #0072CE;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.fpl-tab-content { display: none; }
+.fpl-tab-content.active { display: block; }
+.fpl-section { border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; margin-bottom: 10px; }
+.fpl-container label { display: block; margin-top: 8px; font-weight: bold; font-size: 12px; color: #002B49; }
+.fpl-container select, 
+.fpl-container input[type="text"] { 
+  width: 100%; 
+  padding: 7px; 
+  margin-top: 3px; 
+  font-size: 12px; 
+  border: 1px solid #cbd5e1; 
+  border-radius: 4px; 
+  text-transform: uppercase;
+}
+
+/* MULTI-SELECT CHECKBOX DROPDOWN FOR PBN */
+.pbn-dropdown-container {
+  position: relative;
+  margin-top: 3px;
+}
+.pbn-select-toggle {
+  width: 100%;
+  padding: 7px;
+  font-size: 12px;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  text-align: left;
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+.pbn-dropdown-list {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  max-height: 220px;
+  overflow-y: auto;
+  background: #fff;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+  z-index: 100;
+  padding: 8px;
+}
+.pbn-dropdown-list.show {
+  display: block;
+}
+.pbn-checkbox-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 6px;
+  font-size: 11px;
+  padding: 4px 0;
+  border-bottom: 1px solid #f1f5f9;
+  cursor: pointer;
+}
+.pbn-checkbox-item input {
+  margin-top: 2px;
+}
+
+/* TOOLTIP / HELP ICON STYLES */
+.label-with-help {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 8px;
+}
+.label-with-help label {
+  margin-top: 0 !important;
+}
+.help-icon {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  font-size: 11px;
+  font-weight: bold;
+  font-style: normal;
+  font-family: Arial, sans-serif;
+  color: #0072CE;
+  background: #e6f0fa;
+  border: 1px solid #0072CE;
+  border-radius: 50%;
+  cursor: pointer;
+  user-select: none;
+}
+.help-icon:hover {
+  background: #0072CE;
+  color: #fff;
+}
+.help-text-box {
+  display: none;
+  font-size: 11px;
+  color: #334155;
+  background: #f0f7ff;
+  border-left: 3px solid #0072CE;
+  padding: 6px 8px;
+  margin-top: 4px;
+  margin-bottom: 4px;
+  border-radius: 0 4px 4px 0;
+}
+.help-text-box.show {
+  display: block;
+}
+
+.checkbox-group {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+.checkbox-group input[type="checkbox"] { width: auto; margin: 0; }
+.checkbox-group label { margin: 0; font-weight: normal; color: #334155; }
+
+.fpl-gen-btn {
+  margin-top: 12px;
+  width: 100%;
+  padding: 11px;
+  background: #0072CE;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 13px;
+  transition: background 0.2s;
+}
+.fpl-gen-btn:hover { background: #005bb5; }
+.fpl-textarea-container { position: relative; margin-top: 10px; }
+.fpl-container textarea {
+  width: 100%;
+  height: 120px;
+  font-family: monospace;
+  font-size: 11px;
+  padding: 8px;
+  resize: vertical;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  background: #f8fafc;
+  white-space: pre-wrap !important;
+  word-break: break-word;
+  text-transform: uppercase;
+}
+.fpl-copy-btn {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  padding: 4px 8px;
+  font-size: 10px;
+  font-weight: bold;
+  background: #10b981;
+  color: white;
+  border: none;
+  border-radius: 3px;
+  cursor: pointer;
+}
+.fpl-copy-btn:hover { background: #059669; }
+
+.widget-meta {
+  margin-top: 16px;
+  padding-top: 10px;
+  border-top: 1px dashed #cbd5e1;
+  font-size: 10px;
+  color: #64748b;
+  text-align: center;
+  line-height: 1.4;
+}
+
+/* DOCUMENTATION & RIGHT PANEL STYLES */
+.docs-container {
+  flex: 2 1 500px;
+  min-width: 0;
+  background: #ffffff;
+  padding: 0;
+  border: 1px solid #cbd5e1;
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0,27,68,0.06);
+  overflow: hidden;
+}
+
+.docs-header {
+  background: #002B49;
+  color: #ffffff;
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 4px solid #0072CE;
+}
+.docs-header h1 {
+  font-size: 20px;
+  color: #ffffff;
+  margin: 0;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+}
+.docs-header img { max-height: 40px; width: auto; }
+
+.right-panel-controls {
+  background: #f1f5f9;
+  padding: 10px 16px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  flex-wrap: wrap;
+  border-bottom: 1px solid #cbd5e1;
+  width: 100%;
+}
+.doc-columns-toggle {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 11px;
+  color: #002B49;
+  flex-wrap: wrap;
+}
+.right-panel-btns {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* CLEAN ICON BUTTON STYLING */
+.action-toggle-btn {
+  background: #ffffff;
+  color: #002B49;
+  border: 1px solid #cbd5e1;
+  padding: 6px 10px;
+  font-size: 10px;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.3px;
+  border-radius: 6px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  white-space: nowrap;
+  transition: all 0.2s ease;
+}
+
+.btn-img-icon {
+  width: 16px !important;
+  height: 16px !important;
+  min-width: 16px;
+  min-height: 16px;
+  object-fit: contain;
+  display: inline-block;
+  vertical-align: middle;
+  filter: drop-shadow(0px 1px 1px rgba(0,0,0,0.15));
+  transition: transform 0.2s ease;
+}
+
+.action-toggle-btn:hover, 
+.action-toggle-btn.active {
+  background: #0072CE;
+  color: #ffffff;
+  border-color: #005bb5;
+  box-shadow: 0 0 8px rgba(0, 114, 206, 0.4);
+}
+
+.action-toggle-btn:hover .btn-img-icon,
+.action-toggle-btn.active .btn-img-icon {
+  transform: scale(1.15);
+  filter: brightness(1.2) drop-shadow(0px 2px 3px rgba(0,0,0,0.3));
+}
+
+.sub-manual-content {
+  padding: 20px !important;
+  margin: 0 !important;
+  background: #ffffff;
+  color: #1c2d42;
+  width: 100%;
+  clear: both;
+}
+.sub-manual-content { display: none; }
+.sub-manual-content.active { display: block; }
+
+.sub-panel-content {
+  padding: 20px;
+  background: #ffffff;
+  color: #1c2d42;
+  width: 100%;
+  clear: both;
+  display: none;
+}
+.sub-panel-content.active { display: block; }
+
+/* WEATHER & CALCULATOR VIEWS */
+.metar-search-box {
+  display: flex;
+  gap: 8px;
+  margin-bottom: 16px;
+}
+.metar-search-box input {
+  flex: 1;
+  padding: 8px;
+  font-size: 13px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  text-transform: uppercase;
+}
+.metar-search-box button {
+  padding: 8px 16px;
+  background: #0072CE;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  font-weight: bold;
+  cursor: pointer;
+}
+.metar-search-box button:hover { background: #005bb5; }
+
+.wx-card {
+  background: #f8fafc;
+  border: 1px solid #e2e8f0;
+  border-radius: 6px;
+  padding: 14px;
+  margin-bottom: 14px;
+}
+.wx-card h3 {
+  margin-top: 0;
+  margin-bottom: 8px;
+  font-size: 14px;
+  color: #002B49;
+  border-bottom: 2px solid #0072CE;
+  padding-bottom: 4px;
+}
+.wx-raw {
+  font-family: monospace;
+  font-size: 12px;
+  background: #ffffff;
+  padding: 8px;
+  border: 1px solid #cbd5e1;
+  border-radius: 4px;
+  white-space: pre-wrap;
+  word-break: break-all;
+}
+
+.calc-form-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+.calc-form-group { display: flex; flex-direction: column; }
+.calc-form-group label { font-weight: bold; font-size: 12px; color: #002B49; margin-bottom: 4px; }
+.calc-form-group input, .calc-form-group select { padding: 8px; font-size: 13px; border: 1px solid #cbd5e1; border-radius: 4px; }
+.calc-results-box { background: #e6f0fa; border: 1px solid #b3d7ff; border-radius: 6px; padding: 16px; }
+.calc-results-box h3 { margin-top: 0; color: #002B49; font-size: 15px; border-bottom: 1px solid #99cbff; padding-bottom: 6px; }
+.calc-result-item { display: flex; justify-content: space-between; margin-bottom: 8px; font-size: 13px; }
+.calc-result-item span:last-child { font-weight: bold; color: #0072CE; font-family: monospace; font-size: 14px; }
+
+.disclaimer-box { background: #fffbe0; border-left: 4px solid #f59e0b; padding: 12px 16px; margin: 16px 0; font-size: 12px; color: #451a03; }
+.disclaimer-box b { color: #002B49; }
+
+@media (max-width: 900px) {
+  body { padding: 10px; }
+  .fpl-main-layout { flex-direction: column; }
+  .fpl-container { max-width: 100%; position: static; }
+  .docs-container { width: 100%; padding: 0; }
+  .calc-form-grid { grid-template-columns: 1fr; }
+}
+
+/* ============================================================================ */
+/* 3. MODAL CSS STYLES: Add this into your existing <style> block or css file */
+/* ============================================================================ */
+body.dark-mode #manageProfilesModal > div {
+  background-color: #1e293b !important;
+  border-color: #334155 !important;
+  color: #f1f5f9 !important;
+}
+body.dark-mode #manageProfilesModal h3 {
+  color: #f8fafc !important;
+}
+body.dark-mode #profilesListContainer {
+  background: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+
+/* OCEANIC REPORT V1 */
+.oceanic-note { font-size: 11px; line-height: 1.45; color: #475569; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 5px; padding: 8px; margin-bottom: 10px; }
+.oceanic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+.oceanic-inline-buttons { display:flex; gap:6px; align-items:center; }
+.oceanic-control-row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:10px; }
+.oceanic-status { display:inline-flex; align-items:center; padding:5px 9px; border-radius:999px; font-size:10px; font-weight:bold; letter-spacing:.5px; }
+.oceanic-status.offline { background:#fee2e2; color:#991b1b; }
+.oceanic-status.connecting { background:#fef3c7; color:#92400e; }
+.oceanic-status.live { background:#dcfce7; color:#166534; }
+.oceanic-status.error { background:#fee2e2; color:#991b1b; }
+.oceanic-live-card { background:#0f172a; color:#fff; border-radius:6px; padding:10px; margin-bottom:12px; }
+.oceanic-live-title { font-size:11px; font-weight:bold; letter-spacing:.6px; margin-bottom:8px; color:#93c5fd; }
+.oceanic-live-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; }
+.oceanic-live-grid div { min-width:0; }
+.oceanic-live-grid span { display:block; font-size:9px; color:#94a3b8; margin-bottom:2px; }
+.oceanic-live-grid strong { display:block; font-family:monospace; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.oceanic-route-header { display:flex; justify-content:space-between; align-items:center; gap:8px; margin:8px 0 6px; color:#002B49; font-size:12px; }
+.oceanic-route-header span { font-size:10px; color:#64748b; font-weight:normal; }
+.oceanic-route-table { border:1px solid #cbd5e1; border-radius:5px; overflow:hidden; background:#fff; }
+.oceanic-row { display:grid; grid-template-columns:36px minmax(150px,1.4fr) 90px 90px 100px 1fr; gap:6px; align-items:center; padding:7px 8px; border-bottom:1px solid #e2e8f0; font-size:10px; }
+.oceanic-row:last-child { border-bottom:0; }
+.oceanic-row.header { background:#f1f5f9; font-weight:bold; color:#475569; font-size:9px; text-transform:uppercase; }
+.oceanic-row.passed { background:#f0fdf4; }
+.oceanic-row.next { background:#eff6ff; }
+.oceanic-row.unresolved { background:#fff7ed; }
+.oceanic-badge { font-size:9px; font-weight:bold; padding:2px 5px; border-radius:4px; display:inline-block; }
+.oceanic-badge.pass { background:#dcfce7; color:#166534; }
+.oceanic-badge.next { background:#dbeafe; color:#1d4ed8; }
+.oceanic-badge.wait { background:#f1f5f9; color:#64748b; }
+.oceanic-badge.warn { background:#ffedd5; color:#9a3412; }
+.oceanic-empty { padding:15px; color:#64748b; text-align:center; font-size:11px; }
+.oceanic-report-card { margin-top:12px; background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:10px; }
+#oceanicReportOutput { width:100%; min-height:72px; resize:vertical; font-family:monospace; font-size:11px; padding:7px; border:1px solid #cbd5e1; border-radius:4px; background:#fff; }
+.oceanic-help { margin-top:10px; font-size:10px; color:#475569; }
+.oceanic-help ul { margin:7px 0 0 18px; padding:0; line-height:1.5; }
+.oceanic-help code { background:#e2e8f0; padding:1px 3px; border-radius:3px; }
+@media (max-width: 850px) { .oceanic-grid,.oceanic-live-grid { grid-template-columns:1fr 1fr; } .oceanic-row { grid-template-columns:30px 1fr 80px 80px; } .oceanic-row > :nth-child(5), .oceanic-row > :nth-child(6) { display:none; } }
+body.dark-mode .oceanic-note { background:#0f2740; border-color:#1d4e89; color:#cbd5e1; }
+body.dark-mode .oceanic-route-table, body.dark-mode #oceanicReportOutput { background:#111827; color:#e5e7eb; border-color:#475569; }
+body.dark-mode .oceanic-row { border-color:#334155; }
+body.dark-mode .oceanic-row.header { background:#1e293b; color:#cbd5e1; }
+body.dark-mode .oceanic-row.passed { background:#10291a; }
+body.dark-mode .oceanic-row.next { background:#0c2744; }
+body.dark-mode .oceanic-row.unresolved { background:#33230f; }
+
+/* OCEANIC REPORT V1.1 NAVDATA EXTENSIONS */
+.oceanic-navdata-card { background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:10px; margin-bottom:12px; }
+.oceanic-nav-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+.oceanic-nav-grid div { min-width:0; background:#fff; border:1px solid #e2e8f0; border-radius:4px; padding:7px; }
+.oceanic-nav-grid span { display:block; font-size:9px; color:#64748b; margin-bottom:2px; }
+.oceanic-nav-grid strong { display:block; font-family:monospace; font-size:11px; color:#002B49; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.oceanic-nav-chip { display:inline-flex; align-items:center; padding:4px 8px; border-radius:999px; font-size:9px !important; font-weight:bold !important; letter-spacing:.4px; }
+.oceanic-nav-chip.empty { background:#e2e8f0; color:#475569 !important; }
+.oceanic-nav-chip.ready { background:#dcfce7; color:#166534 !important; }
+.oceanic-nav-chip.error { background:#fee2e2; color:#991b1b !important; }
+.oceanic-progress-text { font-size:10px; color:#475569; line-height:1.35; }
+.oceanic-license-note { margin-top:7px; font-size:9px; line-height:1.4; color:#64748b; }
+.oceanic-mini-btn { border:1px solid #93c5fd; background:#eff6ff; color:#1d4ed8; font-size:9px; font-weight:bold; padding:2px 5px; border-radius:4px; cursor:pointer; margin-left:5px; }
+.oceanic-mini-btn:hover { background:#dbeafe; }
+.oceanic-mini-btn.danger { border-color:#fecaca; background:#fef2f2; color:#b91c1c; }
+.oceanic-mini-btn.danger:hover { background:#fee2e2; }
+@media (max-width: 850px) { .oceanic-nav-grid { grid-template-columns:1fr 1fr; } }
+body.dark-mode .oceanic-navdata-card { background:#0f172a; border-color:#334155; }
+body.dark-mode .oceanic-nav-grid div { background:#111827; border-color:#334155; }
+body.dark-mode .oceanic-nav-grid strong { color:#e5e7eb; }
+body.dark-mode .oceanic-progress-text, body.dark-mode .oceanic-license-note { color:#94a3b8; }
+
+/* ICAO/VATSIM import audit panel */
+.icao-audit-panel { margin-top: 10px; font-size: 11px; line-height: 1.45; }
+.icao-audit-panel ul { margin: 6px 0 0 18px; padding: 0; }
+.icao-audit-ok, .icao-audit-error, .icao-audit-warn, .icao-audit-neutral { border-radius: 5px; padding: 8px 10px; margin-top: 6px; }
+.icao-audit-ok { background: #ecfdf5; border: 1px solid #86efac; color: #166534; }
+.icao-audit-error { background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; }
+.icao-audit-warn { background: #fffbeb; border: 1px solid #fcd34d; color: #92400e; }
+.icao-audit-neutral { background: #f8fafc; border: 1px solid #cbd5e1; color: #475569; }
+body.dark-mode .icao-audit-ok, body.dark-mode .icao-audit-error, body.dark-mode .icao-audit-warn, body.dark-mode .icao-audit-neutral { color: inherit; }
+
+/* ICAO/VATSIM import audit panel */
+.icao-audit-panel { margin-top: 10px; font-size: 11px; line-height: 1.45; }
+.icao-audit-panel ul { margin: 6px 0 0 18px; padding: 0; }
+.icao-audit-ok, .icao-audit-error, .icao-audit-warn, .icao-audit-neutral { border-radius: 5px; padding: 8px 10px; margin-top: 6px; }
+.icao-audit-ok { background: #ecfdf5; border: 1px solid #86efac; color: #166534; }
+.icao-audit-error { background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; }
+.icao-audit-warn { background: #fffbeb; border: 1px solid #fcd34d; color: #92400e; }
+.icao-audit-neutral { background: #f8fafc; border: 1px solid #cbd5e1; color: #475569; }
