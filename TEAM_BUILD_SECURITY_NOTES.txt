@@ -1,2 +1,0 @@
-vNATO Flight Planning Suite V5.7.6 TEAM LIVE
-Public runtime-only package. JavaScript obfuscated as deterrence. Deploy complete package; never mix with ALPHA MASTER.
