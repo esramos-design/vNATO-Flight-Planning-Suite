@@ -746,3 +746,169 @@ body.dark-mode.night-ops{background:#03110d!important;color:#d9fbe9!important}bo
 body.dark-mode .equip-builder,body.dark-mode .intel-grid article{background:#101f2e;border-color:#2e4c67;color:#dbe8f4}body.dark-mode .equip-chip{background:#0b1825;border-color:#29435b;color:#dbe8f4!important}body.dark-mode .source-status{background:#10283a;color:#ccecff;border-color:#239ad5}body.dark-mode .country-tab{background:#122338;color:#dbe8f4;border-color:#35546f}body.dark-mode .country-tab.active{background:#087fbd}body.dusk-mode .equip-builder,body.dusk-mode .equip-chip{background:#302d2a;color:#eee7dc!important;border-color:#5d5146}body.dusk-mode .source-status{background:#44372b;color:#ffe1b2;border-color:#d4933d}body.dusk-mode .country-tab{background:#3b3733;color:#f4eadc;border-color:#66594e}body.dusk-mode .country-tab.active{background:#c78632;color:#211a14}
 @media(max-width:900px){body{padding:10px 8px calc(76px + env(safe-area-inset-bottom))}.fpl-main-layout{display:block!important}.fpl-container{position:relative!important;top:auto!important;max-width:none!important;width:100%!important;margin-bottom:14px}.docs-container{width:100%!important;max-width:none!important;overflow:visible!important}.sub-manual-content,.sub-panel-content{max-height:none!important;height:auto!important;overflow:visible!important}.right-panel-controls{overflow:visible!important}.mobile-jump{display:flex;position:fixed;z-index:8000;left:50%;transform:translateX(-50%);bottom:calc(8px + env(safe-area-inset-bottom));gap:4px;padding:5px;background:rgba(10,28,43,.92);border:1px solid #3c617e;border-radius:10px;backdrop-filter:blur(8px)}.mobile-jump button{border:0;border-radius:6px;padding:7px 10px;font-size:9px;font-weight:900;background:#fff;color:#12334e}.guide-nav{width:100%;overflow-x:auto;flex-wrap:nowrap!important;padding-bottom:3px}.guide-nav .action-toggle-btn{flex:0 0 auto}.intel-grid{grid-template-columns:1fr}.equip-chip-grid{grid-template-columns:1fr 1fr}}
 @media(max-width:520px){.docs-header{padding:12px}.docs-header h1{font-size:17px}.sub-manual-content,.sub-panel-content{padding:12px!important}.equip-chip-grid{grid-template-columns:1fr}.right-panel-btns{display:grid!important;grid-template-columns:1fr 1fr;width:100%}.right-panel-btns .action-toggle-btn{justify-content:center}.country-tabs{display:grid;grid-template-columns:1fr 1fr}.guide-table-wrap{max-width:100%;overflow-x:auto!important}}
+
+
+/* ========================================================================== */
+/* V5.7.1 — DUSK PALETTE REFINEMENT                                           */
+/* Warm analogous graphite/amber palette with restrained complementary blue.  */
+/* Colour is semantic: amber=primary, blue=info/navigation, green=success,     */
+/* red=destructive/blocking. No generator semantics are changed.              */
+/* ========================================================================== */
+body.dusk-mode {
+  background:#292725 !important;
+  color:#F3EEE6 !important;
+}
+body.dusk-mode .fpl-container,
+body.dusk-mode .docs-container,
+body.dusk-mode .sub-manual-content,
+body.dusk-mode .sub-panel-content {
+  background:#34302C !important;
+  color:#F3EEE6 !important;
+  border-color:#62574D !important;
+  box-shadow:0 8px 24px rgba(0,0,0,.16);
+}
+body.dusk-mode .docs-header {
+  background:linear-gradient(135deg,#352D28,#403229) !important;
+  color:#F8F2EA !important;
+  border-bottom-color:#E5A43B !important;
+}
+body.dusk-mode .right-panel-controls { background:#302D2A !important; border-color:#62574D !important; }
+body.dusk-mode .fpl-section { border-bottom-color:#6B5D51 !important; }
+body.dusk-mode .fpl-container label,
+body.dusk-mode .guide-hero h2,
+body.dusk-mode .guide-page h2,
+body.dusk-mode .guide-page h3,
+body.dusk-mode .guide-page h4,
+body.dusk-mode .guide-card h4,
+body.dusk-mode .guide-oceanic-steps strong,
+body.dusk-mode .guide-section-title,
+body.dusk-mode .country-head h3,
+body.dusk-mode .calc-results-box h3,
+body.dusk-mode .oceanic-route-header,
+body.dusk-mode .oceanic-nav-grid strong {
+  color:#F3C56B !important;
+}
+body.dusk-mode .guide-section-title { border-bottom-color:#D89A35 !important; }
+body.dusk-mode .guide-kicker,
+body.dusk-mode .guide-flow b,
+body.dusk-mode a:not(.fpl-gen-btn):not(.resource-buttons a) { color:#63B3ED; }
+body.dusk-mode .guide-page p,
+body.dusk-mode .guide-page li,
+body.dusk-mode .guide-page td,
+body.dusk-mode .guide-page th,
+body.dusk-mode .sub-manual-content p,
+body.dusk-mode .sub-manual-content li,
+body.dusk-mode .sub-panel-content p,
+body.dusk-mode .sub-panel-content li { color:#E7DED2 !important; }
+body.dusk-mode input,
+body.dusk-mode select,
+body.dusk-mode textarea,
+body.dusk-mode .pbn-select-toggle {
+  background:#242321 !important;
+  color:#F5EFE7 !important;
+  border-color:#74675B !important;
+}
+body.dusk-mode input::placeholder,body.dusk-mode textarea::placeholder { color:#9F968D !important; opacity:1; }
+body.dusk-mode input:focus,body.dusk-mode select:focus,body.dusk-mode textarea:focus { border-color:#E5A43B !important; box-shadow:0 0 0 2px rgba(229,164,59,.16); }
+body.dusk-mode .checkbox-group label { color:#E9E0D6 !important; }
+body.dusk-mode .action-toggle-btn {
+  background:#3B3733 !important; color:#F4EADC !important; border-color:#6C5E52 !important;
+}
+body.dusk-mode .action-toggle-btn:hover,body.dusk-mode .action-toggle-btn.active {
+  background:#D08C2E !important; color:#211A14 !important; border-color:#F0B554 !important;
+}
+body.dusk-mode .fpl-gen-btn { background:#D8922F !important; color:#17130F !important; border-color:#F0B554 !important; }
+body.dusk-mode .fpl-gen-btn:hover { background:#E5A43B !important; }
+/* VATSIM is navigation/information, not a success state. */
+body.dusk-mode a.fpl-gen-btn[href*="vatsim"] { background:#2F7FBD !important; color:#fff !important; }
+body.dusk-mode a.fpl-gen-btn[href*="vatsim"]:hover { background:#3A8FD8 !important; }
+body.dusk-mode .help-icon { background:#17344A !important; color:#8DD0FF !important; border-color:#3A8FD8 !important; }
+body.dusk-mode .help-text-box,body.dusk-mode .pbn-dropdown-list { background:#302C28 !important; color:#F0E8DE !important; border-color:#9A713C !important; }
+body.dusk-mode .ctx-help-head { color:#FFF3DF !important; border-color:#745F4B !important; }
+body.dusk-mode .ctx-badge { color:#D7F0FF !important; background:#17344A !important; border-color:#3A8FD8 !important; }
+body.dusk-mode .ctx-row>span { color:#BBAE9F !important; }
+body.dusk-mode .ctx-row p { color:#E7DED2 !important; }
+body.dusk-mode .ctx-row code { background:#493A2C !important; color:#FFD79B !important; border-color:#89663F !important; }
+body.dusk-mode .ctx-caution { background:#46351F !important; color:#FFE0A8 !important; border-color:#9A6A29 !important; border-left-color:#E5A43B !important; }
+body.dusk-mode .ctx-guide-btn { background:#253746 !important; color:#BFE6FF !important; border-color:#3A8FD8 !important; }
+body.dusk-mode .guide-card,body.dusk-mode .intel-grid article { background:#302D2A !important; color:#EEE7DC !important; border-color:#62574D !important; }
+body.dusk-mode .intel-grid article b { color:#F3C56B !important; }
+body.dusk-mode .source-status { background:#493A2C !important; color:#FFE1B2 !important; border-color:#E5A43B !important; }
+body.dusk-mode .country-tab { background:#3B3733 !important; color:#F4EADC !important; border-color:#6C5E52 !important; }
+body.dusk-mode .country-tab.active { background:#D08C2E !important; color:#211A14 !important; }
+body.dusk-mode .resource-buttons a { background:#2F7FBD !important; color:#fff !important; }
+/* Equipment: quieter grid, stronger selected capability signal. */
+body.dusk-mode .equip-builder { background:#302D2A !important; border-color:#6B5D51 !important; }
+body.dusk-mode .equip-builder-head { color:#D9CDBF !important; }
+body.dusk-mode .equip-chip { background:#37322E !important; color:#EDE4DA !important; border-color:#5D534A !important; }
+body.dusk-mode .equip-chip:hover { background:#403831 !important; border-color:#9A713C !important; }
+body.dusk-mode .equip-chip:has(input:checked) { background:#4A3928 !important; border-color:#E5A43B !important; box-shadow:inset 3px 0 0 #E5A43B; }
+body.dusk-mode .equip-chip b { color:#63B3ED !important; }
+body.dusk-mode .equip-preview { color:#D9CDBF !important; }
+body.dusk-mode .equip-preview code { color:#F3C56B !important; }
+body.dusk-mode .equip-pbn-note.warn { color:#F3C56B !important; }
+/* Validation: dark semantic cards instead of bright white panels. */
+body.dusk-mode .icao-audit-neutral { background:#253746 !important; border-color:#3A8FD8 !important; color:#CDE9FC !important; }
+body.dusk-mode .icao-audit-ok { background:#18382A !important; border-color:#2EAD6A !important; color:#C8F2D9 !important; }
+body.dusk-mode .icao-audit-error { background:#40262A !important; border-color:#E0525B !important; color:#FFD1D4 !important; }
+body.dusk-mode .icao-audit-warn { background:#44351F !important; border-color:#D89A35 !important; color:#FFE0A8 !important; }
+/* Inline-styled Export Log panel is normalised for Dusk. */
+body.dusk-mode #flightLogOutput { background:#242321 !important; color:#E7DED2 !important; border-color:#74675B !important; }
+body.dusk-mode #flightLogOutput::placeholder { color:#A89D91 !important; }
+body.dusk-mode #flightLogOutput.closest { color:#E7DED2 !important; }
+body.dusk-mode #icaoValidationOutput + .fpl-textarea-container + .fpl-section { background:#2E3333 !important; border-color:#53635D !important; }
+body.dusk-mode #icaoValidationOutput + .fpl-textarea-container + .fpl-section label { color:#57D59A !important; }
+body.dusk-mode #icaoValidationOutput + .fpl-textarea-container + .fpl-section div[style*="color: #64748b"] { color:#BEB4A8 !important; }
+/* Footer badges remain readable and restrained. */
+body.dusk-mode .vnato-footer-version { color:#D7F0FF !important; background:#17344A !important; border-color:#3A8FD8 !important; }
+body.dusk-mode .vnato-footer-build { color:#E9E0D6 !important; background:#37322E !important; border-color:#6B5D51 !important; }
+
+
+/* ========================================================================== */
+/* V5.7.2 — THEME IDENTITY HEADER                                             */
+/* Visual identity only: theme imagery, approved Virtual NATO logo and clocks. */
+/* ========================================================================== */
+.vnato-theme-hero{
+  position:relative; overflow:hidden; isolation:isolate;
+  min-height:210px; margin:-20px -20px 16px; padding:16px 18px 14px;
+  border-bottom:3px solid #0072CE;
+  background-position:center; background-size:cover; background-repeat:no-repeat;
+  color:#fff; box-shadow:inset 0 -22px 38px rgba(0,0,0,.22);
+}
+.vnato-theme-hero-shade{position:absolute;inset:0;z-index:-1;background:linear-gradient(90deg,rgba(0,34,67,.60) 0%,rgba(0,34,67,.27) 48%,rgba(0,20,38,.36) 100%)}
+body[data-theme="day"] .vnato-theme-hero{background-image:url('../assets/theme-day.jpg');border-bottom-color:#4cb7f2}
+body[data-theme="dusk"] .vnato-theme-hero{background-image:url('../assets/theme-dusk.jpg');border-bottom-color:#E5A43B}
+body[data-theme="night"] .vnato-theme-hero{background-image:url('../assets/theme-night.jpg');border-bottom-color:#3A8FD8}
+body[data-theme="night-ops"] .vnato-theme-hero{background-image:url('../assets/theme-night-ops.jpg');border-bottom-color:#2EAD6A}
+body[data-theme="dusk"] .vnato-theme-hero-shade{background:linear-gradient(90deg,rgba(46,31,23,.69),rgba(60,36,24,.30) 52%,rgba(25,18,14,.42))}
+body[data-theme="night"] .vnato-theme-hero-shade{background:linear-gradient(90deg,rgba(4,25,53,.72),rgba(4,30,64,.28) 52%,rgba(3,17,38,.48))}
+body[data-theme="night-ops"] .vnato-theme-hero-shade{background:linear-gradient(90deg,rgba(1,29,21,.78),rgba(1,42,29,.28) 52%,rgba(0,18,12,.52))}
+.vnato-theme-hero-top{display:flex;align-items:flex-start;justify-content:space-between;gap:12px}
+.vnato-theme-brand{display:flex;align-items:center;gap:13px;min-width:0}
+.vnato-theme-logo{width:126px;height:64px;object-fit:contain;display:block;filter:drop-shadow(0 2px 5px rgba(0,0,0,.28))}
+.vnato-theme-title{padding-left:13px;border-left:1px solid rgba(255,255,255,.74);font-size:19px;letter-spacing:2.6px;line-height:1.08;text-shadow:0 1px 4px rgba(0,0,0,.55);white-space:nowrap}
+.vnato-theme-title strong{display:block;text-align:center;margin-top:5px;font-size:15px;font-weight:500;letter-spacing:4.8px}
+.vnato-theme-cycle{min-width:92px;padding:8px 12px;border-radius:8px;border:1px solid rgba(255,255,255,.38);background:rgba(7,28,49,.78);color:#fff;font-size:12px;font-weight:800;letter-spacing:.4px;box-shadow:0 4px 12px rgba(0,0,0,.22);backdrop-filter:blur(6px);cursor:pointer}
+body[data-theme="day"] .vnato-theme-cycle{background:rgba(116,200,246,.92)!important;color:#07243b!important;border-color:#8ed6fb!important}
+body[data-theme="dusk"] .vnato-theme-cycle{background:#E5A43B!important;color:#21160c!important;border-color:#F3C56B!important}
+body[data-theme="night"] .vnato-theme-cycle{background:#58B2EE!important;color:#06223d!important;border-color:#8DD0FF!important}
+body[data-theme="night-ops"] .vnato-theme-cycle{background:#39D67A!important;color:#031c11!important;border-color:#73F0A7!important}
+.vnato-theme-mission,.vnato-theme-tagline{font-size:10px;letter-spacing:2.25px;text-shadow:0 1px 4px rgba(0,0,0,.7)}
+.vnato-theme-mission{margin:11px 0 9px}.vnato-theme-mission i,.vnato-theme-tagline i{font-style:normal;opacity:.75}
+.vnato-theme-clockbox{margin-left:auto;width:min(390px,72%);display:grid;grid-template-columns:34px 1fr 1px 1fr 28px;align-items:center;gap:12px;padding:8px 13px;border:1px solid rgba(109,195,246,.78);border-radius:9px;background:rgba(3,25,49,.78);box-shadow:0 7px 18px rgba(0,0,0,.25);backdrop-filter:blur(7px)}
+body[data-theme="dusk"] .vnato-theme-clockbox{background:rgba(38,24,16,.82);border-color:rgba(229,164,59,.88)}
+body[data-theme="night-ops"] .vnato-theme-clockbox{background:rgba(0,30,20,.84);border-color:rgba(46,173,106,.92)}
+.vnato-clock-icon,.vnato-globe-icon{font-size:29px;line-height:1;text-align:center;color:#75C7F5}.vnato-globe-icon{font-size:27px}
+body[data-theme="dusk"] .vnato-clock-icon,body[data-theme="dusk"] .vnato-globe-icon{color:#F3C56B}
+body[data-theme="night-ops"] .vnato-clock-icon,body[data-theme="night-ops"] .vnato-globe-icon{color:#63EAA0}
+.vnato-theme-clockbox .clock-col{text-align:center}.vnato-theme-clockbox .clock-label{display:block;color:#dcebf5!important;font-size:9px;font-weight:700;letter-spacing:1px}.vnato-theme-clockbox .clock-time-val{font-size:20px!important;line-height:1.05;color:#fff!important;font-variant-numeric:tabular-nums}.clock-date-val{margin-top:3px;font-size:8px;color:#d8e3eb;white-space:nowrap}.vnato-clock-divider{height:39px;background:rgba(255,255,255,.55)}
+body[data-theme="dusk"] .vnato-theme-clockbox .clock-time-val{color:#F3C56B!important}body[data-theme="dusk"] .clock-date-val{color:#F8E5C0}
+body[data-theme="night-ops"] .vnato-theme-clockbox .clock-time-val{color:#63EAA0!important}body[data-theme="night-ops"] .clock-date-val{color:#C9F8DD}
+.vnato-theme-tagline{margin-top:10px;color:rgba(255,255,255,.92)}
+@media(max-width:650px){
+  .vnato-theme-hero{min-height:205px;margin:-14px -14px 14px;padding:12px}
+  .vnato-theme-logo{width:96px;height:49px}.vnato-theme-title{font-size:13px;letter-spacing:1.8px;padding-left:9px}.vnato-theme-title strong{font-size:11px;letter-spacing:3.5px}
+  .vnato-theme-cycle{min-width:76px;padding:7px 8px;font-size:10px}.vnato-theme-mission{font-size:8px;letter-spacing:1.35px}
+  .vnato-theme-clockbox{width:100%;box-sizing:border-box;grid-template-columns:25px 1fr 1px 1fr 22px;gap:7px;padding:7px 8px}.vnato-theme-clockbox .clock-time-val{font-size:17px!important}.vnato-clock-icon,.vnato-globe-icon{font-size:22px}.clock-date-val{font-size:7px}.vnato-theme-tagline{font-size:7px;letter-spacing:1.05px}
+}
+@media(max-width:430px){.vnato-theme-title{display:none}.vnato-theme-logo{width:112px;height:57px}.vnato-theme-clockbox{grid-template-columns:22px 1fr 1px 1fr 20px}.vnato-theme-mission{margin-top:8px}.vnato-theme-tagline{line-height:1.45}}

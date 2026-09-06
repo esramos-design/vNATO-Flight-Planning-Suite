@@ -262,31 +262,39 @@
   <!-- SECTION: LEFT SIDEBAR - FLIGHT PLAN GENERATOR & DISPATCH WIDGET            -->
   <!-- ========================================================================== -->
   <div class="fpl-container">
-    
     <!-- ======================================================================== -->
-    <!-- SUB-SECTION: STACKED HEADER, DUAL-TIME CLOCKS & DARK MODE TOGGLE         -->
+    <!-- V5.7.2 THEME IDENTITY HERO: BRAND, THEME CONTROL & DUAL CLOCKS           -->
     <!-- ======================================================================== -->
-    <div class="vnato-header-stacked">
-      <div class="header-clock-banner" style="display: flex; align-items: center; justify-content: space-between; width: 100%;">
-        <!-- Zulu / UTC Clock Display -->
-        <div class="clock-col" style="flex: 1; text-align: center;">
-          <span class="clock-label">ZULU / UTC</span>
-          <div id="headerClockZulu" class="clock-time-val">00:00:00</div>
-        </div>
-        <!-- Virtual NATO Logo Banner -->
-        <div class="clock-logo-col" style="flex: 0 0 auto; text-align: center; padding: 0 10px;">
-          <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" style="max-height: 42px; display: block; margin: 0 auto;" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
-        </div>
-        <!-- Local System Clock & Cockpit Dark Mode Toggle Button -->
-        <div class="clock-col" style="flex: 1; text-align: center; display: flex; align-items: center; justify-content: center; gap: 8px;">
-          <div>
-            <span class="clock-label">LOCAL SYSTEM</span>
-            <div id="headerClockLocal" class="clock-time-val">00:00:00</div>
+    <section class="vnato-theme-hero" aria-label="Virtual NATO theme and time status">
+      <div class="vnato-theme-hero-shade"></div>
+      <div class="vnato-theme-hero-top">
+        <div class="vnato-theme-brand">
+          <img class="vnato-theme-logo" src="assets/virtual-nato-logo.png" alt="Virtual NATO">
+          <div class="vnato-theme-title" aria-label="Flight Planning Suite">
+            <span>FLIGHT PLANNING</span>
+            <strong>SUITE</strong>
           </div>
-          <button type="button" id="darkModeToggleBtn" onclick="toggleDarkMode()" title="Theme: Day — click for Night" aria-label="Change appearance theme" style="background: #002B49; color: #fff; border: 1px solid #0072CE; padding: 4px 8px; border-radius: 4px; font-size: 10px; cursor: pointer; margin-left: 4px;">☀ DAY</button>
         </div>
+        <button type="button" id="darkModeToggleBtn" class="vnato-theme-cycle" onclick="toggleDarkMode()" title="Theme: Day — click for Dusk" aria-label="Change appearance theme">☀ DAY</button>
       </div>
-    </div>
+      <div class="vnato-theme-mission">PLAN <i>•</i> BRIEF <i>•</i> FLY <i>•</i> TOGETHER</div>
+      <div class="vnato-theme-clockbox">
+        <div class="vnato-clock-icon" aria-hidden="true">◷</div>
+        <div class="clock-col">
+          <span class="clock-label">UTC</span>
+          <div id="headerClockZulu" class="clock-time-val">00:00:00</div>
+          <div id="headerDateZulu" class="clock-date-val">—</div>
+        </div>
+        <div class="vnato-clock-divider"></div>
+        <div class="clock-col">
+          <span class="clock-label">LOCAL</span>
+          <div id="headerClockLocal" class="clock-time-val">00:00:00</div>
+          <div id="headerDateLocal" class="clock-date-val">—</div>
+        </div>
+        <div class="vnato-globe-icon" aria-hidden="true">◎</div>
+      </div>
+      <div class="vnato-theme-tagline">SAME CAPABILITY <i>•</i> DIFFERENT ENVIRONMENT <i>•</i> ALWAYS MISSION READY</div>
+    </section>
     
     <!-- ======================================================================== -->
     <!-- SUB-SECTION: SORTIE PROFILES, AIRFIELD PRESETS & PROFILE MANAGEMENT      -->
@@ -1305,7 +1313,7 @@
     <!-- Documentation Header Banner -->
     <div class="docs-header">
       <h1 id="rightPanelTitle">Virtual NATO Flight Planning Suite</h1>
-      <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
+      <img src="assets/virtual-nato-logo.png" alt="Virtual NATO Logo">
     </div>
 
     <!-- Top Action & Tool Control Bar -->
@@ -1615,7 +1623,7 @@
     <!-- ======================================================================== -->
     <div id="homeWelcomeBody" class="sub-manual-content active">
       <div style="text-align: center; padding: 10px 0 16px 0; border-bottom: 2px solid #0072CE; margin-bottom: 16px;">
-        <img src="https://virtualnato.org/icrew/index.php/modernui/v4logo.png" alt="Virtual NATO Logo" style="max-height: 52px; margin-bottom: 8px; display: block; margin-left: auto; margin-right: auto;" onerror="this.src='https://virtualnato.org/icrew/iCrew/v4logo.png'">
+        <img src="assets/virtual-nato-logo.png" alt="Virtual NATO Logo" style="max-height: 52px; margin-bottom: 8px; display: block; margin-left: auto; margin-right: auto;">
         <h1 style="color: #002B49; margin: 0 0 4px 0; font-size: 20px;">Virtual NATO Flight Planning Suite</h1>
         <p style="color: #64748b; font-size: 12px; margin: 0;">Operational Air Traffic (OAT) & Tactical Dispatch System</p>
       </div>
@@ -2420,7 +2428,7 @@
 <!-- ============================================================================ -->
 <!-- SECTION: MASTER INLINE JAVASCRIPT & EVENT HANDLERS                           -->
 <!-- ============================================================================ -->
-<script src="js/master-inline.obf.js?v=57"></script>
+<script src="js/master-inline.obf.js?v=572"></script>
 <script src="js/v52.js?v=52"></script>
 <script src="js/v53.js?v=53"></script>
 <script src="js/v54.js?v=54"></script>
@@ -2449,5 +2457,6 @@
   </div>
 </div>
   
+  <script src="js/v572.js?v=572"></script>
 </body>
 </html>
