@@ -1,9 +1,0 @@
-vNATO Flight Planning Suite V5.7.8 — TEAM LIVE
-Public runtime package.
-
-- Minimal bootstrap index.html.
-- Runtime application shell and master inline logic are encoded/obfuscated.
-- JavaScript runtime modules are shipped through encoded wrappers.
-- CSS is minified with comments removed.
-- Development tests, source audits, changelogs and ALPHA documentation are excluded.
-- Client-side obfuscation is deterrence only; browser-delivered code can ultimately be inspected.
