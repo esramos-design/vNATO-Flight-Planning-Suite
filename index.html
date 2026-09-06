@@ -1311,28 +1311,15 @@
     <!-- Top Action & Tool Control Bar -->
     <div class="right-panel-controls">
       <!-- Manual / Guide Navigation Buttons -->
-      <div class="doc-columns-toggle" style="display:flex; gap:6px; flex-wrap:wrap;">
-        <button type="button" class="action-toggle-btn active" id="homeWelcomeBtn" onclick="toggleManualView('homeWelcome')">
-          <span>Home / About</span>
-        </button>
-        <button type="button" class="action-toggle-btn" id="oatGuideBtn" onclick="toggleManualView('oatGuide')">
-          <span>OAT Guide</span>
-        </button>
-        <button type="button" class="action-toggle-btn" id="paramGlossaryBtn" onclick="toggleManualView('paramGlossary')">
-          <span>Parameter Glossary</span>
-        </button>
-        <button type="button" class="action-toggle-btn" id="equipGuideBtn" onclick="toggleManualView('equipGuide')">
-          <span>Equip & PBN Guide</span>
-        </button>
-        <button type="button" class="action-toggle-btn" id="metarHelperBtn" onclick="toggleManualView('metarHelper')">
-          <span>METAR Helper</span>
-        </button>
-        <button type="button" class="action-toggle-btn" id="tafHelperBtn" onclick="toggleManualView('tafHelper')">
-          <span>TAF Helper</span>
-        </button>
-        <button type="button" class="action-toggle-btn" id="flightLogGuideBtn" onclick="toggleManualView('flightLogGuide')">
-          <span>Flight Log Guide</span>
-        </button>
+      <div class="doc-columns-toggle guide-nav" aria-label="vNATO operational guides">
+        <button type="button" class="action-toggle-btn active" id="homeWelcomeBtn" onclick="toggleManualView('homeWelcome')"><span>HOME / ABOUT</span></button>
+        <button type="button" class="action-toggle-btn" id="flightPlanningGuideBtn" onclick="toggleManualView('flightPlanningGuide')"><span>FLIGHT PLANNING</span></button>
+        <button type="button" class="action-toggle-btn" id="oatGuideBtn" onclick="toggleManualView('oatGuide')"><span>OAT / MIL OPS</span></button>
+        <button type="button" class="action-toggle-btn" id="weatherGuideBtn" onclick="toggleManualView('weatherGuide')"><span>WEATHER</span></button>
+        <button type="button" class="action-toggle-btn guide-nav-oceanic" id="oceanicGuideBtn" onclick="toggleManualView('oceanicGuide')"><span>OCEANIC</span></button>
+        <button type="button" class="action-toggle-btn" id="referenceGuideBtn" onclick="toggleManualView('referenceGuide')"><span>REFERENCE</span></button>
+        <button type="button" class="action-toggle-btn guide-nav-vatsim" id="vatsimCompatGuideBtn" onclick="toggleManualView('vatsimCompatGuide')"><span>VATSIM COMPAT</span></button>
+        <button type="button" class="action-toggle-btn" id="flightLogGuideBtn" onclick="toggleManualView('flightLogGuide')"><span>FLIGHT LOG</span></button>
       </div>
       <!-- Calculator & Weather Tool Toggles -->
       <div class="right-panel-btns">
@@ -1664,6 +1651,168 @@
       <div style="background: rgba(0, 114, 206, 0.05); border: 1px solid rgba(0, 114, 206, 0.2); border-radius: 6px; padding: 10px; text-align: center;">
         <span style="font-size: 11px; color: #002B49;"><b>Virtual NATO Command</b> &bull; Re-established 2017 &bull; vCMC & vDCMC Operational Infrastructure</span>
       </div>
+    </div>
+
+
+    <!-- ======================================================================== -->
+    <!-- V5.4 GUIDE: FLIGHT PLANNING                                             -->
+    <!-- ======================================================================== -->
+    <div id="flightPlanningGuideBody" class="sub-manual-content guide-page" style="display:none;">
+      <div class="guide-hero">
+        <div><span class="guide-kicker">V5.4 OPERATIONAL GUIDE</span><h2>ICAO Flight Planning</h2><p>Build the plan in layers: input, internal state, route compilation, ICAO serialization, preflight validation, then VATSIM import.</p></div>
+        <div class="guide-hero-badge">FPL</div>
+      </div>
+      <div class="guide-callout warning"><b>Simulator use only.</b> This suite is designed for Virtual NATO operations in simulated aviation environments. It must not be used for real-world flight planning or dispatch.</div>
+
+      <h3 class="guide-section-title">Layer Verification Before Generation</h3>
+      <div class="guide-flow">
+        <span>INPUT</span><b>→</b><span>STATE</span><b>→</b><span>ROUTE COMPILER</span><b>→</b><span>ICAO FPL</span><b>→</b><span>PREFLIGHT</span><b>→</b><span>VATSIM</span>
+      </div>
+      <p class="guide-copy">A fault should be corrected at the layer where it originates. A valid ICAO value is not silently changed merely because an external importer presents it differently.</p>
+
+      <div class="guide-card-grid three">
+        <div class="guide-card"><h4>Items 7–10</h4><p>Callsign, flight rules/type, aircraft type, wake category, communications/navigation equipment and surveillance capability.</p></div>
+        <div class="guide-card"><h4>Item 13 / 16</h4><p>Departure, EOBT, destination, estimated elapsed time and alternate aerodrome.</p></div>
+        <div class="guide-card"><h4>Item 15</h4><p>Cruise speed/level plus the compiled route, including operational speed/level changes, STAY and transfer points.</p></div>
+        <div class="guide-card"><h4>Item 18</h4><p>PBN, NAV, STS, DOF, REG, SEL, PER, OPR, ORGN, COM, STAYINFO and RMK data.</p></div>
+        <div class="guide-card"><h4>Item 19</h4><p>Fuel endurance is kept separate from Item 18 and serialized as the final endurance element where supported by the generator mode.</p></div>
+        <div class="guide-card"><h4>Preflight</h4><p>Use the VATSIM Import Preflight panel before copying the plan. Resolve errors first; review warnings against the intended mission.</p></div>
+      </div>
+
+      <h3 class="guide-section-title">Speed & Level Formats</h3>
+      <div class="guide-table-wrap"><table class="guide-table"><thead><tr><th>Field</th><th>Format</th><th>Example</th><th>Meaning</th></tr></thead><tbody>
+        <tr><td>Speed</td><td>N</td><td><code>N0450</code></td><td>Knots TAS</td></tr>
+        <tr><td>Speed</td><td>K</td><td><code>K0830</code></td><td>Kilometres per hour</td></tr>
+        <tr><td>Speed</td><td>M</td><td><code>M080</code></td><td>Mach 0.80</td></tr>
+        <tr><td>Level</td><td>F</td><td><code>F300</code></td><td>Flight Level 300</td></tr>
+        <tr><td>Level</td><td>A</td><td><code>A080</code></td><td>Altitude in hundreds of feet</td></tr>
+      </tbody></table></div>
+
+      <h3 class="guide-section-title">Recommended Workflow</h3>
+      <ol class="guide-steps">
+        <li><b>Select jurisdiction and generator mode.</b> Confirm the country convention before mission-specific data is entered.</li>
+        <li><b>Enter aircraft and dispatch data.</b> Callsign, type, departure, EOBT, arrival, EET and alternate.</li>
+        <li><b>Configure route semantics.</b> Route, transfer points, STAY blocks and speed/level changes must be associated with the intended waypoint.</li>
+        <li><b>Complete equipment and Item 18.</b> Do not advertise capability the simulated aircraft does not have.</li>
+        <li><b>Generate and run preflight.</b> Correct structural errors before importing.</li>
+        <li><b>Verify the VATSIM form.</b> Compare the imported form with the generated FPL; importer limitations are covered in VATSIM Compat.</li>
+      </ol>
+      <div class="guide-actions"><button type="button" class="guide-action" onclick="toggleManualView('vatsimCompatGuide')">Open VATSIM Compatibility</button><button type="button" class="guide-action secondary" onclick="toggleManualView('referenceGuide')">Open Reference</button></div>
+    </div>
+
+    <!-- ======================================================================== -->
+    <!-- V5.4 GUIDE: WEATHER                                                     -->
+    <!-- ======================================================================== -->
+    <div id="weatherGuideBody" class="sub-manual-content guide-page" style="display:none;">
+      <div class="guide-hero"><div><span class="guide-kicker">WEATHER DESK</span><h2>Weather Guide</h2><p>One entry point for METAR, TAF and the live Weather Briefing tool.</p></div><div class="guide-hero-badge">WX</div></div>
+      <div class="guide-card-grid three">
+        <div class="guide-card"><h4>METAR</h4><p>Observed wind, visibility, weather, cloud, temperature/dew point and pressure at the reporting station.</p><button class="guide-link-btn" type="button" onclick="toggleManualView('metarHelper')">Detailed METAR Guide</button></div>
+        <div class="guide-card"><h4>TAF</h4><p>Forecast conditions and change groups including FM, BECMG, TEMPO and probability groups.</p><button class="guide-link-btn" type="button" onclick="toggleManualView('tafHelper')">Detailed TAF Guide</button></div>
+        <div class="guide-card"><h4>WX Brief Tool</h4><p>Fetch current METAR/TAF data and view the decoded parameters inside the operational panel.</p><button class="guide-link-btn" type="button" onclick="toggleRightPanelMode('metar')">Open WX Brief</button></div>
+      </div>
+      <h3 class="guide-section-title">Fast Reading Order</h3>
+      <div class="guide-flow"><span>WIND</span><b>→</b><span>VIS</span><b>→</b><span>WX</span><b>→</b><span>CLOUD</span><b>→</b><span>TEMP/DP</span><b>→</b><span>QNH</span><b>→</b><span>TREND</span></div>
+      <div class="guide-callout info"><b>Operational habit:</b> use the weather products as part of the simulated briefing, then cross-check mission constraints and aerodrome suitability. The helper explains codes; it does not replace pilot judgement in the simulated environment.</div>
+    </div>
+
+    <!-- ======================================================================== -->
+    <!-- V5.4 GUIDE: OCEANIC                                                     -->
+    <!-- ======================================================================== -->
+    <div id="oceanicGuideBody" class="sub-manual-content guide-page" style="display:none;">
+      <div class="guide-hero oceanic"><div><span class="guide-kicker">OCEANIC REPORT V1.1</span><h2>Oceanic Operations Guide</h2><p>Resolve the route, connect the VATSIM aircraft, track sequential fixes and generate a position report from actual/estimated progress.</p></div><div class="guide-hero-badge">🌐</div></div>
+      <div class="guide-callout warning"><b>Important:</b> Oceanic Report assists simulated operations only. It does not automatically transmit a clearance request or position report to ATC.</div>
+
+      <h3 class="guide-section-title">Quick Start</h3>
+      <div class="guide-oceanic-steps">
+        <div><b>1</b><span><strong>Complete / load FPL</strong><small>Use the route intended for the sortie.</small></span></div>
+        <div><b>2</b><span><strong>Open Oceanic Report</strong><small>Use the OCEANIC REPORT tool button.</small></span></div>
+        <div><b>3</b><span><strong>Check navdata</strong><small>Import compatible X-Plane navdata if named fixes need resolution.</small></span></div>
+        <div><b>4</b><span><strong>Build / resolve route</strong><small>Confirm every operational fix that must be tracked.</small></span></div>
+        <div><b>5</b><span><strong>Resolve custom fixes</strong><small>Add coordinates for vNATO/OAT points absent from AIRAC.</small></span></div>
+        <div><b>6</b><span><strong>Connect VATSIM</strong><small>Enter the exact pilot callsign and establish live tracking.</small></span></div>
+        <div><b>7</b><span><strong>Verify live aircraft</strong><small>Position, altitude, groundspeed and heading should update.</small></span></div>
+        <div><b>8</b><span><strong>Monitor sequential fixes</strong><small>Passed → active/next → future; unresolved fixes protect against skipping.</small></span></div>
+        <div><b>9</b><span><strong>Generate report</strong><small>Use actual crossing time for passed fix and ETA for the next fix.</small></span></div>
+      </div>
+
+      <h3 class="guide-section-title">How Fixes Are Resolved</h3>
+      <div class="guide-card-grid three">
+        <div class="guide-card status-blue"><h4>Coordinate Fix</h4><code>454901N0013507E</code><p>Decoded directly by the suite. No navdata lookup is required.</p></div>
+        <div class="guide-card status-green"><h4>AIRAC / Named Fix</h4><code>MALOT</code><p>Resolved from the locally imported waypoint/navaid dataset.</p></div>
+        <div class="guide-card status-amber"><h4>Custom vNATO Fix</h4><code>MGO01</code><p>Mission/OAT points not found in AIRAC can be assigned and retained in the local custom-fix library.</p></div>
+      </div>
+
+      <h3 class="guide-section-title">Navdata</h3>
+      <p class="guide-copy">The suite can process a compatible X-Plane-style ZIP, or waypoint/navaid text files. Navigation data is stored locally in the browser and is not bundled with the vNATO distribution. Re-import a newer package when the user's AIRAC cycle changes.</p>
+      <div class="guide-callout info"><b>Duplicate identifiers:</b> where more than one candidate exists, the resolver uses route geometry/current aircraft context and prefers suitable waypoint candidates. Always verify the resolved point before live tracking.</div>
+
+      <h3 class="guide-section-title">Live Tracking State</h3>
+      <div class="guide-status-legend"><span class="gstat green">RESOLVED / PASSED</span><span class="gstat blue">CURRENT / NEXT</span><span class="gstat amber">ATTENTION / UNRESOLVED</span><span class="gstat red">ERROR / DISCONNECTED</span><span class="gstat grey">FUTURE</span></div>
+      <div class="guide-oceanic-sample">
+        <div><small>VATSIM</small><strong>● CONNECTED</strong></div><div><small>NAVDATA</small><strong>AIRAC 2609 ✓</strong></div><div><small>LAST</small><strong>MALOT 1243Z</strong></div><div><small>NEXT</small><strong>SUNOT 1307Z</strong></div><div><small>FOLLOWING</small><strong>52N040W</strong></div>
+      </div>
+
+      <h3 class="guide-section-title">Position Report Logic</h3>
+      <div class="guide-card-grid two">
+        <div class="guide-card"><h4>ACTUAL crossing</h4><p>When live tracking detects the aircraft crossing the active fix, the suite records an interpolated UTC crossing time from successive VATSIM position samples.</p></div>
+        <div class="guide-card"><h4>ESTIMATED next fix</h4><p>The next-fix ETA is calculated from current progress. It remains an estimate and can change as groundspeed/track evolves.</p></div>
+      </div>
+      <div class="guide-code">CALLSIGN / LAST POSITION / ACTUAL UTC / FL / NEXT POSITION / ETA / FOLLOWING POSITION</div>
+
+      <h3 class="guide-section-title">Why Hasn't My Fix Advanced?</h3>
+      <ul class="guide-checklist">
+        <li><b>Unresolved fix:</b> sequential protection can intentionally prevent the tracker from skipping an unresolved operational point.</li>
+        <li><b>Callsign mismatch:</b> the VATSIM callsign must match the connected pilot exactly.</li>
+        <li><b>Not connected / stale feed:</b> verify the live status and aircraft data fields.</li>
+        <li><b>Route geometry:</b> confirm the fix resolved to the intended coordinate, especially with duplicate identifiers.</li>
+        <li><b>Off-route flight:</b> the aircraft may not pass sufficiently close to the active fix for a crossing to be confirmed.</li>
+      </ul>
+      <div class="guide-actions"><button type="button" class="guide-action" onclick="toggleRightPanelMode('oceanic')">Open Oceanic Report</button><button type="button" class="guide-action secondary" onclick="toggleManualView('vatsimCompatGuide')">VATSIM Compatibility</button></div>
+    </div>
+
+    <!-- ======================================================================== -->
+    <!-- V5.4 GUIDE: REFERENCE                                                   -->
+    <!-- ======================================================================== -->
+    <div id="referenceGuideBody" class="sub-manual-content guide-page" style="display:none;">
+      <div class="guide-hero"><div><span class="guide-kicker">REFERENCE LIBRARY</span><h2>Operational Reference</h2><p>Fast access to parameter definitions, equipment/PBN capability and common ICAO formats.</p></div><div class="guide-hero-badge">REF</div></div>
+      <div class="guide-card-grid two">
+        <div class="guide-card"><h4>Parameter Glossary</h4><p>Definitions for the main form variables and operational fields used throughout the suite.</p><button class="guide-link-btn" type="button" onclick="toggleManualView('paramGlossary')">Open Glossary</button></div>
+        <div class="guide-card"><h4>Equipment & PBN</h4><p>Communications/navigation/surveillance equipment, transponder modes and PBN qualification references.</p><button class="guide-link-btn" type="button" onclick="toggleManualView('equipGuide')">Open Equip & PBN</button></div>
+      </div>
+      <h3 class="guide-section-title">Common ICAO Tokens</h3>
+      <div class="guide-table-wrap"><table class="guide-table"><thead><tr><th>Token</th><th>Purpose in this suite</th></tr></thead><tbody>
+        <tr><td><code>PBN/</code></td><td>Performance Based Navigation capabilities.</td></tr>
+        <tr><td><code>NAV/</code></td><td>Additional navigation capability or mission-specific navigation information.</td></tr>
+        <tr><td><code>STS/</code></td><td>Special handling status; V5.2+ may also mirror it into RMK for VATSIM compatibility.</td></tr>
+        <tr><td><code>DOF/</code></td><td>Date of flight, YYMMDD.</td></tr>
+        <tr><td><code>REG/</code></td><td>Aircraft registration.</td></tr>
+        <tr><td><code>SEL/</code></td><td>SELCAL code when applicable.</td></tr>
+        <tr><td><code>PER/</code></td><td>Aircraft performance category.</td></tr>
+        <tr><td><code>OPR/</code></td><td>Operator.</td></tr>
+        <tr><td><code>STAYINFO/</code></td><td>Information associated with an operational STAY block.</td></tr>
+        <tr><td><code>RMK/</code></td><td>Free-text remarks and vNATO operational signature/compatibility notes.</td></tr>
+      </tbody></table></div>
+      <div class="guide-callout info"><b>Capability discipline:</b> equipment/PBN values should describe the simulated aircraft and mission configuration, not simply everything available in the selector.</div>
+    </div>
+
+    <!-- ======================================================================== -->
+    <!-- V5.4 GUIDE: VATSIM COMPATIBILITY                                        -->
+    <!-- ======================================================================== -->
+    <div id="vatsimCompatGuideBody" class="sub-manual-content guide-page" style="display:none;">
+      <div class="guide-hero vatsim"><div><span class="guide-kicker">INTEROPERABILITY</span><h2>VATSIM Compatibility</h2><p>Separate valid ICAO output from importer-form behaviour and network representation.</p></div><div class="guide-hero-badge">VATSIM</div></div>
+      <div class="guide-flow"><span>vNATO INPUT</span><b>→</b><span>ICAO GENERATOR</span><b>→</b><span>VALIDATION</span><b>→</b><span>myVATSIM IMPORT</span><b>→</b><span>NETWORK</span></div>
+      <div class="guide-callout warning"><b>Core rule:</b> a blank or differently represented field in the VATSIM form does not automatically prove the generated ICAO FPL is wrong. Verify the layer first.</div>
+      <div class="guide-table-wrap"><table class="guide-table"><thead><tr><th>Area</th><th>Suite behaviour</th><th>Tester action</th></tr></thead><tbody>
+        <tr><td>Mach / Airspeed</td><td>Preserves valid Item 15 Mach notation. V5.2+ provides a VATSIM-oriented TAS estimate rather than silently rewriting the FPL.</td><td>Check the generated Item 15 and the separate myVATSIM Airspeed field.</td></tr>
+        <tr><td>Altitude / FL</td><td>Preserves the selected ICAO level notation and derives the corresponding feet value for import verification.</td><td>If the form is blank, compare it with the generated FPL before reporting a generator defect.</td></tr>
+        <tr><td>STS</td><td>Keeps structured <code>STS/...</code> and mirrors it in RMK for compatibility where required by the current suite design.</td><td>Verify both Item 18 and the resulting VATSIM remarks.</td></tr>
+        <tr><td>Y / Z / Tactical</td><td>The suite can model operational rule changes, while external network/client representation may be more limited.</td><td>Report the generated string and what the VATSIM UI/network actually displayed.</td></tr>
+        <tr><td>STAY / STAYINFO</td><td>STAY is compiled at the selected waypoint; STAYINFO remains structured Item 18 data.</td><td>Check route position first, then whether the external importer retained the Item 18 information.</td></tr>
+        <tr><td>RMK ordering</td><td>Structured Item 18 values are serialized before final RMK so remarks do not swallow later indicators.</td><td>Include the complete generated FPL in any defect report.</td></tr>
+      </tbody></table></div>
+      <h3 class="guide-section-title">Best Tester Report</h3>
+      <div class="guide-report-template"><b>BUILD:</b> V5.4<br><b>GENERATED ICAO FPL:</b> [paste exact output]<br><b>EXPECTED:</b> [what should happen]<br><b>ACTUAL:</b> [what happened]<br><b>VATSIM MESSAGE:</b> [exact parser/import text if present]<br><b>SCREENSHOT:</b> [attach the resulting form]</div>
+      <div class="guide-actions"><button type="button" class="guide-action" onclick="toggleManualView('flightPlanningGuide')">Flight Planning Guide</button></div>
     </div>
 
     <!-- ======================================================================== -->
@@ -2154,7 +2303,7 @@
 <!-- ============================================================================ -->
 <!-- SECTION: JAVASCRIPT MODULE SCRIPTS IMPORT                                    -->
 <!-- ============================================================================ -->
-<script src="js/core.js?v=15"></script>
+<script src="js/core.js?v=54"></script>
 <script src="js/generators.js"></script>
 <script src="js/weather.js"></script>
 <script src="js/calculators.js"></script>
@@ -2164,9 +2313,10 @@
 <!-- ============================================================================ -->
 <!-- SECTION: MASTER INLINE JAVASCRIPT & EVENT HANDLERS                           -->
 <!-- ============================================================================ -->
-<script src="js/master-inline.obf.js?v=53"></script>
+<script src="js/master-inline.obf.js?v=54"></script>
 <script src="js/v52.js?v=52"></script>
 <script src="js/v53.js?v=53"></script>
+<script src="js/v54.js?v=54"></script>
 
 <!-- ============================================================================ -->
 <!-- SECTION: PROFILE MANAGEMENT MODAL POPUP HTML                                 -->
