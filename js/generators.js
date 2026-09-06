@@ -1,1 +1,460 @@
-const _0x3fe63e=_0x4f27;(function(_0x545206,_0x5a1f1c){const _0x22f009=_0x4f27,_0x2b3b99=_0x545206();while(!![]){try{const _0x19fce9=parseInt(_0x22f009(0xca))/(0x2*0x92f+-0x13f*-0xa+-0x25f*0xd)+parseInt(_0x22f009(0x224))/(-0x2e4+0x87*-0x9+0x13*0x67)+-parseInt(_0x22f009(0xec))/(-0x1635+-0x33*0x2+0x169e)*(parseInt(_0x22f009(0xfa))/(-0xe9*0xd+0x1eea+-0x1311))+-parseInt(_0x22f009(0x259))/(0xc*0x2a7+-0x637+-0x24*0xb6)*(-parseInt(_0x22f009(0x155))/(0x4*0xda+0x1*0xf07+0x1*-0x1269))+parseInt(_0x22f009(0xe0))/(-0x554+-0x1c9a+-0x21f5*-0x1)*(-parseInt(_0x22f009(0x1fd))/(-0x10*-0x6a+0x1e3a+0x24d2*-0x1))+-parseInt(_0x22f009(0x1e9))/(0x18fd+-0x223e+-0x29*-0x3a)+parseInt(_0x22f009(0x227))/(-0x5a1*-0x3+0x2*-0xe1d+0x1*0xb61);if(_0x19fce9===_0x5a1f1c)break;else _0x2b3b99['push'](_0x2b3b99['shift']());}catch(_0x27f7d4){_0x2b3b99['push'](_0x2b3b99['shift']());}}}(_0x1bd2,0xd34a6+0x3*-0xf3+-0x346ec));function switchFplMode(_0x10c026){const _0x198f83=_0x4f27,_0x2a989e={'HCRPg':_0x198f83(0x10f)+_0x198f83(0x21e),'GnBTI':_0x198f83(0x140)},_0x4e82ce=document[_0x198f83(0x1a8)+_0x198f83(0xe1)](_0x2a989e[_0x198f83(0x1bc)]);_0x4e82ce[_0x198f83(0x222)](_0x162a41=>_0x162a41[_0x198f83(0x14c)][_0x198f83(0x180)](_0x198f83(0x140)));const _0x38c6f8=document[_0x198f83(0xc3)+_0x198f83(0x161)](_0x10c026);_0x38c6f8&&_0x38c6f8[_0x198f83(0x14c)][_0x198f83(0x12e)](_0x2a989e[_0x198f83(0x173)]);}function copyToClipboard(_0x4b972d){const _0x549f2b=_0x4f27,_0x56dad3={'feoBX':_0x549f2b(0x1b7)+_0x549f2b(0x1cd)+'\x20'},_0x3d2ac1=document[_0x549f2b(0xc3)+_0x549f2b(0x161)](_0x4b972d);if(!_0x3d2ac1)return;_0x3d2ac1[_0x549f2b(0x12a)](),_0x3d2ac1[_0x549f2b(0x157)+_0x549f2b(0xfb)](-0x1553+-0x69*0x1+0x15bc,0xa8a4+-0x35*-0x80e+-0xcceb),navigator[_0x549f2b(0x1db)][_0x549f2b(0x23f)](_0x3d2ac1[_0x549f2b(0xcd)])[_0x549f2b(0x21c)](_0x3d8081=>{const _0x4b48a3=_0x549f2b;console[_0x4b48a3(0xf6)](_0x56dad3[_0x4b48a3(0x167)],_0x3d8081);});}function _0x1bd2(){const _0x3c780e=['pbnDropdow','icaoIfrTra','active','sts','e\x20profile\x20','oatToGat','pbnToggle','eyfDL','GEuyc','kXMuR','SUR/','nsParams','PRBma','stContaine','classList','UBCcU','\x2011px;\x20fon','annot\x20be\x20u','vsoTrainee','x\x22]:checke','dhAsR','icaoPbnDro','opy-btn\x22\x20s','118086FVXzzp','stener','setSelecti','jhpKW','aPBLx','map','vUxqx','t\x20to\x20wipe\x20','mYvjw','t-align:\x20c','#pbnDropdo','width:\x20250','ById','mtixh','ze:\x2010px;\x22','OPR/','vso','</span>\x0a\x20\x20','feoBX','r:\x20#002B49','iYFdm','yYiRq','icaoAltUni','vnato_flig','remarksOut','jlNlT','join','JTsvg','ifrTransWp','setItem','GnBTI','oBfJS','aLHfm','ecAHG','ClreW','vfrTransTy','aNmun','eRGox','ysCgl','xWfOb','MwJkS','font-size:','jjiis','remove','gPFqp','NONE','input[type','fTvdR','put','SgyjT','style','yOejt','FpSdw','routeOutpu','bpAAw','CLiLa','ckbox\x22]),\x20','wnList\x20inp','display','tyle=\x22posi','ScwfH','block','AERai','removeItem','lRMWg','ex;\x20justif','icaoRmk','icaoFuel','re\x20you\x20wan','click','opr','CJIZx','dex','rams','QvBgl','>No\x20saved\x20','y-content:','der-radius','vjIPz','keys','nuSGC','\x20\x20\x20\x20\x20\x20\x20<sp','UBlOT','querySelec','OTtpy','=\x22padding:','pbnValue',':\x204px;\x22>\x0a\x20','HFKAV','KMkes','COM/','PBN/','FjJYY','fplDep','icaoType','geAex','gin-bottom','vfrTransWp','Failed\x20to\x20','rmkOat','ORG','xmaYI','JgYWg','HCRPg','addEventLi','ilesModal','ktmSV','EIEkw','fyyxW','nList','fplEetArr','stayinfo','mApHB','stKaA','orgn','getItem','ng:\x202px\x206p','sel','enter;\x20pad','ic;\x20backgr','copy\x20text:','ykLdm','mBxHn','icaoSts','=\x22checkbox','unGnt','\x20DCT\x20','fplArr','uYkRS','0100','QvpZK','bfiud','icaoPbnVal','manageProf','clipboard','ht_profile','px;\x22>','\x20#fff;\x20mar','stayDur','icaoStaySe','LFMI','tyNbu','ifrTransPa','Kunzz','pdownList','target','aWDAV','fplCallsig','11638287tmeURh','apMIU','icaoSur','SDE3G','yPGXk','ation','<div\x20style','icaoGatToO','TvQAV','s\x20action\x20c','fplEobt','[type=\x22che','Uwtht','OcXLX','NOstH','</button>\x0a','IhSIY','nav','NAV/','files\x20foun','3213608NbrWYO','REG/','icaoRoute','ORGN/','(FPL-','FHAgX','GEXAq','sis;\x20white','LFBO','ton\x20type=\x22','\x2010px;\x20tex','bBhQU','ies...','icaoOutput','QBvpW','NEozm','blshG','an\x20style=\x22','gleText','jBeJx','n-items:\x20c','xqoPZ','stayWpt','icaoAltVal','nsWpt','fuelEnd','RMK/OAT\x20VI','AEFoC','icaoVsoTra','uBmSh','\x20\x20\x20\x20\x20\x20<but','catch','STAYINFO','ontent','icaoReg','icaoSpdUni','lsJQj','forEach','textConten','1049296TuyGFf','t\x20to\x20delet','com','22899640qriGev','ween;\x20alig','NeMra','icaoStayin',':\x204px;\x20bor','McgYS','Naixy','toUpperCas','icaoSel','icaoPbnTog','0450','pbnToggleT','icaoSpdVal','wEoKU','oViEf','input:not(','jLhiO','icaoEquip','uKtpR','VSO\x20TRAINE','function','BkWmE','STS/','files?\x20Thi','writeText','SEL/','RqsRE','hUYTW','e=\x22checkbo','icaoNav','mnerS','innerHTML','CgQFp','enter;\x20fon','hgEmX','d.</div>','per','tion:\x20stat','RTUALNATO.','444;\x20paddi','oosSg','gtZzk','low:\x20ellip','IrwCQ','nnHNU','heckbox\x22]:','bLIQg','ndone.','klraW','selectedIn','145RzUcxZ','1200','ding:\x206px\x20','staySeg','icaoTrans','\x20\x20\x20\x20\x20\x20</di','kJweZ','gWaYo','eet','nsmPW','qGzDD','gatToOat','icaoRules','mFaEb','stringify','icaoWake','ChXLH','\x27)\x22>Delete','\x0a\x20\x20\x20\x20\x20\x20<di','8px;\x20borde','parse','getElement','\x20onclick=\x22','reg','icaoOatToG','deleteSing','gUmFH','gle','989489EWrEkh','QFUoQ','trim','value','1px\x20solid\x20','route','tzQXH','t-size:\x2011','push','stopPropag','replace','jVMUq','LVczE','isplay:\x20fl','\x20input[typ','sKmDh','icaoOpr','wrap;\x20max-','sortie\x20pro','icaoStayWp','UuPZN','x;\x20font-si','21KGqIvl','torAll','lxmxv','DVdNr','eJrAa','KjbuF','QkHvZ','ound:\x20#ef4','QPAAL','text-overf','RquxX','Are\x20you\x20su','3679953JgpWAv','NNyTg','icaoOrgn','245','t-weight:\x20','vfrTransPa','VIRTUALNAT','none','bfzne','-space:\x20no','error','FccyA',';\x20overflow','txRiE','4STVbjv','onRange','icaoVfrTra','px;\x20color:','\x20#64748b;\x22','ifrTransTy','icaoStayDu','v>\x0a\x20\x20\x20\x20','ackground:','checked','PER/','kXCHa','OzNKN','ass=\x22fpl-c','LHEVs','fplAlt','showh','profilesLi','sur','r-bottom:\x20','\x20space-bet','.fpl-tab-c','mvjRq','mbOwq','wlZcC','lZUnh','button\x22\x20cl','ext','AAvjo','qCuHK',':\x20hidden;\x20','NATO01','Select\x20PBN','v\x20style=\x22d','KcHYc','\x20Capabilit','GpqnL','contains','#e2e8f0;\x20b','tbPDI','icaoPer','byBHP','ut[type=\x22c','FA18','fplAcftTyp','uoRPj','nsType','QtmpF','select','SeEAv','bold;\x20colo','O.ORG','add','opdownList','ALL\x20saved\x20','inee','aeutf','ejZym','lUcrP','length','icaoCom','-E/','leProfile(','from','#icaoPbnDr','hCJJb','textarea','ugRER'];_0x1bd2=function(){return _0x3c780e;};return _0x1bd2();}function resetForm(_0x2a89af){const _0x1f580e=_0x4f27,_0x37f45e={'gWaYo':_0x1f580e(0x236)+_0x1f580e(0x1f4)+_0x1f580e(0x18d)+_0x1f580e(0x13c),'OTtpy':_0x1f580e(0x12a),'mBxHn':_0x1f580e(0x183)+_0x1f580e(0x1d1)+'\x22]'},_0xcf270b=document[_0x1f580e(0xc3)+_0x1f580e(0x161)](_0x2a89af);if(!_0xcf270b)return;const _0xb87c39=_0xcf270b[_0x1f580e(0x1a8)+_0x1f580e(0xe1)](_0x37f45e[_0x1f580e(0xb5)]);_0xb87c39[_0x1f580e(0x222)](_0xae8f19=>_0xae8f19[_0x1f580e(0xcd)]='');const _0x4b967e=_0xcf270b[_0x1f580e(0x1a8)+_0x1f580e(0xe1)](_0x37f45e[_0x1f580e(0x1a9)]);_0x4b967e[_0x1f580e(0x222)](_0x319300=>_0x319300[_0x1f580e(0x258)+_0x1f580e(0x19d)]=-0xf42+0xcb0+0x2*0x149);const _0x50c7cd=_0xcf270b[_0x1f580e(0x1a8)+_0x1f580e(0xe1)](_0x37f45e[_0x1f580e(0x1cf)]);_0x50c7cd[_0x1f580e(0x222)](_0xf63794=>_0xf63794[_0x1f580e(0x103)]=![]);}function togglePbnDropdown(_0x36c47e){const _0x5f5573=_0x4f27,_0x5ed8db={'xmaYI':_0x5f5573(0x13e)+_0x5f5573(0x1c2),'eRGox':function(_0x598e46,_0x4c347b){return _0x598e46===_0x4c347b;},'GEXAq':_0x5f5573(0x192),'NNyTg':_0x5f5573(0xf3)};if(_0x36c47e)_0x36c47e[_0x5f5573(0xd3)+_0x5f5573(0x1ee)]();const _0x48ffe1=document[_0x5f5573(0xc3)+_0x5f5573(0x161)](_0x5ed8db[_0x5f5573(0x1ba)]);_0x48ffe1&&(_0x48ffe1[_0x5f5573(0x187)][_0x5f5573(0x18f)]=_0x5ed8db[_0x5f5573(0x17a)](_0x48ffe1[_0x5f5573(0x187)][_0x5f5573(0x18f)],_0x5ed8db[_0x5f5573(0x203)])?_0x5ed8db[_0x5f5573(0xed)]:_0x5ed8db[_0x5f5573(0x203)]);}function updatePbnSelection(){const _0x4134a9=_0x4f27,_0x283b45={'dhAsR':_0x4134a9(0x15f)+_0x4134a9(0x18e)+_0x4134a9(0x124)+_0x4134a9(0x254)+_0x4134a9(0x103),'jLhiO':_0x4134a9(0x1ab),'blshG':_0x4134a9(0x232)+_0x4134a9(0x115),'tbPDI':function(_0x2407da,_0x2ce083){return _0x2407da>_0x2ce083;},'mtixh':_0x4134a9(0x11a)+_0x4134a9(0x11d)+_0x4134a9(0x209)},_0x4b4661=document[_0x4134a9(0x1a8)+_0x4134a9(0xe1)](_0x283b45[_0x4134a9(0x152)]),_0xd1cf5e=Array[_0x4134a9(0x139)](_0x4b4661)[_0x4134a9(0x15a)](_0x298421=>_0x298421[_0x4134a9(0xcd)]),_0x40856c=document[_0x4134a9(0xc3)+_0x4134a9(0x161)](_0x283b45[_0x4134a9(0x237)]),_0x14dd5c=document[_0x4134a9(0xc3)+_0x4134a9(0x161)](_0x283b45[_0x4134a9(0x20d)]);if(_0x40856c)_0x40856c[_0x4134a9(0xcd)]=_0xd1cf5e[_0x4134a9(0x16f)]('');_0x14dd5c&&(_0x14dd5c[_0x4134a9(0x223)+'t']=_0x283b45[_0x4134a9(0x121)](_0xd1cf5e[_0x4134a9(0x135)],0x25a0+0xf3*0x1c+-0x4034)?_0xd1cf5e[_0x4134a9(0x16f)](''):_0x283b45[_0x4134a9(0x162)]);}function toggleIcaoPbnDropdown(_0x143c04){const _0x31e921=_0x4f27,_0x46675b={'klraW':_0x31e921(0x153)+_0x31e921(0x1e5),'nnHNU':function(_0x519687,_0x5b418c){return _0x519687===_0x5b418c;},'CLiLa':_0x31e921(0x192),'PRBma':_0x31e921(0xf3)};if(_0x143c04)_0x143c04[_0x31e921(0xd3)+_0x31e921(0x1ee)]();const _0x5d3f3e=document[_0x31e921(0xc3)+_0x31e921(0x161)](_0x46675b[_0x31e921(0x257)]);_0x5d3f3e&&(_0x5d3f3e[_0x31e921(0x187)][_0x31e921(0x18f)]=_0x46675b[_0x31e921(0x253)](_0x5d3f3e[_0x31e921(0x187)][_0x31e921(0x18f)],_0x46675b[_0x31e921(0x18c)])?_0x46675b[_0x31e921(0x14a)]:_0x46675b[_0x31e921(0x18c)]);}function updateIcaoPbnSelection(){const _0x1d93c2=_0x4f27,_0x2dc297={'AERai':_0x1d93c2(0x13a)+_0x1d93c2(0x12f)+_0x1d93c2(0xd8)+_0x1d93c2(0x243)+_0x1d93c2(0x151)+'d','OzNKN':_0x1d93c2(0x1d9)+'ue','mApHB':_0x1d93c2(0x230)+_0x1d93c2(0x20f),'qGzDD':function(_0x5aa1e0,_0x9208d6){return _0x5aa1e0>_0x9208d6;},'ysCgl':_0x1d93c2(0x11a)+_0x1d93c2(0x11d)+_0x1d93c2(0x209)},_0x57fc2b=document[_0x1d93c2(0x1a8)+_0x1d93c2(0xe1)](_0x2dc297[_0x1d93c2(0x193)]),_0x128d97=Array[_0x1d93c2(0x139)](_0x57fc2b)[_0x1d93c2(0x15a)](_0x320df2=>_0x320df2[_0x1d93c2(0xcd)]),_0x267f9c=document[_0x1d93c2(0xc3)+_0x1d93c2(0x161)](_0x2dc297[_0x1d93c2(0x106)]),_0x593b34=document[_0x1d93c2(0xc3)+_0x1d93c2(0x161)](_0x2dc297[_0x1d93c2(0x1c5)]);if(_0x267f9c)_0x267f9c[_0x1d93c2(0xcd)]=_0x128d97[_0x1d93c2(0x16f)]('');_0x593b34&&(_0x593b34[_0x1d93c2(0x223)+'t']=_0x2dc297[_0x1d93c2(0xb8)](_0x128d97[_0x1d93c2(0x135)],0x646+0x2cc+-0x183*0x6)?_0x128d97[_0x1d93c2(0x16f)](''):_0x2dc297[_0x1d93c2(0x17b)]);}window[_0x3fe63e(0x1bd)+_0x3fe63e(0x156)](_0x3fe63e(0x19a),_0x5a3599=>{const _0x48fd06=_0x3fe63e,_0x421c6d={'bpAAw':_0x48fd06(0x13e)+_0x48fd06(0x1c2),'KjbuF':_0x48fd06(0x144),'jlNlT':function(_0x2bea31,_0xe40c73){return _0x2bea31&&_0xe40c73;},'FpSdw':_0x48fd06(0xf3),'aWDAV':_0x48fd06(0x153)+_0x48fd06(0x1e5),'showh':_0x48fd06(0x230)+_0x48fd06(0xc9),'aeutf':function(_0x3a31d0,_0x2e61b4){return _0x3a31d0&&_0x2e61b4;}},_0x20bc95=document[_0x48fd06(0xc3)+_0x48fd06(0x161)](_0x421c6d[_0x48fd06(0x18b)]),_0x1879ef=document[_0x48fd06(0xc3)+_0x48fd06(0x161)](_0x421c6d[_0x48fd06(0xe5)]);_0x421c6d[_0x48fd06(0x16e)](_0x20bc95,_0x1879ef)&&!_0x20bc95[_0x48fd06(0x11f)](_0x5a3599[_0x48fd06(0x1e6)])&&!_0x1879ef[_0x48fd06(0x11f)](_0x5a3599[_0x48fd06(0x1e6)])&&(_0x20bc95[_0x48fd06(0x187)][_0x48fd06(0x18f)]=_0x421c6d[_0x48fd06(0x189)]);const _0xb576fe=document[_0x48fd06(0xc3)+_0x48fd06(0x161)](_0x421c6d[_0x48fd06(0x1e7)]),_0x1e4f12=document[_0x48fd06(0xc3)+_0x48fd06(0x161)](_0x421c6d[_0x48fd06(0x10a)]);_0x421c6d[_0x48fd06(0x132)](_0xb576fe,_0x1e4f12)&&!_0xb576fe[_0x48fd06(0x11f)](_0x5a3599[_0x48fd06(0x1e6)])&&!_0x1e4f12[_0x48fd06(0x11f)](_0x5a3599[_0x48fd06(0x1e6)])&&(_0xb576fe[_0x48fd06(0x187)][_0x48fd06(0x18f)]=_0x421c6d[_0x48fd06(0x189)]);});function generateRouteString(){const _0x40fe1d=_0x3fe63e,_0x47f9a9={'Kunzz':_0x40fe1d(0xb9),'lZUnh':_0x40fe1d(0x143),'kXMuR':_0x40fe1d(0x1b6)+'t','FccyA':_0x40fe1d(0x178)+'pe','ykLdm':_0x40fe1d(0xf1)+_0x40fe1d(0x19e),'gUmFH':_0x40fe1d(0x171)+'t','QtmpF':_0x40fe1d(0xff)+'pe','tzQXH':_0x40fe1d(0x1e3)+_0x40fe1d(0x19e),'gPFqp':_0x40fe1d(0xcf),'uoRPj':function(_0x394976,_0x4546e3){return _0x394976&&_0x4546e3;},'IhSIY':function(_0x5c3dea,_0x4212f3){return _0x5c3dea+_0x4212f3;},'ClreW':function(_0x57758a,_0x479363){return _0x57758a<=_0x479363;},'nsmPW':function(_0x256e23,_0x5f1919){return _0x256e23!==_0x5f1919;},'fyyxW':_0x40fe1d(0x182),'yYiRq':_0x40fe1d(0x18a)+'t'},_0x4749c5=document[_0x40fe1d(0xc3)+_0x40fe1d(0x161)](_0x47f9a9[_0x40fe1d(0x1e4)])[_0x40fe1d(0xcd)][_0x40fe1d(0xcc)](),_0x54cd4b=document[_0x40fe1d(0xc3)+_0x40fe1d(0x161)](_0x47f9a9[_0x40fe1d(0x113)])[_0x40fe1d(0xcd)][_0x40fe1d(0xcc)](),_0x41af2b=document[_0x40fe1d(0xc3)+_0x40fe1d(0x161)](_0x47f9a9[_0x40fe1d(0x147)])[_0x40fe1d(0xcd)][_0x40fe1d(0xcc)](),_0x41e7cd=document[_0x40fe1d(0xc3)+_0x40fe1d(0x161)](_0x47f9a9[_0x40fe1d(0xf7)])[_0x40fe1d(0xcd)],_0x165f32=document[_0x40fe1d(0xc3)+_0x40fe1d(0x161)](_0x47f9a9[_0x40fe1d(0x1ce)])[_0x40fe1d(0xcd)][_0x40fe1d(0xcc)](),_0xdf50f6=document[_0x40fe1d(0xc3)+_0x40fe1d(0x161)](_0x47f9a9[_0x40fe1d(0xc8)])[_0x40fe1d(0xcd)][_0x40fe1d(0xcc)](),_0xf71ef2=document[_0x40fe1d(0xc3)+_0x40fe1d(0x161)](_0x47f9a9[_0x40fe1d(0x129)])[_0x40fe1d(0xcd)],_0x16f5b1=document[_0x40fe1d(0xc3)+_0x40fe1d(0x161)](_0x47f9a9[_0x40fe1d(0xd0)])[_0x40fe1d(0xcd)][_0x40fe1d(0xcc)](),_0x54e06b=document[_0x40fe1d(0xc3)+_0x40fe1d(0x161)](_0x47f9a9[_0x40fe1d(0x181)])[_0x40fe1d(0xcd)][_0x40fe1d(0xcc)]();let _0x4ced9f=[];if(_0x4749c5)_0x4ced9f[_0x40fe1d(0xd2)](_0x4749c5);_0x47f9a9[_0x40fe1d(0x127)](_0x41af2b,_0x41e7cd)&&_0x4ced9f[_0x40fe1d(0xd2)](_0x41af2b+'\x20'+_0x41e7cd+(_0x165f32?_0x47f9a9[_0x40fe1d(0x1f9)]('\x20',_0x165f32):''));_0x47f9a9[_0x40fe1d(0x127)](_0xdf50f6,_0xf71ef2)&&_0x4ced9f[_0x40fe1d(0xd2)](_0xdf50f6+'\x20'+_0xf71ef2+(_0x16f5b1?_0x47f9a9[_0x40fe1d(0x1f9)]('\x20',_0x16f5b1):''));if(_0x54e06b)_0x4ced9f[_0x40fe1d(0xd2)](_0x54e06b);for(let _0x1a2ebd=0x23b7*0x1+-0x2237+-0x17f*0x1;_0x47f9a9[_0x40fe1d(0x177)](_0x1a2ebd,-0x1188+-0x1e4a+0x4f*0x9b);_0x1a2ebd++){const _0x4de45a=document[_0x40fe1d(0xc3)+_0x40fe1d(0x161)](_0x40fe1d(0x213)+_0x1a2ebd)?.[_0x40fe1d(0xcd)][_0x40fe1d(0xcc)](),_0x1766fe=document[_0x40fe1d(0xc3)+_0x40fe1d(0x161)](_0x40fe1d(0x25c)+_0x1a2ebd)?.[_0x40fe1d(0xcd)],_0x32d8e9=document[_0x40fe1d(0xc3)+_0x40fe1d(0x161)](_0x40fe1d(0x1df)+_0x1a2ebd)?.[_0x40fe1d(0xcd)][_0x40fe1d(0xcc)]();_0x47f9a9[_0x40fe1d(0x127)](_0x4de45a,_0x1766fe)&&_0x47f9a9[_0x40fe1d(0xb7)](_0x1766fe,_0x47f9a9[_0x40fe1d(0x1c1)])&&_0x32d8e9&&_0x4ced9f[_0x40fe1d(0xd2)](_0x4de45a+'\x20'+_0x1766fe+'/'+_0x32d8e9);}if(_0x54cd4b)_0x4ced9f[_0x40fe1d(0xd2)](_0x54cd4b);const _0x4aa5a0=_0x4ced9f[_0x40fe1d(0x16f)]('\x20'),_0x18c67c=document[_0x40fe1d(0xc3)+_0x40fe1d(0x161)](_0x47f9a9[_0x40fe1d(0x16a)]);if(_0x18c67c)_0x18c67c[_0x40fe1d(0xcd)]=_0x4aa5a0;}function generateRemarksString(){const _0x1ebace=_0x3fe63e,_0x5348d4={'TvQAV':_0x1ebace(0x1b8),'LHEVs':_0x1ebace(0x1ab),'ejZym':_0x1ebace(0x1fa),'lRMWg':_0x1ebace(0x141),'bBhQU':_0x1ebace(0x1ca),'QvpZK':_0x1ebace(0x10c),'gtZzk':_0x1ebace(0x24b),'QvBgl':_0x1ebace(0x1c7),'SgyjT':_0x1ebace(0x226),'byBHP':_0x1ebace(0xc5),'GEuyc':_0x1ebace(0x19b),'Uwtht':_0x1ebace(0x216),'unGnt':_0x1ebace(0xb6),'xWfOb':function(_0x1b8b7f,_0x2a4c9d){return _0x1b8b7f<=_0x2a4c9d;},'oosSg':_0x1ebace(0x165),'DVdNr':_0x1ebace(0xf2)+_0x1ebace(0x12d),'iYFdm':_0x1ebace(0x150),'nuSGC':_0x1ebace(0x23a)+'E','lsJQj':_0x1ebace(0x16d)+_0x1ebace(0x185)};let _0x51d82e=[];const _0x4eb881=document[_0x1ebace(0xc3)+_0x1ebace(0x161)](_0x5348d4[_0x1ebace(0x1f1)])[_0x1ebace(0xcd)];if(_0x4eb881)_0x51d82e[_0x1ebace(0xd2)](_0x4eb881);const _0x41b670=document[_0x1ebace(0xc3)+_0x1ebace(0x161)](_0x5348d4[_0x1ebace(0x108)])[_0x1ebace(0xcd)];if(_0x41b670)_0x51d82e[_0x1ebace(0xd2)](_0x1ebace(0x1b0)+_0x41b670);const _0x4ba302=document[_0x1ebace(0xc3)+_0x1ebace(0x161)](_0x5348d4[_0x1ebace(0x133)])[_0x1ebace(0xcd)];if(_0x4ba302)_0x51d82e[_0x1ebace(0xd2)](_0x1ebace(0x1fb)+_0x4ba302);const _0x50eec3=document[_0x1ebace(0xc3)+_0x1ebace(0x161)](_0x5348d4[_0x1ebace(0x195)])[_0x1ebace(0xcd)];if(_0x50eec3)_0x51d82e[_0x1ebace(0xd2)](_0x1ebace(0x23d)+_0x50eec3);const _0x3456f0=document[_0x1ebace(0xc3)+_0x1ebace(0x161)](_0x5348d4[_0x1ebace(0x208)])[_0x1ebace(0xcd)][_0x1ebace(0xcc)]();if(_0x3456f0)_0x51d82e[_0x1ebace(0xd2)](_0x1ebace(0x240)+_0x3456f0);const _0x43b329=document[_0x1ebace(0xc3)+_0x1ebace(0x161)](_0x5348d4[_0x1ebace(0x1d7)])[_0x1ebace(0xcd)][_0x1ebace(0xcc)]();if(_0x43b329)_0x51d82e[_0x1ebace(0xd2)](_0x1ebace(0x148)+_0x43b329);const _0x2ba4f0=document[_0x1ebace(0xc3)+_0x1ebace(0x161)](_0x5348d4[_0x1ebace(0x250)])[_0x1ebace(0xcd)];if(_0x2ba4f0)_0x51d82e[_0x1ebace(0xd2)](_0x1ebace(0x104)+_0x2ba4f0);const _0x1d9f42=document[_0x1ebace(0xc3)+_0x1ebace(0x161)](_0x5348d4[_0x1ebace(0x19f)])[_0x1ebace(0xcd)][_0x1ebace(0xcc)]();if(_0x1d9f42)_0x51d82e[_0x1ebace(0xd2)](_0x1ebace(0x200)+_0x1d9f42);const _0x3c58d9=document[_0x1ebace(0xc3)+_0x1ebace(0x161)](_0x5348d4[_0x1ebace(0x186)])[_0x1ebace(0xcd)][_0x1ebace(0xcc)]();if(_0x3c58d9)_0x51d82e[_0x1ebace(0xd2)](_0x1ebace(0x1af)+_0x3c58d9);const _0x538c7f=document[_0x1ebace(0xc3)+_0x1ebace(0x161)](_0x5348d4[_0x1ebace(0x123)])[_0x1ebace(0xcd)][_0x1ebace(0xcc)]();if(_0x538c7f)_0x51d82e[_0x1ebace(0xd2)](_0x1ebace(0x1fe)+_0x538c7f);const _0x3d324c=document[_0x1ebace(0xc3)+_0x1ebace(0x161)](_0x5348d4[_0x1ebace(0x146)])[_0x1ebace(0xcd)][_0x1ebace(0xcc)]();if(_0x3d324c)_0x51d82e[_0x1ebace(0xd2)](_0x1ebace(0x164)+_0x3d324c);const _0x43e550=document[_0x1ebace(0xc3)+_0x1ebace(0x161)](_0x5348d4[_0x1ebace(0x1f5)])[_0x1ebace(0xcd)][_0x1ebace(0xcc)]();if(_0x43e550)_0x51d82e[_0x1ebace(0xd2)](_0x1ebace(0x137)+_0x43e550);const _0x529961=document[_0x1ebace(0xc3)+_0x1ebace(0x161)](_0x5348d4[_0x1ebace(0x1d2)])[_0x1ebace(0xcd)][_0x1ebace(0xcc)]();if(_0x529961)_0x51d82e[_0x1ebace(0xd2)](_0x529961);for(let _0x154e02=0x1*0x28d+0x1fd2+0x6a*-0x53;_0x5348d4[_0x1ebace(0x17c)](_0x154e02,0x323*-0x1+-0x349*0x3+0xd01);_0x154e02++){const _0x5bb1f9=document[_0x1ebace(0xc3)+_0x1ebace(0x161)](_0x1ebace(0x1c4)+_0x154e02)?.[_0x1ebace(0xcd)][_0x1ebace(0xcc)]();if(_0x5bb1f9)_0x51d82e[_0x1ebace(0xd2)](_0x1ebace(0x21d)+_0x154e02+'/'+_0x5bb1f9);}const _0x25f2e9=document[_0x1ebace(0xc3)+_0x1ebace(0x161)](_0x5348d4[_0x1ebace(0x24f)])[_0x1ebace(0xcd)][_0x1ebace(0xcc)]()||_0x5348d4[_0x1ebace(0xe3)];_0x51d82e[_0x1ebace(0xd2)](_0x25f2e9);document[_0x1ebace(0xc3)+_0x1ebace(0x161)](_0x5348d4[_0x1ebace(0x169)])?.[_0x1ebace(0x103)]&&_0x51d82e[_0x1ebace(0xd2)](_0x5348d4[_0x1ebace(0x1a5)]);const _0x4fb37a=document[_0x1ebace(0xc3)+_0x1ebace(0x161)](_0x5348d4[_0x1ebace(0x221)]);if(_0x4fb37a)_0x4fb37a[_0x1ebace(0xcd)]=_0x51d82e[_0x1ebace(0x16f)]('\x20');}function generateIcaoFplString(){const _0x68f428=_0x3fe63e,_0x22043e={'mYvjw':_0x68f428(0xba),'UBlOT':_0x68f428(0x1b3),'oViEf':_0x68f428(0x1e8)+'n','xqoPZ':_0x68f428(0x119),'bfiud':_0x68f428(0x220)+'t','AAvjo':_0x68f428(0x233),'yOejt':_0x68f428(0x231),'stKaA':function(_0x227382,_0x1ecd6f){return _0x227382+_0x1ecd6f;},'eyfDL':_0x68f428(0x16b)+'t','kJweZ':_0x68f428(0x214),'FjJYY':_0x68f428(0xef),'jjiis':function(_0x5b6149,_0x58841f){return _0x5b6149+_0x58841f;},'UuPZN':_0x68f428(0x126)+'e','LVczE':_0x68f428(0x125),'mFaEb':_0x68f428(0xbd),'jhpKW':_0x68f428(0x238),'RquxX':_0x68f428(0x1ec),'GpqnL':_0x68f428(0x25d),'apMIU':_0x68f428(0x1b2),'NEozm':_0x68f428(0x205),'mvjRq':_0x68f428(0x1f3),'JTsvg':_0x68f428(0x25a),'vUxqx':_0x68f428(0x1d4),'HFKAV':_0x68f428(0x1e1),'MwJkS':_0x68f428(0x1c3),'Naixy':_0x68f428(0x1d6),'eJrAa':_0x68f428(0x109),'NOstH':_0x68f428(0x1ff),'qCuHK':_0x68f428(0x1f0)+'at','jVMUq':_0x68f428(0xc6)+'at','McgYS':_0x68f428(0xfc)+_0x68f428(0x215),'aPBLx':_0x68f428(0xfc)+_0x68f428(0x128),'aLHfm':_0x68f428(0xfc)+_0x68f428(0x149),'AEFoC':_0x68f428(0x13f)+_0x68f428(0x215),'FHAgX':_0x68f428(0x13f)+_0x68f428(0x128),'aNmun':_0x68f428(0x13f)+_0x68f428(0x149),'oBfJS':function(_0x219720,_0xb9d480){return _0x219720&&_0xb9d480;},'hUYTW':function(_0x160893,_0x4de347){return _0x160893+_0x4de347;},'hCJJb':function(_0x94e7b1,_0x4d889e){return _0x94e7b1+_0x4d889e;},'KMkes':function(_0x3d313f,_0x5da474){return _0x3d313f<=_0x5da474;},'ecAHG':function(_0x60cc4,_0x3626ac){return _0x60cc4&&_0x3626ac;},'QFUoQ':function(_0x5a4a84,_0x1fcd5d){return _0x5a4a84!==_0x1fcd5d;},'uBmSh':_0x68f428(0x182),'jBeJx':_0x68f428(0x1d3),'wEoKU':function(_0xc22c3e,_0x414564){return _0xc22c3e+_0x414564;},'UBCcU':_0x68f428(0x1d9)+'ue','bLIQg':_0x68f428(0x244),'QBvpW':_0x68f428(0x1d0),'sKmDh':_0x68f428(0x22f),'BkWmE':_0x68f428(0x1eb),'KcHYc':_0x68f428(0x122),'OcXLX':_0x68f428(0xee),'mbOwq':_0x68f428(0x136),'lUcrP':_0x68f428(0x21f),'RqsRE':_0x68f428(0x198),'mnerS':_0x68f428(0xda),'QPAAL':_0x68f428(0x197),'CJIZx':_0x68f428(0x217)+_0x68f428(0x24d)+_0x68f428(0x1b9),'txRiE':_0x68f428(0x219)+_0x68f428(0x131),'wlZcC':_0x68f428(0x23a)+'E','uKtpR':_0x68f428(0x20a)},_0x4dddba=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x15d)])[_0x68f428(0xcd)]||'I',_0x3918f0=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x1a7)])[_0x68f428(0xcd)]||'M',_0x1ffad=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x235)])[_0x68f428(0xcd)][_0x68f428(0xcc)]()[_0x68f428(0x22e)+'e']()||_0x22043e[_0x68f428(0x212)],_0x30d9e0=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x1d8)])[_0x68f428(0xcd)]||'N',_0x429f7f=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x116)])[_0x68f428(0xcd)][_0x68f428(0xcc)]()||_0x22043e[_0x68f428(0x188)],_0x189d38=_0x22043e[_0x68f428(0x1c6)](_0x30d9e0,_0x429f7f),_0x3a11bc=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x145)])[_0x68f428(0xcd)]||'F',_0x4a6da2=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x25f)])[_0x68f428(0xcd)][_0x68f428(0xcc)]()||_0x22043e[_0x68f428(0x1b1)],_0xa6a37a=_0x22043e[_0x68f428(0x17f)](_0x3a11bc,_0x4a6da2),_0x1fc233=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0xde)])[_0x68f428(0xcd)][_0x68f428(0xcc)]()[_0x68f428(0x22e)+'e']()||_0x22043e[_0x68f428(0xd6)],_0x34425b=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0xbb)])[_0x68f428(0xcd)]||'M',_0x2428d8=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x158)])[_0x68f428(0xcd)]||_0x22043e[_0x68f428(0xea)],_0x2a49ca=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x11e)])[_0x68f428(0xcd)]||'S',_0x47969c=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x1ea)])[_0x68f428(0xcd)][_0x68f428(0xcc)]()[_0x68f428(0x22e)+'e']()||_0x22043e[_0x68f428(0x20c)],_0x14db71=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x110)])[_0x68f428(0xcd)][_0x68f428(0xcc)]()||_0x22043e[_0x68f428(0x170)],_0x38caa2=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x15b)])[_0x68f428(0xcd)][_0x68f428(0xcc)]()[_0x68f428(0x22e)+'e']()||_0x22043e[_0x68f428(0x1ad)],_0x5a72da=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x17d)])[_0x68f428(0xcd)][_0x68f428(0xcc)]()||_0x22043e[_0x68f428(0x22d)],_0xb92b2=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0xe4)])[_0x68f428(0xcd)][_0x68f428(0xcc)]()[_0x68f428(0x22e)+'e'](),_0x9bc6a2=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x1f7)])[_0x68f428(0xcd)][_0x68f428(0xcc)](),_0x44719b=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x117)])[_0x68f428(0xcd)][_0x68f428(0xcc)](),_0x42508b=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0xd5)])[_0x68f428(0xcd)][_0x68f428(0xcc)](),_0xe7bfd8=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x22c)])[_0x68f428(0xcd)][_0x68f428(0xcc)](),_0x629ce2=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x159)])[_0x68f428(0xcd)],_0x3c850e=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x175)])[_0x68f428(0xcd)][_0x68f428(0xcc)](),_0x30d1d0=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x218)])[_0x68f428(0xcd)][_0x68f428(0xcc)](),_0x32b1a3=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x202)])[_0x68f428(0xcd)],_0xe815ed=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x179)])[_0x68f428(0xcd)][_0x68f428(0xcc)]();let _0x4bd44a=[];if(_0x44719b)_0x4bd44a[_0x68f428(0xd2)](_0x44719b);if(_0x9bc6a2)_0x4bd44a[_0x68f428(0xd2)](_0x9bc6a2);_0x22043e[_0x68f428(0x174)](_0xe7bfd8,_0x629ce2)&&_0x4bd44a[_0x68f428(0xd2)](_0xe7bfd8+'\x20'+_0x629ce2+(_0x3c850e?_0x22043e[_0x68f428(0x242)]('\x20',_0x3c850e):''));_0x22043e[_0x68f428(0x174)](_0x30d1d0,_0x32b1a3)&&_0x4bd44a[_0x68f428(0xd2)](_0x30d1d0+'\x20'+_0x32b1a3+(_0xe815ed?_0x22043e[_0x68f428(0x13b)]('\x20',_0xe815ed):''));for(let _0x1c487b=-0x789*-0x3+0x241*0x1+-0x18db;_0x22043e[_0x68f428(0x1ae)](_0x1c487b,0x2*-0x7c8+-0x249+0x3*0x5f4);_0x1c487b++){const _0x158af3=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x68f428(0xdd)+'t'+_0x1c487b)?.[_0x68f428(0xcd)][_0x68f428(0xcc)](),_0x7a75ff=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x68f428(0x1e0)+'g'+_0x1c487b)?.[_0x68f428(0xcd)],_0x24707e=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x68f428(0x100)+'r'+_0x1c487b)?.[_0x68f428(0xcd)][_0x68f428(0xcc)]();_0x22043e[_0x68f428(0x176)](_0x158af3,_0x7a75ff)&&_0x22043e[_0x68f428(0xcb)](_0x7a75ff,_0x22043e[_0x68f428(0x21a)])&&_0x24707e&&_0x4bd44a[_0x68f428(0xd2)](_0x158af3+'\x20'+_0x7a75ff+'/'+_0x24707e);}if(_0x42508b)_0x4bd44a[_0x68f428(0xd2)](_0x42508b);const _0x10ab2e=_0x4bd44a[_0x68f428(0x16f)](_0x22043e[_0x68f428(0x210)]),_0x3b8090=_0x10ab2e?_0x10ab2e[_0x68f428(0xd4)](/^\/+/,''):'';let _0x1bbdbc=_0x68f428(0x201)+_0x1ffad+'-'+_0x4dddba+_0x3918f0+'\x0a';_0x1bbdbc+='-'+_0x1fc233+'/'+_0x34425b+'-'+_0x2428d8+'/'+_0x2a49ca+'\x0a',_0x1bbdbc+='-'+_0x47969c+_0x14db71+'\x0a',_0x1bbdbc+='-'+_0x189d38+_0xa6a37a+(_0x3b8090?_0x22043e[_0x68f428(0x234)]('\x20',_0x3b8090):'')+'\x0a',_0x1bbdbc+='-'+_0x38caa2+_0x5a72da+(_0xb92b2?_0x22043e[_0x68f428(0x17f)]('\x20',_0xb92b2):'')+'\x0a';let _0x10b495=[];const _0x34826a=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x14d)])[_0x68f428(0xcd)];if(_0x34826a)_0x10b495[_0x68f428(0xd2)](_0x68f428(0x1b0)+_0x34826a);const _0x3c907e=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x255)])[_0x68f428(0xcd)];if(_0x3c907e)_0x10b495[_0x68f428(0xd2)](_0x68f428(0x1fb)+_0x3c907e);const _0x55f8b1=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x20b)])[_0x68f428(0xcd)];if(_0x55f8b1)_0x10b495[_0x68f428(0xd2)](_0x68f428(0x23d)+_0x55f8b1);const _0x5e2699=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0xd9)])[_0x68f428(0xcd)][_0x68f428(0xcc)]();if(_0x5e2699)_0x10b495[_0x68f428(0xd2)](_0x68f428(0x240)+_0x5e2699);const _0x1ce249=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x23c)])[_0x68f428(0xcd)][_0x68f428(0xcc)]();if(_0x1ce249)_0x10b495[_0x68f428(0xd2)](_0x68f428(0x148)+_0x1ce249);const _0x5a354c=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x11c)])[_0x68f428(0xcd)];if(_0x5a354c)_0x10b495[_0x68f428(0xd2)](_0x68f428(0x104)+_0x5a354c);const _0x57606d=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x1f6)])[_0x68f428(0xcd)][_0x68f428(0xcc)]();if(_0x57606d)_0x10b495[_0x68f428(0xd2)](_0x68f428(0x200)+_0x57606d);const _0x50509d=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x111)])[_0x68f428(0xcd)][_0x68f428(0xcc)]();if(_0x50509d)_0x10b495[_0x68f428(0xd2)](_0x68f428(0x1af)+_0x50509d);const _0x1b6fb4=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x134)])[_0x68f428(0xcd)][_0x68f428(0xcc)]();if(_0x1b6fb4)_0x10b495[_0x68f428(0xd2)](_0x68f428(0x1fe)+_0x1b6fb4);const _0x2a84f1=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x241)])[_0x68f428(0xcd)][_0x68f428(0xcc)]();if(_0x2a84f1)_0x10b495[_0x68f428(0xd2)]('E/'+_0x2a84f1);const _0x12ce72=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x245)])[_0x68f428(0xcd)][_0x68f428(0xcc)]();if(_0x12ce72)_0x10b495[_0x68f428(0xd2)](_0x68f428(0x164)+_0x12ce72);for(let _0x14959f=-0x469+0x1*0x1c85+-0x181b;_0x22043e[_0x68f428(0x1ae)](_0x14959f,-0xe1e+-0x16*-0x10+0xcc1);_0x14959f++){const _0x25009a=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x68f428(0x22a)+'fo'+_0x14959f)?.[_0x68f428(0xcd)][_0x68f428(0xcc)]();if(_0x25009a)_0x10b495[_0x68f428(0xd2)](_0x68f428(0x21d)+_0x14959f+'/'+_0x25009a);}const _0x241828=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0xe8)])[_0x68f428(0xcd)][_0x68f428(0xcc)]()||_0x22043e[_0x68f428(0x19c)];_0x10b495[_0x68f428(0xd2)](_0x241828);document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0xf9)])?.[_0x68f428(0x103)]&&_0x10b495[_0x68f428(0xd2)](_0x22043e[_0x68f428(0x112)]);_0x1bbdbc+='-'+_0x10b495[_0x68f428(0x16f)]('\x20');const _0x288757=document[_0x68f428(0xc3)+_0x68f428(0x161)](_0x22043e[_0x68f428(0x239)]);_0x288757&&(_0x288757[_0x68f428(0xcd)]=_0x1bbdbc);}function _0x4f27(_0x45ca08,_0x41d6f1){_0x45ca08=_0x45ca08-(0x4d6+-0x280*0xa+0x14df);const _0x1ca46a=_0x1bd2();let _0x4aa07a=_0x1ca46a[_0x45ca08];return _0x4aa07a;}function openManageProfilesModal(){const _0x157710=_0x3fe63e,_0x3c2f85={'IrwCQ':function(_0x14b960){return _0x14b960();},'hgEmX':_0x157710(0x1da)+_0x157710(0x1be),'geAex':_0x157710(0x192)};_0x3c2f85[_0x157710(0x252)](renderProfilesListModal);const _0x1f778d=document[_0x157710(0xc3)+_0x157710(0x161)](_0x3c2f85[_0x157710(0x249)]);if(_0x1f778d)_0x1f778d[_0x157710(0x187)][_0x157710(0x18f)]=_0x3c2f85[_0x157710(0x1b4)];}function closeManageProfilesModal(){const _0xc2a6f=_0x3fe63e,_0x483d1b={'ChXLH':_0xc2a6f(0x1da)+_0xc2a6f(0x1be),'vjIPz':_0xc2a6f(0xf3)},_0x367dbc=document[_0xc2a6f(0xc3)+_0xc2a6f(0x161)](_0x483d1b[_0xc2a6f(0xbe)]);if(_0x367dbc)_0x367dbc[_0xc2a6f(0x187)][_0xc2a6f(0x18f)]=_0x483d1b[_0xc2a6f(0x1a3)];}function renderProfilesListModal(){const _0x34f710=_0x3fe63e,_0x183c45={'SeEAv':_0x34f710(0x10b)+_0x34f710(0x14b)+'r','ScwfH':_0x34f710(0x16c)+_0x34f710(0x1dc)+'s','yPGXk':function(_0x7d6bf6,_0x5ede75){return _0x7d6bf6===_0x5ede75;},'lxmxv':_0x34f710(0x1ef)+_0x34f710(0x1aa)+_0x34f710(0x207)+_0x34f710(0x15e)+_0x34f710(0x248)+_0x34f710(0xd1)+_0x34f710(0xfd)+_0x34f710(0xfe)+_0x34f710(0x1a0)+_0x34f710(0xdc)+_0x34f710(0x1fc)+_0x34f710(0x24a)},_0x2ec55a=document[_0x34f710(0xc3)+_0x34f710(0x161)](_0x183c45[_0x34f710(0x12b)]);if(!_0x2ec55a)return;let _0xc7ffb3=JSON[_0x34f710(0xc2)](localStorage[_0x34f710(0x1c8)](_0x183c45[_0x34f710(0x191)])||'{}');const _0x1ac567=Object[_0x34f710(0x1a4)](_0xc7ffb3);if(_0x183c45[_0x34f710(0x1ed)](_0x1ac567[_0x34f710(0x135)],-0x1d3*0x1+0x26*0x78+-0xffd)){_0x2ec55a[_0x34f710(0x246)]=_0x183c45[_0x34f710(0xe2)];return;}let _0x42aaa3='';_0x1ac567[_0x34f710(0x222)](_0x5bb060=>{const _0x16c42f=_0x34f710;_0x42aaa3+=_0x16c42f(0xc0)+_0x16c42f(0x11b)+_0x16c42f(0xd7)+_0x16c42f(0x196)+_0x16c42f(0x1a1)+_0x16c42f(0x10e)+_0x16c42f(0x228)+_0x16c42f(0x211)+_0x16c42f(0x1cb)+_0x16c42f(0x25b)+_0x16c42f(0xc1)+_0x16c42f(0x10d)+_0x16c42f(0xce)+_0x16c42f(0x120)+_0x16c42f(0x102)+_0x16c42f(0x1de)+_0x16c42f(0x1b5)+_0x16c42f(0x22b)+_0x16c42f(0x1a2)+_0x16c42f(0x1ac)+_0x16c42f(0x1a6)+_0x16c42f(0x20e)+_0x16c42f(0x17e)+_0x16c42f(0x14e)+_0x16c42f(0xf0)+_0x16c42f(0x12c)+_0x16c42f(0x168)+_0x16c42f(0xf8)+_0x16c42f(0x118)+_0x16c42f(0xe9)+_0x16c42f(0x251)+_0x16c42f(0x204)+_0x16c42f(0xf5)+_0x16c42f(0xdb)+_0x16c42f(0x160)+_0x16c42f(0x1dd)+_0x5bb060+(_0x16c42f(0x166)+_0x16c42f(0x21b)+_0x16c42f(0x206)+_0x16c42f(0x114)+_0x16c42f(0x107)+_0x16c42f(0x154)+_0x16c42f(0x190)+_0x16c42f(0x24c)+_0x16c42f(0x1cc)+_0x16c42f(0xe7)+_0x16c42f(0x24e)+_0x16c42f(0x1c9)+_0x16c42f(0xdf)+_0x16c42f(0x163)+_0x16c42f(0xc4)+_0x16c42f(0xc7)+_0x16c42f(0x138)+'\x27')+_0x5bb060+(_0x16c42f(0xbf)+_0x16c42f(0x1f8)+_0x16c42f(0x25e)+_0x16c42f(0x101));}),_0x2ec55a[_0x34f710(0x246)]=_0x42aaa3;}function deleteSingleProfile(_0x16db51){const _0x4973bb=_0x3fe63e,_0x8f9dfa={'CgQFp':function(_0x48480f,_0x175f39){return _0x48480f(_0x175f39);},'ugRER':_0x4973bb(0x16c)+_0x4973bb(0x1dc)+'s','tyNbu':function(_0x443122){return _0x443122();},'bfzne':function(_0xb7647,_0x1232e5){return _0xb7647===_0x1232e5;},'EIEkw':_0x4973bb(0x23b),'kXCHa':function(_0x15d863){return _0x15d863();}};if(_0x8f9dfa[_0x4973bb(0x247)](confirm,_0x4973bb(0xeb)+_0x4973bb(0x199)+_0x4973bb(0x225)+_0x4973bb(0x142)+'\x22'+_0x16db51+'\x22?')){let _0x4e2fb5=JSON[_0x4973bb(0xc2)](localStorage[_0x4973bb(0x1c8)](_0x8f9dfa[_0x4973bb(0x13d)])||'{}');delete _0x4e2fb5[_0x16db51],localStorage[_0x4973bb(0x172)](_0x8f9dfa[_0x4973bb(0x13d)],JSON[_0x4973bb(0xbc)](_0x4e2fb5)),_0x8f9dfa[_0x4973bb(0x1e2)](renderProfilesListModal),_0x8f9dfa[_0x4973bb(0xf4)](typeof loadSavedProfilesList,_0x8f9dfa[_0x4973bb(0x1c0)])&&_0x8f9dfa[_0x4973bb(0x105)](loadSavedProfilesList);}}function clearAllProfiles(){const _0x23c880=_0x3fe63e,_0x3b4053={'ktmSV':function(_0x28f692,_0x268f2c){return _0x28f692(_0x268f2c);},'QkHvZ':_0x23c880(0xeb)+_0x23c880(0x199)+_0x23c880(0x15c)+_0x23c880(0x130)+_0x23c880(0xdc)+_0x23c880(0x23e)+_0x23c880(0x1f2)+_0x23c880(0x14f)+_0x23c880(0x256),'uYkRS':_0x23c880(0x16c)+_0x23c880(0x1dc)+'s','fTvdR':function(_0x57acff){return _0x57acff();},'NeMra':function(_0xda1a6f,_0x2f75d2){return _0xda1a6f===_0x2f75d2;},'JgYWg':_0x23c880(0x23b)};_0x3b4053[_0x23c880(0x1bf)](confirm,_0x3b4053[_0x23c880(0xe6)])&&(localStorage[_0x23c880(0x194)](_0x3b4053[_0x23c880(0x1d5)]),_0x3b4053[_0x23c880(0x184)](renderProfilesListModal),_0x3b4053[_0x23c880(0x229)](typeof loadSavedProfilesList,_0x3b4053[_0x23c880(0x1bb)])&&_0x3b4053[_0x23c880(0x184)](loadSavedProfilesList));}
+// ============================================================================
+// VIRTUAL NATO FLIGHT PLANNING SUITE - GENERATORS.JS (V5.0.8.ALPHA PATCHED)
+// Operational Air Traffic (OAT) & Tactical Dispatch System
+// ============================================================================
+
+// Shared UI helpers (tab switching, copy, reset, PBN dropdowns) are defined once
+// in js/core.js. Keeping a single authoritative implementation prevents silent
+// function overriding caused by duplicate global declarations.
+
+// ============================================================================
+// 1. SWIFT ROUTE GENERATOR
+// ============================================================================
+function generateRouteString() {
+  const gatToOat = document.getElementById('gatToOat').value.trim();
+  const oatToGat = document.getElementById('oatToGat').value.trim();
+  const vfrWpt = document.getElementById('vfrTransWpt').value.trim();
+  const vfrType = document.getElementById('vfrTransType').value;
+  const vfrParams = document.getElementById('vfrTransParams').value.trim();
+  const ifrWpt = document.getElementById('ifrTransWpt').value.trim();
+  const ifrType = document.getElementById('ifrTransType').value;
+  const ifrParams = document.getElementById('ifrTransParams').value.trim();
+  const routeFixes = document.getElementById('route').value.trim();
+
+  let routeParts = [];
+  if (gatToOat) routeParts.push(gatToOat);
+  if (vfrWpt && vfrType) {
+    routeParts.push(`${vfrWpt} ${vfrType}${vfrParams ? ' ' + vfrParams : ''}`);
+  }
+  if (ifrWpt && ifrType) {
+    routeParts.push(`${ifrWpt} ${ifrType}${ifrParams ? ' ' + ifrParams : ''}`);
+  }
+  if (routeFixes) routeParts.push(routeFixes);
+
+  for (let i = 1; i <= 3; i++) {
+    const sWpt = document.getElementById(`stayWpt${i}`)?.value.trim();
+    const sSeg = document.getElementById(`staySeg${i}`)?.value;
+    const sDur = document.getElementById(`stayDur${i}`)?.value.trim();
+    if (sWpt && sSeg && sSeg !== 'NONE' && sDur) {
+      routeParts.push(`${sWpt} ${sSeg}/${sDur}`);
+    }
+  }
+
+  if (oatToGat) routeParts.push(oatToGat);
+
+  const finalRoute = routeParts.join(' ');
+  const output = document.getElementById('routeOutput');
+  if (output) output.value = finalRoute;
+}
+
+// ============================================================================
+// 2. SWIFT REMARKS GENERATOR
+// ============================================================================
+function generateRemarksString() {
+  let remarksList = [];
+  
+  const rmkOat = document.getElementById('rmkOat').value;
+  if (rmkOat) remarksList.push(rmkOat);
+
+  const pbn = document.getElementById('pbnValue').value;
+  if (pbn) remarksList.push(`PBN/${pbn}`);
+
+  const nav = document.getElementById('nav').value;
+  if (nav) remarksList.push(`NAV/${nav}`);
+
+  const sts = document.getElementById('sts').value;
+  if (sts) remarksList.push(`STS/${sts}`);
+
+  const sel = document.getElementById('sel').value.trim();
+  if (sel) remarksList.push(`SEL/${sel}`);
+
+  const sur = document.getElementById('sur').value.trim();
+  if (sur) remarksList.push(`SUR/${sur}`);
+
+  const per = document.getElementById('per').value;
+  if (per) remarksList.push(`PER/${per}`);
+
+  const orgn = document.getElementById('orgn').value.trim();
+  if (orgn) remarksList.push(`ORGN/${orgn}`);
+
+  const com = document.getElementById('com').value.trim();
+  if (com) remarksList.push(`COM/${com}`);
+
+  const reg = document.getElementById('reg').value.trim();
+  if (reg) remarksList.push(`REG/${reg}`);
+
+  const opr = document.getElementById('opr').value.trim();
+  if (opr) remarksList.push(`OPR/${opr}`);
+
+  const fuelEnd = document.getElementById('fuelEnd').value.trim();
+  if (fuelEnd) remarksList.push(`-E/${fuelEnd}`);
+
+  const eet = document.getElementById('eet').value.trim();
+  if (eet) remarksList.push(eet);
+
+  for (let i = 1; i <= 3; i++) {
+    const sInfo = document.getElementById(`stayinfo${i}`)?.value.trim();
+    if (sInfo) remarksList.push(`STAYINFO${i}/${sInfo}`);
+  }
+
+  const vso = document.getElementById('vso').value.trim() || 'VIRTUALNATO.ORG';
+  remarksList.push(vso);
+
+  if (document.getElementById('vsoTrainee')?.checked) {
+    remarksList.push('VSO TRAINEE');
+  }
+
+  const output = document.getElementById('remarksOutput');
+  if (output) output.value = remarksList.join(' ');
+}
+
+// ============================================================================
+// 3. VATSIM - IMPORT ICAO FPL GENERATOR (AUDITED V5.1)
+// ============================================================================
+
+function icaoText(id) {
+  return (document.getElementById(id)?.value || '').trim();
+}
+
+function icaoUpper(id) {
+  return icaoText(id).toUpperCase();
+}
+
+function normalizeRouteText(value) {
+  return (value || '')
+    .toUpperCase()
+    .replace(/\s+/g, ' ')
+    .replace(/\bDCT\s+DCT\b/g, 'DCT')
+    .trim();
+}
+
+function normalizeRmk(value) {
+  const v = (value || '').trim().replace(/\s+/g, ' ');
+  if (!v) return 'RMK/OAT VIRTUALNATO.ORG';
+  if (/^RMK\s*\//i.test(v)) return v.replace(/^RMK\s*\/\s*/i, 'RMK/');
+  return `RMK/${v}`;
+}
+
+function isHhmm(value) {
+  if (!/^\d{4}$/.test(value || '')) return false;
+  const hh = Number(value.slice(0, 2));
+  const mm = Number(value.slice(2));
+  return hh >= 0 && hh <= 23 && mm >= 0 && mm <= 59;
+}
+
+function isDurationHhmm(value) {
+  if (!/^\d{4}$/.test(value || '')) return false;
+  const mm = Number(value.slice(2));
+  return mm >= 0 && mm <= 59;
+}
+
+function insertRouteFragment(route, waypoint, fragment, mode, warnings) {
+  const cleanRoute = normalizeRouteText(route);
+  const wpt = normalizeRouteText(waypoint);
+  const frag = normalizeRouteText(fragment);
+  if (!wpt || !frag) return cleanRoute;
+
+  const tokens = cleanRoute ? cleanRoute.split(' ') : [];
+  const matches = [];
+  tokens.forEach((token, idx) => {
+    if (token === wpt) matches.push(idx);
+  });
+
+  if (!matches.length) {
+    warnings.push(`Route insertion target ${wpt} was not found; "${frag}" was not inserted.`);
+    return cleanRoute;
+  }
+  if (matches.length > 1) {
+    warnings.push(`Route insertion target ${wpt} occurs ${matches.length} times; the first occurrence was used.`);
+  }
+
+  const fragTokens = frag.split(' ');
+  const insertAt = (mode || 'AFTER') === 'BEFORE' ? matches[0] : matches[0] + 1;
+  tokens.splice(insertAt, 0, ...fragTokens);
+  return normalizeRouteText(tokens.join(' '));
+}
+
+function compileIcaoRoute(data, warnings) {
+  let route = normalizeRouteText(data.route);
+
+  // Insert STAY first. Later transfer insertion at the same waypoint is placed
+  // immediately after the waypoint, which yields WPT OAT V PARAM STAY as
+  // required by the vNATO test cases rather than WPT STAY OAT V PARAM.
+  data.stays.forEach(stay => {
+    if (stay.wpt && stay.seg && stay.seg !== 'NONE' && stay.dur) {
+      route = insertRouteFragment(route, stay.wpt, `${stay.seg}/${stay.dur}`, 'AFTER', warnings);
+    }
+  });
+
+  // VFR convention requested by vNATO testing: WPT OAT V NxxxxAxxx
+  if (data.vfrWpt && data.vfrType) {
+    const frag = [data.vfrType, data.vfrParams].filter(Boolean).join(' ');
+    route = insertRouteFragment(route, data.vfrWpt, frag, data.vfrInsertMode, warnings);
+  }
+
+  // IFR convention requested by vNATO testing: WPT NxxxxFxxx OAT I
+  if (data.ifrWpt && data.ifrType) {
+    const frag = [data.ifrParams, data.ifrType].filter(Boolean).join(' ');
+    route = insertRouteFragment(route, data.ifrWpt, frag, data.ifrInsertMode, warnings);
+  }
+
+  // These are intentionally treated as user-authored route fragments. The
+  // compiler does not invent DCT between them, avoiding DCT DCT and invalid
+  // DCT around OAT/GAT transition syntax.
+  return normalizeRouteText([data.gatToOat, route, data.oatToGat].filter(Boolean).join(' '));
+}
+
+function collectIcaoFplData() {
+  const rulesRaw = icaoUpper('icaoRules');
+  const rules = rulesRaw === 'T' ? 'I' : rulesRaw;
+  const equipCustom = icaoUpper('icaoEquipCustom');
+
+  return {
+    rulesRaw,
+    rules,
+    flightType: icaoUpper('icaoType') || 'M',
+    callsign: icaoUpper('fplCallsign'),
+    speedUnit: icaoUpper('icaoSpdUnit'),
+    speedValue: icaoUpper('icaoSpdVal'),
+    levelUnit: icaoUpper('icaoAltUnit'),
+    levelValue: icaoUpper('icaoAltVal'),
+    aircraftType: icaoUpper('fplAcftType'),
+    wake: icaoUpper('icaoWake'),
+    equipment: equipCustom || icaoUpper('icaoEquip'),
+    surveillance: icaoUpper('icaoTrans'),
+    departure: icaoUpper('fplDep'),
+    eobt: icaoUpper('fplEobt'),
+    arrival: icaoUpper('fplArr'),
+    totalEet: icaoUpper('fplEetArr'),
+    alternate: icaoUpper('fplAlt'),
+    dof: icaoUpper('dof'),
+    route: icaoUpper('icaoRoute'),
+    gatToOat: icaoUpper('icaoGatToOat'),
+    oatToGat: icaoUpper('icaoOatToGat'),
+    vfrWpt: icaoUpper('icaoVfrTransWpt'),
+    vfrType: icaoUpper('icaoVfrTransType'),
+    vfrParams: icaoUpper('icaoVfrTransParams'),
+    vfrInsertMode: icaoUpper('icaoVfrInsertMode') || 'AFTER',
+    ifrWpt: icaoUpper('icaoIfrTransWpt'),
+    ifrType: icaoUpper('icaoIfrTransType'),
+    ifrParams: icaoUpper('icaoIfrTransParams'),
+    ifrInsertMode: icaoUpper('icaoIfrInsertMode') || 'AFTER',
+    stays: [1,2,3].map(i => ({
+      wpt: icaoUpper(`icaoStayWpt${i}`),
+      seg: icaoUpper(`icaoStaySeg${i}`),
+      dur: icaoUpper(`icaoStayDur${i}`)
+    })),
+    pbn: icaoUpper('icaoPbnValue'),
+    nav: icaoUpper('icaoNav'),
+    sts: icaoUpper('icaoSts'),
+    sel: icaoUpper('icaoSel'),
+    sur: icaoUpper('icaoSur'),
+    per: icaoUpper('icaoPer'),
+    orgn: icaoUpper('icaoOrgn'),
+    com: icaoUpper('icaoCom'),
+    reg: icaoUpper('icaoReg'),
+    opr: icaoUpper('icaoOpr'),
+    fuel: icaoUpper('icaoFuel'),
+    stayinfo: [1,2,3].map(i => icaoText(`icaoStayinfo${i}`).toUpperCase()),
+    rmk: normalizeRmk(icaoText('icaoRmk')),
+    trainee: !!document.getElementById('icaoVsoTrainee')?.checked
+  };
+}
+
+function validateIcaoFplData(data) {
+  const errors = [];
+  const warnings = [];
+
+  if (!['I','V','Y','Z'].includes(data.rules)) errors.push('Item 8: select I, V, Y or Z flight rules. Tactical T is mapped to I for VATSIM import.');
+  if (data.rulesRaw === 'T') warnings.push('Item 8: tactical T was mapped to I for VATSIM compatibility; retain OAT status in route/RMK.');
+  if (['Y','Z'].includes(data.rules)) warnings.push('VATSIM compatibility: Y/Z may be accepted by the ICAO importer, but network/controller-client support remains limited and the network may represent the plan as I/V. Verify the processed form before filing.');
+  if (!/^[A-Z0-9]{2,10}$/.test(data.callsign)) errors.push('Item 7: callsign must contain 2–10 letters/numbers for VATSIM filing.');
+  else if (data.callsign.length > 7) warnings.push('Item 7: callsign exceeds the classic ICAO 7-character field, but VATSIM supports longer tactical callsigns; verify controller/client compatibility.');
+  if (!/^[A-Z0-9]{2,4}$/.test(data.aircraftType)) errors.push('Item 9: enter a 2–4 character ICAO aircraft type designator.');
+  if (!['J','H','M','L'].includes(data.wake)) errors.push('Item 9: select a wake turbulence category.');
+  if (!/^[A-Z0-9]+$/.test(data.equipment)) errors.push('Item 10a: equipment code is required.');
+  if (!/^[A-Z0-9]+$/.test(data.surveillance)) errors.push('Item 10b: surveillance/transponder code is required.');
+  if (!/^[A-Z]{4}$/.test(data.departure)) errors.push('Item 13: departure must be a 4-letter ICAO designator.');
+  if (!isHhmm(data.eobt)) errors.push('Item 13: EOBT must be a valid UTC HHMM time.');
+  if (!/^[A-Z]{4}$/.test(data.arrival)) errors.push('Item 16: destination must be a 4-letter ICAO designator.');
+  if (!isDurationHhmm(data.totalEet)) errors.push('Item 16: total EET must be HHMM (minutes 00–59).');
+  if (data.alternate && !/^[A-Z]{4}$/.test(data.alternate)) errors.push('Item 16: alternate must be a 4-letter ICAO designator.');
+  if (!['N','K','M'].includes(data.speedUnit)) errors.push('Item 15: invalid cruising speed unit.');
+  const speedPattern = data.speedUnit === 'M' ? /^\d{3}$/ : /^\d{4}$/;
+  if (!speedPattern.test(data.speedValue)) errors.push(`Item 15: ${data.speedUnit || 'speed'} value has an invalid format.`);
+  if (!['F','A','S','M'].includes(data.levelUnit)) errors.push('Item 15: invalid cruising level unit.');
+  const levelPattern = ['F','A'].includes(data.levelUnit) ? /^\d{3}$/ : /^\d{4}$/;
+  if (!levelPattern.test(data.levelValue)) errors.push(`Item 15: ${data.levelUnit || 'level'} value has an invalid format.`);
+  if (!data.route) errors.push('Item 15: route is empty.');
+
+  if (data.dof && !/^\d{6}$/.test(data.dof)) errors.push('Item 18: DOF must be YYMMDD.');
+  if (!data.dof) warnings.push('Item 18: DOF is blank. It is recommended for consistent VATSIM import/logging.');
+  if (data.fuel && !isDurationHhmm(data.fuel)) errors.push('Item 19: fuel endurance must be HHMM (minutes 00–59).');
+  if (!data.fuel) warnings.push('Item 19: fuel endurance is blank.');
+  if (data.pbn && !data.equipment.includes('R')) warnings.push('Item 10a/PBN: PBN/ is present but Item 10a does not contain R. Verify the aircraft equipment declaration; use Custom Item 10a if R is applicable.');
+  if (data.rmk && !/^RMK\//.test(data.rmk)) errors.push('Item 18: RMK must be encoded as RMK/<text>.');
+  if ([data.rmk, data.com, data.orgn, data.opr, data.reg, data.nav, data.sur, data.sel, ...data.stayinfo].some(v => (v || '').includes(':'))) errors.push('VATSIM/FSD compatibility: colon (:) is not permitted in flight-plan text.');
+  if (data.stayinfo.some(Boolean)) warnings.push('VATSIM compatibility: STAYINFO is a regional/IFPS-style Item 18 indicator and has had incomplete support in myVATSIM. Confirm that each STAYINFO field survives the import.');
+
+  data.stays.forEach((stay, idx) => {
+    if ((stay.wpt || (stay.seg && stay.seg !== 'NONE') || stay.dur) && !(stay.wpt && stay.seg && stay.seg !== 'NONE' && stay.dur)) {
+      errors.push(`Item 15: STAY ${idx + 1} requires target WPT, STAY segment and duration.`);
+    }
+    if (stay.dur && !isDurationHhmm(stay.dur)) errors.push(`Item 15: STAY ${idx + 1} duration must be HHMM.`);
+  });
+
+  return {errors, warnings};
+}
+
+function renderIcaoValidation(errors, warnings, extraWarnings = []) {
+  const el = document.getElementById('icaoValidationOutput');
+  if (!el) return;
+  const allWarnings = [...warnings, ...extraWarnings];
+  if (!errors.length && !allWarnings.length) {
+    el.innerHTML = '<div class="icao-audit-ok">✓ VATSIM IMPORT PREFLIGHT: READY — no structural issues detected.</div>';
+    return;
+  }
+  let html = '';
+  if (errors.length) {
+    html += `<div class="icao-audit-error"><b>✕ ${errors.length} blocking issue${errors.length === 1 ? '' : 's'}</b><ul>${errors.map(x => `<li>${x}</li>`).join('')}</ul></div>`;
+  }
+  if (allWarnings.length) {
+    html += `<div class="icao-audit-warn"><b>⚠ ${allWarnings.length} review item${allWarnings.length === 1 ? '' : 's'}</b><ul>${allWarnings.map(x => `<li>${x}</li>`).join('')}</ul></div>`;
+  }
+  el.innerHTML = html;
+}
+
+function generateIcaoFplString() {
+  const data = collectIcaoFplData();
+  const validation = validateIcaoFplData(data);
+  const routeWarnings = [];
+  const compiledRoute = compileIcaoRoute(data, routeWarnings);
+
+  if (validation.errors.length) {
+    renderIcaoValidation(validation.errors, validation.warnings, routeWarnings);
+    const outputArea = document.getElementById('icaoOutput');
+    if (outputArea) outputArea.value = '';
+    return;
+  }
+
+  const item18 = [];
+  if (data.pbn) item18.push(`PBN/${data.pbn}`);
+  if (data.nav) item18.push(`NAV/${data.nav}`);
+  if (data.sts) item18.push(`STS/${data.sts}`);
+  if (data.sel) item18.push(`SEL/${data.sel}`);
+  if (data.sur) item18.push(`SUR/${data.sur}`);
+  if (data.per) item18.push(`PER/${data.per}`);
+  if (data.dof) item18.push(`DOF/${data.dof}`);
+  if (data.orgn) item18.push(`ORGN/${data.orgn}`);
+  if (data.com) item18.push(`COM/${data.com}`);
+  if (data.reg) item18.push(`REG/${data.reg}`);
+  if (data.opr) item18.push(`OPR/${data.opr}`);
+  data.stayinfo.forEach((value, i) => {
+    if (value) item18.push(`STAYINFO${i + 1}/${value}`);
+  });
+
+  // RMK is deliberately last so free-text continuation cannot swallow later
+  // structured Item 18 indicators in parsers that treat RMK as terminal text.
+  let rmk = data.rmk;
+  // V5.2 VATSIM compatibility: myVATSIM currently has no dedicated STS/
+  // input in the legacy import form, so preserve the proper structured STS/
+  // indicator above AND mirror it into RMK after the vNATO identifier.
+  if (data.sts && !new RegExp('(?:^|\\s)STS/' + data.sts.replace(/[.*+?^${}()|[\\]\\]/g, '\\$&') + '(?:$|\\s)', 'i').test(rmk)) {
+    rmk += ` STS/${data.sts}`;
+  }
+  if (data.trainee && !/\bVSO TRAINEE\b/i.test(rmk)) rmk += ' VSO TRAINEE';
+  item18.push(rmk.trim());
+
+  const speedLevel = `${data.speedUnit}${data.speedValue}${data.levelUnit}${data.levelValue}`;
+  const lines = [
+    `(FPL-${data.callsign}-${data.rules}${data.flightType}`,
+    `-${data.aircraftType}/${data.wake}-${data.equipment}/${data.surveillance}`,
+    `-${data.departure}${data.eobt}`,
+    `-${speedLevel}${compiledRoute ? ' ' + compiledRoute : ''}`,
+    `-${data.arrival}${data.totalEet}${data.alternate ? ' ' + data.alternate : ''}`,
+    `-${item18.join(' ')}`
+  ];
+
+  if (data.fuel) lines.push(`-E/${data.fuel})`);
+  else lines[lines.length - 1] += ')';
+
+  const fplString = lines.join('\n');
+  const outputArea = document.getElementById('icaoOutput');
+  if (outputArea) outputArea.value = fplString;
+
+  renderIcaoValidation([], validation.warnings, routeWarnings);
+}
+
+function newIcaoFlightPlan() {
+  if (typeof resetForm === 'function') resetForm('icaoTab');
+  const dof = document.getElementById('dof');
+  if (dof) dof.value = '';
+  const rmk = document.getElementById('icaoRmk');
+  if (rmk) rmk.value = 'RMK/OAT VIRTUALNATO.ORG';
+  const output = document.getElementById('icaoOutput');
+  if (output) output.value = '';
+  const audit = document.getElementById('icaoValidationOutput');
+  if (audit) audit.innerHTML = '<div class="icao-audit-neutral">New flight plan cleared. Enter data and run Generate ICAO String.</div>';
+}
+
+// ============================================================================
+// 4. PROFILE MANAGEMENT FUNCTIONS (MANAGEMENT MODAL & INDIVIDUAL DELETE)
+// ============================================================================
+
+function openManageProfilesModal() {
+  renderProfilesListModal();
+  const modal = document.getElementById('manageProfilesModal');
+  if (modal) modal.style.display = 'block';
+}
+
+function closeManageProfilesModal() {
+  const modal = document.getElementById('manageProfilesModal');
+  if (modal) modal.style.display = 'none';
+}
+
+function renderProfilesListModal() {
+  const container = document.getElementById('profilesListContainer');
+  if (!container) return;
+
+  let profiles = JSON.parse(localStorage.getItem('vnato_flight_profiles') || '{}');
+  const keys = Object.keys(profiles);
+
+  if (keys.length === 0) {
+    container.innerHTML = '<div style="padding: 10px; text-align: center; font-size: 11px; color: #64748b;">No saved sortie profiles found.</div>';
+    return;
+  }
+
+  let html = '';
+  keys.forEach(name => {
+    html += `
+      <div style="display: flex; justify-content: space-between; align-items: center; padding: 6px 8px; border-bottom: 1px solid #e2e8f0; background: #fff; margin-bottom: 4px; border-radius: 4px;">
+        <span style="font-size: 11px; font-weight: bold; color: #002B49; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 250px;">${name}</span>
+        <button type="button" class="fpl-copy-btn" style="position: static; background: #ef4444; padding: 2px 6px; font-size: 10px;" onclick="deleteSingleProfile('${name}')">Delete</button>
+      </div>
+    `;
+  });
+  container.innerHTML = html;
+}
+
+function deleteSingleProfile(name) {
+  if (confirm(`Are you sure you want to delete profile "${name}"?`)) {
+    let profiles = JSON.parse(localStorage.getItem('vnato_flight_profiles') || '{}');
+    delete profiles[name];
+    localStorage.setItem('vnato_flight_profiles', JSON.stringify(profiles));
+    
+    renderProfilesListModal();
+    if (typeof loadSavedProfilesList === 'function') {
+      loadSavedProfilesList();
+    }
+  }
+}
+
+function clearAllProfiles() {
+  if (confirm('Are you sure you want to wipe ALL saved sortie profiles? This action cannot be undone.')) {
+    localStorage.removeItem('vnato_flight_profiles');
+    renderProfilesListModal();
+    if (typeof loadSavedProfilesList === 'function') {
+      loadSavedProfilesList();
+    }
+  }
+}
