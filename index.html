@@ -1315,6 +1315,7 @@
         <button type="button" class="action-toggle-btn active" id="homeWelcomeBtn" onclick="toggleManualView('homeWelcome')"><span>HOME / ABOUT</span></button>
         <button type="button" class="action-toggle-btn" id="flightPlanningGuideBtn" onclick="toggleManualView('flightPlanningGuide')"><span>FLIGHT PLANNING</span></button>
         <button type="button" class="action-toggle-btn" id="oatGuideBtn" onclick="toggleManualView('oatGuide')"><span>OAT / MIL OPS</span></button>
+        <button type="button" class="action-toggle-btn" id="countryIntelBtn" onclick="toggleManualView('countryIntel')"><span>COUNTRY / LOA</span></button>
         <button type="button" class="action-toggle-btn" id="weatherGuideBtn" onclick="toggleManualView('weatherGuide')"><span>WEATHER</span></button>
         <button type="button" class="action-toggle-btn guide-nav-oceanic" id="oceanicGuideBtn" onclick="toggleManualView('oceanicGuide')"><span>OCEANIC</span></button>
         <button type="button" class="action-toggle-btn" id="referenceGuideBtn" onclick="toggleManualView('referenceGuide')"><span>REFERENCE</span></button>
@@ -1959,6 +1960,16 @@
     <!-- ======================================================================== -->
     <!-- SUB-SECTION: MANUAL VIEW 3 - COMPREHENSIVE PARAMETER GLOSSARY            -->
     <!-- ======================================================================== -->
+
+    <div id="countryIntelBody" class="sub-manual-content guide-page" style="display:none;">
+      <div class="guide-hero"><div><span class="guide-kicker">V5.7 COUNTRY INTELLIGENCE</span><h2>Country & LOA Pilot Briefing</h2><p>Source-grounded awareness summaries for visiting, newly assigned and training pilots. Always verify current source documents before an event or mission.</p></div><div class="guide-hero-badge">LOA</div></div>
+      <div class="country-tabs"><button class="country-tab active" data-country="fr">🇫🇷 France</button><button class="country-tab" data-country="de">🇩🇪 Germany</button><button class="country-tab" data-country="uk">🇬🇧 United Kingdom</button><button class="country-tab" data-country="compare">⇄ LOA Compare</button></div>
+      <section class="country-pane active" data-pane="fr"><h3>France — Before You Fly</h3><div class="source-status">SOURCE: Country Introduction v1.7 — 15 APR 2026 · France LOA v1.0 — 01 MAR 2022</div><div class="intel-grid"><article><b>Training / Qualification</b><p>The Country Introduction states the module is mandatory for pilots assigned to or wishing to fly in France; minimum OP qualification is required.</p></article><article><b>Mission Scope</b><p>High/medium military routes, low-level, TRA/CBA tactical activity, AAR, AWACS and other missions agreed with French vACC.</p></article><article><b>OAT Planning</b><p>French OAT routes use selected military waypoints; current V5.6/V5.7 OAT guidance keeps OAT/GAT transitions at the actual change point.</p></article><article><b>IFF Awareness</b><p>Country source lists activity-specific offline squawks including OAT IFR 6100, OAT VFR 0300, RTBA 6700, AEW/AAR and QRA ranges.</p></article><article><b>RTBA</b><p>RTBA requires the dedicated guide; the Country Introduction states 24-hour NOTAM notice and RTBA qualification for the activity.</p></article><article><b>LOA Essentials</b><p>Identify vNATO in flight-plan remarks/OPR, use appropriate squawk, contact online ATC, and conduct OAT under DIRCAM publications. AAR special activity has advance-notice provisions.</p></article></div><div class="guide-callout warn"><b>Source discipline:</b> France Country Introduction explicitly says to check the version date and use the latest document.</div></section>
+      <section class="country-pane" data-pane="de"><h3>Germany — Before You Fly</h3><div class="source-status">SOURCE: Country Introduction v1.0 — 21 JUL 2026 · vACC Germany–vSOA LoA effective 04 SEP 2025</div><div class="intel-grid"><article><b>Training / Qualification</b><p>The Country Introduction describes the module as mandatory before flying in Germany and requires minimum OP qualification.</p></article><article><b>OAT / TACAN</b><p>Germany uses a TACAN route network for OAT. On VATSIM the route names are not implemented, so the Country Introduction directs pilots to file the waypoints with DCT.</p></article><article><b>Reserved Airspace</b><p>Restricted-area activity uses V-LARA under the LoA. Danger Area, TRA or mission operations require booking at least 24 hours in advance.</p></article><article><b>Low Level</b><p>The LoA permits more than 250 KIAS below FL100 for approved low-level training, not exceeding 450 KIAS, subject to MilAIP Germany.</p></article><article><b>QRA / Intercepts</b><p>QRA has explicit prior-ATC advisory and target-of-opportunity consent requirements. ATC or the intercepted pilot may terminate an intercept.</p></article><article><b>IFF Awareness</b><p>The LoA provides offline/online squawk rules for GAT, OAT, NLFS, AEW, AR, QRA and exercises.</p></article></div><div class="resource-buttons"><a href="https://lara.lusep.fi/" target="_blank" rel="noopener">OPEN V-LARA ↗</a><a href="https://docs.vatsim.uk/General/Use%20of%20Software/V-LARA/" target="_blank" rel="noopener">V-LARA PILOT GUIDE ↗</a></div></section>
+      <section class="country-pane" data-pane="uk"><h3>United Kingdom — Quick Reference</h3><div class="source-status">SOURCE STATUS: Quick Link Guide + supplied UK OAT/RTF/TACAN/Radar Corridor references. No full UK Country Introduction or vNATO LOA supplied yet.</div><div class="intel-grid"><article><b>OAT Flight Planning</b><p>Use the supplied UK OAT guide for Item 15/18 military requirements, including OAT IFR/VFR, LFA, AAR/AEW, training and mixed flights.</p></article><article><b>TACAN Routing</b><p>The supplied TACAN chart is for planning purposes; V5.7 retains the established UK guidance to use route points rather than blindly inserting TB route identifiers.</p></article><article><b>Radar Corridors</b><p>The supplied historical/simulation reference contains seven corridors and their transit levels/entry requirements. Treat it as awareness material, not current real-world authority.</p></article><article><b>Low Flying / RTF</b><p>Quick Link Guide points pilots to UK Low-Flying Areas and military phraseology material.</p></article><article><b>AAR / AWACS</b><p>Quick Link Guide includes AAR Areas, AWACS orbit areas and RAF/NATO partner air-base references.</p></article><article><b>V-LARA</b><p>The VATSIM UK guide describes SUA booking workflow. Its general UK guide says bookings are at least 30 minutes in advance; do not substitute that for Germany's 24-hour LoA requirement.</p></article></div><div class="resource-buttons"><a href="https://lara.lusep.fi/" target="_blank" rel="noopener">OPEN V-LARA ↗</a><a href="https://docs.vatsim.uk/General/Use%20of%20Software/V-LARA/" target="_blank" rel="noopener">UK V-LARA GUIDE ↗</a></div></section>
+      <section class="country-pane" data-pane="compare"><h3>LOA Awareness Comparison</h3><div class="guide-table-wrap"><table class="guide-table"><thead><tr><th>Topic</th><th>France</th><th>Germany</th><th>UK</th></tr></thead><tbody><tr><td>Source supplied</td><td>vNATO–vACC France LOA, 2022</td><td>vACC Germany–vSOA LoA, effective 04 SEP 2025</td><td>No equivalent LOA supplied</td></tr><tr><td>OAT basis</td><td>DIRCAM publications</td><td>MilAIP Germany</td><td>UK OAT support references supplied</td></tr><tr><td>Reserved airspace</td><td>Activity-specific TSA/TRA provisions</td><td>V-LARA, minimum 24 h for Danger Area/TRA/missions</td><td>V-LARA guide available; UK guide says minimum 30 min generally</td></tr><tr><td>Low level</td><td>RTBA/LFA source-specific rules</td><td>&gt;250 KIAS below FL100 allowed up to 450 KIAS under LoA/MilAIP conditions</td><td>LFA and low-flying references supplied</td></tr><tr><td>QRA/intercept</td><td>Country/mission provisions</td><td>Detailed consent and ATC coordination rules</td><td>Await full LOA/source set</td></tr><tr><td>Transponder</td><td>Activity-specific military codes in Country Introduction</td><td>Detailed LoA offline/online code table</td><td>Use supplied OAT reference; full country brief pending</td></tr></tbody></table></div><div class="guide-callout info"><b>Awareness only:</b> comparison never overrides the underlying country source. Where sources differ, V5.7 displays the difference instead of normalising it.</div></section>
+    </div>
+
     <div id="paramGlossaryBody" class="sub-manual-content" style="display:none;">
       <h2>Comprehensive Parameter Glossary & Operational Index</h2>
       <p>An exhaustive technical reference detailing every configuration parameter, input field, and flight plan variable supported across the Virtual NATO Flight Planning Suite.</p>
@@ -2398,23 +2409,24 @@
 <!-- ============================================================================ -->
 <!-- SECTION: JAVASCRIPT MODULE SCRIPTS IMPORT                                    -->
 <!-- ============================================================================ -->
-<script src="js/build.js?v=56"></script>
-<script src="js/core.js?v=56"></script>
+<script src="js/build.js?v=57"></script>
+<script src="js/core.js?v=57"></script>
 <script src="js/generators.js"></script>
 <script src="js/weather.js"></script>
 <script src="js/calculators.js"></script>
 <script src="js/oceanic.js"></script>
-<script src="js/footer.js?v=56"></script>
+<script src="js/footer.js?v=57"></script>
 
 <!-- ============================================================================ -->
 <!-- SECTION: MASTER INLINE JAVASCRIPT & EVENT HANDLERS                           -->
 <!-- ============================================================================ -->
-<script src="js/master-inline.obf.js?v=56"></script>
+<script src="js/master-inline.obf.js?v=57"></script>
 <script src="js/v52.js?v=52"></script>
 <script src="js/v53.js?v=53"></script>
 <script src="js/v54.js?v=54"></script>
 <script src="js/v55.js?v=55"></script>
 <script src="js/v56.js?v=56"></script>
+<script src="js/v57.js?v=57"></script>
 
 <!-- ============================================================================ -->
 <!-- SECTION: PROFILE MANAGEMENT MODAL POPUP HTML                                 -->
