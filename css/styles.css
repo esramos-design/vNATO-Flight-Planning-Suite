@@ -665,3 +665,42 @@ body.dark-mode.night-ops .guide-table { background:#071521; }
 body.dark-mode.night-ops .guide-table th { background:#06111c; border-color:#1c506c; }
 body.dark-mode.night-ops .guide-table td { border-color:#1c506c; color:#ccdae4; }
 body.dark-mode.night-ops .guide-table tr:nth-child(even) { background:#0a1826; }
+
+
+/* ========================================================================== */
+/* V5.5 OAT / MIL OPS Intelligence                                            */
+/* ========================================================================== */
+.guide-hero.milops { border-left-color:#1d4ed8; background:linear-gradient(135deg,#f8fbff,#edf4ff); }
+.milops-tabs { display:flex; gap:6px; flex-wrap:wrap; margin:8px 0 14px; padding:7px; background:#eef2f7; border:1px solid #cbd5e1; border-radius:7px; }
+.milops-tab { border:1px solid #94a3b8; background:#fff; color:#334155; padding:6px 9px; border-radius:4px; font-size:9px; font-weight:800; cursor:pointer; letter-spacing:.2px; }
+.milops-tab:hover { border-color:#0072CE; color:#0072CE; }
+.milops-tab.active { background:#002B49; border-color:#002B49; color:#fff; }
+.milops-pane { display:none; }
+.milops-pane.active { display:block; }
+.country-head { display:flex; align-items:center; gap:10px; margin:4px 0 12px; padding:10px 12px; border:1px solid #cbd5e1; border-radius:7px; background:#f8fafc; }
+.country-head h3 { margin:0; color:#002B49; font-size:14px; }
+.country-head small { display:block; color:#64748b; font-size:9px; margin-top:2px; }
+.country-flag { display:flex; align-items:center; justify-content:center; width:38px; height:30px; border-radius:5px; background:#002B49; color:#fff; font-weight:900; font-size:11px; letter-spacing:.7px; box-shadow:0 2px 7px rgba(0,43,73,.15); }
+.source-chip { display:inline-block; padding:2px 5px; border-radius:10px; font-size:8px; font-weight:800; letter-spacing:.2px; white-space:nowrap; }
+.source-chip.current { background:#dcfce7; color:#166534; border:1px solid #86efac; }
+.source-chip.review { background:#fef3c7; color:#92400e; border:1px solid #fcd34d; }
+.mission-example-grid { display:grid; grid-template-columns:1fr 1fr; gap:8px; margin:8px 0 12px; }
+.mission-example-grid > div { background:#0f172a; border:1px solid #334155; border-radius:6px; padding:9px; min-width:0; }
+.mission-example-grid small { display:block; color:#7dd3fc; font-size:8px; font-weight:800; margin-bottom:4px; }
+.mission-example-grid code { color:#e2e8f0; font-size:9.5px; white-space:normal; word-break:break-word; }
+.rtf-phase-grid { display:grid; grid-template-columns:repeat(4,minmax(0,1fr)); gap:6px; margin:8px 0 12px; }
+.rtf-phase-grid span { display:flex; align-items:center; justify-content:center; min-height:34px; padding:6px; border:1px solid #cbd5e1; border-radius:5px; background:#f8fafc; color:#0f3d62; font-size:8.5px; font-weight:800; text-align:center; }
+@media(max-width:950px){ .mission-example-grid{grid-template-columns:1fr;} .rtf-phase-grid{grid-template-columns:repeat(3,minmax(0,1fr));} }
+@media(max-width:650px){ .rtf-phase-grid{grid-template-columns:repeat(2,minmax(0,1fr));} }
+body.dark-mode .guide-hero.milops { background:linear-gradient(135deg,#17243a,#142741); border-left-color:#60a5fa; }
+body.dark-mode .milops-tabs { background:#111c2e; border-color:#405875; }
+body.dark-mode .milops-tab { background:#17243a; border-color:#405875; color:#cbd5e1; }
+body.dark-mode .milops-tab.active { background:#0f1a2b; border-color:#23a5e6; color:#f1f5f9; }
+body.dark-mode .country-head,body.dark-mode .rtf-phase-grid span { background:#17243a; border-color:#405875; color:#d5dfeb; }
+body.dark-mode .country-head h3 { color:#f1f5f9; }
+body.dark-mode .country-head small { color:#b8c7d8; }
+body.dark-mode.night-ops .guide-hero.milops { background:linear-gradient(135deg,#071420,#091b2b); border-left-color:#00aeef; }
+body.dark-mode.night-ops .milops-tabs { background:#06111c; border-color:#1c506c; }
+body.dark-mode.night-ops .milops-tab { background:#071521; border-color:#1c506c; color:#cbd5e1; }
+body.dark-mode.night-ops .milops-tab.active { background:#04101a; border-color:#00aeef; color:#fff; }
+body.dark-mode.night-ops .country-head,body.dark-mode.night-ops .rtf-phase-grid span { background:#071521; border-color:#1c506c; }
