@@ -1,1 +1,0 @@
-V5.7.11 TEAM LIVE runtime package. Minimal bootstrap HTML; runtime HTML and JavaScript encoded/obfuscated as a deterrent to casual source copying. UTF-8 decoded with TextDecoder. No source maps/tests/audit/master docs included. Client-side code is inspectable in principle; true secrets must remain server-side.
