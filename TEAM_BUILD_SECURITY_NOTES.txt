@@ -1,2 +1,2 @@
-vNATO Flight Planning Suite V5.7.2 TEAM LIVE
-Public runtime-only package. JavaScript obfuscated as deterrence. Theme imagery/logo are runtime assets. No source maps/tests/source docs. Deploy complete package; never mix with ALPHA MASTER.
+vNATO Flight Planning Suite V5.7.3 TEAM LIVE
+Public runtime-only package. JavaScript obfuscated as deterrence. Deploy complete package; never mix with ALPHA MASTER.

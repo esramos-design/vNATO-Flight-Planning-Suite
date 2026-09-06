@@ -912,3 +912,22 @@ body[data-theme="night-ops"] .vnato-theme-clockbox .clock-time-val{color:#63EAA0
   .vnato-theme-clockbox{width:100%;box-sizing:border-box;grid-template-columns:25px 1fr 1px 1fr 22px;gap:7px;padding:7px 8px}.vnato-theme-clockbox .clock-time-val{font-size:17px!important}.vnato-clock-icon,.vnato-globe-icon{font-size:22px}.clock-date-val{font-size:7px}.vnato-theme-tagline{font-size:7px;letter-spacing:1.05px}
 }
 @media(max-width:430px){.vnato-theme-title{display:none}.vnato-theme-logo{width:112px;height:57px}.vnato-theme-clockbox{grid-template-columns:22px 1fr 1px 1fr 20px}.vnato-theme-mission{margin-top:8px}.vnato-theme-tagline{line-height:1.45}}
+
+
+/* ========================================================================== */
+/* V5.7.3 — THEME HEADER FRAMING                                              */
+/* More panoramic framing on desktop while preserving V5.7.2 mobile safety.  */
+/* ========================================================================== */
+@media (min-width:901px){
+  .fpl-container{flex:0 1 520px;max-width:520px;}
+  .docs-container{flex:1 1 760px;min-width:0;}
+  .vnato-theme-hero{min-height:178px;padding:13px 16px 11px;}
+  .vnato-theme-logo{width:132px;height:62px;}
+  .vnato-theme-mission{margin:8px 0 6px;}
+  .vnato-theme-clockbox{width:min(405px,76%);padding:7px 12px;}
+  .vnato-theme-tagline{margin-top:7px;}
+}
+@media (min-width:901px) and (max-width:1180px){
+  .fpl-container{flex-basis:485px;max-width:485px;}
+  .vnato-theme-hero{min-height:184px;}
+}
