@@ -491,3 +491,90 @@ body.dark-mode #profilesListContainer {
   background: #0f172a !important;
   border-color: #334155 !important;
 }
+
+
+/* OCEANIC REPORT V1 */
+.oceanic-note { font-size: 11px; line-height: 1.45; color: #475569; background: #eff6ff; border: 1px solid #bfdbfe; border-radius: 5px; padding: 8px; margin-bottom: 10px; }
+.oceanic-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-bottom: 8px; }
+.oceanic-inline-buttons { display:flex; gap:6px; align-items:center; }
+.oceanic-control-row { display:flex; gap:8px; align-items:center; flex-wrap:wrap; margin-bottom:10px; }
+.oceanic-status { display:inline-flex; align-items:center; padding:5px 9px; border-radius:999px; font-size:10px; font-weight:bold; letter-spacing:.5px; }
+.oceanic-status.offline { background:#fee2e2; color:#991b1b; }
+.oceanic-status.connecting { background:#fef3c7; color:#92400e; }
+.oceanic-status.live { background:#dcfce7; color:#166534; }
+.oceanic-status.error { background:#fee2e2; color:#991b1b; }
+.oceanic-live-card { background:#0f172a; color:#fff; border-radius:6px; padding:10px; margin-bottom:12px; }
+.oceanic-live-title { font-size:11px; font-weight:bold; letter-spacing:.6px; margin-bottom:8px; color:#93c5fd; }
+.oceanic-live-grid { display:grid; grid-template-columns:repeat(5,1fr); gap:8px; }
+.oceanic-live-grid div { min-width:0; }
+.oceanic-live-grid span { display:block; font-size:9px; color:#94a3b8; margin-bottom:2px; }
+.oceanic-live-grid strong { display:block; font-family:monospace; font-size:12px; white-space:nowrap; overflow:hidden; text-overflow:ellipsis; }
+.oceanic-route-header { display:flex; justify-content:space-between; align-items:center; gap:8px; margin:8px 0 6px; color:#002B49; font-size:12px; }
+.oceanic-route-header span { font-size:10px; color:#64748b; font-weight:normal; }
+.oceanic-route-table { border:1px solid #cbd5e1; border-radius:5px; overflow:hidden; background:#fff; }
+.oceanic-row { display:grid; grid-template-columns:36px minmax(150px,1.4fr) 90px 90px 100px 1fr; gap:6px; align-items:center; padding:7px 8px; border-bottom:1px solid #e2e8f0; font-size:10px; }
+.oceanic-row:last-child { border-bottom:0; }
+.oceanic-row.header { background:#f1f5f9; font-weight:bold; color:#475569; font-size:9px; text-transform:uppercase; }
+.oceanic-row.passed { background:#f0fdf4; }
+.oceanic-row.next { background:#eff6ff; }
+.oceanic-row.unresolved { background:#fff7ed; }
+.oceanic-badge { font-size:9px; font-weight:bold; padding:2px 5px; border-radius:4px; display:inline-block; }
+.oceanic-badge.pass { background:#dcfce7; color:#166534; }
+.oceanic-badge.next { background:#dbeafe; color:#1d4ed8; }
+.oceanic-badge.wait { background:#f1f5f9; color:#64748b; }
+.oceanic-badge.warn { background:#ffedd5; color:#9a3412; }
+.oceanic-empty { padding:15px; color:#64748b; text-align:center; font-size:11px; }
+.oceanic-report-card { margin-top:12px; background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:10px; }
+#oceanicReportOutput { width:100%; min-height:72px; resize:vertical; font-family:monospace; font-size:11px; padding:7px; border:1px solid #cbd5e1; border-radius:4px; background:#fff; }
+.oceanic-help { margin-top:10px; font-size:10px; color:#475569; }
+.oceanic-help ul { margin:7px 0 0 18px; padding:0; line-height:1.5; }
+.oceanic-help code { background:#e2e8f0; padding:1px 3px; border-radius:3px; }
+@media (max-width: 850px) { .oceanic-grid,.oceanic-live-grid { grid-template-columns:1fr 1fr; } .oceanic-row { grid-template-columns:30px 1fr 80px 80px; } .oceanic-row > :nth-child(5), .oceanic-row > :nth-child(6) { display:none; } }
+body.dark-mode .oceanic-note { background:#0f2740; border-color:#1d4e89; color:#cbd5e1; }
+body.dark-mode .oceanic-route-table, body.dark-mode #oceanicReportOutput { background:#111827; color:#e5e7eb; border-color:#475569; }
+body.dark-mode .oceanic-row { border-color:#334155; }
+body.dark-mode .oceanic-row.header { background:#1e293b; color:#cbd5e1; }
+body.dark-mode .oceanic-row.passed { background:#10291a; }
+body.dark-mode .oceanic-row.next { background:#0c2744; }
+body.dark-mode .oceanic-row.unresolved { background:#33230f; }
+
+/* OCEANIC REPORT V1.1 NAVDATA EXTENSIONS */
+.oceanic-navdata-card { background:#f8fafc; border:1px solid #cbd5e1; border-radius:6px; padding:10px; margin-bottom:12px; }
+.oceanic-nav-grid { display:grid; grid-template-columns:repeat(4,1fr); gap:8px; }
+.oceanic-nav-grid div { min-width:0; background:#fff; border:1px solid #e2e8f0; border-radius:4px; padding:7px; }
+.oceanic-nav-grid span { display:block; font-size:9px; color:#64748b; margin-bottom:2px; }
+.oceanic-nav-grid strong { display:block; font-family:monospace; font-size:11px; color:#002B49; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; }
+.oceanic-nav-chip { display:inline-flex; align-items:center; padding:4px 8px; border-radius:999px; font-size:9px !important; font-weight:bold !important; letter-spacing:.4px; }
+.oceanic-nav-chip.empty { background:#e2e8f0; color:#475569 !important; }
+.oceanic-nav-chip.ready { background:#dcfce7; color:#166534 !important; }
+.oceanic-nav-chip.error { background:#fee2e2; color:#991b1b !important; }
+.oceanic-progress-text { font-size:10px; color:#475569; line-height:1.35; }
+.oceanic-license-note { margin-top:7px; font-size:9px; line-height:1.4; color:#64748b; }
+.oceanic-mini-btn { border:1px solid #93c5fd; background:#eff6ff; color:#1d4ed8; font-size:9px; font-weight:bold; padding:2px 5px; border-radius:4px; cursor:pointer; margin-left:5px; }
+.oceanic-mini-btn:hover { background:#dbeafe; }
+.oceanic-mini-btn.danger { border-color:#fecaca; background:#fef2f2; color:#b91c1c; }
+.oceanic-mini-btn.danger:hover { background:#fee2e2; }
+@media (max-width: 850px) { .oceanic-nav-grid { grid-template-columns:1fr 1fr; } }
+body.dark-mode .oceanic-navdata-card { background:#0f172a; border-color:#334155; }
+body.dark-mode .oceanic-nav-grid div { background:#111827; border-color:#334155; }
+body.dark-mode .oceanic-nav-grid strong { color:#e5e7eb; }
+body.dark-mode .oceanic-progress-text, body.dark-mode .oceanic-license-note { color:#94a3b8; }
+
+/* ICAO/VATSIM import audit panel */
+.icao-audit-panel { margin-top: 10px; font-size: 11px; line-height: 1.45; }
+.icao-audit-panel ul { margin: 6px 0 0 18px; padding: 0; }
+.icao-audit-ok, .icao-audit-error, .icao-audit-warn, .icao-audit-neutral { border-radius: 5px; padding: 8px 10px; margin-top: 6px; }
+.icao-audit-ok { background: #ecfdf5; border: 1px solid #86efac; color: #166534; }
+.icao-audit-error { background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; }
+.icao-audit-warn { background: #fffbeb; border: 1px solid #fcd34d; color: #92400e; }
+.icao-audit-neutral { background: #f8fafc; border: 1px solid #cbd5e1; color: #475569; }
+body.dark-mode .icao-audit-ok, body.dark-mode .icao-audit-error, body.dark-mode .icao-audit-warn, body.dark-mode .icao-audit-neutral { color: inherit; }
+
+/* ICAO/VATSIM import audit panel */
+.icao-audit-panel { margin-top: 10px; font-size: 11px; line-height: 1.45; }
+.icao-audit-panel ul { margin: 6px 0 0 18px; padding: 0; }
+.icao-audit-ok, .icao-audit-error, .icao-audit-warn, .icao-audit-neutral { border-radius: 5px; padding: 8px 10px; margin-top: 6px; }
+.icao-audit-ok { background: #ecfdf5; border: 1px solid #86efac; color: #166534; }
+.icao-audit-error { background: #fef2f2; border: 1px solid #fca5a5; color: #991b1b; }
+.icao-audit-warn { background: #fffbeb; border: 1px solid #fcd34d; color: #92400e; }
+.icao-audit-neutral { background: #f8fafc; border: 1px solid #cbd5e1; color: #475569; }
