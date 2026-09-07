@@ -1,7 +1,0 @@
-V5.7.19 TEAM LIVE hardened runtime package. Official theme artwork uses the exact administrator-approved ALPHA export with contain / 50% / 50% / blur 0 framing. V5.7.17 member artwork controls remain locked. Public client-side code remains obfuscated/encoded as a deterrent only; do not place secrets in browser code.
-
-V5.7.20: theme-artwork.js is runtime-only obfuscated published artwork data; LIVE editor/export controls remain disabled.
-
-V5.7.21: integrates the validated zero-blur LIVE artwork renderer and timing guard. Position/scale remain published from ALPHA; editor/export controls remain unavailable in TEAM LIVE.
-
-V5.7.22: visual-only theme-control layout refinement. TEAM LIVE remains read-only; only the theme selector is present. Artwork, zero-blur guard and operational logic are unchanged.
