@@ -5,3 +5,5 @@ V5.7.20: theme-artwork.js is runtime-only obfuscated published artwork data; LIV
 V5.7.21: integrates the validated zero-blur LIVE artwork renderer and timing guard. Position/scale remain published from ALPHA; editor/export controls remain unavailable in TEAM LIVE.
 
 V5.7.22: visual-only theme-control layout refinement. TEAM LIVE remains read-only; only the theme selector is present. Artwork, zero-blur guard and operational logic are unchanged.
+
+V5.7.25: promotes TEST 12 myVATSIM compatibility result to TEAM LIVE. STAYINFO values remain associated with STAY1/2/3 but are serialized inside RMK as free text without slash delimiters (for example STAYINFO1 HOLD). OAT remains the first RMK token and VIRTUALNATO.ORG the final token. Duplicate STS mirroring inside RMK is suppressed when structured STS/ is present. The public compatibility patch is encoded/obfuscated and a visible build badge identifies the active version/channel. Approved OPS styling, artwork, framing, zero-blur guard and route/STAY placement remain unchanged.
