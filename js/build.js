@@ -11,14 +11,28 @@
   const ch = channel();
   window.VNATO_RELEASE = Object.freeze({
     appName: "Virtual NATO Flight Planning Suite",
-    version: "5.7.23",
-    releaseDate: '07 SEP 2026',
-    releaseName: 'ALPHA Admin Button Stack',
-    testerLabel: "V5.7.23 THEME CONTROL LAYOUT TEST",
+    version: "5.7.25",
+    releaseDate: '10 SEP 2026',
+    releaseName: 'myVATSIM RMK Compatibility Refinement',
+    testerLabel: "V5.7.25 TEST 12 RMK COMPAT",
     establishedYear: 2017,
     owner: "Virtual NATO",
     website: "https://virtualnato.org/",
     channel: ch.id,
     channelLabel: ch.label
   });
+
+  // V5.7.25 TEAM LIVE compatibility layer. TEST 12 verified the no-slash
+  // STAYINFO RMK representation in the current myVATSIM importer.
+  if (ch.id === "live" || ch.id === "deployed" || ch.id === "dev") {
+    const loadCompat = function(){
+      if (document.querySelector('script[data-vnato-v5725]')) return;
+      const s = document.createElement('script');
+      s.src = 'js/v5725.js?v=5725';
+      s.setAttribute('data-vnato-v5725', 'true');
+      document.body.appendChild(s);
+    };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadCompat, {once:true});
+    else loadCompat();
+  }
 })();
