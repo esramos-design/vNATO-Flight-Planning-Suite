@@ -11,10 +11,10 @@
   const ch = channel();
   window.VNATO_RELEASE = Object.freeze({
     appName: "Virtual NATO Flight Planning Suite",
-    version: "5.7.25",
+    version: "5.7.26",
     releaseDate: '10 SEP 2026',
-    releaseName: 'myVATSIM RMK Compatibility Refinement',
-    testerLabel: "V5.7.25 TEST 12 RMK COMPAT",
+    releaseName: 'Military Aircraft Avionics Presets & Independent Panels',
+    testerLabel: "V5.7.26 AIRCRAFT PRESETS / DUAL SCROLL LIVE",
     establishedYear: 2017,
     owner: "Virtual NATO",
     website: "https://virtualnato.org/",
@@ -22,17 +22,23 @@
     channelLabel: ch.label
   });
 
-  // V5.7.25 TEAM LIVE compatibility layer. TEST 12 verified the no-slash
-  // STAYINFO RMK representation in the current myVATSIM importer.
+  // TEAM LIVE: retain verified V5.7.25 myVATSIM STAYINFO compatibility, then
+  // load V5.7.26 aircraft presets and independent desktop panel scrolling.
   if (ch.id === "live" || ch.id === "deployed" || ch.id === "dev") {
-    const loadCompat = function(){
-      if (document.querySelector('script[data-vnato-v5725]')) return;
+    const load = function(src, marker, done){
+      if (document.querySelector(`script[${marker}]`)) { if(done) done(); return; }
       const s = document.createElement('script');
-      s.src = 'js/v5725.js?v=5725';
-      s.setAttribute('data-vnato-v5725', 'true');
+      s.src = src;
+      s.setAttribute(marker, 'true');
+      if(done) s.addEventListener('load', done, {once:true});
       document.body.appendChild(s);
     };
-    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadCompat, {once:true});
-    else loadCompat();
+    const loadModules = function(){
+      load('js/v5725.js?v=5725', 'data-vnato-v5725', function(){
+        load('js/v5726.js?v=5726', 'data-vnato-v5726');
+      });
+    };
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadModules, {once:true});
+    else loadModules();
   }
 })();
