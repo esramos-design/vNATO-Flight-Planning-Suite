@@ -1,0 +1,56 @@
+name: Discord LIVE Release Announcement
+
+on:
+  workflow_dispatch:
+    inputs:
+      confirm:
+        description: 'Type PUBLISH to send to the members Discord channel'
+        required: true
+        type: string
+      version:
+        description: 'LIVE version, for example 5.7.26'
+        required: true
+        type: string
+      release_name:
+        description: 'Member-facing release title'
+        required: true
+        type: string
+      summary:
+        description: 'Short member-facing summary'
+        required: true
+        type: string
+      manual_url:
+        description: 'HTTPS link to the published Member Briefing / Tool Manual PDF'
+        required: true
+        type: string
+      live_url:
+        description: 'TEAM LIVE suite URL'
+        required: true
+        default: 'https://vnato-flight-planning-suite.pages.dev/'
+        type: string
+
+permissions:
+  contents: read
+
+jobs:
+  announce:
+    if: ${{ inputs.confirm == 'PUBLISH' }}
+    runs-on: ubuntu-latest
+    steps:
+      - name: Send approved members release announcement
+        uses: tsickert/discord-webhook@v7.0.0
+        with:
+          webhook-url: ${{ secrets.DISCORD_RELEASE_WEBHOOK }}
+          username: vNATO Flight Planning Suite
+          embed-title: vNATO Flight Planning Suite — V${{ inputs.version }} LIVE
+          embed-description: |
+            ${{ inputs.summary }}
+
+            **Release:** ${{ inputs.release_name }}
+
+            🌐 [Open TEAM LIVE](${{ inputs.live_url }})
+
+            📘 [Member Briefing / Tool Manual](${{ inputs.manual_url }})
+          embed-color: 29183
+          embed-footer-text: PLAN • BRIEF • FLY • TOGETHER
+          wait: true
