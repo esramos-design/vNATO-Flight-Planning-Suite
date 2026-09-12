@@ -11,10 +11,10 @@
   const ch = channel();
   window.VNATO_RELEASE = Object.freeze({
     appName: "Virtual NATO Flight Planning Suite",
-    version: "5.7.26",
-    releaseDate: '10 SEP 2026',
-    releaseName: 'Military Aircraft Avionics Presets & Independent Panels',
-    testerLabel: "V5.7.26 AIRCRAFT PRESETS / DUAL SCROLL LIVE",
+    version: "5.7.49",
+    releaseDate: '12 SEP 2026',
+    releaseName: 'VATSIM Mixed-Rule Remarks Compatibility',
+    testerLabel: "V5.7.49 MIXED-RULE VATSIM COMPAT LIVE",
     establishedYear: 2017,
     owner: "Virtual NATO",
     website: "https://virtualnato.org/",
@@ -22,8 +22,9 @@
     channelLabel: ch.label
   });
 
-  // TEAM LIVE: retain verified V5.7.25 myVATSIM STAYINFO compatibility, then
-  // load V5.7.26 aircraft presets and independent desktop panel scrolling.
+  // TEAM LIVE promotion of all validated ALPHA capabilities through V5.7.49.
+  // Preserve compatibility, avionics, scrolling, Oceanic/live Mach, winds,
+  // Swift behavior and country-aware guidance.
   if (ch.id === "live" || ch.id === "deployed" || ch.id === "dev") {
     const load = function(src, marker, done){
       if (document.querySelector(`script[${marker}]`)) { if(done) done(); return; }
@@ -35,7 +36,39 @@
     };
     const loadModules = function(){
       load('js/v5725.js?v=5725', 'data-vnato-v5725', function(){
-        load('js/v5726.js?v=5726', 'data-vnato-v5726');
+        load('js/v5726.js?v=5726', 'data-vnato-v5726', function(){
+          load('js/v5726-sac.js?v=5726a', 'data-vnato-v5726-sac', function(){
+            load('js/v5727.js?v=5727', 'data-vnato-v5727', function(){
+              load('js/v5728.js?v=5728b', 'data-vnato-v5728', function(){
+                load('js/v5728-winds.js?v=5728w', 'data-vnato-v5728-winds', function(){
+                  load('js/v5729.js?v=5729', 'data-vnato-v5729', function(){
+                    load('js/v5730.js?v=5730', 'data-vnato-v5730', function(){
+                      load('js/v5731.js?v=5731', 'data-vnato-v5731', function(){
+                        load('js/v5732.js?v=5732', 'data-vnato-v5732', function(){
+                          load('js/v5733.js?v=5733', 'data-vnato-v5733', function(){
+                            load('js/v5734.js?v=5734', 'data-vnato-v5734', function(){
+                              load('js/v5735.js?v=5735', 'data-vnato-v5735', function(){
+                                load('js/v5736.js?v=5736', 'data-vnato-v5736', function(){
+                                  load('js/v5737.js?v=5737', 'data-vnato-v5737', function(){
+                                    load('js/v5738.js?v=5738', 'data-vnato-v5738', function(){
+                                      load('js/v5739.js?v=5739', 'data-vnato-v5739', function(){
+                                        load('js/v5740.js?v=5740', 'data-vnato-v5740');
+                                      });
+                                    });
+                                  });
+                                });
+                              });
+                            });
+                          });
+                        });
+                      });
+                    });
+                  });
+                });
+              });
+            });
+          });
+        });
       });
     };
     if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', loadModules, {once:true});
