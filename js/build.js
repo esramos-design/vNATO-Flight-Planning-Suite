@@ -11,10 +11,10 @@
   const ch = channel();
   window.VNATO_RELEASE = Object.freeze({
     appName: "Virtual NATO Flight Planning Suite",
-    version: "5.7.49",
-    releaseDate: '12 SEP 2026',
-    releaseName: 'VATSIM Mixed-Rule Remarks Compatibility',
-    testerLabel: "V5.7.49 MIXED-RULE VATSIM COMPAT LIVE",
+    version: "5.7.54",
+    releaseDate: '13 SEP 2026',
+    releaseName: 'SimBrief ICAO and SWIFT Dual-Target Import',
+    testerLabel: "V5.7.54 SIMBRIEF SWIFT IMPORT LIVE",
     establishedYear: 2017,
     owner: "Virtual NATO",
     website: "https://virtualnato.org/",
@@ -22,9 +22,9 @@
     channelLabel: ch.label
   });
 
-  // TEAM LIVE promotion of all validated ALPHA capabilities through V5.7.49.
+  // TEAM LIVE promotion of all validated ALPHA capabilities through V5.7.54.
   // Preserve compatibility, avionics, scrolling, Oceanic/live Mach, winds,
-  // Swift behavior and country-aware guidance.
+  // Swift behavior, country-aware guidance and the locked disclaimer.
   if (ch.id === "live" || ch.id === "deployed" || ch.id === "dev") {
     const load = function(src, marker, done){
       if (document.querySelector(`script[${marker}]`)) { if(done) done(); return; }
@@ -52,7 +52,15 @@
                                   load('js/v5737.js?v=5737', 'data-vnato-v5737', function(){
                                     load('js/v5738.js?v=5738', 'data-vnato-v5738', function(){
                                       load('js/v5739.js?v=5739', 'data-vnato-v5739', function(){
-                                        load('js/v5740.js?v=5740', 'data-vnato-v5740');
+                                        load('js/v5740.js?v=5740', 'data-vnato-v5740', function(){
+                                          load('js/v5750.js?v=5750', 'data-vnato-v5750', function(){
+                                            load('js/v5751.js?v=5751', 'data-vnato-v5751', function(){
+                                              load('js/v5752.js?v=5752', 'data-vnato-v5752', function(){
+                                                load('js/v5754.js?v=5754', 'data-vnato-v5754');
+                                              });
+                                            });
+                                          });
+                                        });
                                       });
                                     });
                                   });
