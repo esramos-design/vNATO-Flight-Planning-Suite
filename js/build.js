@@ -11,10 +11,10 @@
   const ch = channel();
   window.VNATO_RELEASE = Object.freeze({
     appName: "Virtual NATO Flight Planning Suite",
-    version: "5.7.54",
-    releaseDate: '13 SEP 2026',
-    releaseName: 'SimBrief ICAO and SWIFT Dual-Target Import',
-    testerLabel: "V5.7.54 SIMBRIEF SWIFT IMPORT LIVE",
+    version: "5.7.57",
+    releaseDate: '14 SEP 2026',
+    releaseName: 'SimBrief SWIFT Import Corrections and Flight Test Reports',
+    testerLabel: "V5.7.57 SIMBRIEF SWIFT IMPORT LIVE",
     establishedYear: 2017,
     owner: "Virtual NATO",
     website: "https://virtualnato.org/",
@@ -22,7 +22,7 @@
     channelLabel: ch.label
   });
 
-  // TEAM LIVE promotion of all validated ALPHA capabilities through V5.7.54.
+  // TEAM LIVE promotion of all validated ALPHA capabilities through V5.7.57.
   // Preserve compatibility, avionics, scrolling, Oceanic/live Mach, winds,
   // Swift behavior, country-aware guidance and the locked disclaimer.
   if (ch.id === "live" || ch.id === "deployed" || ch.id === "dev") {
@@ -56,7 +56,11 @@
                                           load('js/v5750.js?v=5750', 'data-vnato-v5750', function(){
                                             load('js/v5751.js?v=5751', 'data-vnato-v5751', function(){
                                               load('js/v5752.js?v=5752', 'data-vnato-v5752', function(){
-                                                load('js/v5754.js?v=5754', 'data-vnato-v5754');
+                                                load('js/v5754.js?v=5757', 'data-vnato-v5754', function(){
+                                                  load('js/v5755.js?v=5757', 'data-vnato-v5755', function(){
+                                                    load('js/v5756.js?v=5757', 'data-vnato-v5756');
+                                                  });
+                                                });
                                               });
                                             });
                                           });
