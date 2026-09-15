@@ -11,10 +11,10 @@
   const ch = channel();
   window.VNATO_RELEASE = Object.freeze({
     appName: "Virtual NATO Flight Planning Suite",
-    version: "5.7.57",
+    version: "5.7.59",
     releaseDate: '14 SEP 2026',
-    releaseName: 'SimBrief SWIFT Import Corrections and Flight Test Reports',
-    testerLabel: "V5.7.57 SIMBRIEF SWIFT IMPORT LIVE",
+    releaseName: 'Corrected C-17 DAY Theme Artwork',
+    testerLabel: "V5.7.59 CORRECTED DAY THEME LIVE",
     establishedYear: 2017,
     owner: "Virtual NATO",
     website: "https://virtualnato.org/",
@@ -22,7 +22,7 @@
     channelLabel: ch.label
   });
 
-  // TEAM LIVE promotion of all validated ALPHA capabilities through V5.7.57.
+  // TEAM LIVE promotion of all validated ALPHA capabilities through V5.7.59.
   // Preserve compatibility, avionics, scrolling, Oceanic/live Mach, winds,
   // Swift behavior, country-aware guidance and the locked disclaimer.
   if (ch.id === "live" || ch.id === "deployed" || ch.id === "dev") {
@@ -58,7 +58,9 @@
                                               load('js/v5752.js?v=5752', 'data-vnato-v5752', function(){
                                                 load('js/v5754.js?v=5757', 'data-vnato-v5754', function(){
                                                   load('js/v5755.js?v=5757', 'data-vnato-v5755', function(){
-                                                    load('js/v5756.js?v=5757', 'data-vnato-v5756');
+                                                    load('js/v5756.js?v=5757', 'data-vnato-v5756', function(){
+                                                      load('js/v5758.js?v=5759', 'data-vnato-v5758');
+                                                    });
                                                   });
                                                 });
                                               });
