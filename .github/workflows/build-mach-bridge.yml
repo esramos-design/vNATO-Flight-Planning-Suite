@@ -1,0 +1,85 @@
+name: Build Mach Bridge
+
+on:
+  workflow_dispatch:
+  push:
+    paths:
+      - "tools/mach-bridge-helper/**"
+      - ".github/workflows/build-mach-bridge.yml"
+
+permissions:
+  contents: write
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup .NET
+        uses: actions/setup-dotnet@v4
+        with:
+          dotnet-version: "8.0.x"
+
+      - name: Restore
+        working-directory: tools/mach-bridge-helper
+        run: dotnet restore
+
+      - name: Publish self-contained helper
+        working-directory: tools/mach-bridge-helper
+        run: dotnet publish -c Release -r win-x64 --self-contained true -o installer/publish
+
+      - name: Install Inno Setup
+        shell: pwsh
+        run: choco install innosetup --no-progress -y
+
+      - name: Build installer
+        shell: pwsh
+        run: |
+          & "${env:ProgramFiles(x86)}\Inno Setup 6\ISCC.exe" "tools\mach-bridge-helper\installer\vNATO-Mach-Bridge.iss"
+
+      - name: Validate installer
+        shell: pwsh
+        run: |
+          $installer = "tools\mach-bridge-helper\installer\output\vNATO-Mach-Bridge-Setup.exe"
+          if (-not (Test-Path $installer)) { throw "Mach Bridge installer was not created." }
+          $size = (Get-Item $installer).Length
+          if ($size -lt 100000) { throw "Mach Bridge installer is unexpectedly small: $size bytes." }
+          Write-Host "Validated installer: $size bytes"
+
+      - name: Publish stable TEAM LIVE release asset
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          $tag = "mach-bridge-live"
+          $installer = "tools\mach-bridge-helper\installer\output\vNATO-Mach-Bridge-Setup.exe"
+
+          git tag -f $tag $env:GITHUB_SHA
+          git push origin -f "refs/tags/$tag"
+
+          gh release view $tag --repo $env:GITHUB_REPOSITORY *> $null
+          if ($LASTEXITCODE -ne 0) {
+            gh release create $tag `
+              --repo $env:GITHUB_REPOSITORY `
+              --title "vNATO Mach Bridge TEAM LIVE" `
+              --notes "Windows installer for the Virtual NATO Flight Planning Suite Oceanic Mach Bridge."
+          } else {
+            gh release edit $tag `
+              --repo $env:GITHUB_REPOSITORY `
+              --title "vNATO Mach Bridge TEAM LIVE" `
+              --notes "Windows installer for the Virtual NATO Flight Planning Suite Oceanic Mach Bridge."
+          }
+
+          gh release upload $tag $installer --repo $env:GITHUB_REPOSITORY --clobber
+
+      - name: Upload workflow artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: vNATO-Mach-Bridge-Helper
+          path: |
+            tools/mach-bridge-helper/installer/publish/vNATO.MachBridge.exe
+            tools/mach-bridge-helper/installer/output/vNATO-Mach-Bridge-Setup.exe
