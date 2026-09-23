@@ -1,1 +1,87 @@
-(()=>{const a=["Lyogdk5BVE8gRmxpZ2h0IFBsYW5uaW5nIFN1aXRlIFY1LjcuNTEg4oCUIFBSSVZBVEUgQUxQSEEKICogQWRkIGEgZmlyc3Qtc3RlcCBPY2VhbmljIHByZWZsaWdodCBjaGVja2xpc3QsIGluY2x1ZGluZyB0aGUgbG9jYWwgTVNGUyBNYWNoIGJyaWRnZS4KICogR3VpZGFuY2Ugb25seTogT2NlYW5pYyBjYWxjdWxhdGlvbnMsIHRlbGVtZXRyeSwgYW5kIGZsaWdodC1wbGFubmluZyBsb2dpYyBhcmUgdW5jaGFuZ2VkLgogKi8KKGZ1bmN0aW9uKCl7CiAgJ3VzZSBzdHJpY3QnOwoKICBjb25zdCBWRVJTSU9OPSc1LjcuNTEnOwoKICBmdW5jdGlvbiBpbnN0YWxsU3R5bGVzKCl7CiAgICBpZihkb2N1bWVudC5nZXRFbGVtZW50QnlJZCgndjU3NTFPY2VhbmljQ2hlY2tsaXN0U3R5bGVzJykpIHJldHVybjsKICAgIGNvbnN0IHN0eWxlPWRvY3VtZW50LmNyZWF0ZUVsZW1lbnQoJ3N0eWxlJyk7CiAgICBzdHlsZS5pZD0ndjU3NTFPY2VhbmljQ2hlY2tsaXN0U3R5bGVzJzsKICAgIHN0eWxlLnRleHRDb250ZW50PWAKICAgICAgLm9jZWFuaWMtZmlyc3QtY2hlY2tsaXN0e21hcmdpbjoxMHB4IDAgMTJweDtwYWRkaW5nOjEycHg7Ym9yZGVyOjFweCBzb2xpZCAjNjBhNWZhO2JvcmRlci1sZWZ0OjVweCBzb2xpZCAjMDA3MmNlO2JvcmRlci1yYWRpdXM6N3B4O2JhY2tncm91bmQ6I2VmZjZmZjtjb2xvcjojMGYyNzQyfQogICAgICAub2NlYW5pYy1maXJzdC1jaGVja2xpc3QgaDR7bWFyZ2luOjAgMCA0cHg7Y29sb3I6IzAwMmI0OTtmb250LXNpemU6MTNweDtsZXR0ZXItc3BhY2luZzouMDJlbX0KICAgICAgLm9jZWFuaWMtZmlyc3QtY2hlY2tsaXN0IC5jaGVja2xpc3QtaW50cm97bWFyZ2luOjAgMCA4cHg7Zm9udC1zaXplOjExcHg7Y29sb3I6IzMzNDE1NX0KICAgICAgLm9jZWFuaWMtZmlyc3QtY2hlY2tsaXN0IG9se21hcmdpbjowO3BhZGRpbmctbGVmdDoyMnB4O2ZvbnQtc2l6ZToxMXB4O2xpbmUtaGVpZ2h0OjEuNDh9CiAgICAgIC5vY2VhbmljLWZpcnN0LWNoZWNrbGlzdCBsaXttYXJnaW46NHB4IDA7cGFkZGluZy1sZWZ0OjJweH0KICAgICAgLm9jZWFuaWMtZmlyc3QtY2hlY2tsaXN0IGNvZGV7cGFkZGluZzoxcHggNHB4O2JvcmRlcjoxcHggc29saWQgI2JmZGJmZTtib3JkZXItcmFkaXVzOjNweDtiYWNrZ3JvdW5kOiNmZmY7Y29sb3I6IzBmMjc0Mjt3aGl0ZS1zcGFjZTpub3JtYWw7b3ZlcmZsb3ctd3JhcDphbnl3aGVyZX0KICAgICAgLm9jZWFuaWMtZmlyc3QtY2hlY2tsaXN0IC5tYWNoLWNhdXRpb257bWFyZ2luOjlweCAwIDA7cGFkZGluZzo3cHggOXB4O2JvcmRlcjoxcHggc29saWQgI2Y1OWUwYjtib3JkZXItcmFkaXVzOjVweDtiYWNrZ3JvdW5kOiNmZmZiZWI7Y29sb3I6Izc4MzUwZjtmb250LXNpemU6MTFweH0KICAgICAgYm9keS5kYXJrLW1vZGUgLm9jZWFuaWMtZmlyc3QtY2hlY2tsaXN0e2JhY2tncm91bmQ6IzEyMjYzZDtjb2xvcjojZTVlZWY4O2JvcmRlci1jb2xvcjojMjg3OGI4O2JvcmRlci1sZWZ0LWNvbG9yOiMzOGE5ZWN9CiAgICAgIGJvZHkuZGFyay1tb2RlIC5vY2VhbmljLWZpcnN0LWNoZWNrbGlzdCBoNHtjb2xvcjojZWVmN2ZmfQogICAgICBib2R5LmRhcmstbW9kZSAub2NlYW5pYy1maXJzdC1jaGVja2xpc3QgLmNoZWNrbGlzdC1pbnRyb3tjb2xvcjojYmFjYWRkfQogICAgICBib2R5LmRhcmstbW9kZSAub2NlYW5pYy1maXJzdC1jaGVja2xpc3QgY29kZXtiYWNrZ3JvdW5kOiMwZDFiMmM7Y29sb3I6I2VhZjZmZjtib3JkZXItY29sb3I6IzM1NTg3OH0KICAgICAgYm9keS5kYXJrLW1vZGUgLm9jZWFuaWMtZmlyc3QtY2hlY2tsaXN0IC5tYWNoLWNhdXRpb257YmFja2dyb3VuZDojM2EyYjEyO2NvbG9yOiNmZmU3YWQ7Ym9yZGVyLWNvbG9yOiNiNzc5MWZ9CiAgICBgOwogICAgZG9jdW1lbnQuaGVhZC5hcHBlbmRDaGlsZChzdHlsZSk7CiAgfQoKICBmdW5jdGlvbiBjaGVja2xpc3RNYXJrdXAoKXsKICAgIHJldHVybiBgCiAgICAgIDxzZWN0aW9uIGlkPSJvY2VhbmljRmlyc3RDaGVja2xpc3QiIGNsYXNzPSJvY2VhbmljLWZpcnN0LWNoZWNrbGlzdCIgYXJpYS1sYWJlbGxlZGJ5PSJvY2VhbmljRmlyc3RDaGVja2xpc3RUaXRsZSI+CiAgICAgICAgPGg0IGlkPSJvY2VhbmljRmlyc3RDaGVja2xpc3RUaXRsZSI+RklSU1QgU1RFUCDigJQgQkVGT1JFIFVTSU5HIE9DRUFOSUMgUkVQT1JUPC9oND4KICAgICAgICA8cCBjbGFzcz0iY2hlY2tsaXN0LWludHJvIj5Db21wbGV0ZSB0aGlzIHF1aWNrIGNoZWNrIGJlZm9yZSBsb2FkaW5nIHRoZSByb3V0ZSBvciBjb25uZWN0aW5nIGxpdmUgdHJhY2tpbmcuPC9wPgogICAgICAgIDxvbD4KICAgICAgICAgIDxsaT5TdGFydCA8Yj5NaWNyb3NvZnQgRmxpZ2h0IFNpbXVsYXRvcjwvYj4sIGxvYWQgdGhlIGNvcnJlY3QgYWlyY3JhZnQsIGFuZCBwbGFjZSBpdCBpbiB0aGUgZmxpZ2h0LjwvbGk+CiAgICAgICAgICA8bGk+PGI+Rmlyc3QgdXNlIG9ubHk6PC9iPiBvcGVuIENvbW1hbmQgUHJvbXB0IGluIHRoZSBTdWl0ZSBmb2xkZXIgYW5kIHJ1biA8Y29kZT5weSAtbSBwaXAgaW5zdGFsbCBTaW1Db25uZWN0PC9jb2RlPi48L2xpPgogICAgICAgICAgPGxpPjxiPkV2ZXJ5IHNlc3Npb246PC9iPiBvcGVuIHRoZSBTdWl0ZSA8Y29kZT5BTFBIQVxcdG9vbHM8L2NvZGU+IGZvbGRlciwgcnVuIDxjb2RlPnB5IC5cXG1zZnMtbWFjaC1icmlkZ2UucHk8L2NvZGU+LCBhbmQga2VlcCB0aGF0IHdpbmRvdyBvcGVuLjwvbGk+CiAgICAgICAgICA8bGk+T3BlbiA8Y29kZT5odHRwOi8vMTI3LjAuMC4xOjg3NjUvdGVsZW1ldHJ5PC9jb2RlPi4gQ29uZmlybSA8Y29kZT5zb3VyY2U6IE1TRlNfU0lNQ09OTkVDVDwvY29kZT4gYW5kIGxpdmUgTWFjaCwgVEFTL0lBUywgYW5kIGFsdGl0dWRlIHZhbHVlcy48L2xpPgogICAgICAgICAgPGxpPkxvYWQgb3IgY29tcGxldGUgdGhlIGZsaWdodCBwbGFuLCBjb25maXJtIHRoZSBleGFjdCBWQVRTSU0gY2FsbHNpZ24sIGFuZCByZXNvbHZlIG5hbWVkL2N1c3RvbSByb3V0ZSBmaXhlcyB3aXRoIGN1cnJlbnQgbG9jYWwgbmF2ZGF0YS48L2xpPgogICAgICAgICAgPGxpPkNvbm5lY3QgVkFUU0lNIGFuZCB2ZXJpZnkgcG9zaXRpb24sIGFsdGl0dWRlLCBncm91bmRzcGVlZCwgaGVhZGluZywgbGFzdCB1cGRhdGUsIGFuZCBNYWNoIGJlZm9yZSB1c2luZyB0aGUgZ2VuZXJhdGVkIHJlcG9ydC48L2xpPgogICAgICAgIDwvb2w+CiAgICAgICAgPHAgY2xhc3M9Im1hY2gtY2F1dGlvbiI+PGI+TWFjaCDigJQgQlJJREdFIE9GRkxJTkU6PC9iPiBsZWF2ZSBNYWNoIGJsYW5rIGFuZCBjb250aW51ZSB3aXRoIHRoZSBhdmFpbGFibGUgVkFUU0lNIGRhdGEuIERvIG5vdCBlc3RpbWF0ZSBNYWNoIGZyb20gVkFUU0lNIGdyb3VuZHNwZWVkLjwvcD4KICAgICAgPC9zZWN0aW9uPmA7CiAgfQoKICBmdW5jdGlvbiBpbnN0YWxsQ2hlY2tsaXN0KCl7CiAgICBjb25zdCBib2R5PWRvY3VtZW50LmdldEVsZW1lbnRCeUlkKCdvY2VhbmljQm9keScpOwogICAgaWYoIWJvZHkgfHwgZG9jdW1lbnQuZ2V0RWxlbWVudEJ5SWQoJ29jZWFuaWNGaXJzdENoZWNrbGlzdCcpKSByZXR1cm4gZmFsc2U7CiAgICBjb25zdCBjYXJkPWJvZHkucXVlcnlTZWxlY3RvcignLm9jZWFuaWMtcGFuZWwtY2FyZCcpOwogICAgY29uc3Qgbm90ZT1jYXJkICYmIGNhcmQucXVlcnlTZWxlY3RvcignLm9jZWFuaWMtbm90ZScpOwogICAgaWYoIWNhcmQpIHJldHVybiBmYWxzZTsKICAgIGNvbnN0IGhvbGRlcj1kb2N1bWVudC5jcmVhdGVFbGVtZW50KCdkaXYnKTsKICAgIGhvbGRlci5pbm5lckhUTUw9Y2hlY2tsaXN0TWFya3VwKCkudHJpbSgpOwogICAgY29uc3QgY2hlY2tsaXN0PWhvbGRlci5maXJzdEVsZW1lbnRDaGlsZDsKICAgIGlmKG5vdGUpIG5vdGUuaW5zZXJ0QWRqYWNlbnRFbGVtZW50KCdhZnRlcmVuZCcsY2hlY2tsaXN0KTsKICAgIGVsc2UgY2FyZC5pbnNlcnRBZGphY2VudEVsZW1lbnQoJ2FmdGVyYmVnaW4nLGNoZWNrbGlzdCk7CiAgICByZXR1cm4gdHJ1ZTsKICB9CgogIGZ1bmN0aW9uIGluaXQoKXsKICAgIGluc3RhbGxTdHlsZXMoKTsKICAgIGluc3RhbGxDaGVja2xpc3QoKTsKICB9CgogIGlmKGRvY3VtZW50LnJlYWR5U3RhdGU9PT0nbG9hZGluZycpIGRvY3VtZW50LmFkZEV2ZW50TGlzdGVuZXIoJ0RPTUNvbnRlbnRMb2FkZWQnLGluaXQse29uY2U6dHJ1ZX0pOwogIGVsc2UgaW5pdCgpOwoKICB3aW5kb3cuVk5BVE9fVjU3NTE9e3ZlcnNpb246VkVSU0lPTixpbnN0YWxsQ2hlY2tsaXN0fTsKfSkoKTsK"];const b=atob(a.join(''));const u=Uint8Array.from(b,c=>c.charCodeAt(0));(0,eval)(new TextDecoder('utf-8').decode(u))})();
+/* vNATO Flight Planning Suite V5.7.64 — TEAM LIVE
+ * Add a first-step Oceanic preflight checklist, including the local MSFS Mach bridge.
+ * Guidance only: Oceanic calculations, telemetry, and flight-planning logic are unchanged.
+ */
+(function(){
+  'use strict';
+
+  const VERSION='5.7.64';
+
+  function installStyles(){
+    if(document.getElementById('v5751OceanicChecklistStyles')) return;
+    const style=document.createElement('style');
+    style.id='v5751OceanicChecklistStyles';
+    style.textContent=`
+      .oceanic-first-checklist{margin:10px 0 12px;padding:12px;border:1px solid #60a5fa;border-left:5px solid #0072ce;border-radius:7px;background:#eff6ff;color:#0f2742}
+      .oceanic-first-checklist h4{margin:0 0 4px;color:#002b49;font-size:13px;letter-spacing:.02em}
+      .oceanic-first-checklist .checklist-intro{margin:0 0 8px;font-size:11px;color:#334155}
+      .oceanic-first-checklist ol{margin:0;padding-left:22px;font-size:11px;line-height:1.48}
+      .oceanic-first-checklist li{margin:4px 0;padding-left:2px}
+      .oceanic-first-checklist code{padding:1px 4px;border:1px solid #bfdbfe;border-radius:3px;background:#fff;color:#0f2742;white-space:normal;overflow-wrap:anywhere}
+      .oceanic-first-checklist .mach-caution{margin:9px 0 0;padding:7px 9px;border:1px solid #f59e0b;border-radius:5px;background:#fffbeb;color:#78350f;font-size:11px}
+      .oceanic-first-checklist .mach-troubleshoot{margin:9px 0 0;padding:8px 10px;border:1px solid #cbd5e1;border-radius:5px;background:#fff;color:#334155;font-size:10px;line-height:1.45}
+      .oceanic-first-checklist .mach-troubleshoot b{color:#002b49}
+      .oceanic-first-checklist .mach-troubleshoot ul{margin:5px 0 0;padding-left:18px}
+      .oceanic-first-checklist .mach-troubleshoot li{margin:3px 0}
+      body.dark-mode .oceanic-first-checklist{background:#12263d;color:#e5eef8;border-color:#2878b8;border-left-color:#38a9ec}
+      body.dark-mode .oceanic-first-checklist h4{color:#eef7ff}
+      body.dark-mode .oceanic-first-checklist .checklist-intro{color:#bacadd}
+      body.dark-mode .oceanic-first-checklist code{background:#0d1b2c;color:#eaf6ff;border-color:#355878}
+      body.dark-mode .oceanic-first-checklist .mach-caution{background:#3a2b12;color:#ffe7ad;border-color:#b7791f}
+      body.dark-mode .oceanic-first-checklist .mach-troubleshoot{background:#0d1b2c;color:#dbe7ef;border-color:#355878}
+      body.dark-mode .oceanic-first-checklist .mach-troubleshoot b{color:#eef7ff}
+    `;
+    document.head.appendChild(style);
+  }
+
+  function checklistMarkup(){
+    return `
+      <section id="oceanicFirstChecklist" class="oceanic-first-checklist" aria-labelledby="oceanicFirstChecklistTitle">
+        <h4 id="oceanicFirstChecklistTitle">FIRST STEP — BEFORE USING OCEANIC REPORT</h4>
+        <p class="checklist-intro">Use the native vNATO MSFS Mach Bridge controls below before loading the route or connecting live tracking.</p>
+        <ol>
+          <li><b>First use on this PC only:</b> click <b>Install Bridge Once</b> and run the vNATO Windows installer. <b>Python is not required.</b></li>
+          <li>Start <b>Microsoft Flight Simulator 2024</b>, load the correct aircraft, and enter the flight.</li>
+          <li><b>Each Oceanic session:</b> click <b>Start Bridge</b>. If the browser asks permission to open <b>vNATO Mach Bridge</b>, allow it.</li>
+          <li>Confirm the bridge is running and a live Mach value is available. A very low Mach value while stationary/on the ground is normal.</li>
+          <li>Load or complete the flight plan, confirm the exact VATSIM callsign, and resolve named/custom route fixes with current local navdata.</li>
+          <li>Connect VATSIM and verify position, altitude, groundspeed, heading, last update, and Mach before using the generated report.</li>
+        </ol>
+        <div class="mach-troubleshoot">
+          <b>Troubleshooting</b>
+          <ul>
+            <li><b>Bridge does not start:</b> confirm the native vNATO Mach Bridge installer completed, then click <b>Start Bridge</b> again.</li>
+            <li><b>Browser asks to open vNATO Mach Bridge:</b> allow the request; this launches the locally installed helper.</li>
+            <li><b>Bridge runs but no useful Mach is shown:</b> confirm MSFS 2024 is fully loaded into the aircraft, then retry.</li>
+            <li><b>Installer is blocked by Windows security:</b> do not disable Smart App Control or other Windows protection. Report the block for support.</li>
+            <li><b>Still offline:</b> close any existing vNATO Mach Bridge process, restart MSFS, then start the bridge again.</li>
+          </ul>
+        </div>
+        <p class="mach-caution"><b>Mach — BRIDGE OFFLINE:</b> leave Mach blank and continue with the available VATSIM data. Do not estimate Mach from VATSIM groundspeed.</p>
+      </section>`;
+  }
+
+  function installChecklist(){
+    const body=document.getElementById('oceanicBody');
+    if(!body || document.getElementById('oceanicFirstChecklist')) return false;
+    const card=body.querySelector('.oceanic-panel-card');
+    const note=card && card.querySelector('.oceanic-note');
+    if(!card) return false;
+    const holder=document.createElement('div');
+    holder.innerHTML=checklistMarkup().trim();
+    const checklist=holder.firstElementChild;
+    if(note) note.insertAdjacentElement('afterend',checklist);
+    else card.insertAdjacentElement('afterbegin',checklist);
+    return true;
+  }
+
+  function init(){
+    installStyles();
+    installChecklist();
+  }
+
+  if(document.readyState==='loading') document.addEventListener('DOMContentLoaded',init,{once:true});
+  else init();
+
+  window.VNATO_V5751={version:VERSION,installChecklist};
+})();
