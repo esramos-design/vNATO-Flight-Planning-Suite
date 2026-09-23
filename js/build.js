@@ -11,10 +11,10 @@
   const ch = channel();
   window.VNATO_RELEASE = Object.freeze({
     appName: "Virtual NATO Flight Planning Suite",
-    version: "5.7.59",
-    releaseDate: '14 SEP 2026',
-    releaseName: 'Corrected C-17 DAY Theme Artwork',
-    testerLabel: "V5.7.59 CORRECTED DAY THEME LIVE",
+    version: "5.7.63",
+    releaseDate: '23 SEP 2026',
+    releaseName: 'Native MSFS Mach Bridge',
+    testerLabel: "V5.7.63 NATIVE MACH BRIDGE LIVE",
     establishedYear: 2017,
     owner: "Virtual NATO",
     website: "https://virtualnato.org/",
@@ -22,7 +22,7 @@
     channelLabel: ch.label
   });
 
-  // TEAM LIVE promotion of all validated ALPHA capabilities through V5.7.59.
+  // TEAM LIVE promotion of all validated ALPHA capabilities through V5.7.63.
   // Preserve compatibility, avionics, scrolling, Oceanic/live Mach, winds,
   // Swift behavior, country-aware guidance and the locked disclaimer.
   if (ch.id === "live" || ch.id === "deployed" || ch.id === "dev") {
