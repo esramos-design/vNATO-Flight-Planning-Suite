@@ -1,0 +1,23 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup>
+    <OutputType>WinExe</OutputType>
+    <TargetFramework>net8.0-windows</TargetFramework>
+    <RuntimeIdentifier>win-x64</RuntimeIdentifier>
+    <SelfContained>true</SelfContained>
+    <PublishSingleFile>true</PublishSingleFile>
+    <IncludeNativeLibrariesForSelfExtract>true</IncludeNativeLibrariesForSelfExtract>
+    <EnableCompressionInSingleFile>true</EnableCompressionInSingleFile>
+    <InvariantGlobalization>true</InvariantGlobalization>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <AssemblyName>vNATO.MachBridge</AssemblyName>
+    <RootNamespace>vNATO.MachBridge</RootNamespace>
+    <Version>0.1.0</Version>
+    <Company>Virtual NATO</Company>
+    <Product>vNATO MSFS Mach Bridge</Product>
+    <Description>Local MSFS SimConnect telemetry bridge for the Virtual NATO Flight Planning Suite.</Description>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="SimConnect.NET" Version="0.2.2" />
+  </ItemGroup>
+</Project>
