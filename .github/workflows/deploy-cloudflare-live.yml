@@ -1,0 +1,41 @@
+name: Deploy TEAM LIVE to Cloudflare Pages
+
+on:
+  push:
+    branches:
+      - main
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: cloudflare-team-live
+  cancel-in-progress: true
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout TEAM LIVE
+        uses: actions/checkout@v4
+
+      - name: Prepare static TEAM LIVE site
+        shell: bash
+        run: |
+          rm -rf dist
+          mkdir -p dist
+          while IFS= read -r -d '' file; do
+            case "$file" in
+              .github/*|tools/mach-bridge-helper/*) continue ;;
+            esac
+            mkdir -p "dist/$(dirname "$file")"
+            cp "$file" "dist/$file"
+          done < <(git ls-files -z)
+
+      - name: Deploy to Cloudflare Pages
+        uses: cloudflare/wrangler-action@v3
+        with:
+          apiToken: ${{ secrets.CLOUDFLARE_API_TOKEN }}
+          accountId: ${{ secrets.CLOUDFLARE_ACCOUNT_ID }}
+          command: pages deploy dist --project-name="${{ vars.CLOUDFLARE_PAGES_PROJECT || 'vnato-flight-planning-suite' }}" --branch=main
