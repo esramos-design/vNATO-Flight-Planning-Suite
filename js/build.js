@@ -4,17 +4,17 @@
   const host = (window.location.hostname || "").toLowerCase();
   function channel(){
     if (host.includes("vnato-flight-planning-suite-alpha")) return {id:"alpha", label:"ALPHA MASTER"};
-    if (host.includes("vnato-flight-planning-suite.pages.dev")) return {id:"live", label:"TEAM LIVE"};
+    if (host === "fpl.virtual-nato.org" || host.includes("vnato-flight-planning-suite.pages.dev")) return {id:"live", label:"TEAM LIVE"};
     if (host === "localhost" || host === "127.0.0.1" || host === "") return {id:"dev", label:"LOCAL DEV"};
     return {id:"deployed", label:"DEPLOYED BUILD"};
   }
   const ch = channel();
   window.VNATO_RELEASE = Object.freeze({
     appName: "Virtual NATO Flight Planning Suite",
-    version: "5.7.63",
-    releaseDate: '23 SEP 2026',
-    releaseName: 'Native MSFS Mach Bridge',
-    testerLabel: "V5.7.63 NATIVE MACH BRIDGE LIVE",
+    version: "5.7.67",
+    releaseDate: '10 NOV 2026',
+    releaseName: 'myVATSIM Mixed-Rule Remarks Compatibility',
+    testerLabel: "V5.7.67 TEAM LIVE",
     establishedYear: 2017,
     owner: "Virtual NATO",
     website: "https://virtualnato.org/",
@@ -22,7 +22,7 @@
     channelLabel: ch.label
   });
 
-  // TEAM LIVE promotion of all validated ALPHA capabilities through V5.7.63.
+  // TEAM LIVE V5.7.67: validated mixed-rule remarks compatibility correction.
   // Preserve compatibility, avionics, scrolling, Oceanic/live Mach, winds,
   // Swift behavior, country-aware guidance and the locked disclaimer.
   if (ch.id === "live" || ch.id === "deployed" || ch.id === "dev") {
